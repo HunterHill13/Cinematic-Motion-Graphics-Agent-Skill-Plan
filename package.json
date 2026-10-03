@@ -1,0 +1,24 @@
+{
+  "name": "cinematic-motion-project",
+  "version": "1.0.0",
+  "description": "Cinematic Motion Graphics Video Project generated with Remotion and Antigravity",
+  "scripts": {
+    "start": "remotion studio",
+    "build": "remotion render src/index.ts out/video.mp4",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/captions": "^4.0.218",
+    "@remotion/google-fonts": "^4.0.218",
+    "@remotion/paths": "^4.0.218",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remotion": "^4.0.218"
+  },
+  "devDependencies": {
+    "@remotion/cli": "^4.0.532",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "typescript": "^5.0.0"
+  }
+}

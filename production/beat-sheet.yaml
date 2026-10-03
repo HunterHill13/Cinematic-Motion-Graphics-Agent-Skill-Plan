@@ -1,0 +1,125 @@
+project:
+  title: "How Apoptosis Works in a Cancer Cell"
+  fps: 30
+  total_duration_frames: 1800
+
+beats:
+  - id: "B01"
+    scene: 1
+    label: "The Malignant Hallmark"
+    vo:
+      text: "Inside a cancer cell, intense metabolic stress normally triggers programmed cell death."
+      start_frame: 30
+      end_frame: 240
+    visual_goal: "Establish malignant cytoplasm under oncogenic pressure with pulsing stress halos"
+    hero: "Stressed Cancer Cell Core"
+    shot_type: "Macro Push In"
+    camera: "Push 1.00 -> 1.05 with 10deg perspective tilt"
+    motion: "Pulsing amber oncogenic stress waves radiating outward"
+    text_on_screen: "HALLMARK OF CANCER"
+    audio:
+      sfx: "low_sub_pulse, warning_resonance"
+      music_cue: "dark_tension_bed"
+    transition: "push-through"
+    source: "Hanahan & Weinberg, Cell 2011"
+    status: "approved"
+
+  - id: "B02"
+    scene: 2
+    label: "The BCL-2 Molecular Blockade"
+    vo:
+      text: "Yet malignant cells survive by overexpressing BCL-2, trapping pro-apoptotic killers."
+      start_frame: 330
+      end_frame: 540
+    visual_goal: "Show BCL-2 shielding the outer mitochondrial membrane and sequestering BAX"
+    hero: "BCL-2 / BAX Inactivation Complex"
+    shot_type: "Lateral 2.5D Split View"
+    camera: "Horizontal pan with subtle depth float"
+    motion: "BCL-2 clamps onto BAX, neutralizing membrane pore assembly"
+    text_on_screen: "BCL-2 EVASION MECHANISM"
+    audio:
+      sfx: "metallic_lock, magnetic_clack"
+      music_cue: "restrained_pulse"
+    transition: "whip-pan"
+    source: "Youle & Strasser, Nat Rev Mol Cell Biol 2008"
+    status: "approved"
+
+  - id: "B03"
+    scene: 3
+    label: "MOMP: Mitochondrial Outer Membrane Permeabilization"
+    vo:
+      text: "When BAX breaks free, it oligomerizes into macropores, releasing Cytochrome c."
+      start_frame: 630
+      end_frame: 840
+    visual_goal: "Show BAX ring assembly puncturing the membrane and glowing Cytochrome c egress"
+    hero: "BAX/BAK Oligomeric Membrane Pore"
+    shot_type: "Orthogonal Surface Dive"
+    camera: "Push 1.00 -> 1.06 towards pore center"
+    motion: "Ring components snap into 8-fold pore; cyan particles flood outward"
+    text_on_screen: "MOMP ACTIVATION"
+    audio:
+      sfx: "membrane_rupture, ethereal_whoosh"
+      music_cue: "energy_surge"
+    transition: "overexpose-flip"
+    source: "Cosentino & Garcia-Saez, TIBS 2017"
+    status: "approved"
+
+  - id: "B04"
+    scene: 4
+    label: "The Heptameric Apoptosome Wheel"
+    vo:
+      text: "In the cytosol, Cytochrome c and Apaf-1 assemble the majestic seven-spoke apoptosome."
+      start_frame: 930
+      end_frame: 1140
+    visual_goal: "Show 7 Apaf-1 arms locking into a symmetrical pinwheel docking Procaspase-9"
+    hero: "Heptameric Apoptosome Engine"
+    shot_type: "Centric Radial Orbit"
+    camera: "Smooth circular camera roll with slow zoom"
+    motion: "7 pinwheel arms fold in sequentially with clock-like precision"
+    text_on_screen: "APOPTOSOME WHEEL (27 nm)"
+    audio:
+      sfx: "seven_crystal_clicks, central_ignition"
+      music_cue: "majestic_revelation"
+    transition: "push-through"
+    source: "Riedl & Salvesen, Nat Rev Mol Cell Biol 2007"
+    status: "approved"
+
+  - id: "B05"
+    scene: 5
+    label: "The Executioner Caspase Cascade"
+    vo:
+      text: "Active Caspase-9 unleashes Caspase-3, severing cellular scaffolds and fragmenting DNA."
+      start_frame: 1230
+      end_frame: 1440
+    visual_goal: "Show executioner protease cascade cleaving ICAD and genomic fragmentation"
+    hero: "Active Caspase-3 Cleavage Engine"
+    shot_type: "Multi-Vector Kinetic Cascade"
+    camera: "Downward crane dive"
+    motion: "Caspase-3 cleaves target substrate bands, releasing CAD nuclease"
+    text_on_screen: "CASPASE-3 / CAD CASCADE"
+    audio:
+      sfx: "laser_slice, deep_bass_drop"
+      music_cue: "accelerating_percussion"
+    transition: "black-slam"
+    source: "Taylor et al., Nat Rev Mol Cell Biol 2008"
+    status: "approved"
+
+  - id: "B06"
+    scene: 6
+    label: "Therapeutic Victory & Resolution"
+    vo:
+      text: "Targeted BH3 mimetics disarm BCL-2, compelling cancer cells to destroy themselves."
+      start_frame: 1530
+      end_frame: 1740
+    visual_goal: "Show complete synthesis overview with Venetoclax drug molecule disabling BCL-2"
+    hero: "Therapeutic Restoration Card"
+    shot_type: "Full Architecture Pull Out"
+    camera: "Wide pull 1.06 -> 1.00 revealing final synthesis"
+    motion: "Key mechanisms unite into structured summary with apoptotic closure"
+    text_on_screen: "TARGETED BH3 MIMETICS"
+    audio:
+      sfx: "affirmative_chime, calm_sub_resolve"
+      music_cue: "triumphant_resolution"
+    transition: "fade"
+    source: "Roberts et al., NEJM 2016"
+    status: "approved"

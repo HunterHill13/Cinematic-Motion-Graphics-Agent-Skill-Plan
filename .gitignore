@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# Temporary research clones
+_research/
+
+# Audio cache & temporary builds
+audio/cache/
+.remotion/
+.cache/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/
