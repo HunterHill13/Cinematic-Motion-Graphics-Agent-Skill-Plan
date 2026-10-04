@@ -7,6 +7,8 @@ import { ReferenceStressTestSequence } from '../projects/reference_stress_test/s
 import { PersianEditorialSequence } from '../projects/persian_editorial_stress_test/src/PersianEditorialSequence';
 import { ProofOfMotionSequence } from '../projects/persian_editorial_motion_test_v3_3/src/ProofOfMotionSequence';
 import { PersianEditorialMotionMasterV33 } from '../projects/persian_editorial_motion_test_v3_3/src/PersianEditorialMotionMasterV33';
+import { ProofOfQualityV4 } from '../projects/persian_editorial_motion_test_v4/src/ProofOfQualityV4';
+import { PersianEditorialMasterV4 } from '../projects/persian_editorial_motion_test_v4/src/PersianEditorialMasterV4';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -80,6 +82,26 @@ export const Root: React.FC = () => {
         fps={30}
         width={1080}
         height={1920}
+      />
+
+      {/* v4.1 Reuse-First Proof of Quality (18.0s = 540 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfQualityV4"
+        component={ProofOfQualityV4}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v4.1 Full 83.3s Persian Editorial Master (2500 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV4"
+        component={PersianEditorialMasterV4}
+        durationInFrames={2500}
+        fps={30}
+        width={1920}
+        height={1080}
       />
 
       {/* Legacy 16:9 Landscape Composition */}
