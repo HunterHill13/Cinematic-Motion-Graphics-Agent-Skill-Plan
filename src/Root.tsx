@@ -11,6 +11,7 @@ import { ProofOfQualityV4 } from '../projects/persian_editorial_motion_test_v4/s
 import { PersianEditorialMasterV4 } from '../projects/persian_editorial_motion_test_v4/src/PersianEditorialMasterV4';
 import { PersianEditorialMasterV51 } from '../projects/persian_editorial_motion_test_v5_1/src/PersianEditorialMasterV51';
 import { PersianEditorialMasterV52, ProofOfQualityV52 } from '../projects/persian_editorial_motion_test_v5_2/src/PersianEditorialMasterV52';
+import { PersianEditorialMasterV53, ProofOfQualityV53 } from '../projects/persian_editorial_motion_test_v5_3/src/PersianEditorialMasterV53';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -130,6 +131,26 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialMasterV52"
         component={PersianEditorialMasterV52}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v5.3 Gate Proof Composition (18.0s = 540 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfQualityV53"
+        component={ProofOfQualityV53}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v5.3 Polished Persian Editorial Master (2361 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV53"
+        component={PersianEditorialMasterV53}
         durationInFrames={2361}
         fps={30}
         width={1920}
