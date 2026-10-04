@@ -74,4 +74,13 @@ Root font: **Yekan Bakh** (official Persian type system) with Apple System / Vaz
 * **Panel Drop Shadow:** `0 20px 40px rgba(0, 0, 0, 0.4)`
 * **Surface Inset Rim:** `inset 0 1px 0 rgba(255, 255, 255, 0.1)`
 * **Glow Accent:** `0 0 16px <ACCENT_COLOR>` (used sparingly on hero indicators).
-* **Depth Philosophy:** Restrained editorial layering (Background Matrix -> Structural Cards -> Typographic Content). Zero excessive 3D skewing.
+* **Depth Philosophy:** Restrained editorial layering (Background Matrix -> Structural Calipers & Data Rails -> Typographic Content). Zero excessive 3D skewing.
+
+---
+
+## 6. V6 Anti-UI / True Motion Design Rules
+1. **Never default to glass card boxes:** Replace plain card boxes with open negative space, coordinate rails, caliper marks, and kinetic typography.
+2. **Numbers are Graphic Anchors:** Quantitative figures (16, 65, 110, 130) must be rendered at 64–72px with animated counters and vector caliper brackets.
+3. **Motion Precedes Camera:** All narrative meaning must be told through graphic choreography, line drawing, and shape morphs; camera stays rock-solid at $(960, 540)$ with micro-pushes only on semantic locks.
+4. **Physical Object Continuity:** Every outgoing shot must pass a tangible graphic motif (Vector Energy Beam, Caliper Gate, or Seal reticle) into the incoming shot.
+
