@@ -5,6 +5,8 @@ import { StressTestMain } from './stress-test/StressTestMain';
 import { StressTestV31Sequence } from '../projects/stress_test_v3_1/src/StressTestV31Sequence';
 import { ReferenceStressTestSequence } from '../projects/reference_stress_test/src/ReferenceStressTestSequence';
 import { PersianEditorialSequence } from '../projects/persian_editorial_stress_test/src/PersianEditorialSequence';
+import { ProofOfMotionSequence } from '../projects/persian_editorial_motion_test_v3_3/src/ProofOfMotionSequence';
+import { PersianEditorialMotionMasterV33 } from '../projects/persian_editorial_motion_test_v3_3/src/PersianEditorialMotionMasterV33';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -54,6 +56,26 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialStressTest"
         component={PersianEditorialSequence}
+        durationInFrames={2500}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      {/* v3.3 Proof of Motion (24.0s = 720 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfMotionV33"
+        component={ProofOfMotionSequence}
+        durationInFrames={720}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      {/* v3.3 Persian Editorial Motion Master (83.3s = 2500 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV33"
+        component={PersianEditorialMotionMasterV33}
         durationInFrames={2500}
         fps={30}
         width={1080}
