@@ -1,0 +1,58 @@
+sfx_timeline:
+  audio_master: "audio/final_master_mix.mp3"
+  layers:
+    - id: "sfx_01"
+      timestamp_s: 0.2
+      file: "audio/sfx/ambient_hum.mp3"
+      volume_db: -18.0
+      category: "ambient"
+      description: "Subtle sub-harmonic cellular background hum"
+
+    - id: "sfx_02"
+      timestamp_s: 1.5
+      file: "audio/sfx/whoosh-fast.mp3"
+      volume_db: -12.0
+      category: "whoosh"
+      description: "Fast aerodynamic sweep on BCL-2 fortress lock"
+
+    - id: "sfx_03"
+      timestamp_s: 7.2
+      file: "audio/sfx/whoosh-fast.mp3"
+      volume_db: -10.0
+      category: "transition"
+      description: "Transition morph sweep between Shot 01 and Shot 02"
+
+    - id: "sfx_04"
+      timestamp_s: 10.3
+      file: "audio/sfx/bass-hit-futuristic.mp3"
+      volume_db: -8.0
+      category: "impact"
+      description: "Deep kinetic sub-bass hit on BH3 mimetic shield collision"
+
+    - id: "sfx_05"
+      timestamp_s: 14.5
+      file: "audio/sfx/bass-hit-futuristic.mp3"
+      volume_db: -9.0
+      category: "impact"
+      description: "MOMP membrane puncture shockwave impact"
+
+    - id: "sfx_06"
+      timestamp_s: 16.0
+      file: "audio/sfx/whoosh-fast.mp3"
+      volume_db: -11.0
+      category: "whoosh"
+      description: "Radial Cytochrome c particle ejection sweep"
+
+    - id: "sfx_07"
+      timestamp_s: 22.3
+      file: "audio/sfx/transition-soft.mp3"
+      volume_db: -13.0
+      category: "transformation"
+      description: "Soft harmonic chime and dissolve sweep entering Shot 04"
+
+    - id: "sfx_08"
+      timestamp_s: 24.2
+      file: "audio/sfx/bass-hit-futuristic.mp3"
+      volume_db: -8.0
+      category: "impact"
+      description: "Apoptosome holoenzyme lock and caspase activation hit"

@@ -1,0 +1,33 @@
+music_story:
+  title: "Cellular Odyssey — Apoptosis Awakening"
+  genre: "Dark Cinematic Science Electronica"
+  tempo_bpm: 86
+  total_duration_s: 30.0
+  source_provenance:
+    license: "Royalty-Free / Procedural Production Stem"
+    attribution: "Remotion Audio Director Suite"
+
+  stem_movement:
+    - section: "Intro: Oncogenic Stasis"
+      time_range: [0.0, 7.5]
+      shots: ["Shot01"]
+      musical_energy: "Low tension, deep sub-bass drone (45 Hz), subtle rhythmic synth pulse"
+      ducking_level_db: -15.0
+
+    - section: "Build: The Molecular Attack"
+      time_range: [7.5, 15.5]
+      shots: ["Shot02"]
+      musical_energy: "Filter cutoff opening, rising mid-range arpeggios, forward driving momentum"
+      ducking_level_db: -14.0
+
+    - section: "Tension: MOMP Rupture & Flooding"
+      time_range: [15.5, 23.5]
+      shots: ["Shot03"]
+      musical_energy: "Percussive sub-drops, wide stereo choir pads, atmospheric cymbal swells"
+      ducking_level_db: -14.5
+
+    - section: "Climax & Resolution: The Wheel of Death"
+      time_range: [23.5, 30.0]
+      shots: ["Shot04"]
+      musical_energy: "Full harmonic crescendo, sweeping analog synth lead, climactic sub boom, gentle reverb tail decay"
+      ducking_level_db: -12.0

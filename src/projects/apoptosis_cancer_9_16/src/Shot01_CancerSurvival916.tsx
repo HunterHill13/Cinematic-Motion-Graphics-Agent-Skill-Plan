@@ -5,6 +5,7 @@ import { OrganicBreathing } from '../../../living-motion/OrganicBreathing';
 import { MotionEntrance } from '../../../motion-design/MotionEntrance';
 import { KineticText } from '../../../motion-design/KineticText';
 import { Depth25DLayer } from '../../../motion-design/Depth25DLayer';
+import { VisualMotifCore } from '../../../motion-design/VisualMotifCore';
 
 export const Shot01CancerSurvival916: React.FC = () => {
   const frame = useCurrentFrame();
@@ -116,6 +117,11 @@ export const Shot01CancerSurvival916: React.FC = () => {
                 </svg>
                 <div style={{ color: '#94a3b8', fontSize: 22, fontWeight: 700, marginTop: 8 }}>
                   Mitochondrial Matrix
+                </div>
+
+                {/* VISUAL MOTIF: Latent High-Energy Particle Seed Trapped Inside */}
+                <div style={{ position: 'absolute', zIndex: 15 }}>
+                  <VisualMotifCore stage="trapped" size={48} color="#10b981" glowColor="rgba(16, 185, 129, 0.7)" />
                 </div>
               </div>
 

@@ -1,0 +1,25 @@
+visual_motif:
+  name: "cytochrome_energy_particle"
+  focal_element: "Luminous Cyan/Emerald Bio-Energy Core with Harmonic Pulse Rings"
+  palette:
+    primary: "#06b6d4"   # Electric Cyan (BH3 signal / Cytochrome c)
+    secondary: "#10b981" # Emerald Glow (Active Mitochondrial Cristae)
+    accent: "#ef4444"    # Crimson Tension (BCL-2 Oncogenic Defense)
+    climax: "#c084fc"    # Electric Purple (Apoptosome Core Execution)
+  continuity_chain:
+    shot_01:
+      role: "Latent mitochondrial seed trapped inside the oncogenic BCL-2 fortress"
+      geometry: "Trapped pulsing nucleus at center (radius 18px, ring orbit 60px)"
+      transformation_exit: "Gathers kinetic potential, expands outwards as inhibitor strikes"
+    shot_02:
+      role: "BH3 mimetic spear guided along the visual axis directly colliding with outer wall"
+      geometry: "Directional kinetic vector (x: -240 -> 0, y: -200 -> 0), impact shockwave"
+      transformation_exit: "Fractures defense wall, morphs into puncture focal point at bottom pore"
+    shot_03:
+      role: "MOMP rupture core: energy particle splits and multiplies into radial particle swarm"
+      geometry: "Core dilation pore (radius 40px -> 140px) ejecting 8 relativistic energy particles"
+      transformation_exit: "Particles drift upwards, decelerate, and snap into geometric spokes"
+    shot_04:
+      role: "Apoptosome Heptameric Wheel of Death assembly"
+      geometry: "7 radial spokes locked into a rotating central Caspase-9 holoenzyme vortex"
+      transformation_exit: "Final rhythmic radial pulse wave of programmatic cellular death"

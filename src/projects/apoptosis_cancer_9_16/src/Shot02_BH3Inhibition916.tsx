@@ -5,6 +5,7 @@ import { OrganicBreathing } from '../../../living-motion/OrganicBreathing';
 import { MotionEntrance } from '../../../motion-design/MotionEntrance';
 import { KineticText } from '../../../motion-design/KineticText';
 import { Depth25DLayer } from '../../../motion-design/Depth25DLayer';
+import { VisualMotifCore } from '../../../motion-design/VisualMotifCore';
 
 export const Shot02BH3Inhibition916: React.FC = () => {
   const frame = useCurrentFrame();
@@ -103,9 +104,13 @@ export const Shot02BH3Inhibition916: React.FC = () => {
                 boxShadow: '0 0 40px #06b6d4',
                 border: '3px solid #ffffff',
                 letterSpacing: 1,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 12,
               }}
             >
-              ⚡ BH3-MIMETIC
+              <VisualMotifCore stage="kinetic_strike" size={28} color="#ffffff" glowColor="rgba(255, 255, 255, 0.9)" />
+              <span>⚡ BH3-MIMETIC</span>
             </div>
             {/* Trailing Energy Wake */}
             <div

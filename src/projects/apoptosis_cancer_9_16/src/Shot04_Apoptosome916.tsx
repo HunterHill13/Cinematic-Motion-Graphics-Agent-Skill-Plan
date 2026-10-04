@@ -5,6 +5,7 @@ import { OrganicBreathing } from '../../../living-motion/OrganicBreathing';
 import { MotionEntrance } from '../../../motion-design/MotionEntrance';
 import { KineticText } from '../../../motion-design/KineticText';
 import { Depth25DLayer } from '../../../motion-design/Depth25DLayer';
+import { VisualMotifCore } from '../../../motion-design/VisualMotifCore';
 
 export const Shot04Apoptosome916: React.FC = () => {
   const frame = useCurrentFrame();
@@ -96,9 +97,13 @@ export const Shot04Apoptosome916: React.FC = () => {
                   fontSize: 24,
                   letterSpacing: 2,
                   border: '3px solid #ffffff',
+                  position: 'relative',
                 }}
               >
-                CASP-9
+                <div style={{ position: 'absolute' }}>
+                  <VisualMotifCore stage="wheel_spoke" size={60} color="#ffffff" glowColor="rgba(192, 132, 252, 0.9)" />
+                </div>
+                <span style={{ position: 'relative', zIndex: 10, textShadow: '0 0 10px rgba(0,0,0,0.8)' }}>CASP-9</span>
               </div>
 
               {/* 7 Apaf-1 Arm Spokes Assembling in Staggered Geometry */}

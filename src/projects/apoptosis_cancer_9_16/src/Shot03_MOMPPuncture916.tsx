@@ -5,6 +5,7 @@ import { OrganicBreathing } from '../../../living-motion/OrganicBreathing';
 import { MotionEntrance } from '../../../motion-design/MotionEntrance';
 import { KineticText } from '../../../motion-design/KineticText';
 import { Depth25DLayer } from '../../../motion-design/Depth25DLayer';
+import { VisualMotifCore } from '../../../motion-design/VisualMotifCore';
 
 export const Shot03MOMPPuncture916: React.FC = () => {
   const frame = useCurrentFrame();
@@ -112,9 +113,13 @@ export const Shot03MOMPPuncture916: React.FC = () => {
                   fontWeight: 900,
                   fontSize: 26,
                   letterSpacing: 2,
+                  position: 'relative',
                 }}
               >
-                MOMP
+                <div style={{ position: 'absolute' }}>
+                  <VisualMotifCore stage="pore_swarm" size={Math.min(64, poreSize * 0.6)} color="#06b6d4" glowColor="rgba(6, 182, 212, 0.8)" />
+                </div>
+                <span style={{ position: 'relative', zIndex: 10, textShadow: '0 0 10px rgba(0,0,0,0.8)' }}>MOMP</span>
               </div>
 
               {/* Escaping Cytochrome c Protein Spheres with Trailing Motion */}

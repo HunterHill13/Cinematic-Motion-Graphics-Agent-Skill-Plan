@@ -1,0 +1,44 @@
+shot_recipes:
+  shot_01:
+    title: "The Oncogenic Fortress"
+    hero_object: "SVG Mitochondrial Cristae Core & Outer BCL-2 Defense Shield"
+    motif_state: "Trapped high-energy seed pulsing at center"
+    secondary_elements: "Breathing membrane lipid double-line, floating cytoprotective markers"
+    typography_choreography: "Staggered kinetic reveal, BCL-2 highlighted in #ef4444"
+    camera_language: "Slow tracking push (scale 1.00 -> 1.04), subtle procedural drift"
+    motion_physics: "OvershootPop with 1.15 scale peak and 0.85 damping factor"
+    lighting_atmosphere: "Deep indigo backdrop (#090d16) with emerald core and crimson threat glow"
+    sfx_sync: ["0.0s: ambient_hum", "1.5s: whoosh-fast (shield lock)"]
+
+  shot_02:
+    title: "Targeted Molecular Spear"
+    hero_object: "BH3 Mimetic Vector Peptide (Electric Cyan Arrow/Missile with Wake)"
+    motif_state: "Kinetic weapon targeting the trapped seed's boundary"
+    secondary_elements: "Energy particle wake (4 trailing droplets), fracturing outer shell shards"
+    typography_choreography: "Kinetic slide with tracking expansion, BH3 in #06b6d4"
+    camera_language: "Rotational snap (+3 deg) on impact, shake dissipation"
+    motion_physics: "Extreme spring acceleration, sudden deceleration impact with debris scatter"
+    lighting_atmosphere: "Electric cyan bloom (#06b6d4) overpowering the crimson defensive aura"
+    sfx_sync: ["0.6s: whoosh-fast (flight)", "2.8s: bass-hit-futuristic (structural rupture)"]
+
+  shot_03:
+    title: "MOMP Pore Dilation & Radial Swarm"
+    hero_object: "Outer Membrane Permeabilization Pore Dilating radially"
+    motif_state: "Trapped seed multiplies into 8 relativistic Cytochrome c particles"
+    secondary_elements: "Expanding outer ring shockwave, radial particle wake lines"
+    typography_choreography: "Kinetic drop with baseline rebound, Cytochrome c in #06b6d4"
+    camera_language: "Vertical dive into pore aperture, gradual zoom out (1.06 -> 1.00)"
+    motion_physics: "Hydraulic dilation spring, relativistic burst with drag friction settle"
+    lighting_atmosphere: "Volumetric core glow with diffused cytoplasmic scattering"
+    sfx_sync: ["0.5s: whoosh-fast (rupture)", "2.5s: transition-soft (diffuse float)"]
+
+  shot_04:
+    title: "The Heptameric Wheel of Death"
+    hero_object: "7-Spoke Apaf-1 Wheel with Central Caspase-9 Holoenzyme Hub"
+    motif_state: "Particles assemble and lock into geometric spokes of death machinery"
+    secondary_elements: "Rotating spoke gear rings, expanding concentric execution waves"
+    typography_choreography: "Scale reveal with golden/violet accent, Apoptosome in #c084fc"
+    camera_language: "Continuous orbital roll (0 to 180 deg), climactic push (scale 1.00 -> 1.08)"
+    motion_physics: "Radial magnetic latching, harmonic rotational inertia"
+    lighting_atmosphere: "Deep ultraviolet and electric magenta radiance (#c084fc)"
+    sfx_sync: ["0.8s: transition-soft (assembly)", "2.2s: bass-hit-futuristic (activation)", "5.5s: transition-soft (finale)"]
