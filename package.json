@@ -11,8 +11,9 @@
     "@remotion/captions": "^4.0.218",
     "@remotion/google-fonts": "^4.0.218",
     "@remotion/paths": "^4.0.218",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@remotion/transitions": "^4.0.532",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "remotion": "^4.0.218"
   },
   "devDependencies": {
