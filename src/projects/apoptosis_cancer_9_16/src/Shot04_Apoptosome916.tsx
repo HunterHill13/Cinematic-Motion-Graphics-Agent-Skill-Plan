@@ -1,27 +1,21 @@
 import React from 'react';
-import { useCurrentFrame, interpolate, spring, useVideoConfig } from 'remotion';
+import { useCurrentFrame, interpolate } from 'remotion';
 import { LivingCameraRig } from '../../../living-motion/LivingCameraRig';
 import { OrganicBreathing } from '../../../living-motion/OrganicBreathing';
-import { SecondaryPhysics } from '../../../living-motion/SecondaryPhysics';
+import { MotionEntrance } from '../../../motion-design/MotionEntrance';
+import { KineticText } from '../../../motion-design/KineticText';
+import { Depth25DLayer } from '../../../motion-design/Depth25DLayer';
 
 export const Shot04Apoptosome916: React.FC = () => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
 
-  // Apoptosome wheel spokes assembly (7-fold symmetry)
   const spokes = [0, 1, 2, 3, 4, 5, 6];
-
-  const assemblyProgress = spring({
-    frame,
-    fps,
-    config: { stiffness: 80, damping: 14 },
-  });
-
-  const rotation = interpolate(frame, [0, 300], [0, 90]);
+  const wheelRotation = interpolate(frame, [0, 251], [0, 110]);
+  const corePulse = interpolate(Math.sin(frame * 0.18), [-1, 1], [0.7, 1.0]);
 
   return (
     <LivingCameraRig
-      durationInFrames={300}
+      durationInFrames={251}
       initialScale={1.05}
       targetScale={0.99}
       driftIntensity={5.0}
@@ -39,94 +33,122 @@ export const Shot04Apoptosome916: React.FC = () => {
           position: 'relative',
         }}
       >
-        {/* Kinetic Header */}
-        <div style={{ position: 'absolute', top: 220, textAlign: 'center' }}>
-          <div style={{ color: '#a855f7', fontSize: 28, letterSpacing: 3, fontWeight: 700 }}>
-            APOPTOSOME & EXECUTION
-          </div>
-          <div style={{ color: '#ffffff', fontSize: 48, fontWeight: 800, marginTop: 8 }}>
-            آغاز آبشار مرگبار کاسپازها
-          </div>
-        </div>
-
-        {/* Assembled Wheel of Death (Apoptosome Hub) */}
-        <OrganicBreathing amplitude={0.012} frequency={0.03} enableGlow={true} glowColor="rgba(168, 85, 247, 0.4)">
+        {/* Layer 5: Deep Purple Cosmic Radiation */}
+        <Depth25DLayer depthZ={-170}>
           <div
             style={{
-              width: 540,
-              height: 540,
+              position: 'absolute',
+              top: '20%',
+              left: '20%',
+              width: 580,
+              height: 580,
               borderRadius: '50%',
-              border: '3px dashed #a855f7',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-              transform: `scale(${assemblyProgress}) rotate(${rotation}deg)`,
+              background: 'radial-gradient(circle, rgba(168, 85, 247, 0.2) 0%, transparent 70%)',
             }}
-          >
-            {/* Central Caspase-9 Activation Core */}
+          />
+        </Depth25DLayer>
+
+        {/* Layer 3: Kinetic Title */}
+        <div style={{ position: 'absolute', top: 210, width: '100%', textAlign: 'center' }}>
+          <MotionEntrance type="fadeDown" delayFrames={2}>
+            <div style={{ color: '#a855f7', fontSize: 26, letterSpacing: 4, fontWeight: 800 }}>
+              APOPTOSOME & EXECUTION
+            </div>
+          </MotionEntrance>
+
+          <MotionEntrance type="overshootPop" delayFrames={8}>
+            <div style={{ color: '#ffffff', fontSize: 46, fontWeight: 900, marginTop: 10 }}>
+              آغاز آبشار مرگبار کاسپازها
+            </div>
+          </MotionEntrance>
+        </div>
+
+        {/* Layer 1: Heptameric Apoptosome Wheel of Death */}
+        <div style={{ position: 'relative', width: 560, height: 560, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <OrganicBreathing amplitude={0.012} frequency={0.03} enableGlow={true} glowColor="rgba(168, 85, 247, 0.5)">
             <div
               style={{
-                width: 140,
-                height: 140,
+                width: 560,
+                height: 560,
                 borderRadius: '50%',
-                backgroundColor: '#a855f7',
-                boxShadow: '0 0 50px #a855f7',
+                border: '3px dashed #a855f7',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                color: '#ffffff',
-                fontWeight: 900,
-                fontSize: 22,
+                position: 'relative',
+                transform: `rotate(${wheelRotation}deg)`,
+                boxShadow: '0 0 50px rgba(168, 85, 247, 0.3)',
               }}
             >
-              CASP-9
+              {/* Central Caspase-9 Activation Hub */}
+              <div
+                style={{
+                  width: 170,
+                  height: 170,
+                  borderRadius: '50%',
+                  background: 'radial-gradient(circle, #c084fc 20%, #7e22ce 90%)',
+                  boxShadow: `0 0 60px rgba(168, 85, 247, ${corePulse})`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  fontWeight: 900,
+                  fontSize: 24,
+                  letterSpacing: 2,
+                  border: '3px solid #ffffff',
+                }}
+              >
+                CASP-9
+              </div>
+
+              {/* 7 Apaf-1 Arm Spokes Assembling in Staggered Geometry */}
+              {spokes.map((s) => {
+                const angle = (s * 2 * Math.PI) / 7;
+                const rad = 210;
+                const sx = Math.cos(angle) * rad;
+                const sy = Math.sin(angle) * rad;
+
+                return (
+                  <div
+                    key={s}
+                    style={{
+                      position: 'absolute',
+                      width: 56,
+                      height: 56,
+                      borderRadius: '50%',
+                      background: 'radial-gradient(circle at 35% 35%, #e9d5ff, #9333ea)',
+                      border: '3px solid #ffffff',
+                      boxShadow: '0 0 25px #c084fc',
+                      transform: `translate(${sx}px, ${sy}px)`,
+                    }}
+                  />
+                );
+              })}
             </div>
+          </OrganicBreathing>
+        </div>
 
-            {/* 7 Apaf-1 Wheel Spokes */}
-            {spokes.map((s) => {
-              const angle = (s * 2 * Math.PI) / 7;
-              const rad = 200;
-              const sx = Math.cos(angle) * rad;
-              const sy = Math.sin(angle) * rad;
-
-              return (
-                <div
-                  key={s}
-                  style={{
-                    position: 'absolute',
-                    width: 44,
-                    height: 44,
-                    borderRadius: '50%',
-                    backgroundColor: '#c084fc',
-                    border: '2px solid #ffffff',
-                    boxShadow: '0 0 20px #c084fc',
-                    transform: `translate(${sx}px, ${sy}px)`,
-                  }}
-                />
-              );
-            })}
-          </div>
-        </OrganicBreathing>
-
-        {/* Subtitle Card */}
-        <div style={{ position: 'absolute', bottom: 360, width: '100%', textAlign: 'center' }}>
-          <SecondaryPhysics delayFrames={6}>
+        {/* Layer 2: Kinetic Subtitle */}
+        <div style={{ position: 'absolute', bottom: 350, width: '100%', padding: '0 40px', boxSizing: 'border-box' }}>
+          <MotionEntrance type="fadeUp" delayFrames={16}>
             <div
               style={{
-                backgroundColor: 'rgba(15, 23, 42, 0.9)',
-                border: '1px solid #a855f7',
-                borderRadius: 16,
-                padding: '16px 28px',
-                display: 'inline-block',
-                maxWidth: 700,
+                backgroundColor: 'rgba(15, 23, 42, 0.95)',
+                border: '1px solid rgba(168, 85, 247, 0.4)',
+                borderRadius: 20,
+                padding: '20px 24px',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
               }}
             >
-              <div style={{ color: '#e2e8f0', fontSize: 26, lineHeight: 1.6, direction: 'rtl' }}>
-                تشکیل آپوپتوزوم، کاسپازهای مرگبار را فعال کرده و سلول خاموش می‌شود.
-              </div>
+              <KineticText
+                text="تشکیل آپوپتوزوم، کاسپازهای مرگبار را فعال کرده و سلول خاموش می‌شود."
+                highlightWord="کاسپازهای"
+                highlightColor="#c084fc"
+                fontSize={28}
+                delayFrames={20}
+              />
             </div>
-          </SecondaryPhysics>
+          </MotionEntrance>
         </div>
       </div>
     </LivingCameraRig>
