@@ -3,6 +3,7 @@ import { Composition } from 'remotion';
 import { Apoptosis916Main } from './projects/apoptosis_cancer_9_16/src/Apoptosis916Main';
 import { StressTestMain } from './stress-test/StressTestMain';
 import { StressTestV31Sequence } from '../projects/stress_test_v3_1/src/StressTestV31Sequence';
+import { ReferenceStressTestSequence } from '../projects/reference_stress_test/src/ReferenceStressTestSequence';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -33,6 +34,16 @@ export const Root: React.FC = () => {
         id="StressTestV31"
         component={StressTestV31Sequence}
         durationInFrames={360}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      {/* v3.2 Reference Stress Test (20s @ 30 FPS = 600 frames) */}
+      <Composition
+        id="ReferenceStressTest"
+        component={ReferenceStressTestSequence}
+        durationInFrames={600}
         fps={30}
         width={1080}
         height={1920}
