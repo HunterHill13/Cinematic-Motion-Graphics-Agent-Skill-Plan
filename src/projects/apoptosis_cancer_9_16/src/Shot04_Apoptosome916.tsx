@@ -133,26 +133,16 @@ export const Shot04Apoptosome916: React.FC = () => {
           </OrganicBreathing>
         </div>
 
-        {/* Layer 2: Kinetic Subtitle */}
-        <div style={{ position: 'absolute', bottom: 350, width: '100%', padding: '0 40px', boxSizing: 'border-box' }}>
+        {/* Layer 2: Pure Kinetic Typographic Narration (NO HTML CONTAINER CARD) */}
+        <div style={{ position: 'absolute', bottom: 340, width: '100%', padding: '0 50px', boxSizing: 'border-box', textAlign: 'center' }}>
           <MotionEntrance type="fadeUp" delayFrames={16}>
-            <div
-              style={{
-                backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                border: '1px solid rgba(168, 85, 247, 0.4)',
-                borderRadius: 20,
-                padding: '20px 24px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
-              }}
-            >
-              <KineticText
-                text="تشکیل آپوپتوزوم، کاسپازهای مرگبار را فعال کرده و سلول خاموش می‌شود."
-                highlightWord="کاسپازهای"
-                highlightColor="#c084fc"
-                fontSize={28}
-                delayFrames={20}
-              />
-            </div>
+            <KineticText
+              text="تشکیل آپوپتوزوم، کاسپازهای مرگبار را فعال کرده و سلول خاموش می‌شود."
+              highlightWord="کاسپازهای"
+              highlightColor="#c084fc"
+              fontSize={32}
+              delayFrames={18}
+            />
           </MotionEntrance>
         </div>
       </div>

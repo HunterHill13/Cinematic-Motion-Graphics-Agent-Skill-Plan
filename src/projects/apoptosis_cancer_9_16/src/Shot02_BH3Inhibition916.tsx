@@ -167,26 +167,16 @@ export const Shot02BH3Inhibition916: React.FC = () => {
           </OrganicBreathing>
         </div>
 
-        {/* Layer 2: Kinetic Subtitle */}
-        <div style={{ position: 'absolute', bottom: 350, width: '100%', padding: '0 40px', boxSizing: 'border-box' }}>
+        {/* Layer 2: Pure Kinetic Typographic Narration (NO HTML CONTAINER CARD) */}
+        <div style={{ position: 'absolute', bottom: 340, width: '100%', padding: '0 50px', boxSizing: 'border-box', textAlign: 'center' }}>
           <MotionEntrance type="fadeUp" delayFrames={20}>
-            <div
-              style={{
-                backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                border: '1px solid rgba(6, 182, 212, 0.4)',
-                borderRadius: 20,
-                padding: '20px 24px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
-              }}
-            >
-              <KineticText
-                text="اما مهارکننده‌های هدفمند BH3، سپر BCL-2 را می‌شکنند."
-                highlightWord="BH3"
-                highlightColor="#06b6d4"
-                fontSize={28}
-                delayFrames={24}
-              />
-            </div>
+            <KineticText
+              text="اما مهارکننده‌های هدفمند BH3، سپر BCL-2 را می‌شکنند."
+              highlightWord="BH3"
+              highlightColor="#06b6d4"
+              fontSize={32}
+              delayFrames={22}
+            />
           </MotionEntrance>
         </div>
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Composition } from 'remotion';
 import { Apoptosis916Main } from './projects/apoptosis_cancer_9_16/src/Apoptosis916Main';
+import { StressTestMain } from './stress-test/StressTestMain';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -11,6 +12,16 @@ export const Root: React.FC = () => {
         id="ApoptosisCancer916"
         component={Apoptosis916Main}
         durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      {/* v3.1 Physical Motion Design Stress Test (10s @ 30 FPS = 300 frames) */}
+      <Composition
+        id="StressTest10s"
+        component={StressTestMain}
+        durationInFrames={300}
         fps={30}
         width={1080}
         height={1920}

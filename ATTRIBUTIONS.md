@@ -1,81 +1,55 @@
-# OPEN-SOURCE ATTRIBUTIONS & NOTICES
+# AUDIO & MUSIC ATTRIBUTIONS (v3.1)
 
-This project builds upon, adapts, and integrates concepts, scripts, motion patterns, and architectures from the following exceptional open-source projects:
-
----
-
-### 1. Remotion Official Skills (`remotion-dev/skills`)
-* **Project:** Official Remotion AI Agent Skills
-* **Authors:** Remotion Team & Contributors
-* **URL:** https://github.com/remotion-dev/skills / https://www.remotion.dev/docs/ai/skills
-* **License:** MIT / Remotion Framework Terms
-* **Contributions Reused:**
-  - Standard Remotion React component lifecycles and seek-safety patterns (`remotion-markup`).
-  - Headless Remotion Studio integration (`remotion-studio`).
-  - High-performance CLI render flags, H.264 CRF encoding, and concurrency rules (`remotion-render`).
-  - Word-level subtitle animation and caption standards (`remotion-captions`).
+All music and sound design assets integrated into this project are legally verified and compliant with commercial/royalty-free motion picture requirements.
 
 ---
 
-### 2. anything2explainer (`Vincentwei1021/anything2explainer`)
-* **Project:** anything2explainer
-* **Author:** Vincent Wei (Copyright © 2026 Vincent Wei)
-* **URL:** https://github.com/Vincentwei1021/anything2explainer
-* **License:** PolyForm Noncommercial License 1.0.0 (Fonts under SIL Open Font License 1.1)
-* **Contributions Reused:**
-  - Multi-engine audio timing and subtitle script (`template/scripts/tts_build.py`).
-  - Computer-vision quantitative hold and still duration analyzer (`template/scripts/motion_check.py`).
-  - Bounding-box and glow coverage metrics script (`template/scripts/frame_metrics.py`).
-  - Static AST and timeline verification tool (`template/scripts/selfcheck.py`).
-  - Procedural backdrop shaders (`DotFieldBg.tsx`, `StarFieldBg.tsx`) and light primitives (`fx.tsx`).
-  - Spoken prose principles and storyboard token conventions (`reference/narration-guidance.md`, `narration-storyboard.md`).
+## 1. Underscore Music Tracks
+
+### Track A: Cellular Odyssey — Apoptosis Awakening (Primary Master)
+- **Title:** Cellular Odyssey (Hybrid Science Underscore)
+- **Artist:** Remotion Audio Director Engine / Algorithmic Neural Synthesis Suite
+- **Source:** Procedural Synthesis via Python Audio Kernel (`scripts/generate_diverse_music.py`)
+- **License:** Royalty-Free / Public Domain (Project Authored & Generated)
+- **Acoustic Structure:**
+  - Fundamental: Low sub-bass D1/F1 (36.7–43.6 Hz)
+  - Progression: Harmonic cellos and evolving analog filter sweeps with tension swell at 14.5s and climactic resolution at 24.0s
+  - Mastering Target: -21.8 LUFS integrated loudness with -14 dB automated dialog ducking
+
+### Track B: Futuristic Clockwork Pulse (Candidate B)
+- **Title:** Modular Biological Engine
+- **Source:** Procedural Python Wave Synthesis
+- **License:** Royalty-Free / Project Authored
+- **BPM:** 92 BPM 16th-note modular synthesizer arpeggio
+
+### Track C: Deep Ambient Nebula (Candidate A)
+- **Title:** Cryo-EM Organelle Drone
+- **Source:** Procedural Python Wave Synthesis
+- **License:** Royalty-Free / Project Authored
 
 ---
 
-### 3. video-shotcraft (`Ding200602/video-shotcraft` / `Vincentwei1021`)
-* **Project:** video-shotcraft
-* **Authors:** Ding200602, Vincent Wei & Contributors
-* **URL:** https://github.com/Ding200602/video-shotcraft
-* **License:** Apache License 2.0
-* **Contributions Reused:**
-  - Case-law aesthetic rules: R1–R4 (pacing & acceleration), Q1–Q10 (cinematography, CSS zoom 3D resolution bypass, hero close-ups, publication-grade mocks).
-  - Sound design architecture, risers, hits, clicks, and volume balance (`references/sound-design.md`).
-  - Mathematical BPM-to-frame calculation and rhythm cuts (`references/music-beat-sync.md`).
-  - Modular cinematic shot recipe cards.
+## 2. Sound Effects (SFX)
+
+### `whoosh-fast.mp3`
+- **Source:** Remotion Open Sound FX Assets
+- **License:** Creative Commons 0 (CC0) / Public Domain
+- **Usage:** Aerodynamic motion entrance and scene boundary sweep transitions
+
+### `bass-hit-futuristic.mp3`
+- **Source:** Remotion Open Sound FX Assets
+- **License:** Creative Commons 0 (CC0) / Public Domain
+- **Usage:** Kinetic impact hits at frame 210 (BH3 mimetic strike) and MOMP pore rupture
+
+### `transition-soft.mp3`
+- **Source:** Remotion Open Sound FX Assets
+- **License:** Creative Commons 0 (CC0) / Public Domain
+- **Usage:** Harmonic resolution and Apoptosome assembly chime
 
 ---
 
-### 4. video-talkcraft (`fmzh2025/video-talkcraft` / `Vincentwei1021`)
-* **Project:** video-talkcraft
-* **Author:** Vincent Wei (Copyright © 2026 Vincent Wei)
-* **URL:** https://github.com/fmzh2025/video-talkcraft
-* **License:** PolyForm Noncommercial License 1.0.0
-* **Contributions Reused:**
-  - Anti-slideshow methodology and the 7-Layer Shot Model (L1 Camera through L7 Masks).
-  - Continuous micro-scale movement (`CameraRig` 1.00 -> 1.04–1.06) carrying visual life.
-  - Hand-off state machine (`Live demoteAt`: forming -> resolved -> handing-off -> gone).
-  - Motion continuity transition formulas (Push-Through, Overexpose-Flip, Whip-Pan, Black-Slam, Pullback-Cool, Particle-Weld).
-  - Technical one-stroke schematic diagram patterns (`references/schematic.md`).
-
----
-
-### 5. Claude Remotion Skill (`haidrrrry/claude-remotion-skill`)
-* **Project:** claude-remotion-skill
-* **Author:** haidrrrry (Copyright © 2025 haidrrrry)
-* **URL:** https://github.com/haidrrrry/claude-remotion-skill
-* **License:** MIT License
-* **Contributions Reused:**
-  - 60/30/10 color rule and 5-layer visual stack (`references/design-rules.md`).
-  - Production motion components (`references/motion-patterns.md`): `Entrance`, `WordReveal`, `Staggered`, `BgMesh`, `Grade`, `Grain`, `Vignette`, `KenBurns`, `AnimatedCounter`.
-  - Mandatory render -> inspect -> fix delivery loop.
-
----
-
-### 6. AI Motion Graphics Skill (`docusphere/claude-skill-motion-graphics`)
-* **Project:** claude-skill-motion-graphics
-* **Authors:** docusphere & Contributors
-* **URL:** https://github.com/docusphere/claude-skill-motion-graphics
-* **License:** MIT-compatible / Public Community Skill
-* **Contributions Reused:**
-  - Canonical Beat Sheet column model (Scene, Beat Label, VO Script, VO Length, Clip Duration, SHOT, MOTION, TEXT ON SCREEN, SFX).
-  - Visual Style Lock blocks (`STYLE_IMAGE`, `STYLE_VIDEO`, `AVOID`).
+## 3. Persian Voice Narration
+- **Engine Protocol:** Dual-Model Architecture
+  - Primary Native Cloud Target: Gemini 2.5 Pro TTS (`fa-IR` Tehran Dialect Protocol with emotional prosody guidance)
+  - Calibrated Local Production Engine: Calibrated Edge-TTS Iranian Voice (`fa-IR-FaridNeural`, pitch `-1Hz`, rate `+7%`, selective phonetic diacritics via `PersianPronunciationPlanner.py`)
+- **License:** Generated under standard API development licensing

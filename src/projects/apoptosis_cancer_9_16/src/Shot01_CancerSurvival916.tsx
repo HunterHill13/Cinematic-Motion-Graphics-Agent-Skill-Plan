@@ -6,6 +6,7 @@ import { MotionEntrance } from '../../../motion-design/MotionEntrance';
 import { KineticText } from '../../../motion-design/KineticText';
 import { Depth25DLayer } from '../../../motion-design/Depth25DLayer';
 import { VisualMotifCore } from '../../../motion-design/VisualMotifCore';
+import { LaserCallout } from '../../../motion-design/LaserCallout';
 
 export const Shot01CancerSurvival916: React.FC = () => {
   const frame = useCurrentFrame();
@@ -124,50 +125,32 @@ export const Shot01CancerSurvival916: React.FC = () => {
                   <VisualMotifCore stage="trapped" size={48} color="#10b981" glowColor="rgba(16, 185, 129, 0.7)" />
                 </div>
               </div>
-
-              {/* Active BCL-2 Inhibitor Node with Spring Entry */}
-              <MotionEntrance type="springBounce" delayFrames={24}>
-                <div
-                  style={{
-                    position: 'absolute',
-                    top: 15,
-                    backgroundColor: '#dc2626',
-                    color: '#ffffff',
-                    padding: '10px 28px',
-                    borderRadius: 24,
-                    fontSize: 22,
-                    fontWeight: 800,
-                    boxShadow: '0 0 30px #dc2626',
-                    border: '2px solid #fecaca',
-                  }}
-                >
-                  🛡️ BCL-2 SHIELD: OVEREXPRESSED
-                </div>
-              </MotionEntrance>
             </div>
           </OrganicBreathing>
         </MotionEntrance>
 
-        {/* Layer 2: Kinetic Editorial Subtitle with Staggered Word Reveal */}
-        <div style={{ position: 'absolute', bottom: 350, width: '100%', padding: '0 40px', boxSizing: 'border-box' }}>
+        {/* Layer 2: Precision Laser Reticle Callout (Replacing Web Pill Badge) */}
+        <LaserCallout
+          label="BCL-2 COMPLEX"
+          sublabel="ANTI-APOPTOTIC SHIELD"
+          originX={540}
+          originY={730}
+          targetX={240}
+          targetY={600}
+          delayFrames={24}
+          accentColor="#ef4444"
+        />
+
+        {/* Layer 3: Pure Kinetic Typographic Narration (NO HTML CONTAINER CARD) */}
+        <div style={{ position: 'absolute', bottom: 340, width: '100%', padding: '0 50px', boxSizing: 'border-box', textAlign: 'center' }}>
           <MotionEntrance type="fadeUp" delayFrames={28}>
-            <div
-              style={{
-                backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                border: '1px solid rgba(239, 68, 68, 0.4)',
-                borderRadius: 20,
-                padding: '20px 24px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
-              }}
-            >
-              <KineticText
-                text="سلول سرطانی با تکیه بر پروتئین BCL-2، فرمان مرگ طبیعی را نادیده می‌گیرد."
-                highlightWord="BCL-2"
-                highlightColor="#ef4444"
-                fontSize={28}
-                delayFrames={32}
-              />
-            </div>
+            <KineticText
+              text="سلول سرطانی با تکیه بر پروتئین BCL-2، فرمان مرگ طبیعی را نادیده می‌گیرد."
+              highlightWord="BCL-2"
+              highlightColor="#ef4444"
+              fontSize={32}
+              delayFrames={30}
+            />
           </MotionEntrance>
         </div>
       </div>

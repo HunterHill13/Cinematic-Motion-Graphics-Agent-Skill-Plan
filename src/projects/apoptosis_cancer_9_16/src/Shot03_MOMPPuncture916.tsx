@@ -153,26 +153,16 @@ export const Shot03MOMPPuncture916: React.FC = () => {
           </OrganicBreathing>
         </div>
 
-        {/* Layer 2: Kinetic Subtitle */}
-        <div style={{ position: 'absolute', bottom: 350, width: '100%', padding: '0 40px', boxSizing: 'border-box' }}>
+        {/* Layer 2: Pure Kinetic Typographic Narration (NO HTML CONTAINER CARD) */}
+        <div style={{ position: 'absolute', bottom: 340, width: '100%', padding: '0 50px', boxSizing: 'border-box', textAlign: 'center' }}>
           <MotionEntrance type="fadeUp" delayFrames={18}>
-            <div
-              style={{
-                backgroundColor: 'rgba(15, 23, 42, 0.95)',
-                border: '1px solid rgba(16, 185, 129, 0.4)',
-                borderRadius: 20,
-                padding: '20px 24px',
-                boxShadow: '0 20px 40px rgba(0,0,0,0.6)',
-              }}
-            >
-              <KineticText
-                text="با فعال شدن BAX، منافذ MOMP باز شده و سیتوکروم c آزاد می‌شود."
-                highlightWord="BAX"
-                highlightColor="#10b981"
-                fontSize={28}
-                delayFrames={22}
-              />
-            </div>
+            <KineticText
+              text="با فعال شدن BAX، منافذ MOMP باز شده و سیتوکروم c آزاد می‌شود."
+              highlightWord="BAX"
+              highlightColor="#10b981"
+              fontSize={32}
+              delayFrames={20}
+            />
           </MotionEntrance>
         </div>
       </div>
