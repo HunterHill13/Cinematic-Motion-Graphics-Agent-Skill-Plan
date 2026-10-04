@@ -4,6 +4,7 @@ import { Apoptosis916Main } from './projects/apoptosis_cancer_9_16/src/Apoptosis
 import { StressTestMain } from './stress-test/StressTestMain';
 import { StressTestV31Sequence } from '../projects/stress_test_v3_1/src/StressTestV31Sequence';
 import { ReferenceStressTestSequence } from '../projects/reference_stress_test/src/ReferenceStressTestSequence';
+import { PersianEditorialSequence } from '../projects/persian_editorial_stress_test/src/PersianEditorialSequence';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -44,6 +45,16 @@ export const Root: React.FC = () => {
         id="ReferenceStressTest"
         component={ReferenceStressTestSequence}
         durationInFrames={600}
+        fps={30}
+        width={1080}
+        height={1920}
+      />
+
+      {/* Persian Real Editorial Stress Test (83.3s @ 30 FPS = 2500 frames) */}
+      <Composition
+        id="PersianEditorialStressTest"
+        component={PersianEditorialSequence}
+        durationInFrames={2500}
         fps={30}
         width={1080}
         height={1920}
