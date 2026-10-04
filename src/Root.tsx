@@ -15,6 +15,7 @@ import { PersianEditorialMasterV53, ProofOfQualityV53 } from '../projects/persia
 import { PersianEditorialMasterV54, ProofOfQualityV54 } from '../projects/persian_editorial_motion_test_v5_4/src/PersianEditorialMasterV54';
 import { PersianEditorialMasterV55, ProofOfQualityV55 } from '../projects/persian_editorial_motion_test_v5_5/src/PersianEditorialMasterV55';
 import { PersianEditorialMasterV6, ProofOfQualityV6 } from '../projects/persian_editorial_motion_test_v6/src/PersianEditorialMasterV6';
+import { PersianEditorialMasterV7, ProofOfQualityV7 } from '../projects/persian_editorial_motion_test_v7/src/PersianEditorialMasterV7';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -214,6 +215,26 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialMasterV6"
         component={PersianEditorialMasterV6}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v7 Broadcast Editorial Film Proof (18.0s = 540 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfQualityV7"
+        component={ProofOfQualityV7}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v7 Broadcast Editorial Film Master (2361 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV7"
+        component={PersianEditorialMasterV7}
         durationInFrames={2361}
         fps={30}
         width={1920}
