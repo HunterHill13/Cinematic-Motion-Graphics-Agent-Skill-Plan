@@ -48,7 +48,7 @@ export const Shot07_Conclusion: React.FC = () => {
         inset: 0,
         backgroundColor: '#030612',
         overflow: 'hidden',
-        fontFamily: "'Vazirmatn', -apple-system, sans-serif",
+        fontFamily: "'YekanBakh', 'Vazirmatn', -apple-system, sans-serif",
       }}
     >
       {/* Background Matrix & Warm Majestic Atmosphere */}

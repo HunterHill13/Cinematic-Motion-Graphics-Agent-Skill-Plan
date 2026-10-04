@@ -78,7 +78,7 @@ export const Shot04_Data: React.FC = () => {
         inset: 0,
         backgroundColor: '#040817',
         overflow: 'hidden',
-        fontFamily: "'Vazirmatn', -apple-system, sans-serif",
+        fontFamily: "'YekanBakh', 'Vazirmatn', -apple-system, sans-serif",
       }}
     >
       {/* Editorial Grid & Scan Lines */}

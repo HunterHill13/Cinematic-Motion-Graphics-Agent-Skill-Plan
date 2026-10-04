@@ -212,7 +212,7 @@ export const Shot02_Problem: React.FC = () => {
         inset: 0,
         backgroundColor: '#050814',
         overflow: 'hidden',
-        fontFamily: "'Vazirmatn', -apple-system, sans-serif",
+        fontFamily: "'YekanBakh', 'Vazirmatn', -apple-system, sans-serif",
       }}
     >
       <div

@@ -25,7 +25,7 @@ export const Shot06_OutroActionV52: React.FC = () => {
         inset: 0,
         backgroundColor: '#040711',
         overflow: 'hidden',
-        fontFamily: "'Vazirmatn', -apple-system, sans-serif",
+        fontFamily: "'YekanBakh', 'Vazirmatn', -apple-system, sans-serif",
       }}
     >
       {/* Background Matrix */}
