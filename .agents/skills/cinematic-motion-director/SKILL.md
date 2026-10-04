@@ -1,9 +1,9 @@
 ---
 name: cinematic-motion-director
-description: "AI Video Production Pipeline for professional motion graphics, explainers, educational, scientific, medical, and documentary videos in Remotion and React. Enforces full creative direction, story architecture, narration timing, beat sheets, storyboards, cinematography, anti-slideshow rules, pilot gates, and two-tier quantitative QC before rendering."
+description: "AI Video Production Pipeline v2 for professional motion graphics, explainers, educational, scientific, medical, and documentary videos in Remotion and React. Enforces full creative direction, Living Motion Engine (L0-L7, organic procedural noise, breathing micro-motion, secondary follower physics), Voice Director & Voice-First Pipeline (dual-clock authority, stem mixing, automated -14dB ducking), Natural Persian Voice System (phonetic normalization, anti-robotic TTS routing), pilot gates, and two-tier quantitative QC before rendering."
 ---
 
-# cinematic-motion-director
+# cinematic-motion-director v2
 
 An end-to-end AI Video Production Pipeline for Google Antigravity + Gemini.
 Transforms topics, scripts, audio recordings, or lectures into cinematic, publication-grade motion graphics videos rendered in Remotion.
@@ -17,11 +17,13 @@ RESEARCH GROUNDING (Source Traceability Ledger)
         ↓
 STORY ARCHITECTURE (Narrative Arc & Beats)
         ↓
-NARRATION & SPOKEN TIMING (tts_build.py)
+VOICE DIRECTOR (Persian Optimizer, VoiceEngine, Stems, Dual-Clock)
         ↓
 CANONICAL BEAT SHEET (production/beat-sheet.yaml)
         ↓
 STORYBOARD & CINEMATOGRAPHY (production/storyboard.yaml)
+        ↓
+LIVING MOTION ENGINE (L0-L7, LivingCameraRig, OrganicBreathing, SecondaryPhysics)
         ↓
 PILOT GATE (First 10–30s Render & Visual Inspection)
         ↓
@@ -29,7 +31,7 @@ PARALLEL SHOT IMPLEMENTATION (Shared Theme Tokens)
         ↓
 TWO-TIER QC (Automated Computer Vision + Visual Inspection)
         ↓
-FULL RENDER & DELIVERY
+FULL RENDER & STEM-MIXED MASTER DELIVERY
 ```
 
 ---
@@ -38,11 +40,13 @@ FULL RENDER & DELIVERY
 
 1. **Do Not Code Before Thinking**: When asked to make a video, never start writing React code immediately. First establish Input Mode, Creative Brief, Narrative Arc, Beat Sheet, and Storyboard.
 2. **Never Reinvent Proven Infrastructure**: Reuses official Remotion APIs (`remotion-markup`, `remotion-render`, `remotion-captions`), `tts_build.py` audio timing, CV QC scripts (`motion_check.py`, `frame_metrics.py`), and proven motion recipes. Build only the orchestration layer.
-3. **Anti-Slideshow System**: Prohibits static stages and raw cuts. Every scene must have an active `CameraRig` executing continuous micro-movement ($1.00 \to 1.05$), non-dead backgrounds, and motion continuity transitions.
-4. **Active Hand-Off (`Live demoteAt`)**: Preceding elements yield visual focus by scaling down ($0.92$), dimming ($-66\%$), and blurring ($3\text{px}$) when the next hero takes the stage.
-5. **Enforced Pilot Gate**: Build and render the first 10–30 seconds first. Inspect frames and obtain approval before building the rest of the project.
-6. **Accuracy > Beauty in Medical/Scientific Mode**: Zero unverified claims. Every factual statement and pathway mechanism must be logged in `research/sources.md`.
-7. **Mandatory QC Loop**: Never deliver a video without running quantitative checks (`motion_check.py`, `frame_metrics.py`, `selfcheck.py`) and visual frame inspection.
+3. **Living Motion Engine (Anti-Slideshow v2)**: Prohibits static stages and raw cuts. Every scene must have an active `LivingCameraRig` executing continuous scale ($1.00 \to 1.05$), procedural handheld drift, hero `OrganicBreathing` micro-motion ($1.000 \to 1.012$), and `ParticleDrift` environments.
+4. **Active Hand-Off (`Live demoteAt`) & Secondary Physics**: Preceding elements yield visual focus by scaling down ($0.92$), dimming ($-66\%$), and blurring ($3\text{px}$). Attached annotations follow with `SecondaryPhysics` spring inertia.
+5. **Voice-First Authority & Natural Persian System**: Spoken audio is the immutable physical clock (`VOICEOVER = Timing Truth`). Avoid robotic Microsoft voices; use Gemini, ElevenLabs, or Pocket TTS Farsi v2 preceded by `PersianTextOptimizer.py` normalization.
+6. **Audio Stem Separation & Ducking**: Master audio is assembled from 3 discrete stems (`narration`, `music`, `sfx`) with automated $-14\,\text{dB}$ ducking under dialogue.
+7. **Enforced Pilot Gate**: Build and render the first 10–30 seconds first. Inspect frames and obtain approval before building the rest of the project.
+8. **Accuracy > Beauty in Medical/Scientific Mode**: Zero unverified claims. Every factual statement and pathway mechanism must be logged in `research/sources.md`.
+9. **Mandatory QC Loop**: Never deliver a video without running quantitative checks (`motion_check.py`, `frame_metrics.py`, `selfcheck.py`) and visual frame inspection.
 
 ---
 
