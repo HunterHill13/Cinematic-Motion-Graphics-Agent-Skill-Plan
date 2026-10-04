@@ -1,0 +1,50 @@
+project_title: "نحوه فعال‌سازی آپوپتوز در سلول سرطانی (تخریب بیوشیمیایی BCL-2 و رهایش سیتوکروم c)"
+concept_summary: "روایت سینمایی مکانیزم بیومولکولی غلبه بر مقاومت دارویی سلول سرطانی و آغاز مرگ برنامه‌ریزی‌شده سلولی"
+target_audience: "پزشکان، بیولوژیست‌ها، دانشجویان علوم پزشکی و علاقه‌مندان به موشن‌گرافیک علمی پیشرفته"
+aspect_ratio: "9:16"
+resolution:
+  width: 1080
+  height: 1920
+fps: 30
+duration_seconds: 30.0
+total_frames: 900
+
+cinematography:
+  layout_orientation: "vertical"
+  composition_style: "سلسله‌مراتب عمودی، تمرکز محوری در مرکز، عمق‌بخشی پیش‌زمینه/پس‌زمینه"
+  camera_framing: "کادربندی عمودی فشرده با کشش z-axis و ترنزیشن‌های تیلت عمودی"
+  safe_zones:
+    top_px: 180       # حریم امن المان‌های اینستاگرام/تیک‌تاک
+    bottom_px: 320    # حریم امن کپشن و دکمه‌های تعاملی پلتفرم
+    left_px: 70
+    right_px: 90
+
+visual_style:
+  name: "Medical Bio-Cinematic Premium Dark"
+  description: "ترکیب تاریکی اعماق سیتوپلاسم با درخشش‌های فلورسنت بیومولکولی زمردی و سیان"
+  color_language:
+    dominant_60: "#090d16"      # اعماق تاریک سیتوپلاسم
+    structural_30: "#1e293b"    # غشاهای سلولی و میتوکندری
+    accent_10: "#10b981"        # نقاط کانونی فعال‌سازی آپوپتوز و کمپلکس‌ها
+  typography:
+    headline_font: "Orbitron"
+    body_font: "Exo2"
+    persian_font: "Vazirmatn / Noto Sans Arabic"
+    scale_multiplier: 1.15      # خوانایی تقویت‌شده برای نمایشگر عمودی موبایل
+  continuity_rules:
+    - "موقعیت میتوکندری در تمام شات‌ها در یک‌سوم میانی قفل است"
+    - "بردار جریان انرژی همواره از بالا به پایین (Vertical Cascading) حرکت می‌کند"
+
+sound_language:
+  narration:
+    language: "Persian"
+    voice_provider: "Gemini TTS / Local Pocket Farsi"
+    energy: "confident_documentary"
+    pacing: "medium_fast"
+  music:
+    genre: "Ambient Science Electronic Pulse"
+    tempo_bpm: 85
+    ducking_db: -14.0
+    license: "Creative Commons / Royalty-Free Commercial Safe"
+  sfx:
+    philosophy: "Organic bio-tactile hits and subtle high-frequency shimmers"

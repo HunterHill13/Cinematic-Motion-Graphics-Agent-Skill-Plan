@@ -1,27 +1,29 @@
 import React from 'react';
 import { Composition } from 'remotion';
+import { Apoptosis916Main } from './projects/apoptosis_cancer_9_16/src/Apoptosis916Main';
 import { Main } from './Main';
-import { theme } from './theme';
 
 export const Root: React.FC = () => {
   return (
     <>
+      {/* v2.1 Vertical Master Composition (9:16 - 1080x1920) */}
       <Composition
-        id="CinematicVideo"
-        component={Main}
-        durationInFrames={1800} // 60s @ 30fps default
-        fps={theme.layout.fps}
-        width={theme.layout.width}
-        height={theme.layout.height}
+        id="ApoptosisCancer916"
+        component={Apoptosis916Main}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
       />
-      {/* Pilot Composition (first 20s = 600 frames) */}
+
+      {/* Legacy 16:9 Landscape Composition */}
       <Composition
-        id="PilotPreview"
+        id="CinematicExplainer"
         component={Main}
-        durationInFrames={600}
-        fps={theme.layout.fps}
-        width={theme.layout.width}
-        height={theme.layout.height}
+        durationInFrames={1800}
+        fps={30}
+        width={1920}
+        height={1080}
       />
     </>
   );
