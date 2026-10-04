@@ -1,0 +1,16 @@
+{
+  "version": "5.2",
+  "provider": "Google Gemini-TTS",
+  "model": "gemini-2.5-flash-preview-tts",
+  "style_direction": "Iranian documentary scientific narrator",
+  "fps": 30.0,
+  "duration_seconds": 78.71,
+  "total_frames": 2361,
+  "sample_rate": 48000,
+  "channels": 1,
+  "integrated_lufs": -16.0,
+  "true_peak_dbfs": -1.0,
+  "single_voice_invariant": true,
+  "narration_asset": "projects/persian_editorial_motion_test_v5_2/audio/mastered/mastered_voice.wav",
+  "public_audio_path": "audio/persian_editorial_v5_2/final_master_mix.wav"
+}

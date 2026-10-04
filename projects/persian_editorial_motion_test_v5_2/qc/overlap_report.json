@@ -1,0 +1,10 @@
+{
+  "audio_stream_count": 1,
+  "active_narration_count_max": 1,
+  "single_voice_invariant_violation_count": 0,
+  "duplicate_narration_detected": false,
+  "stale_audio_detected": false,
+  "timeline_duration_seconds": 78.711458,
+  "timeline_frames_30fps": 2361,
+  "status": "PASS"
+}
