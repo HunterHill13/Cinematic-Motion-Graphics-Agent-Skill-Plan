@@ -9,6 +9,7 @@ import { ProofOfMotionSequence } from '../projects/persian_editorial_motion_test
 import { PersianEditorialMotionMasterV33 } from '../projects/persian_editorial_motion_test_v3_3/src/PersianEditorialMotionMasterV33';
 import { ProofOfQualityV4 } from '../projects/persian_editorial_motion_test_v4/src/ProofOfQualityV4';
 import { PersianEditorialMasterV4 } from '../projects/persian_editorial_motion_test_v4/src/PersianEditorialMasterV4';
+import { PersianEditorialMasterV51 } from '../projects/persian_editorial_motion_test_v5_1/src/PersianEditorialMasterV51';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -98,6 +99,16 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialMasterV4"
         component={PersianEditorialMasterV4}
+        durationInFrames={2500}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v5.1 Claude-Level Persian Editorial Master (2500 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV51"
+        component={PersianEditorialMasterV51}
         durationInFrames={2500}
         fps={30}
         width={1920}
