@@ -1,0 +1,60 @@
+version: "3.0"
+description: "Comprehensive Shot Recipe Catalog for Cinematic Motion Graphics"
+
+recipes:
+  entrances:
+    - id: "spring-pop"
+      purpose: "Hero molecular organelle arrival"
+      parameters: { damping: 14, stiffness: 100, mass: 0.8, overshoot: 1.15 }
+      sfx: "whoosh-fast"
+    - id: "laser-reticle-draw"
+      purpose: "Precision annotation line drawing and target lock"
+      parameters: { duration_frames: 18, elbow_ratio: 0.4 }
+      sfx: "subtle-click"
+    - id: "kinetic-word-cascade"
+      purpose: "Unboxed staggered kinetic typography reveal"
+      parameters: { stagger_frames: 3, tracking_px: 2 }
+      sfx: "tick"
+
+  exits:
+    - id: "directional-exit"
+      purpose: "Fast acceleration out of frame along movement vector"
+      parameters: { duration_frames: 12, direction: "top" }
+      sfx: "whoosh-fast"
+    - id: "scale-collapse"
+      purpose: "Hero structure implosion into center core"
+      parameters: { duration_frames: 15, scale_target: 0.0 }
+      sfx: "downlifter"
+    - id: "optical-defocus"
+      purpose: "Background demotion through progressive depth blur"
+      parameters: { blur_px: 16, opacity_target: 0.2 }
+
+  transformations:
+    - id: "seed-to-vector"
+      purpose: "Latent trapped seed morphing into directional kinetic spear"
+      sfx: "energy-riser"
+    - id: "membrane-pore-rupture"
+      purpose: "Radial pore dilation ejecting relativistic particle swarm"
+      sfx: "bass-hit-futuristic"
+    - id: "particle-wheel-assembly"
+      purpose: "Swarm particles snapping into geometric heptameric spokes"
+      sfx: "transition-soft"
+
+  camera:
+    - id: "cinematic-push"
+      purpose: "Continuous tracking push into micro-environment"
+      scale_range: [1.00, 1.06]
+    - id: "impact-shake"
+      purpose: "Impulse camera shake upon high-energy molecular collision"
+      amplitude_px: 16
+      decay_frames: 14
+    - id: "orbital-roll"
+      purpose: "Slow rotational camera drift for climactic assembly"
+      rotation_deg: 45
+
+  transitions:
+    - id: "match-cut-morph"
+      purpose: "Preserve focal coordinate across scene boundaries without hard cuts"
+    - id: "dive-through-pore"
+      purpose: "Vertical camera dive directly into the interior pore structure"
+      sfx: "bass-hit-futuristic"
