@@ -1,0 +1,112 @@
+{
+  "lexicon_version": "5.4.0",
+  "language": "fa-IR",
+  "engine_target": "Google Cloud Gemini-TTS (gemini-2.5-flash-preview-tts / gemini-2.5-pro-preview-tts)",
+  "description": "Precision Pronunciation Lexicon for Iranian Academic Editorial Narration",
+  "entries": {
+    "دانشگاه علوم پزشکی بقیه‌الله": {
+      "display_text": "دانشگاه علوم پزشکی بقیه‌الله (عج)",
+      "level1_orthography": "دانشگاه علوم پزشکی بقیه‌الله",
+      "level2_persian_phonetic": "دانشگاهِ عُلومِ پِزِشکیِ بَقیَّتُ‌الله",
+      "level3_latin_hint": "Daneshgah-e Olum-e Pezeshki-ye Baghiatollah",
+      "category": "university_name",
+      "notes": "Kasre-ye Ezafe on Daneshgah and Pezeshki; tashdid and damma on Baghiyyatullah"
+    },
+    "بقیه‌الله": {
+      "display_text": "بقیه‌الله",
+      "level1_orthography": "بقیه‌الله",
+      "level2_persian_phonetic": "بَقیَّتُ‌الله",
+      "level3_latin_hint": "Baghiatollah",
+      "category": "proper_noun",
+      "notes": "Fatha on Ba, Tashdid on Ya, Damma on Ta"
+    },
+    "آیین‌نامه": {
+      "display_text": "آیین‌نامه",
+      "level1_orthography": "آیین‌نامه",
+      "level2_persian_phonetic": "آیین‌نامِه‌یِ",
+      "level3_latin_hint": "Aeen-nameh-ye",
+      "category": "legal_term",
+      "notes": "Connected pronunciation with ezafe"
+    },
+    "استعدادهای درخشان": {
+      "display_text": "استعدادهای درخشان",
+      "level1_orthography": "استعدادهای درخشان",
+      "level2_persian_phonetic": "اِستِعدادهایِ دِرَخشان",
+      "level3_latin_hint": "Estedaadhaaye Derakhshan",
+      "category": "organization_program",
+      "notes": "Official ministry gifted student program"
+    },
+    "پژوهشگر": {
+      "display_text": "پژوهشگر",
+      "level1_orthography": "پژوهشگر",
+      "level2_persian_phonetic": "پَژوهِشگَر",
+      "level3_latin_hint": "Pazhoheshgar",
+      "category": "academic_title",
+      "notes": "Fatha on Pe, Kasre on He"
+    },
+    "فناور": {
+      "display_text": "فناور",
+      "level1_orthography": "فناور",
+      "level2_persian_phonetic": "فَن‌آوَر",
+      "level3_latin_hint": "Fan-Avar",
+      "category": "academic_title",
+      "notes": "Fatha on Fa, Madd on Alef, Fatha on Vav"
+    },
+    "فراغت از تحصیل": {
+      "display_text": "فراغت از تحصیل",
+      "level1_orthography": "فراغت از تحصیل",
+      "level2_persian_phonetic": "فِراغَت اَز تَحصیل",
+      "level3_latin_hint": "Feraghat az Tahsil",
+      "category": "legal_deadline",
+      "notes": "Kasre on Fe, Fatha on Ghein"
+    },
+    "انضباطی": {
+      "display_text": "انضباطی",
+      "level1_orthography": "انضباطی",
+      "level2_persian_phonetic": "اِنضِباطی",
+      "level3_latin_hint": "Enzebati",
+      "category": "administrative_term",
+      "notes": "Kasre on Alef and Zaad"
+    },
+    "حدنصاب": {
+      "display_text": "حدنصاب",
+      "level1_orthography": "حدنصاب",
+      "level2_persian_phonetic": "حَدِّ نِصاب",
+      "level3_latin_hint": "Hadde Nesab",
+      "category": "score_threshold",
+      "notes": "Tashdid on Dal with Kasre, Kasre on Noon"
+    },
+    "دستورالعمل": {
+      "display_text": "دستورالعمل",
+      "level1_orthography": "دستورالعمل",
+      "level2_persian_phonetic": "دَستورُالعَمَل",
+      "level3_latin_hint": "Dastor-ol-Amal",
+      "category": "decree_term",
+      "notes": "Connected Arabic connector Dastor-ol-amal"
+    },
+    "بند کاف": {
+      "display_text": "بند «کاف»",
+      "level1_orthography": "بند کاف",
+      "level2_persian_phonetic": "بَندِ کاف",
+      "level3_latin_hint": "Bande Kaaf",
+      "category": "article_subclause",
+      "notes": "Section K of article 2"
+    },
+    "ماده دو": {
+      "display_text": "ماده ۲",
+      "level1_orthography": "ماده دو",
+      "level2_persian_phonetic": "مادِه‌یِ دو",
+      "level3_latin_hint": "Maaddeye Do",
+      "category": "legal_article",
+      "notes": "Article 2"
+    },
+    "مقطع": {
+      "display_text": "مقطع",
+      "level1_orthography": "مقطع",
+      "level2_persian_phonetic": "مَقطَع",
+      "level3_latin_hint": "Maghta",
+      "category": "academic_level",
+      "notes": "Fatha on Meem and Te"
+    }
+  }
+}

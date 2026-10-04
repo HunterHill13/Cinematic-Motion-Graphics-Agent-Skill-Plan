@@ -1,0 +1,80 @@
+{
+  "دانشگاه علوم پزشکی بقیه‌الله": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "دانشگاهِ عُلومِ پِزِشکیِ بَقیَّتُ‌الله",
+    "latin_guide": "Daneshgah-e Olum-e Pezeshki-ye Baghiatollah",
+    "status": "PASS"
+  },
+  "بقیه‌الله": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "بَقیَّتُ‌الله",
+    "latin_guide": "Baghiatollah",
+    "status": "PASS"
+  },
+  "آیین‌نامه": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "آیین‌نامِه‌یِ",
+    "latin_guide": "Aeen-nameh-ye",
+    "status": "PASS"
+  },
+  "استعدادهای درخشان": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "اِستِعدادهایِ دِرَخشان",
+    "latin_guide": "Estedaadhaaye Derakhshan",
+    "status": "PASS"
+  },
+  "پژوهشگر": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "پَژوهِشگَر",
+    "latin_guide": "Pazhoheshgar",
+    "status": "PASS"
+  },
+  "فناور": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "فَن‌آوَر",
+    "latin_guide": "Fan-Avar",
+    "status": "PASS"
+  },
+  "فراغت از تحصیل": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "فِراغَت اَز تَحصیل",
+    "latin_guide": "Feraghat az Tahsil",
+    "status": "PASS"
+  },
+  "انضباطی": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "اِنضِباطی",
+    "latin_guide": "Enzebati",
+    "status": "PASS"
+  },
+  "حدنصاب": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "حَدِّ نِصاب",
+    "latin_guide": "Hadde Nesab",
+    "status": "PASS"
+  },
+  "دستورالعمل": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "دَستورُالعَمَل",
+    "latin_guide": "Dastor-ol-Amal",
+    "status": "PASS"
+  },
+  "بند کاف": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "بَندِ کاف",
+    "latin_guide": "Bande Kaaf",
+    "status": "PASS"
+  },
+  "ماده دو": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "مادِه‌یِ دو",
+    "latin_guide": "Maaddeye Do",
+    "status": "PASS"
+  },
+  "مقطع": {
+    "chosen_strategy": "Level 2 (Persian Phonetic with Diacritics)",
+    "tts_form": "مَقطَع",
+    "latin_guide": "Maghta",
+    "status": "PASS"
+  }
+}
