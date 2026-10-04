@@ -1,148 +1,77 @@
-# IMPLEMENTATION & EXECUTION PLAN
+# IMPLEMENTATION PLAN: CINEMATIC MOTION-GRAPHICS AGENT v2
 
-**Skill Name:** `cinematic-motion-director`  
-**Target Environment:** Google Antigravity + Gemini  
-**Date:** 2026-10-03  
-
----
-
-## 1. Roadmap & Implementation Phases
-
-### Phase 1: Repository & License Audit (Completed)
-- Cloned and analyzed all 5 target repositories in `_research/`.
-- Assessed licenses (MIT, Apache 2.0, PolyForm Noncommercial 1.0.0, SIL OFL 1.1).
-- Produced `docs/DEPENDENCY_AUDIT.md`.
-
-### Phase 2: Architectural Specification (Completed)
-- Designed 5 distinct input modes (Topic, Script, VO, Script+VO, Docs/Lecture).
-- Unified cinematography and anti-slideshow rules (7-layer shot model, `demoteAt` state machine, 6 motion transitions).
-- Produced `docs/ARCHITECTURE.md` and `docs/REUSE_PLAN.md`.
-
-### Phase 3: Skill Packaging & Progressive Disclosure (Pending Approval)
-- Create `.agents/skills/cinematic-motion-director/SKILL.md` as the high-level router.
-- Create modular references in `references/`:
-  - `creative-direction.md`: Creative brief formulation, platform targeting, aspect ratios.
-  - `storytelling.md`: Narrative arc patterns (Hook -> Escalation -> Resolution).
-  - `narration.md`: Spoken prose rules, timing budgets, syllable-per-second calibrations.
-  - `cinematography.md`: Anti-slideshow rules, 7-layer model, camera moves.
-  - `motion-grammar.md`: Semantic animation mapping (growth, causality, reveal, focus).
-  - `motion-quality-rules.md`: Spring curves, bezier clamping, staggered entrances, holds.
-  - `sound-design.md`: Sound hierarchy, cue sync, volume ducking, beat matching.
-  - `medical-scientific-mode.md`: Factual grounding, source traceability, diagram rigor.
-  - `qc-protocol.md`: Two-tier QC execution (quantitative scripts + visual inspection).
-  - `remotion-best-practices.md`: Remotion React lifecycle, seek-safety, studio/render.
-
-### Phase 4: Schema & Template System (Pending Approval)
-- Define strict JSON schemas in `schemas/`:
-  - `creative-brief.schema.json`
-  - `style-lock.schema.json`
-  - `beat-sheet.schema.json`
-  - `storyboard.schema.json`
-  - `qc.schema.json`
-- Create production templates in `templates/`:
-  - `creative-brief.yaml`
-  - `style-lock.yaml`
-  - `beat-sheet.yaml`
-  - `storyboard.yaml`
-  - `qc-checklist.md`
-
-### Phase 5: Reusable Project Template & Primitives (Pending Approval)
-- Create base Remotion scaffold in `template/`:
-  - `template/src/theme.ts`: Design token system with swappable palettes (Tech Dark, Editorial, Bio Medical, Clean Corporate).
-  - `template/src/primitives/`: `fx.tsx`, `shapes.tsx`, `typography.tsx`.
-  - `template/src/motion/`: `Entrance`, `WordReveal`, `Staggered`, `LifeCycle` (`demoteAt`), `transitions.tsx`.
-  - `template/src/camera/`: `CameraRig.tsx` (continuous micro-push + 2.5D parallax).
-  - `template/src/effects/`: `DotFieldBg.tsx`, `StarFieldBg.tsx`, `BgMesh.tsx`, `Grain.tsx`, `Vignette.tsx`, `Grade.tsx`.
-  - `template/src/overlays/`: `ProgressBar.tsx`, `HUD.tsx`, `ChapterCard.tsx`.
-  - `template/src/captions/`: `Subtitle.tsx`.
-  - `template/scripts/`: `tts_build.py`, `motion_check.py`, `frame_metrics.py`, `selfcheck.py`, `render.sh`, `preview.sh`.
-
-### Phase 6: Test Project Validation (Pending Approval)
-- Execute complete test case:
-  - **Topic:** "How apoptosis works in a cancer cell" (Mitochondrial intrinsic pathway: BCL-2 / BAX / Cytochrome c / Caspase cascade).
-  - **Duration:** 60–90 seconds.
-  - **Style:** Cinematic Scientific Motion Graphics (16:9, 30 FPS, English).
-  - **Deliverables:** `research/sources.md`, `creative-brief.yaml`, `beat-sheet.yaml`, `storyboard.yaml`, pilot render (first 20s), quantitative QC report, final video.
+**Document:** `docs/IMPLEMENTATION_PLAN.md`  
+**Execution Roadmap:** Phased development and verification of v2  
+**Date:** 2026-10-04  
 
 ---
 
-## 2. Proposed Final Directory Tree
+## 1. Phased Roadmap Overview
 
-```text
-g:/دانشگاه/کمیته تحقیقاتی/فیلم ها هفتگی/اسکیل موشن گرافیک/
-│
-├── .agents/
-│   └── skills/
-│       └── cinematic-motion-director/
-│           ├── SKILL.md                          # Main orchestrator router
-│           │
-│           ├── references/                       # Progressive disclosure guides
-│           │   ├── creative-direction.md         # Briefing, platform aspect ratios, tone
-│           │   ├── storytelling.md               # Narrative arc architectures
-│           │   ├── narration.md                  # Spoken prose & timing rules
-│           │   ├── cinematography.md             # 7-layer shot model, anti-slideshow
-│           │   ├── motion-grammar.md             # Semantic motion rules
-│           │   ├── motion-quality-rules.md       # Springs, beziers, staggered timing
-│           │   ├── aesthetic-rules.md            # R1-R4 & Q1-Q10 case-law rules
-│           │   ├── sound-design.md               # Audio hierarchy & beat-sync
-│           │   ├── medical-scientific-mode.md    # Source traceability & fact verification
-│           │   ├── remotion-best-practices.md    # Remotion patterns & seek-safety
-│           │   ├── shot-recipes.md               # 20+ cinematic camera/motion recipes
-│           │   └── qc-protocol.md                # Quantitative & visual inspection gates
-│           │
-│           ├── schemas/                          # Strict validation contracts
-│           │   ├── creative-brief.schema.json
-│           │   ├── style-lock.schema.json
-│           │   ├── beat-sheet.schema.json
-│           │   ├── storyboard.schema.json
-│           │   └── qc-report.schema.json
-│           │
-│           ├── templates/                        # Ready-to-use production templates
-│           │   ├── creative-brief.yaml
-│           │   ├── style-lock.yaml
-│           │   ├── beat-sheet.yaml
-│           │   ├── storyboard.yaml
-│           │   ├── sources.md
-│           │   └── qc-checklist.md
-│           │
-│           ├── workflows/                        # Specialized execution pipelines
-│           │   ├── mode-a-topic.md
-│           │   ├── mode-b-script.md
-│           │   ├── mode-c-voiceover.md
-│           │   ├── mode-d-script-and-voiceover.md
-│           │   └── mode-e-docs-and-lecture.md
-│           │
-│           └── template/                         # Scaffolding project template
-│               ├── package.json
-│               ├── tsconfig.json
-│               ├── remotion.config.ts
-│               ├── requirements.txt              # Python CV & TTS tools
-│               ├── public/
-│               │   └── fonts/
-│               ├── scripts/
-│               │   ├── tts_build.py
-│               │   ├── motion_check.py
-│               │   ├── frame_metrics.py
-│               │   └── selfcheck.py
-│               └── src/
-│                   ├── theme.ts                  # Centralized design tokens
-│                   ├── Root.tsx
-│                   ├── Main.tsx
-│                   ├── primitives/               # fx.tsx, shapes.tsx
-│                   ├── motion/                   # Entrance, WordReveal, LifeCycle
-│                   ├── camera/                   # CameraRig.tsx
-│                   ├── effects/                  # Shaders, BgMesh, Grain, Grade
-│                   ├── overlays/                 # ProgressBar, HUD, ChapterCard
-│                   ├── captions/                 # Subtitle.tsx
-│                   ├── shots/                    # Shot components
-│                   └── utils/                    # easing.ts, textfit.ts
-│
-├── docs/                                         # Architecture & audit docs
-│   ├── DEPENDENCY_AUDIT.md
-│   ├── ARCHITECTURE.md
-│   ├── REUSE_PLAN.md
-│   └── IMPLEMENTATION_PLAN.md
-│
-├── ATTRIBUTIONS.md                               # Full open-source attribution
-└── README.md
+```mermaid
+gantt
+    title v2 Upgrade Execution Phases
+    dateFormat  X
+    axisFormat  Day %d
+    section Phase 1: Specifications & Audit
+    Audit & 7 Design Documents        :done, p1, 0, 1
+    User Review & Architectural Gate :active, p2, 1, 2
+    section Phase 2: Voice Director & Persian TTS
+    VoiceEngine Provider Architecture :p3, 2, 4
+    Persian Text Normalizer & Rules   :p4, 3, 5
+    Benchmark Suite (audio/voice-benchmark/) :p5, 4, 6
+    Stem Mixer & Ducking Engine       :p6, 5, 7
+    section Phase 3: Living Motion Engine
+    NoiseField & Deterministic Math   :p7, 6, 8
+    LivingCameraRig with Drift/Shake  :p8, 7, 9
+    OrganicBreathing & SecondaryPhys  :p9, 8, 10
+    L0-L7 Composition Refactor        :p10, 9, 11
+    section Phase 4: Skill Integration & QC
+    Antigravity Skill v2 Update       :p11, 10, 12
+    Test Pilot Render & Benchmark Run :p12, 11, 13
+    Git Commit & Master Push          :p13, 12, 14
 ```
+
+---
+
+## 2. Detailed Phase Breakdown
+
+### Phase 1: Audit & Architectural Specification (COMPLETED)
+- [x] Comprehensive codebase and dependency audit (`CURRENT_STATE_AUDIT.md`, `DEPENDENCY_AUDIT.md`).
+- [x] Clear inventory of reused vs. adapted vs. new components (`REUSE_PLAN.md`).
+- [x] Complete system architecture diagram and specification (`ARCHITECTURE.md`).
+- [x] Living Motion mathematical and procedural rules (`LIVING_MOTION.md`).
+- [x] Voice Director, dual-clock authority, stem mixing, and Persian TTS strategy (`VOICE_ARCHITECTURE.md`).
+- [x] Phased implementation roadmap (`IMPLEMENTATION_PLAN.md`).
+
+### Phase 2: Voice Director & Natural Persian Voice Subsystem
+- **Step 2.1: Voice Director Core (`audio/engine/`)**
+  - Implement abstract `VoiceEngine` base class in Python.
+  - Implement adapters: `GeminiVoiceProvider`, `ElevenLabsVoiceProvider`, `AavaVoiceProvider`, `PocketFarsiVoiceProvider`, and `EdgeFallbackVoiceProvider`.
+- **Step 2.2: Persian Text Optimizer (`audio/engine/PersianTextOptimizer.py`)**
+  - Implement ZWNJ normalizer, ezafe marker, cardinal/ordinal number converter, and transliteration dictionary.
+- **Step 2.3: Audio Stem Mixer & Ducking (`audio/mixer/StemMixer.py`)**
+  - Implement multi-stem mixing (`narration`, `music`, `sfx`) with automated ducking (-14dB under voice) and ITU-R BS.1770-4 loudness compliance (-16 LUFS).
+- **Step 2.4: Persian Voice Benchmark (`audio/voice-benchmark/`)**
+  - Create standardized medical/scientific benchmark script testing 5 engines on sample Persian phrases.
+  - Generate audio samples and comparison report.
+
+### Phase 3: Living Motion Engine (`src/living-motion/`)
+- **Step 3.1: Mathematical Noise Foundation**
+  - Create `src/living-motion/NoiseField.ts` providing deterministic, seed-indexed Simplex noise.
+- **Step 3.2: Living Camera Rig**
+  - Upgrade `src/camera/CameraRig.tsx` into `LivingCameraRig.tsx` featuring continuous push/pull, organic handheld drift, and impulse damping.
+- **Step 3.3: Organic Micro-Breathing & Secondary Physics**
+  - Implement `OrganicBreathing.tsx` (idle lifecycle breathing).
+  - Implement `SecondaryPhysics.tsx` (spring-delayed follower movement).
+  - Implement `ParticleDrift.tsx` (ambient Brownian motion particles).
+- **Step 3.4: 8-Layer Pipeline Integration**
+  - Verify seamless interoperability across L0 through L7 layers.
+
+### Phase 4: Skill Packaging, Pilot Verification & Master Push
+- **Step 4.1: Skill Definition Upgrade**
+  - Update `.agents/skills/cinematic-motion-director/SKILL.md` and associated references with v2 Living Motion and Voice Director rules.
+- **Step 4.2: Pilot Production Test**
+  - Execute a test pilot run using the updated engine, verifying audio ducking, Living Motion frame deltas, and Persian narration.
+- **Step 4.3: Version Tagging & Remote Push**
+  - Commit all changes and push to `HunterHill13/Cinematic-Motion-Graphics-Agent-Skill-Plan`.
