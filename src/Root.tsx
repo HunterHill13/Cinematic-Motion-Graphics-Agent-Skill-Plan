@@ -17,6 +17,8 @@ import { PersianEditorialMasterV55, ProofOfQualityV55 } from '../projects/persia
 import { PersianEditorialMasterV6, ProofOfQualityV6 } from '../projects/persian_editorial_motion_test_v6/src/PersianEditorialMasterV6';
 import { PersianEditorialMasterV7, ProofOfQualityV7 } from '../projects/persian_editorial_motion_test_v7/src/PersianEditorialMasterV7';
 import { PersianEditorialMasterV8, ProofOfQualityV8 } from '../projects/persian_editorial_motion_test_v8/src/PersianEditorialMasterV8';
+import { PersianEditorialMasterV9 } from '../projects/persian_editorial_motion_test_v9/src/PersianEditorialMasterV9';
+import { ProofOfQualityV9 } from '../projects/persian_editorial_motion_test_v9/src/ProofOfQualityV9';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -256,6 +258,26 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialMasterV8"
         component={PersianEditorialMasterV8}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v9 Living World Proof Composition (18.0s = 540 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfQualityV9"
+        component={ProofOfQualityV9}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v9 Living World Master Composition (2361 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV9"
+        component={PersianEditorialMasterV9}
         durationInFrames={2361}
         fps={30}
         width={1920}
