@@ -35,6 +35,8 @@ import { V14MotionGallery } from '../projects/v14_motion_gallery/src/V14MotionGa
 import { ProofOfQualityV15 } from '../projects/persian_editorial_motion_test_v15/src/ProofOfQualityV15';
 import { PersianEditorialMasterV15 } from '../projects/persian_editorial_motion_test_v15/src/PersianEditorialMasterV15';
 import { V15MotionGallery } from '../projects/v15_motion_gallery/src/V15MotionGallery';
+import { ProofOfQualityV16 } from '../projects/persian_editorial_motion_test_v16/src/ProofOfQualityV16';
+import { PersianEditorialMasterV16 } from '../projects/persian_editorial_motion_test_v16/src/PersianEditorialMasterV16';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -455,6 +457,26 @@ export const Root: React.FC = () => {
         id="V15MotionGallery"
         component={V15MotionGallery}
         durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v16 Hero Shot Gate Quality Proof (540 frames @ 30 FPS = 18s) */}
+      <Composition
+        id="ProofOfQualityV16"
+        component={ProofOfQualityV16}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v16 Deterministic Pronunciation Master Composition (2361 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV16"
+        component={PersianEditorialMasterV16}
+        durationInFrames={2361}
         fps={30}
         width={1920}
         height={1080}

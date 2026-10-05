@@ -1,29 +1,26 @@
 /**
- * V15 PRONUNCIATION NORMALIZER
+ * V16 PRONUNCIATION NORMALIZER (BACKWARD-COMPATIBLE ADAPTER)
  * 
- * Pipeline:
- * Raw Script -> Pronunciation Normalization -> TTS Input
+ * Bridges to the V16 Word-Boundary Safe Pronunciation Resolver:
+ * `src/audio/pronunciation/pronunciationResolver.ts`
  * 
- * Invariant:
- * Display Text Pipeline is strictly parallel and un-altered:
- * Raw Script -> Source Manifest -> displayText (Pristine, 0 diacritic pollution)
+ * Invariants:
+ * 1. Raw Script -> Pronunciation Resolver -> TTS Input (Controlled Phonetization)
+ * 2. Raw Script -> Source Manifest -> displayText (Pristine Standard Persian, 0 Diacritics)
  */
 
-import { PERSIAN_PRONUNCIATION_DICTIONARY } from './pronunciationDictionary';
+import {
+  resolvePronunciations,
+  assertNoPhoneticLeakage,
+} from './pronunciation/pronunciationResolver';
 
 /**
  * Normalizes Persian script exclusively for TTS audio synthesis.
- * Injects phonetic vowelization and ezafe markers only where required.
+ * Uses word-boundary-safe matching across registered institutional terms.
  */
 export function normalizeTtsScript(rawText: string): string {
-  let normalized = rawText;
-
-  for (const [term, entry] of Object.entries(PERSIAN_PRONUNCIATION_DICTIONARY)) {
-    // Replace whole word occurrences
-    normalized = normalized.split(term).join(entry.phonetizedTts);
-  }
-
-  return normalized;
+  const result = resolvePronunciations(rawText);
+  return result.ttsText;
 }
 
 /**
@@ -34,21 +31,9 @@ export function assertNoDisplayTextPollution(displayText: string): {
   valid: boolean;
   violations: string[];
 } {
-  const violations: string[] = [];
-
-  // Check for excessive phonetic diacritics that indicate TTS leakage into display text
-  // Arabic tashdid (U+0651), fatha (U+064E), damma (U+064F), kasra (U+0650)
-  const diacriticPattern = /[\u064E\u064F\u0650\u0651\u0652]/g;
-  const matches = displayText.match(diacriticPattern);
-
-  if (matches && matches.length > 2) {
-    violations.push(
-      `Display text contains ${matches.length} phonetic diacritics. Display text must remain in pure standard Persian orthography without TTS pronunciation pollution.`
-    );
-  }
-
+  const leakage = assertNoPhoneticLeakage(displayText);
   return {
-    valid: violations.length === 0,
-    violations,
+    valid: leakage.clean,
+    violations: leakage.leaks,
   };
 }
