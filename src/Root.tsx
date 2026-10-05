@@ -19,6 +19,8 @@ import { PersianEditorialMasterV7, ProofOfQualityV7 } from '../projects/persian_
 import { PersianEditorialMasterV8, ProofOfQualityV8 } from '../projects/persian_editorial_motion_test_v8/src/PersianEditorialMasterV8';
 import { PersianEditorialMasterV9 } from '../projects/persian_editorial_motion_test_v9/src/PersianEditorialMasterV9';
 import { ProofOfQualityV9 } from '../projects/persian_editorial_motion_test_v9/src/ProofOfQualityV9';
+import { ProofOfQualityV10 } from '../projects/persian_editorial_motion_test_v10/src/ProofOfQualityV10';
+import { PersianEditorialMasterV10 } from '../projects/persian_editorial_motion_test_v10/src/PersianEditorialMasterV10';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -278,6 +280,26 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialMasterV9"
         component={PersianEditorialMasterV9}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v10 Hybrid Motion System Proof Composition (18.0s = 540 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfQualityV10"
+        component={ProofOfQualityV10}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v10 Hybrid Motion System Master Composition (2361 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV10"
+        component={PersianEditorialMasterV10}
         durationInFrames={2361}
         fps={30}
         width={1920}

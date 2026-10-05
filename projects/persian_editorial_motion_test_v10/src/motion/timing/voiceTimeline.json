@@ -1,0 +1,30 @@
+{
+  "fps": 30,
+  "totalFrames": 2361,
+  "events": {
+    "shot01_intro_start": 0,
+    "shot01_question_start": 184,
+    "shot01_researcher_keyword_strike": 234,
+    "shot01_shot02_handoff": 350,
+    "shot02_decree_speech_start": 379,
+    "shot02_numeral_kaaf_strike": 395,
+    "shot02_shot03_handoff": 620,
+    "shot03_three_conditions_speech_start": 654,
+    "shot03_criterion1_gpa16_strike": 855,
+    "shot03_criterion2_disciplinary_strike": 1035,
+    "shot03_criterion3_articles_strike": 1215,
+    "shot03_shot04_handoff": 1450,
+    "shot04_time_speech_start": 1476,
+    "shot04_cutoff_1year_strike": 1575,
+    "shot04_shot05_handoff": 1700,
+    "shot05_tiers_speech_start": 1715,
+    "shot05_tier1_65_strike": 1914,
+    "shot05_tier2_110_strike": 2010,
+    "shot05_tier3_130_strike": 2100,
+    "shot05_shot06_handoff": 2155,
+    "shot06_outro_speech_start": 2186,
+    "shot06_seal_crest_strike": 2195,
+    "shot06_speech_end": 2317,
+    "shot06_master_resolve": 2361
+  }
+}
