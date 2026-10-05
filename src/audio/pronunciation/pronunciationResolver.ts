@@ -1,5 +1,5 @@
 /**
- * V16 PRONUNCIATION RESOLVER
+ * V17 PRONUNCIATION RESOLVER
  * 
  * Deterministic preprocessing engine that converts Authoritative Display Text
  * into TTS-specific Pronunciation-Controlled representation.
@@ -12,6 +12,7 @@
  *    - Yeh variations (Persian \u06cc vs Arabic \u064a)
  *    - Kaf variations (Persian \u06a9 vs Arabic \u0643)
  *    - Punctuation boundaries (« », ( ), [ ], ،, ؛, ؟, !, ., etc.)
+ * 4. Tracks critical proper nouns and flags those requiring audio-level validation.
  */
 
 import { PRONUNCIATION_REGISTRY } from './pronunciationRegistry';
@@ -47,6 +48,7 @@ function buildSafeTermRegex(term: string): RegExp {
 export function resolvePronunciations(authoritativeText: string): ResolutionResult {
   let ttsText = authoritativeText;
   const appliedOverrides: ResolutionResult['appliedOverrides'] = [];
+  const criticalTerms: string[] = [];
   let hasCriticalOverrides = false;
 
   // Process entries sorted by descending term length to prevent shorter substrings
@@ -70,10 +72,13 @@ export function resolvePronunciations(authoritativeText: string): ResolutionResu
         replacedWith: entry.tts,
         occurrences: matchCount,
         category: entry.category,
+        criticality: entry.criticality,
+        audioStatus: entry.audioValidationStatus,
       });
 
-      if (entry.priority === 'critical') {
+      if (entry.priority === 'critical' || entry.criticality === 'critical-proper-noun') {
         hasCriticalOverrides = true;
+        criticalTerms.push(term);
       }
     }
   }
@@ -83,6 +88,7 @@ export function resolvePronunciations(authoritativeText: string): ResolutionResu
     displayText: authoritativeText,
     appliedOverrides,
     hasCriticalOverrides,
+    criticalTerms,
   };
 }
 
