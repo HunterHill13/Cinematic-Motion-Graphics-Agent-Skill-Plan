@@ -21,6 +21,9 @@ import { PersianEditorialMasterV9 } from '../projects/persian_editorial_motion_t
 import { ProofOfQualityV9 } from '../projects/persian_editorial_motion_test_v9/src/ProofOfQualityV9';
 import { ProofOfQualityV10 } from '../projects/persian_editorial_motion_test_v10/src/ProofOfQualityV10';
 import { PersianEditorialMasterV10 } from '../projects/persian_editorial_motion_test_v10/src/PersianEditorialMasterV10';
+import { V11MotionLabGallery } from '../projects/v11_motion_lab/src/V11MotionLabGallery';
+import { ProofOfQualityV11 } from '../projects/persian_editorial_motion_test_v11/src/ProofOfQualityV11';
+import { PersianEditorialMasterV11 } from '../projects/persian_editorial_motion_test_v11/src/PersianEditorialMasterV11';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -300,6 +303,36 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialMasterV10"
         component={PersianEditorialMasterV10}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v11 Reference-Driven Motion Recipe Laboratory Gallery (450 frames @ 30 FPS = 15s) */}
+      <Composition
+        id="V11MotionLab"
+        component={V11MotionLabGallery}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v11 Reference-Driven Motion System Proof Composition (18.0s = 540 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfQualityV11"
+        component={ProofOfQualityV11}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v11 Reference-Driven Motion System Master Composition (2361 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV11"
+        component={PersianEditorialMasterV11}
         durationInFrames={2361}
         fps={30}
         width={1920}
