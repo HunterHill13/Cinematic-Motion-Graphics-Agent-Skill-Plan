@@ -32,6 +32,9 @@ import { PersianEditorialMasterV13 } from '../projects/persian_editorial_motion_
 import { ProofOfQualityV14 } from '../projects/persian_editorial_motion_test_v14/src/ProofOfQualityV14';
 import { PersianEditorialMasterV14 } from '../projects/persian_editorial_motion_test_v14/src/PersianEditorialMasterV14';
 import { V14MotionGallery } from '../projects/v14_motion_gallery/src/V14MotionGallery';
+import { ProofOfQualityV15 } from '../projects/persian_editorial_motion_test_v15/src/ProofOfQualityV15';
+import { PersianEditorialMasterV15 } from '../projects/persian_editorial_motion_test_v15/src/PersianEditorialMasterV15';
+import { V15MotionGallery } from '../projects/v15_motion_gallery/src/V15MotionGallery';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -421,6 +424,36 @@ export const Root: React.FC = () => {
       <Composition
         id="V14MotionGallery"
         component={V14MotionGallery}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v15 Director-Led Content-Locked Motion System Proof Composition (18.0s = 540 frames @ 30 FPS) */}
+      <Composition
+        id="ProofOfQualityV15"
+        component={ProofOfQualityV15}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v15 Director-Led Content-Locked Motion System Master Composition (2361 frames @ 30 FPS) */}
+      <Composition
+        id="PersianEditorialMasterV15"
+        component={PersianEditorialMasterV15}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* v15 Director-Led Motion Gallery (450 frames @ 30 FPS = 15s) */}
+      <Composition
+        id="V15MotionGallery"
+        component={V15MotionGallery}
         durationInFrames={450}
         fps={30}
         width={1920}
