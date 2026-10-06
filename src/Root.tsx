@@ -95,6 +95,19 @@ import {
   V22Transition04Sheet,
   V22Transition05Sheet,
 } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V22TransitionFrameSheets';
+import { V23DotBallBounceText } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23DotBallBounceText';
+import { V23LetterformGeometry } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23LetterformGeometry';
+import { V23KineticTypeBenchmark } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23KineticTypeBenchmark';
+import { V23TrueShapeMorph } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23TrueShapeMorph';
+import { V23DataTransformation } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23DataTransformation';
+import { V23RibbonLineTunnel } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23RibbonLineTunnel';
+import { V23CameraThrough } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23CameraThrough';
+import { V23PersistentMotif } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23PersistentMotif';
+import { V23MotionRhythm } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23MotionRhythm';
+import { V23AssetGeometryBenchmark } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23AssetGeometryBenchmark';
+import { V23BenchmarkContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23BenchmarkContactSheet';
+import { V23TransitionContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23TransitionContactSheet';
+import { V23MotionReview } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23MotionReview';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1030,6 +1043,140 @@ export const Root: React.FC = () => {
         fps={30}
         width={3840}
         height={2160}
+      />
+
+      {/* ======================================================== */}
+      {/* V23 VISUAL LANGUAGE BENCHMARKS & ADVANCED CHOREOGRAPHY   */}
+      {/* ======================================================== */}
+
+      {/* Benchmark 01: Dot -> Ball -> Bounce -> Text (180 frames @ 30 FPS = 6.00s) */}
+      <Composition
+        id="V23-DotBallBounceText"
+        component={V23DotBallBounceText}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 02: Letterform -> Geometry (210 frames @ 30 FPS = 7.00s) */}
+      <Composition
+        id="V23-LetterformGeometry"
+        component={V23LetterformGeometry}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 03: Kinetic Typography (210 frames @ 30 FPS = 7.00s) */}
+      <Composition
+        id="V23-KineticType"
+        component={V23KineticTypeBenchmark}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 04: True Shape Morph (240 frames @ 30 FPS = 8.00s) */}
+      <Composition
+        id="V23-ShapeMorph"
+        component={V23TrueShapeMorph}
+        durationInFrames={240}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 05: Data Transformation (210 frames @ 30 FPS = 7.00s) */}
+      <Composition
+        id="V23-DataTransform"
+        component={V23DataTransformation}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 06: Ribbon / Line Field Tunnel (240 frames @ 30 FPS = 8.00s) */}
+      <Composition
+        id="V23-RibbonTunnel"
+        component={V23RibbonLineTunnel}
+        durationInFrames={240}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 07: Ring / Camera Through (210 frames @ 30 FPS = 7.00s) */}
+      <Composition
+        id="V23-CameraThrough"
+        component={V23CameraThrough}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 08: Persistent Motif (240 frames @ 30 FPS = 8.00s) */}
+      <Composition
+        id="V23-PersistentMotif"
+        component={V23PersistentMotif}
+        durationInFrames={240}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 09: Motion Rhythm (210 frames @ 30 FPS = 7.00s) */}
+      <Composition
+        id="V23-MotionRhythm"
+        component={V23MotionRhythm}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Benchmark 10: Asset -> Geometry (210 frames @ 30 FPS = 7.00s) */}
+      <Composition
+        id="V23-AssetGeometry"
+        component={V23AssetGeometryBenchmark}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V23 Benchmark Contact Sheet (3840x2160 4K UHD) */}
+      <Composition
+        id="V23-BenchmarkContactSheet"
+        component={V23BenchmarkContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* V23 Transition Contact Sheet (3840x2160 4K UHD) */}
+      <Composition
+        id="V23-TransitionContactSheet"
+        component={V23TransitionContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* V23 Motion Review (360 frames @ 30 FPS = 12.00s) */}
+      <Composition
+        id="V23-MotionReview"
+        component={V23MotionReview}
+        durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
       />
 
       {/* Legacy 16:9 Landscape Composition */}
