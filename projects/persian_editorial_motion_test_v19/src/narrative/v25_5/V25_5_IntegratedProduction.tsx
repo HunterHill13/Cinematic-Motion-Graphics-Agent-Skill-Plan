@@ -80,37 +80,37 @@ export const V25_5_IntegratedProduction: React.FC = () => {
               opacity: frame < 115 ? 1 : interpolate(frame, [115, 125], [1, 0]),
             }}
           >
-            {/* Center-out horizontal datum line */}
+            {/* Asymmetric Low-Third Horizontal Datum Line (Rule-of-Thirds Staging) */}
             {(() => {
               const traceProgress = Easing.bezier(0.16, 1, 0.3, 1)(
                 Math.min(1, Math.max(0, frame / 50))
               );
-              const halfWidth = interpolate(traceProgress, [0, 1], [0, 720]);
+              const lineLength = interpolate(traceProgress, [0, 1], [0, 1360]);
 
               return (
                 <div
                   style={{
                     position: 'absolute',
-                    top: 620,
-                    left: 960 - halfWidth,
-                    width: halfWidth * 2,
-                    height: 2,
+                    top: 680,
+                    left: 280,
+                    width: lineLength,
+                    height: 2.5,
                     backgroundColor: goldColor,
-                    boxShadow: `0 0 16px rgba(212, 175, 55, 0.5)`,
+                    boxShadow: `0 0 20px rgba(212, 175, 55, 0.55)`,
                   }}
                 >
-                  {/* Coordinate ticks */}
-                  {[-600, -400, -200, 0, 200, 400, 600].map((offset) => (
+                  {/* Asymmetric Technical Datum Calibration Ticks */}
+                  {[0, 160, 360, 600, 920, 1280].map((offset) => (
                     <div
                       key={offset}
                       style={{
                         position: 'absolute',
-                        left: halfWidth + offset,
-                        top: -5,
-                        width: 1,
-                        height: 12,
-                        backgroundColor: 'rgba(212, 175, 55, 0.4)',
-                        opacity: Math.abs(offset) < halfWidth ? 1 : 0,
+                        left: offset,
+                        top: -6,
+                        width: 1.5,
+                        height: 14,
+                        backgroundColor: 'rgba(212, 175, 55, 0.6)',
+                        opacity: offset < lineLength ? 1 : 0,
                       }}
                     />
                   ))}
@@ -118,13 +118,13 @@ export const V25_5_IntegratedProduction: React.FC = () => {
               );
             })()}
 
-            {/* Typography: Still Anchor */}
+            {/* Asymmetric Typography: Anchored to Left-Third Axis with 75% Negative Space */}
             {(() => {
               const textOp = interpolate(frame, [25, 55], [0, 1], {
                 extrapolateLeft: 'clamp',
                 extrapolateRight: 'clamp',
               });
-              const textY = interpolate(frame, [25, 55], [20, 0], {
+              const textX = interpolate(frame, [25, 55], [-40, 0], {
                 easing: Easing.out(Easing.cubic),
                 extrapolateLeft: 'clamp',
                 extrapolateRight: 'clamp',
@@ -134,35 +134,45 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                 <div
                   style={{
                     position: 'absolute',
-                    left: 960,
-                    top: 550,
-                    transform: `translateX(-50%) translateY(${textY}px)`,
-                    textAlign: 'center',
+                    left: 320,
+                    top: 570,
+                    transform: `translateX(${textX}px)`,
+                    textAlign: 'right',
                     direction: 'rtl',
                     opacity: textOp,
                   }}
                 >
                   <div
                     style={{
-                      fontSize: 40,
-                      fontWeight: 800,
+                      fontSize: 48,
+                      fontWeight: 900,
                       color: '#F8FAFC',
                       letterSpacing: -0.5,
-                      textShadow: '0 4px 24px rgba(0,0,0,0.8)',
+                      textShadow: '0 4px 30px rgba(0,0,0,0.9)',
                     }}
                   >
                     نقطه آغاز
                   </div>
                   <div
                     style={{
-                      fontSize: 15,
-                      fontWeight: 500,
-                      color: 'rgba(212, 175, 55, 0.85)',
+                      fontSize: 14,
+                      fontWeight: 600,
+                      color: goldColor,
                       marginTop: 8,
-                      letterSpacing: 2,
+                      letterSpacing: 3,
                     }}
                   >
                     THE GENESIS OF INQUIRY
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: 'rgba(255, 255, 255, 0.45)',
+                      marginTop: 8,
+                      fontFamily: 'monospace',
+                    }}
+                  >
+                    DATUM: Y=680 | ASYMMETRIC CANV_RATIO: 78% VOID
                   </div>
                 </div>
               );
@@ -753,7 +763,7 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                     />
                   )}
 
-                  {/* Typographic Hero Slam: «شتاب» */}
+                  {/* Typographic Hero Slam & Graphic Ligature Dissection: «شتاب» */}
                   {wordOpacity > 0 && (
                     <div
                       style={{
@@ -779,7 +789,7 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                     </div>
                   )}
 
-                  {/* Assembling Compass Star Emblem */}
+                  {/* Assembling Compass Star Emblem: Physically extruded from letterform vector fractures */}
                   {emblemProgress > 0 && (
                     <div
                       style={{
@@ -790,10 +800,10 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                       }}
                     >
                       <svg width={360} height={360} viewBox="-180 -180 360 360">
-                        {/* 8 Radial Ray Spines */}
+                        {/* 8 Radial Ray Spines that emerged from the fractured ligatures */}
                         {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, idx) => {
                           const rad = (angle * Math.PI) / 180;
-                          const rayLen = interpolate(emblemProgress, [0, 1], [30, 130]);
+                          const rayLen = interpolate(emblemProgress, [0, 1], [25, 140]);
                           const x2 = rayLen * Math.cos(rad);
                           const y2 = rayLen * Math.sin(rad);
 
@@ -805,7 +815,7 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                               x2={x2}
                               y2={y2}
                               stroke={idx % 2 === 0 ? goldColor : cyanAccent}
-                              strokeWidth={idx % 2 === 0 ? 3 : 1.5}
+                              strokeWidth={idx % 2 === 0 ? 3.5 : 2}
                               strokeOpacity={emblemProgress}
                             />
                           );
@@ -813,7 +823,7 @@ export const V25_5_IntegratedProduction: React.FC = () => {
 
                         {/* Central Concentric Rings */}
                         <circle
-                          r={interpolate(emblemProgress, [0, 1], [0, 42])}
+                          r={interpolate(emblemProgress, [0, 1], [0, 44])}
                           fill="none"
                           stroke={goldColor}
                           strokeWidth={2}
@@ -823,6 +833,25 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                           fill={goldColor}
                         />
                       </svg>
+                    </div>
+                  )}
+
+                  {/* Art Direction Sub-Label: Graphic Typographic Metamorphosis */}
+                  {b6Frame > 45 && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 360,
+                        top: 720,
+                        direction: 'rtl',
+                        color: 'rgba(255,255,255,0.6)',
+                        fontFamily: 'monospace',
+                        fontSize: 12,
+                        letterSpacing: 2,
+                        opacity: interpolate(b6Frame, [45, 70], [0, 1], { extrapolateRight: 'clamp' }),
+                      }}
+                    >
+                      CHOREOGRAPHY: LIGATURE_FRACTURE → RADIAL_COMPASS_STAR
                     </div>
                   )}
                 </div>

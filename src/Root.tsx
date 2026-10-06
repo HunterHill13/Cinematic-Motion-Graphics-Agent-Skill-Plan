@@ -127,6 +127,11 @@ import { V25_MotionContactSheet } from '../projects/persian_editorial_motion_tes
 import { V25_MorphDiagnosticSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_MorphDiagnosticSheet';
 import { V25_5_IntegratedProduction } from '../projects/persian_editorial_motion_test_v19/src/narrative/v25_5/V25_5_IntegratedProduction';
 import { V25_5_MigrationAB } from '../projects/persian_editorial_motion_test_v19/src/narrative/v25_5/V25_5_MigrationAB';
+import { StudyA_OneObjectThreeTransforms } from './choreography/v26/StudyA_OneObjectThreeTransforms';
+import { StudyB_CompositionMigration } from './choreography/v26/StudyB_CompositionMigration';
+import { StudyC_TypographyToGeometry } from './choreography/v26/StudyC_TypographyToGeometry';
+import { StudyD_PhysicalSceneHandoff } from './choreography/v26/StudyD_PhysicalSceneHandoff';
+import { StudyE_CompleteEditorialBeat } from './choreography/v26/StudyE_CompleteEditorialBeat';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1380,6 +1385,70 @@ export const Root: React.FC = () => {
         id="V25-5-MigrationAB"
         component={V25_5_MigrationAB}
         durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* ======================================================== */}
+      {/* V26 VISUAL CHOREOGRAPHY BENCHMARK STUDIES                */}
+      {/* ======================================================== */}
+
+      {/* Study A: One Object, Three Transformations (180f = 6.0s) */}
+      <Composition
+        id="V26-StudyA-OneObjectThreeTransforms"
+        component={StudyA_OneObjectThreeTransforms}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Study B: Composition Migration & Asymmetric Framing (180f = 6.0s) */}
+      <Composition
+        id="V26-StudyB-CompositionMigration"
+        component={StudyB_CompositionMigration}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Study C: Persian Typography as Graphic Material (180f = 6.0s) */}
+      <Composition
+        id="V26-StudyC-TypographyToGeometry"
+        component={StudyC_TypographyToGeometry}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Study D: Physical Scene Handoff (180f = 6.0s) */}
+      <Composition
+        id="V26-StudyD-PhysicalSceneHandoff"
+        component={StudyD_PhysicalSceneHandoff}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Study E: Complete 10s Editorial Choreography Beat (300f = 10.0s) */}
+      <Composition
+        id="V26-StudyE-CompleteEditorialBeat"
+        component={StudyE_CompleteEditorialBeat}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V26 Redesigned Master Composition Alias */}
+      <Composition
+        id="V26-ChoreographedMaster"
+        component={V25_5_IntegratedProduction}
+        durationInFrames={1080}
         fps={30}
         width={1920}
         height={1080}
