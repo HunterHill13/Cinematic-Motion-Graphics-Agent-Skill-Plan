@@ -125,6 +125,8 @@ import { V25_10_KineticTypeSlam } from '../projects/persian_editorial_motion_tes
 import { V25_AB_Review } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_AB_Review';
 import { V25_MotionContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_MotionContactSheet';
 import { V25_MorphDiagnosticSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_MorphDiagnosticSheet';
+import { V25_5_IntegratedProduction } from '../projects/persian_editorial_motion_test_v19/src/narrative/v25_5/V25_5_IntegratedProduction';
+import { V25_5_MigrationAB } from '../projects/persian_editorial_motion_test_v19/src/narrative/v25_5/V25_5_MigrationAB';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1347,6 +1349,40 @@ export const Root: React.FC = () => {
         fps={30}
         width={3840}
         height={2160}
+      />
+
+      {/* ======================================================== */}
+      {/* V25.5 PRODUCTION INTEGRATION & AUDIT                     */}
+      {/* ======================================================== */}
+
+      {/* V24 Production Baseline Alias */}
+      <Composition
+        id="V24-ProductionBaseline"
+        component={V24NarrativeSynthesis}
+        durationInFrames={1080}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V25.5 Integrated Production Master */}
+      <Composition
+        id="V25-5-Integrated"
+        component={V25_5_IntegratedProduction}
+        durationInFrames={1080}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V25.5 Migration A/B Comparative Reel */}
+      <Composition
+        id="V25-5-MigrationAB"
+        component={V25_5_MigrationAB}
+        durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
       />
 
       {/* Legacy 16:9 Landscape Composition */}
