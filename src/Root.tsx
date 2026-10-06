@@ -132,6 +132,12 @@ import { StudyB_CompositionMigration } from './choreography/v26/StudyB_Compositi
 import { StudyC_TypographyToGeometry } from './choreography/v26/StudyC_TypographyToGeometry';
 import { StudyD_PhysicalSceneHandoff } from './choreography/v26/StudyD_PhysicalSceneHandoff';
 import { StudyE_CompleteEditorialBeat } from './choreography/v26/StudyE_CompleteEditorialBeat';
+import { V27_Test01_HeroTranslation } from './motion/precision_lab/V27_Test01_HeroTranslation';
+import { V27_Test02_HeavyImpact } from './motion/precision_lab/V27_Test02_HeavyImpact';
+import { V27_Test03_ElasticBounce } from './motion/precision_lab/V27_Test03_ElasticBounce';
+import { V27_Test04_ShapeMorph } from './motion/precision_lab/V27_Test04_ShapeMorph';
+import { V27_Test05_KineticTypography } from './motion/precision_lab/V27_Test05_KineticTypography';
+import { V27_Test06_FullEditorialBeat } from './motion/precision_lab/V27_Test06_FullEditorialBeat';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1447,6 +1453,80 @@ export const Root: React.FC = () => {
       {/* V26 Redesigned Master Composition Alias */}
       <Composition
         id="V26-ChoreographedMaster"
+        component={V25_5_IntegratedProduction}
+        durationInFrames={1080}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* ======================================================== */}
+      {/* V27 MOTION PRECISION & KEYFRAME CRAFT LAB                */}
+      {/* ======================================================== */}
+
+      {/* Test 01: Hero Translation (60f = 2.0s) */}
+      <Composition
+        id="V27-Test01-HeroTranslation"
+        component={V27_Test01_HeroTranslation}
+        durationInFrames={60}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Test 02: Heavy Impact & Punctuation (90f = 3.0s) */}
+      <Composition
+        id="V27-Test02-HeavyImpact"
+        component={V27_Test02_HeavyImpact}
+        durationInFrames={90}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Test 03: Elastic Bounce (90f = 3.0s) */}
+      <Composition
+        id="V27-Test03-ElasticBounce"
+        component={V27_Test03_ElasticBounce}
+        durationInFrames={90}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Test 04: Shape Morph Arc-Length (90f = 3.0s) */}
+      <Composition
+        id="V27-Test04-ShapeMorph"
+        component={V27_Test04_ShapeMorph}
+        durationInFrames={90}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Test 05: Kinetic Typography Precision (90f = 3.0s) */}
+      <Composition
+        id="V27-Test05-KineticTypography"
+        component={V27_Test05_KineticTypography}
+        durationInFrames={90}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* Test 06: Full Editorial Beat (270f = 9.0s) */}
+      <Composition
+        id="V27-Test06-FullEditorialBeat"
+        component={V27_Test06_FullEditorialBeat}
+        durationInFrames={270}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V27 Production Master with Crafted Curves */}
+      <Composition
+        id="V27-KeyframeCraftedMaster"
         component={V25_5_IntegratedProduction}
         durationInFrames={1080}
         fps={30}
