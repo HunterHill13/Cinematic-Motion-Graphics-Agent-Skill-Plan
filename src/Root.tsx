@@ -108,6 +108,10 @@ import { V23AssetGeometryBenchmark } from '../projects/persian_editorial_motion_
 import { V23BenchmarkContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23BenchmarkContactSheet';
 import { V23TransitionContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23TransitionContactSheet';
 import { V23MotionReview } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v23/V23MotionReview';
+import { V24NarrativeSynthesis } from '../projects/persian_editorial_motion_test_v19/src/narrative/v24/V24NarrativeSynthesis';
+import { V24NarrativeContactSheet } from '../projects/persian_editorial_motion_test_v19/src/narrative/v24/V24NarrativeContactSheet';
+import { V24TransitionReview } from '../projects/persian_editorial_motion_test_v19/src/narrative/v24/V24TransitionReview';
+import { V24MotionReview } from '../projects/persian_editorial_motion_test_v19/src/narrative/v24/V24MotionReview';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1173,6 +1177,50 @@ export const Root: React.FC = () => {
       <Composition
         id="V23-MotionReview"
         component={V23MotionReview}
+        durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* ======================================================== */}
+      {/* V24 ADAPTIVE CHOREOGRAPHY & NARRATIVE SYNTHESIS          */}
+      {/* ======================================================== */}
+
+      {/* V24 Narrative Synthesis Master (1,080 frames @ 30 FPS = 36.00s) */}
+      <Composition
+        id="V24-NarrativeSynthesis"
+        component={V24NarrativeSynthesis}
+        durationInFrames={1080}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V24 Narrative Contact Sheet (4K UHD 3840x2160) */}
+      <Composition
+        id="V24-NarrativeContactSheet"
+        component={V24NarrativeContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* V24 Transition Review (4K UHD 3840x2160) */}
+      <Composition
+        id="V24-TransitionReview"
+        component={V24TransitionReview}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* V24 Motion Review Reel (360 frames @ 30 FPS = 12.00s) */}
+      <Composition
+        id="V24-MotionReview"
+        component={V24MotionReview}
         durationInFrames={360}
         fps={30}
         width={1920}
