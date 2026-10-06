@@ -112,6 +112,19 @@ import { V24NarrativeSynthesis } from '../projects/persian_editorial_motion_test
 import { V24NarrativeContactSheet } from '../projects/persian_editorial_motion_test_v19/src/narrative/v24/V24NarrativeContactSheet';
 import { V24TransitionReview } from '../projects/persian_editorial_motion_test_v19/src/narrative/v24/V24TransitionReview';
 import { V24MotionReview } from '../projects/persian_editorial_motion_test_v19/src/narrative/v24/V24MotionReview';
+import { V25_01_DotToLineFidelity } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_01_DotToLineFidelity';
+import { V25_02_HeavyImpact } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_02_HeavyImpact';
+import { V25_03_ElasticBounce } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_03_ElasticBounce';
+import { V25_04_RigidReconfiguration } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_04_RigidReconfiguration';
+import { V25_05_CircleStarMorph } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_05_CircleStarMorph';
+import { V25_06_LetterGeometryMorph } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_06_LetterGeometryMorph';
+import { V25_07_BarLineTransform } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_07_BarLineTransform';
+import { V25_08_RibbonTunnelMotion } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_08_RibbonTunnelMotion';
+import { V25_09_CameraThroughFidelity } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_09_CameraThroughFidelity';
+import { V25_10_KineticTypeSlam } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_10_KineticTypeSlam';
+import { V25_AB_Review } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_AB_Review';
+import { V25_MotionContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_MotionContactSheet';
+import { V25_MorphDiagnosticSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/v25/V25_MorphDiagnosticSheet';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1225,6 +1238,115 @@ export const Root: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* ======================================================== */}
+      {/* V25 MOTION FIDELITY & TEMPORAL PRECISION LAB             */}
+      {/* ======================================================== */}
+
+      <Composition
+        id="V25-DotToLineFidelity"
+        component={V25_01_DotToLineFidelity}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-HeavyImpact"
+        component={V25_02_HeavyImpact}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-ElasticBounce"
+        component={V25_03_ElasticBounce}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-RigidReconfiguration"
+        component={V25_04_RigidReconfiguration}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-CircleStarMorph"
+        component={V25_05_CircleStarMorph}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-LetterGeometryMorph"
+        component={V25_06_LetterGeometryMorph}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-BarLineTransform"
+        component={V25_07_BarLineTransform}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-RibbonTunnelMotion"
+        component={V25_08_RibbonTunnelMotion}
+        durationInFrames={210}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-CameraThroughFidelity"
+        component={V25_09_CameraThroughFidelity}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-KineticTypeSlam"
+        component={V25_10_KineticTypeSlam}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-ABReview"
+        component={V25_AB_Review}
+        durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V25-MotionContactSheet"
+        component={V25_MotionContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+      <Composition
+        id="V25-MorphDiagnosticSheet"
+        component={V25_MorphDiagnosticSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
       />
 
       {/* Legacy 16:9 Landscape Composition */}
