@@ -396,51 +396,33 @@ export const V25_5_IntegratedProduction: React.FC = () => {
 
                     return (
                       <div key={i}>
-                        {/* Pillar Body */}
+                        {/* Architectural Monolith Body */}
                         <div
                           style={{
                             position: 'absolute',
-                            left: posX - 28,
+                            left: posX - 32,
                             top: topY,
-                            width: 56,
+                            width: 64,
                             height: currentHeight,
-                            background: `linear-gradient(to top, rgba(212, 175, 55, 0.15), rgba(56, 189, 248, 0.4))`,
-                            border: '1px solid rgba(212, 175, 55, 0.6)',
+                            background: `linear-gradient(to top, rgba(212, 175, 55, 0.12), rgba(248, 250, 252, 0.08))`,
+                            border: '1.2px solid rgba(212, 175, 55, 0.65)',
                             borderBottom: 'none',
+                            boxShadow: '0 0 25px rgba(0,0,0,0.85)',
                           }}
-                        />
-
-                        {/* Apex Vertex Energy Node */}
-                        <div
-                          style={{
-                            position: 'absolute',
-                            left: posX - 8,
-                            top: topY - 8,
-                            width: 16,
-                            height: 16,
-                            borderRadius: '50%',
-                            backgroundColor: goldColor,
-                            boxShadow: `0 0 16px ${cyanAccent}`,
-                            opacity: p > 0.1 ? 1 : 0,
-                          }}
-                        />
-
-                        {/* Analytical Tick Annotations */}
-                        {p > 0.8 && (
+                        >
+                          {/* Zenith Pylon Gold Highlight */}
                           <div
                             style={{
                               position: 'absolute',
-                              left: posX - 20,
-                              top: topY - 32,
-                              color: 'rgba(248, 250, 252, 0.7)',
-                              fontSize: 13,
-                              fontWeight: 700,
-                              fontFamily: 'monospace',
+                              top: 0,
+                              left: 0,
+                              right: 0,
+                              height: 3,
+                              backgroundColor: goldColor,
+                              boxShadow: `0 0 16px ${goldColor}`,
                             }}
-                          >
-                            +{(heights[i] * 0.42).toFixed(1)}
-                          </div>
-                        )}
+                          />
+                        </div>
                       </div>
                     );
                   })}

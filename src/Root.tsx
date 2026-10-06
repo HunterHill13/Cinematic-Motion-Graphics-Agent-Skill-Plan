@@ -140,6 +140,7 @@ import { V27_Test05_KineticTypography } from './motion/precision_lab/V27_Test05_
 import { V27_Test06_FullEditorialBeat } from './motion/precision_lab/V27_Test06_FullEditorialBeat';
 import { V28_BounceLab } from './motion/precision_lab/V28_BounceLab';
 import { V29_TransformationLab } from './motion/precision_lab/V29_TransformationLab';
+import { V30_CreativeDirectionLab } from './motion/precision_lab/V30_CreativeDirectionLab';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1584,6 +1585,16 @@ export const Root: React.FC = () => {
         component={V29_TransformationLab}
         durationInFrames={240}
         fps={60}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V30 Creative Direction Laboratory */}
+      <Composition
+        id="V30-CreativeDirectionLab"
+        component={V30_CreativeDirectionLab}
+        durationInFrames={240}
+        fps={30}
         width={1920}
         height={1080}
       />
