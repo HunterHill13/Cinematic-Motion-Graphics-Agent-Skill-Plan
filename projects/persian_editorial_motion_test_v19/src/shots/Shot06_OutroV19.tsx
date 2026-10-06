@@ -2,18 +2,18 @@ import React from 'react';
 import { interpolate, useCurrentFrame, Easing, AbsoluteFill } from 'remotion';
 import { CameraGrammarRig } from '../../../../src/camera/CameraGrammarRig';
 import { CanvasAtmosphereV19 } from '../../../../src/effects/CanvasAtmosphereV19';
-import { calculateCollision } from '../../../../src/motion/mechanisms/Collision';
+import { calculateSettleLock, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { calculateRipple } from '../../../../src/motion/mechanisms/Ripple';
-import { calculateIdleBreathing, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { evaluateProsodicState } from '../../../../src/motion/prosody/prosodicMotionHook';
 import { AUTHORIZED_CONTENT } from '../../../../src/content/authorizedContent';
 import { executeTextMaskReveal } from '../../../../src/motion/recipes/TextMaskRevealRecipe';
 import { AutoFitText } from '../../../../src/motion/recipes/AutoFitTextRecipe';
 
 /**
- * SHOT 06 — INSTITUTIONAL RESOLUTION & MASTER OUTRO (V19)
- * True Motion Graphics Transformation: Singularity Detonation → Radial Rays → Heraldic Seal Assembly
- * Replaces the small static medal with a full-canvas broadcast-grade closing identity.
+ * SHOT 06 — INSTITUTIONAL RESOLUTION & MASTER OUTRO (V20 STABLE)
+ * V20 Motion Stability: Singularity detonation into settle-locked heraldic crest,
+ * stabilized compass orientation, zero breathing jitter on typography,
+ * and canonical «بقیه‌الله» pronunciation lock.
  * Frame Range: 2155 - 2361 (Global) / 0 - 206 (Local)
  */
 export const Shot06_OutroV19: React.FC = () => {
@@ -21,33 +21,26 @@ export const Shot06_OutroV19: React.FC = () => {
   const globalFrame = localFrame + 2155;
   const fps = 30;
 
-  // Prosodic speech modulation
+  // Prosodic speech modulation (rim lighting only, no geometric scale jitter)
   const prosodic = evaluateProsodicState(globalFrame);
-  const prosodicScale = prosodic?.modulatedScale ?? 1.0;
   const prosodicRim = prosodic?.rimIntensity ?? 0.6;
 
-  // 1. Singularity Detonation & Radial Ray Burst (0 - 40f)
-  // Explodes outward, then snaps inward to form the crest
-  const burstExpansion = interpolate(localFrame, [0, 20], [0.05, 1.4], {
+  // 1. Singularity Detonation from incoming Shot 05 node (0 - 20f)
+  // Explodes outward from 0.05 to 1.3
+  const burstExpansion = interpolate(localFrame, [0, 20], [0.05, 1.3], {
     easing: Easing.bezier(0.1, 1, 0.2, 1),
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const crestAssemblyProgress = interpolate(localFrame, [20, 42], [1.4, 1.0], {
-    easing: Easing.bezier(0.34, 1.56, 0.64, 1),
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-  const crestEffectiveScale = localFrame < 20 ? burstExpansion : crestAssemblyProgress;
 
-  // 2. Collision Lock on Frame 40 (global 2195)
-  const crestCollision = calculateCollision(localFrame, 40, {
-    reboundAmplitude: 14,
-    decay: 0.24,
-    maxSquash: 0.16,
+  // 2. Collision Lock & DETERMINISTIC SETTLE LOCK on Frame 40 (global 2195)
+  // Settles into hard lock by frame 60 (Zero Jitter)
+  const crestSettle = calculateSettleLock(localFrame, 40, {
+    anticipationFrames: 14,
+    settleFrames: 20,
+    scalePeak: 1.15,
   });
   const ripple = calculateRipple(localFrame, 40, 50, 360);
-  const crestSecondary = calculateCausalSecondaryReaction(localFrame, 40, 4, 24);
 
   // 3. Typographic Reveals
   // Institutional Title Strike (45 - 80f)
@@ -62,10 +55,6 @@ export const Shot06_OutroV19: React.FC = () => {
 
   // Final Call to Action Reveal (135 - 175f)
   const ctaReveal = executeTextMaskReveal(localFrame, 135, fps, 'bottom-to-top', true);
-
-  // 4. Continuous Living Idle Motion (Rotation and Breath)
-  const ringRotation = (localFrame * 0.25) % 360;
-  const breathing = calculateIdleBreathing(localFrame, 0.28, 0.008);
 
   return (
     <AbsoluteFill style={{ overflow: 'hidden' }}>
@@ -96,7 +85,7 @@ export const Shot06_OutroV19: React.FC = () => {
           >
             {/* 12 Radiating Geometric Construction Rays */}
             {Array.from({ length: 12 }).map((_, i) => {
-              const deg = i * 30 + ringRotation;
+              const deg = i * 30;
               const rayLength = interpolate(localFrame, [0, 25, 45], [20, 240, 130], {
                 extrapolateLeft: 'clamp',
                 extrapolateRight: 'clamp',
@@ -133,7 +122,7 @@ export const Shot06_OutroV19: React.FC = () => {
               position: 'absolute',
               top: '32%',
               left: '50%',
-              transform: `translate(-50%, -50%) scale(${crestEffectiveScale * crestCollision.squashScaleX * breathing.scale * (1 + (crestSecondary.expansionScale - 1) * 0.4)}) translateY(${crestCollision.displacementY}px)`,
+              transform: `translate(-50%, -50%) scale(${localFrame < 20 ? burstExpansion : crestSettle.scale}) translateY(${localFrame < 20 ? 0 : crestSettle.translateY}px)`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -153,14 +142,14 @@ export const Shot06_OutroV19: React.FC = () => {
                 boxShadow: `0 0 40px rgba(212, 175, 55, ${0.4 * prosodicRim})`,
               }}
             >
-              {/* Concentric Dashed Compass Ring */}
+              {/* Concentric Dashed Compass Ring (Stabilized Orientation) */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 12,
                   borderRadius: '50%',
                   border: '1.5px dashed #D4AF37',
-                  transform: `rotate(${ringRotation * -1}deg)`,
+                  transform: 'rotate(-45deg)',
                 }}
               />
 

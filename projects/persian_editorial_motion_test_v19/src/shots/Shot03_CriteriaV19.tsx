@@ -2,8 +2,7 @@ import React from 'react';
 import { interpolate, useCurrentFrame, Easing, AbsoluteFill } from 'remotion';
 import { CameraGrammarRig } from '../../../../src/camera/CameraGrammarRig';
 import { CanvasAtmosphereV19 } from '../../../../src/effects/CanvasAtmosphereV19';
-import { calculateKeywordStrike } from '../../../../src/typography/typographyBehaviors';
-import { calculateIdleBreathing, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
+import { calculateSettleLock, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { evaluateProsodicState } from '../../../../src/motion/prosody/prosodicMotionHook';
 import { AUTHORIZED_CONTENT } from '../../../../src/content/authorizedContent';
 import { executeTextMaskReveal } from '../../../../src/motion/recipes/TextMaskRevealRecipe';
@@ -11,9 +10,10 @@ import { AutoFitText } from '../../../../src/motion/recipes/AutoFitTextRecipe';
 import { executeDatumRuleAxisCollapse } from '../../../../src/transition/carryTransitions';
 
 /**
- * SHOT 03 — TRIPARTITE PREREQUISITE CRITERIA (V19)
- * True Motion Graphics Transformation: Monumental Typography & Geometric Constellations
- * HARD BAN on Web/UI Card Grids! Pure graphic choreography across the full 1920x1080 canvas.
+ * SHOT 03 — TRIPARTITE PREREQUISITE CRITERIA (V20 STABLE)
+ * V20 Motion Stability: Settle-locked metrics («۱۶», Caliper, «۶»),
+ * zero breathing jitter on columns, stable hexagonal constellation,
+ * and continuous datum collapse into Shot 04.
  * Frame Range: 620 - 1480 (Global) / 0 - 860 (Local)
  */
 export const Shot03_CriteriaV19: React.FC = () => {
@@ -21,15 +21,14 @@ export const Shot03_CriteriaV19: React.FC = () => {
   const globalFrame = localFrame + 620;
   const fps = 30;
 
-  // Prosodic speech modulation
+  // Prosodic speech modulation (rim lighting only, no geometric scale jitter)
   const prosodic = evaluateProsodicState(globalFrame);
-  const prosodicScale = prosodic?.modulatedScale ?? 1.0;
   const prosodicRim = prosodic?.rimIntensity ?? 0.6;
 
   // 1. Header Title Reveal across the upper architectural frieze (0 - 40f)
   const headerReveal = executeTextMaskReveal(localFrame, 10, fps, 'bottom-to-top', true);
 
-  // 2. Three Stepped Graphic Milestone Choreographies:
+  // 2. Three Stepped Graphic Milestone Choreographies with DETERMINISTIC SETTLE LOCKS:
   // -------------------------------------------------------------
   // CRITERION 1: GPA >= 16 (Local f = 45 to 260 / Hit at f = 235)
   // -------------------------------------------------------------
@@ -43,12 +42,11 @@ export const Shot03_CriteriaV19: React.FC = () => {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const c1Strike = calculateKeywordStrike(localFrame, 235, {
+  const c1Settle = calculateSettleLock(localFrame, 235, {
     anticipationFrames: 8,
     settleFrames: 16,
-    scalePeak: 1.18,
+    scalePeak: 1.15,
   });
-  const c1Secondary = calculateCausalSecondaryReaction(localFrame, 235, 4, 22);
 
   // -------------------------------------------------------------
   // CRITERION 2: Caliper Clearance (Local f = 250 to 450 / Hit at f = 415)
@@ -64,12 +62,11 @@ export const Shot03_CriteriaV19: React.FC = () => {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const c2Strike = calculateKeywordStrike(localFrame, 415, {
+  const c2Settle = calculateSettleLock(localFrame, 415, {
     anticipationFrames: 8,
     settleFrames: 16,
     scalePeak: 1.15,
   });
-  const c2Secondary = calculateCausalSecondaryReaction(localFrame, 415, 4, 22);
 
   // -------------------------------------------------------------
   // CRITERION 3: 6 Orbiting Articles Constellation (Local f = 440 to 800 / Hit at f = 595)
@@ -84,17 +81,13 @@ export const Shot03_CriteriaV19: React.FC = () => {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const c3Strike = calculateKeywordStrike(localFrame, 595, {
+  const c3Settle = calculateSettleLock(localFrame, 595, {
     anticipationFrames: 8,
     settleFrames: 16,
-    scalePeak: 1.18,
+    scalePeak: 1.15,
   });
-  const c3Secondary = calculateCausalSecondaryReaction(localFrame, 595, 4, 22);
 
-  // 3. Living Idle Breath across the entire diagram
-  const breathing = calculateIdleBreathing(localFrame, 0.3, 0.006);
-
-  // 4. T3 Carry Transition: Collapse into Horizontal Datum Line (local 825 - 860f)
+  // 3. T3 Carry Transition: Collapse into Horizontal Datum Line (local 825 - 860f)
   const t3Collapse = executeDatumRuleAxisCollapse(localFrame, 825, 860);
 
   return (
@@ -174,7 +167,7 @@ export const Shot03_CriteriaV19: React.FC = () => {
                 alignItems: 'center',
                 padding: '20px 30px',
                 opacity: c1Entrance,
-                transform: `scale(${c1Strike.scale * breathing.scale * (1 + (c1Secondary.expansionScale - 1) * 0.4)})`,
+                transform: `scale(${c1Settle.scale}) translateY(${c1Settle.translateY}px)`,
               }}
             >
               {/* Subtle architectural vertical axis dividing zone */}
@@ -261,7 +254,7 @@ export const Shot03_CriteriaV19: React.FC = () => {
                 alignItems: 'center',
                 padding: '20px 30px',
                 opacity: c2Entrance,
-                transform: `scale(${c2Strike.scale * breathing.scale * (1 + (c2Secondary.expansionScale - 1) * 0.4)})`,
+                transform: `scale(${c2Settle.scale}) translateY(${c2Settle.translateY}px)`,
               }}
             >
               {/* Vertical axis divider */}
@@ -390,7 +383,7 @@ export const Shot03_CriteriaV19: React.FC = () => {
                 alignItems: 'center',
                 padding: '20px 30px',
                 opacity: c3Entrance,
-                transform: `scale(${c3Strike.scale * breathing.scale * (1 + (c3Secondary.expansionScale - 1) * 0.4)})`,
+                transform: `scale(${c3Settle.scale}) translateY(${c3Settle.translateY}px)`,
               }}
             >
               {/* Milestone Tag */}
@@ -410,7 +403,7 @@ export const Shot03_CriteriaV19: React.FC = () => {
                 <span>{AUTHORIZED_CONTENT.shot03.c3Label.text}</span>
               </div>
 
-              {/* 6 Orbiting Hexagonal Facets Constellation */}
+              {/* 6 Hexagonal Facets Constellation (Stabilized Orientation) */}
               <div
                 style={{
                   width: 180,
@@ -435,9 +428,9 @@ export const Shot03_CriteriaV19: React.FC = () => {
                   ۶
                 </div>
 
-                {/* 6 Orbiting Vector Nodes */}
+                {/* 6 Hexagonal Nodes (Crisp Static Angles) */}
                 {Array.from({ length: 6 }).map((_, i) => {
-                  const angle = (i * 60 + localFrame * 0.5) * (Math.PI / 180);
+                  const angle = (i * 60) * (Math.PI / 180);
                   const radius = 50 * c3ConstellationProgress;
                   const nx = Math.cos(angle) * radius;
                   const ny = Math.sin(angle) * radius;
@@ -498,10 +491,10 @@ export const Shot03_CriteriaV19: React.FC = () => {
                 left: '50%',
                 transform: `translate(-50%, -50%) scaleX(${t3Collapse.scaleX}) scaleY(${t3Collapse.scaleY})`,
                 width: 1800,
-                height: 3,
-                backgroundColor: '#D4AF37',
-                boxShadow: '0 0 24px rgba(212, 175, 55, 0.9)',
-                opacity: t3Collapse.opacity,
+                height: 4,
+                backgroundColor: '#38BDF8',
+                boxShadow: '0 0 24px rgba(56, 189, 248, 0.9)',
+                opacity: t3Collapse.lineOpacity,
               }}
             />
           )}

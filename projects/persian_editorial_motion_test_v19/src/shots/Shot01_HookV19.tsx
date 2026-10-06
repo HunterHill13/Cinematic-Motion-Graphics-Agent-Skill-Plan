@@ -2,8 +2,7 @@ import React from 'react';
 import { interpolate, useCurrentFrame, Easing, AbsoluteFill } from 'remotion';
 import { CameraGrammarRig } from '../../../../src/camera/CameraGrammarRig';
 import { CanvasAtmosphereV19 } from '../../../../src/effects/CanvasAtmosphereV19';
-import { calculateKeywordStrike } from '../../../../src/typography/typographyBehaviors';
-import { calculateIdleBreathing, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
+import { calculateSettleLock, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { evaluateProsodicState } from '../../../../src/motion/prosody/prosodicMotionHook';
 import { AUTHORIZED_CONTENT } from '../../../../src/content/authorizedContent';
 import { executeTextMaskReveal } from '../../../../src/motion/recipes/TextMaskRevealRecipe';
@@ -11,21 +10,20 @@ import { AutoFitText } from '../../../../src/motion/recipes/AutoFitTextRecipe';
 import { executeKineticUnderlineHandoff } from '../../../../src/transition/carryTransitions';
 
 /**
- * SHOT 01 — THE EDITORIAL HOOK & CORE QUESTION (V19)
- * True Motion Graphics Transformation: Time-Based Graphic Choreography
- * Replaces centered isolated text with full-canvas architectural staging.
+ * SHOT 01 — THE EDITORIAL HOOK & CORE QUESTION (V20 STABLE)
+ * V20 Motion Stability: Locked Settle States (Zero Jitter), Stable Typography,
+ * True Continuous Rotational Sweep Handoff into Shot 02.
  * Frame Range: 0 - 380 (12.67s @ 30 FPS)
  */
 export const Shot01_HookV19: React.FC = () => {
   const frame = useCurrentFrame();
   const fps = 30;
 
-  // Spoken Prosody Dual-Clock state
+  // Spoken Prosody Dual-Clock state (lighting rim only, no geometric scale jitter)
   const prosodic = evaluateProsodicState(frame);
-  const prosodicScale = prosodic?.modulatedScale ?? 1.0;
   const prosodicRim = prosodic?.rimIntensity ?? 0.6;
 
-  // 1. Initial Architectural Grid Horizon (0 - 45f)
+  // 1. Initial Architectural Grid Horizon (0 - 25f)
   const horizonUnroll = interpolate(frame, [0, 25], [0, 1], {
     easing: Easing.bezier(0.16, 1, 0.3, 1),
     extrapolateLeft: 'clamp',
@@ -43,23 +41,24 @@ export const Shot01_HookV19: React.FC = () => {
   });
   const attributionVisible = frame < 170;
 
-  // 4. Central Question Lead Arrival (172 - 210f)
+  // 4. Central Question Lead Arrival (172 - 205f)
   const questionLeadProgress = interpolate(frame, [172, 205], [0, 1], {
     easing: Easing.bezier(0.16, 1, 0.3, 1),
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
 
-  // 5. Hero Keyword Strike & Seismic Impact on frame 234
+  // 5. Hero Keyword Strike & DETERMINISTIC SETTLE LOCK on frame 234
+  // Guarantees exact 1.0 scale, 0px offset after frame 250 (Zero Shimmer)
   const heroStrikeFrame = 234;
-  const heroStrike = calculateKeywordStrike(frame, heroStrikeFrame, {
+  const heroSettle = calculateSettleLock(frame, heroStrikeFrame, {
     anticipationFrames: 8,
     settleFrames: 16,
     scalePeak: 1.15,
   });
 
   // Causal Secondary Reaction along the coordinate datum
-  const secondaryReaction = calculateCausalSecondaryReaction(frame, heroStrikeFrame, 4, 22);
+  const secondaryReaction = calculateCausalSecondaryReaction(frame, heroStrikeFrame, 4, 20);
 
   // 6. Question Suffix Entrance (250 - 280f)
   const suffixProgress = interpolate(frame, [250, 280], [0, 1], {
@@ -68,16 +67,9 @@ export const Shot01_HookV19: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // 7. Living Idle Breath (Never frozen)
-  const breathing = calculateIdleBreathing(frame, 0.3, 0.008);
-
-  // 8. T1 Carry Transition: Accelerating Golden Structural Beam (350 - 380f)
-  const carryT1 = executeKineticUnderlineHandoff(frame, 350, 380, {
-    startX: 140,
-    endX: 1960,
-    initialWidth: 1640,
-    terminalWidth: 1920,
-  });
+  // 7. T1 Carry Transition: True Rotational Sweep into Vertical Divider (350 - 380f)
+  const carryT1 = executeKineticUnderlineHandoff(frame, 350, 380);
+  const isT1Active = frame >= 350;
 
   return (
     <AbsoluteFill style={{ overflow: 'hidden' }}>
@@ -237,13 +229,13 @@ export const Shot01_HookV19: React.FC = () => {
                 </span>
               </div>
 
-              {/* MONUMENTAL HERO TITLE WITH KEYWORD STRIKE (f234) */}
+              {/* MONUMENTAL HERO TITLE WITH DETERMINISTIC SETTLE LOCK (f234) */}
               {frame >= heroStrikeFrame - 8 && (
                 <div
                   style={{
                     width: '100%',
-                    transform: `scale(${heroStrike.scale * (1 + (secondaryReaction.expansionScale - 1) * 0.4) * breathing.scale * prosodicScale}) translateY(${heroStrike.translateY}px)`,
-                    opacity: heroStrike.opacity,
+                    transform: `scale(${heroSettle.scale}) translateY(${heroSettle.translateY}px)`,
+                    opacity: heroSettle.opacity,
                     textAlign: 'center',
                     marginBottom: 28,
                   }}
@@ -290,9 +282,9 @@ export const Shot01_HookV19: React.FC = () => {
           )}
 
           {/* ======================================================== */}
-          {/* SEISMIC IMPACT RIPPLE ALONG THE HORIZON (f234)           */}
+          {/* SEISMIC IMPACT RIPPLE ALONG THE HORIZON (f234 - f258)    */}
           {/* ======================================================== */}
-          {frame >= 234 && frame <= 270 && (
+          {frame >= 234 && frame <= 258 && (
             <div
               style={{
                 position: 'absolute',
@@ -300,9 +292,9 @@ export const Shot01_HookV19: React.FC = () => {
                 left: '50%',
                 transform: 'translate(-50%, -50%)',
                 width: (frame - 234) * 45,
-                height: 4,
+                height: 3,
                 backgroundColor: '#D4AF37',
-                opacity: Math.max(0, 1 - (frame - 234) / 36),
+                opacity: Math.max(0, 1 - (frame - 234) / 24),
                 borderRadius: 2,
                 boxShadow: '0 0 20px rgba(212, 175, 55, 0.8)',
               }}
@@ -310,19 +302,21 @@ export const Shot01_HookV19: React.FC = () => {
           )}
 
           {/* ======================================================== */}
-          {/* T1 CARRY TRANSITION: ACCELERATING STRUCTURAL BEAM        */}
+          {/* T1 CARRY TRANSITION: TRUE ROTATIONAL SWEEP (350 - 380f)  */}
+          {/* Sweeps horizontal beam 90deg to dock vertically at x=560 */}
           {/* ======================================================== */}
-          {frame >= 345 && (
+          {isT1Active && (
             <div
               style={{
                 position: 'absolute',
-                left: carryT1.x,
-                top: '52%',
-                width: carryT1.width,
-                height: 5,
+                top: `${carryT1.topPercent}%`,
+                right: interpolate(carryT1.progress, [0, 1], [80, 560]),
+                width: 2.5,
+                height: carryT1.length,
                 backgroundColor: '#D4AF37',
-                boxShadow: '0 0 24px rgba(212, 175, 55, 0.9)',
-                borderRadius: 3,
+                boxShadow: '0 0 20px rgba(212, 175, 55, 0.9)',
+                transformOrigin: 'right top',
+                transform: `rotate(${carryT1.rotationDeg}deg)`,
                 opacity: carryT1.opacity,
               }}
             />

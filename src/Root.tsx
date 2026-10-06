@@ -62,6 +62,15 @@ import {
   V19MasterFinalContactSheet,
   V19MotionSheetMaster,
 } from '../projects/persian_editorial_motion_test_v19/src/V19ReviewSheets';
+import { V20MotionStabilityBenchmark } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V20MotionStabilityBenchmark';
+import { V20TransitionBenchmark } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V20TransitionBenchmark';
+import {
+  V20Transition01Sheet,
+  V20Transition02Sheet,
+  V20Transition03Sheet,
+  V20Transition04Sheet,
+  V20Transition05Sheet,
+} from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V20TransitionFrameSheets';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -705,6 +714,88 @@ export const Root: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* V20 Motion Stability Benchmark (180 frames @ 30 FPS = 6.00s) */}
+      <Composition
+        id="V20MotionStabilityBenchmark"
+        component={V20MotionStabilityBenchmark}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V20 Transition Integrity Benchmark (300 frames @ 30 FPS = 10.00s) */}
+      <Composition
+        id="V20TransitionBenchmark"
+        component={V20TransitionBenchmark}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V20 Transition Frame Sheets (1920x1080) */}
+      <Composition
+        id="V20Transition01Sheet"
+        component={V20Transition01Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V20Transition02Sheet"
+        component={V20Transition02Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V20Transition03Sheet"
+        component={V20Transition03Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V20Transition04Sheet"
+        component={V20Transition04Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V20Transition05Sheet"
+        component={V20Transition05Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V20 Master Final Composition (2361 frames @ 30 FPS = 78.71s) */}
+      <Composition
+        id="V20MasterFinal"
+        component={PersianEditorialMasterV19}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V20 Master Final Contact Sheet (3840x2160 4K UHD) */}
+      <Composition
+        id="V20MasterFinalContactSheet"
+        component={V19MasterFinalContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
       />
 
       {/* Legacy 16:9 Landscape Composition */}

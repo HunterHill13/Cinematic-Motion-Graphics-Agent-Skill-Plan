@@ -2,9 +2,8 @@ import React from 'react';
 import { interpolate, useCurrentFrame, Easing, AbsoluteFill } from 'remotion';
 import { CameraGrammarRig } from '../../../../src/camera/CameraGrammarRig';
 import { CanvasAtmosphereV19 } from '../../../../src/effects/CanvasAtmosphereV19';
-import { calculateCollision } from '../../../../src/motion/mechanisms/Collision';
+import { calculateSettleLock, calculateDecayingImpactShake } from '../../../../src/motion/secondaryMotion';
 import { calculateRipple } from '../../../../src/motion/mechanisms/Ripple';
-import { calculateIdleBreathing, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { evaluateProsodicState } from '../../../../src/motion/prosody/prosodicMotionHook';
 import { AUTHORIZED_CONTENT } from '../../../../src/content/authorizedContent';
 import { executeTextMaskReveal } from '../../../../src/motion/recipes/TextMaskRevealRecipe';
@@ -12,9 +11,10 @@ import { AutoFitText } from '../../../../src/motion/recipes/AutoFitTextRecipe';
 import { executePlanarStageFold } from '../../../../src/transition/carryTransitions';
 
 /**
- * SHOT 04 — TEMPORAL CUTOFF & LEGAL CALENDAR (V19)
- * True Motion Graphics Transformation: Full-Bleed Kinetic Horizon & Physical Monolith Collision
- * HARD BAN on Slider UI and Dashboard Cards! A physical temporal trajectory colliding with an immovable barrier.
+ * SHOT 04 — TEMPORAL CUTOFF & LEGAL CALENDAR (V20 STABLE)
+ * V20 Motion Stability: T3 continuous rail intake, bounded impact shake,
+ * settle-locked barrier, zero breathing jitter on warning text,
+ * and continuous foundation plinth dock into Shot 05.
  * Frame Range: 1450 - 1730 (Global) / 0 - 280 (Local)
  */
 export const Shot04_TimeWindowV19: React.FC = () => {
@@ -22,37 +22,36 @@ export const Shot04_TimeWindowV19: React.FC = () => {
   const globalFrame = localFrame + 1450;
   const fps = 30;
 
-  // Spoken Prosody Dual-Clock state
+  // Spoken Prosody Dual-Clock state (rim lighting only, no geometric scale jitter)
   const prosodic = evaluateProsodicState(globalFrame);
-  const prosodicScale = prosodic?.modulatedScale ?? 1.0;
   const prosodicRim = prosodic?.rimIntensity ?? 0.6;
 
   // 1. Header Reveal (0 - 35f)
   const headerReveal = executeTextMaskReveal(localFrame, 10, fps, 'bottom-to-top', true);
 
-  // 2. Full-Canvas Chronological Horizon Expansion (20 - 45f)
-  const horizonWidth = interpolate(localFrame, [20, 45], [0, 1800], {
+  // 2. High-Velocity Kinetic Pulse Trajectory (20 - 125f)
+  // Travels right-to-left along the ALREADY present 1800px horizontal rail from Shot 03
+  const pulseProgress = interpolate(localFrame, [20, 125], [0, 1], {
     easing: Easing.bezier(0.16, 1, 0.3, 1),
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
 
-  // 3. High-Velocity Kinetic Pulse Trajectory (35 - 125f)
-  // Travels right-to-left from "دوران تحصیل" to Month 12 Cutoff
-  const pulseProgress = interpolate(localFrame, [35, 125], [0, 1], {
-    easing: Easing.bezier(0.16, 1, 0.3, 1),
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
-
-  // 4. Physical Collision at local f = 125 (global f = 1575)
-  const barrierCollision = calculateCollision(localFrame, 125, {
-    reboundAmplitude: 16,
-    decay: 0.24,
-    maxSquash: 0.18,
+  // 3. Physical Collision & DETERMINISTIC SETTLE LOCK at local f = 125 (global f = 1575)
+  // Reaches strict 1.0 lock by frame 140 (Zero Jitter)
+  const barrierSettle = calculateSettleLock(localFrame, 125, {
+    anticipationFrames: 6,
+    settleFrames: 14,
+    scalePeak: 1.15,
   });
   const ripple = calculateRipple(localFrame, 125, 45, 280);
-  const barrierSecondary = calculateCausalSecondaryReaction(localFrame, 125, 4, 24);
+
+  // 4. Bounded Exponentially Decaying Impact Shake (f125 - f135, strictly 0 afterwards)
+  const impactShake = calculateDecayingImpactShake(localFrame, 125, {
+    durationFrames: 10,
+    amplitude: 8,
+    frequency: 1.5,
+  });
 
   // 5. Warning & Explanatory Text Reveals (135 - 175f)
   const warningProgress = interpolate(localFrame, [135, 175], [0, 1], {
@@ -61,17 +60,8 @@ export const Shot04_TimeWindowV19: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // 6. Living Idle Breath
-  const breathing = calculateIdleBreathing(localFrame, 0.3, 0.008);
-
-  // 7. T4 Carry Transition: 3D Planar Stage Fold into Shot 05 (local 250 - 280f)
+  // 6. T4 Carry Transition: Foundation Plinth Dock into Shot 05 (local 250 - 280f)
   const t4Fold = executePlanarStageFold(localFrame, 250, 280);
-
-  // Collision screen shake (at f = 125 to 135)
-  const screenShakeX =
-    localFrame >= 125 && localFrame <= 135
-      ? Math.sin((localFrame - 125) * Math.PI * 2) * (135 - localFrame) * 0.8
-      : 0;
 
   return (
     <AbsoluteFill style={{ overflow: 'hidden' }}>
@@ -84,7 +74,7 @@ export const Shot04_TimeWindowV19: React.FC = () => {
           style={{
             direction: 'rtl',
             fontFamily: 'Vazirmatn, system-ui, sans-serif',
-            transform: `translateX(${screenShakeX}px)`,
+            transform: `translateX(${impactShake.shakeX}px)`,
           }}
         >
           {/* ======================================================== */}
@@ -138,7 +128,7 @@ export const Shot04_TimeWindowV19: React.FC = () => {
               justifyContent: 'center',
               transform:
                 localFrame >= 250
-                  ? `perspective(800px) rotateX(${t4Fold.rotateX}deg) translateY(${t4Fold.translateY}px)`
+                  ? `translateY(${t4Fold.translateY}px)`
                   : undefined,
               opacity: localFrame >= 250 ? t4Fold.opacity : 1,
             }}
@@ -179,7 +169,7 @@ export const Shot04_TimeWindowV19: React.FC = () => {
                   display: 'flex',
                   alignItems: 'center',
                   gap: 14,
-                  transform: `scale(${localFrame >= 125 ? barrierCollision.squashScaleX * (1 + (barrierSecondary.expansionScale - 1) * 0.4) : 1})`,
+                  transform: `scale(${barrierSettle.scale}) translateY(${barrierSettle.translateY}px)`,
                 }}
               >
                 <div style={{ width: 14, height: 14, backgroundColor: '#EF4444', borderRadius: 2 }} />
@@ -296,7 +286,7 @@ export const Shot04_TimeWindowV19: React.FC = () => {
               alignItems: 'center',
               textAlign: 'center',
               opacity: warningProgress,
-              transform: `translateY(${(1 - warningProgress) * 24}px) scale(${breathing.scale})`,
+              transform: `translateY(${(1 - warningProgress) * 24}px)`,
             }}
           >
             <div

@@ -76,8 +76,8 @@ export function calculateCarryTransition(
 }
 
 /**
- * T1: Kinetic Underline Handoff
- * Handoff from Shot 01 underline ray to Shot 02 upper monolith border.
+ * T1: Kinetic Sweep Handoff (S01 -> S02)
+ * Horizontal horizon datum sweeps and rotates 90deg clockwise to become the vertical divider at right: 560.
  */
 export function executeKineticUnderlineHandoff(
   frame: number,
@@ -85,27 +85,34 @@ export function executeKineticUnderlineHandoff(
   endFrame: number,
   options?: { startX?: number; endX?: number; initialWidth?: number; terminalWidth?: number }
 ) {
-  const {
-    startX = 960,
-    endX = -200,
-    initialWidth = 820,
-    terminalWidth = 1400,
-  } = options || {};
-
   const duration = Math.max(1, endFrame - startFrame);
   const raw = Math.min(1, Math.max(0, (frame - startFrame) / duration));
-  const ease = Easing.bezier(0.7, 0, 0.9, 0.2)(raw);
+  const ease = Easing.bezier(0.16, 1, 0.3, 1)(raw);
 
-  const x = interpolate(ease, [0, 1], [startX, endX]);
-  const width = interpolate(ease, [0, 0.7, 1], [initialWidth, initialWidth * 1.5, terminalWidth]);
-  const opacity = interpolate(raw, [0, 0.8, 1], [1, 1, 0.85]);
+  // Rotation from 0 (horizontal) to 90deg (vertical)
+  const rotationDeg = interpolate(ease, [0, 1], [0, 90]);
+  // Translation to align with Shot 02 vertical divider at right: 560
+  const topPercent = interpolate(ease, [0, 1], [52, 48]);
+  const length = interpolate(ease, [0, 1], [1760, 940]);
+  const opacity = interpolate(raw, [0, 0.8, 1], [1, 1, 0.95]);
 
-  return { progress: raw, x, width, opacity };
+  // Backward-compatible properties for v15-v18
+  const x = interpolate(ease, [0, 1], [options?.startX ?? 960, options?.endX ?? -200]);
+  const width = interpolate(ease, [0, 0.7, 1], [
+    options?.initialWidth ?? 820,
+    (options?.initialWidth ?? 820) * 1.5,
+    options?.terminalWidth ?? 1400,
+  ]);
+
+  return { progress: raw, rotationDeg, topPercent, length, opacity, x, width };
 }
 
 /**
- * T2: Symmetric Fission
- * Seal from Shot 02 splits outward into 3 structural pillars for Shot 03.
+ * T2: Symmetric Fission (S02 -> S03)
+ * Vertical divider at right: 560 splits into 3 harmonic vertical column axes:
+ * Axis 1 (Zone 1): right 640
+ * Axis 2 (Zone 2): right 1200
+ * Axis 3 (Zone 3): right 1760
  */
 export function executeSymmetricFission(
   frame: number,
@@ -113,26 +120,26 @@ export function executeSymmetricFission(
   endFrame: number,
   options?: { centerX?: number; leftTargetX?: number; rightTargetX?: number }
 ) {
-  const {
-    centerX = 960,
-    leftTargetX = 420,
-    rightTargetX = 1500,
-  } = options || {};
-
   const duration = Math.max(1, endFrame - startFrame);
   const raw = Math.min(1, Math.max(0, (frame - startFrame) / duration));
   const ease = Easing.bezier(0.2, 0.8, 0.2, 1)(raw);
 
-  const leftX = interpolate(ease, [0, 1], [centerX, leftTargetX]);
-  const rightX = interpolate(ease, [0, 1], [centerX, rightTargetX]);
-  const opacity = interpolate(raw, [0, 0.3, 1], [0, 1, 1]);
+  const axis1Right = interpolate(ease, [0, 1], [560, 640]);
+  const axis2Right = interpolate(ease, [0, 1], [560, 1200]);
+  const axis3Right = interpolate(ease, [0, 1], [560, 1760]);
+  const opacity = interpolate(raw, [0, 0.2, 1], [0.8, 1, 1]);
 
-  return { progress: raw, leftX, rightX, opacity };
+  // Backward-compatible properties for v15-v18
+  const leftX = interpolate(ease, [0, 1], [options?.centerX ?? 960, options?.leftTargetX ?? 420]);
+  const rightX = interpolate(ease, [0, 1], [options?.centerX ?? 960, options?.rightTargetX ?? 1500]);
+
+  return { progress: raw, axis1Right, axis2Right, axis3Right, leftX, rightX, opacity };
 }
 
 /**
- * T3: Datum Rule Axis Collapse
- * Center datum from Shot 03 pillars collapses into horizontal timeline axis for Shot 04.
+ * T3: Datum Rule Axis Collapse (S03 -> S04)
+ * The 3 columns and caliper collapse vertically onto the horizontal baseline rule at y = 520,
+ * which seamlessly matches Shot 04's timeline rail.
  */
 export function executeDatumRuleAxisCollapse(
   frame: number,
@@ -143,16 +150,17 @@ export function executeDatumRuleAxisCollapse(
   const raw = Math.min(1, Math.max(0, (frame - startFrame) / duration));
   const ease = Easing.bezier(0.16, 1, 0.3, 1)(raw);
 
-  const scaleY = interpolate(ease, [0, 0.6, 1], [1, 0.05, 0.02]);
-  const scaleX = interpolate(ease, [0, 1], [1, 1.4]);
-  const opacity = interpolate(raw, [0, 0.8, 1], [1, 1, 0.9]);
+  const scaleY = interpolate(ease, [0, 0.7, 1], [1, 0.05, 0.005]);
+  const scaleX = interpolate(ease, [0, 1], [1, 1.0]);
+  const lineOpacity = interpolate(raw, [0, 0.5, 1], [0, 0.8, 1]);
+  const contentOpacity = interpolate(raw, [0, 0.6, 1], [1, 0.2, 0]);
 
-  return { progress: raw, scaleX, scaleY, opacity };
+  return { progress: raw, scaleX, scaleY, lineOpacity, contentOpacity, opacity: lineOpacity };
 }
 
 /**
- * T4: Planar Stage Fold
- * Horizontal timeline axis folds in perspective to form base plinth for Shot 05.
+ * T4: Foundation Plinth Dock (S04 -> S05)
+ * Horizontal timeline rail lowers to y = 760 and thickens into the foundation plinth for Shot 05.
  */
 export function executePlanarStageFold(
   frame: number,
@@ -163,16 +171,17 @@ export function executePlanarStageFold(
   const raw = Math.min(1, Math.max(0, (frame - startFrame) / duration));
   const ease = Easing.bezier(0.25, 1, 0.5, 1)(raw);
 
+  const translateY = interpolate(ease, [0, 1], [0, 240]);
+  const plinthHeight = interpolate(ease, [0, 1], [4, 16]);
   const rotateX = interpolate(ease, [0, 1], [0, 60]);
-  const translateY = interpolate(ease, [0, 1], [0, 120]);
-  const opacity = interpolate(raw, [0, 0.8, 1], [1, 1, 0.9]);
+  const opacity = interpolate(raw, [0, 0.8, 1], [1, 1, 0.95]);
 
-  return { progress: raw, rotateX, translateY, opacity };
+  return { progress: raw, translateY, plinthHeight, rotateX, opacity };
 }
 
 /**
- * T5: Gravitational Singularity
- * Pedestals from Shot 05 collapse to center and expand as Golden Crest in Shot 06.
+ * T5: Gravitational Singularity (S05 -> S06)
+ * Diagonal summit vector collapses all vertices into the singularity node at (960, 345).
  */
 export function executeGravitationalSingularity(
   frame: number,
@@ -184,8 +193,11 @@ export function executeGravitationalSingularity(
   const easeIn = Easing.bezier(0.7, 0, 0.9, 0.2)(raw);
 
   const scale = interpolate(easeIn, [0, 0.85, 1], [1, 0.08, 0]);
+  const singularitySize = interpolate(easeIn, [0, 0.6, 1], [0, 12, 28]);
+  const singularityOpacity = interpolate(raw, [0, 0.3, 0.8, 1], [0, 0.6, 1, 1]);
   const glow = interpolate(easeIn, [0, 0.7, 1], [0, 25, 45]);
-  const opacity = interpolate(raw, [0, 0.85, 1], [1, 1, 0]);
 
-  return { progress: raw, scale, glow, opacity };
+  return { progress: raw, scale, singularitySize, singularityOpacity, glow, opacity: singularityOpacity };
 }
+
+

@@ -2,8 +2,7 @@ import React from 'react';
 import { interpolate, useCurrentFrame, Easing, AbsoluteFill } from 'remotion';
 import { CameraGrammarRig } from '../../../../src/camera/CameraGrammarRig';
 import { CanvasAtmosphereV19 } from '../../../../src/effects/CanvasAtmosphereV19';
-import { calculateKeywordStrike } from '../../../../src/typography/typographyBehaviors';
-import { calculateIdleBreathing, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
+import { calculateSettleLock, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { evaluateProsodicState } from '../../../../src/motion/prosody/prosodicMotionHook';
 import { AUTHORIZED_CONTENT } from '../../../../src/content/authorizedContent';
 import { executeTextMaskReveal } from '../../../../src/motion/recipes/TextMaskRevealRecipe';
@@ -11,9 +10,10 @@ import { AutoFitText } from '../../../../src/motion/recipes/AutoFitTextRecipe';
 import { executeGravitationalSingularity } from '../../../../src/transition/carryTransitions';
 
 /**
- * SHOT 05 — ACADEMIC DEGREE SCORE THRESHOLDS (V19)
- * True Motion Graphics Transformation: Single Evolving Sculptural Ascendance (65 → 110 → 130)
- * HARD BAN on Dashboard Bar Charts! A monumental typographic hierarchy with dynamic summit vectors.
+ * SHOT 05 — ACADEMIC DEGREE SCORE THRESHOLDS (V20 STABLE)
+ * V20 Motion Stability: Settle-locked numeric monoliths (۶۵, ۱۱۰, ۱۳۰),
+ * zero breathing jitter on monumental pillars, stable summit laser vector,
+ * and continuous singularity handoff into Shot 06.
  * Frame Range: 1700 - 2185 (Global) / 0 - 485 (Local)
  */
 export const Shot05_ThresholdsV19: React.FC = () => {
@@ -21,15 +21,14 @@ export const Shot05_ThresholdsV19: React.FC = () => {
   const globalFrame = localFrame + 1700;
   const fps = 30;
 
-  // Prosodic speech modulation
+  // Prosodic speech modulation (rim lighting only, no geometric scale jitter)
   const prosodic = evaluateProsodicState(globalFrame);
-  const prosodicScale = prosodic?.modulatedScale ?? 1.0;
   const prosodicRim = prosodic?.rimIntensity ?? 0.6;
 
   // 1. Header Title Reveal (0 - 35f)
   const headerReveal = executeTextMaskReveal(localFrame, 10, fps, 'bottom-to-top', true);
 
-  // 2. Progressive Monolith Elevations & Numeric Strikes
+  // 2. Progressive Monolith Elevations & DETERMINISTIC NUMERIC SETTLE LOCKS
   // -------------------------------------------------------------
   // TIER 1: BACHELOR (۶۵) at local f = 160
   // -------------------------------------------------------------
@@ -43,12 +42,11 @@ export const Shot05_ThresholdsV19: React.FC = () => {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const t1Strike = calculateKeywordStrike(localFrame, 160, {
+  const t1Settle = calculateSettleLock(localFrame, 160, {
     anticipationFrames: 8,
     settleFrames: 16,
     scalePeak: 1.15,
   });
-  const t1Secondary = calculateCausalSecondaryReaction(localFrame, 160, 4, 22);
 
   // -------------------------------------------------------------
   // TIER 2: GENERAL MEDICINE (۱۱۰) at local f = 290
@@ -63,12 +61,11 @@ export const Shot05_ThresholdsV19: React.FC = () => {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const t2Strike = calculateKeywordStrike(localFrame, 290, {
+  const t2Settle = calculateSettleLock(localFrame, 290, {
     anticipationFrames: 8,
     settleFrames: 16,
-    scalePeak: 1.16,
+    scalePeak: 1.15,
   });
-  const t2Secondary = calculateCausalSecondaryReaction(localFrame, 290, 4, 22);
 
   // -------------------------------------------------------------
   // TIER 3: PHD / SPECIALTY (۱۳۰) at local f = 390
@@ -83,12 +80,11 @@ export const Shot05_ThresholdsV19: React.FC = () => {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
-  const t3Strike = calculateKeywordStrike(localFrame, 390, {
+  const t3Settle = calculateSettleLock(localFrame, 390, {
     anticipationFrames: 8,
     settleFrames: 16,
-    scalePeak: 1.18,
+    scalePeak: 1.15,
   });
-  const t3Secondary = calculateCausalSecondaryReaction(localFrame, 390, 4, 22);
 
   // 3. Connecting Summit Vector (Draws across summits: 65 -> 110 -> 130)
   const summitVectorProgress = interpolate(localFrame, [360, 420], [0, 1], {
@@ -97,10 +93,7 @@ export const Shot05_ThresholdsV19: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // 4. Living Idle Breathing (continuous life)
-  const breathing = calculateIdleBreathing(localFrame, 0.3, 0.008);
-
-  // 5. T5 Carry Transition: Gravitational Singularity (local 450 - 485f)
+  // 4. T5 Carry Transition: Gravitational Singularity (local 450 - 485f)
   const t5Singularity = executeGravitationalSingularity(localFrame, 450, 485);
 
   return (
@@ -208,7 +201,7 @@ export const Shot05_ThresholdsV19: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                transform: `scale(${t1Strike.scale * breathing.scale * (1 + (t1Secondary.expansionScale - 1) * 0.4)})`,
+                transform: `scale(${t1Settle.scale}) translateY(${t1Settle.translateY}px)`,
               }}
             >
               {/* Monumental Numeral "۶۵" */}
@@ -278,7 +271,7 @@ export const Shot05_ThresholdsV19: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                transform: `scale(${t2Strike.scale * breathing.scale * (1 + (t2Secondary.expansionScale - 1) * 0.4)})`,
+                transform: `scale(${t2Settle.scale}) translateY(${t2Settle.translateY}px)`,
               }}
             >
               {/* Monumental Numeral "۱۱۰" */}
@@ -348,7 +341,7 @@ export const Shot05_ThresholdsV19: React.FC = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                transform: `scale(${t3Strike.scale * breathing.scale * (1 + (t3Secondary.expansionScale - 1) * 0.4)})`,
+                transform: `scale(${t3Settle.scale}) translateY(${t3Settle.translateY}px)`,
               }}
             >
               {/* Colossal Numeral "۱۳۰" */}
@@ -409,6 +402,28 @@ export const Shot05_ThresholdsV19: React.FC = () => {
               </div>
             </div>
           </div>
+
+          {/* ======================================================== */}
+          {/* T5 CARRY TRANSITION: GRAVITATIONAL SINGULARITY (450 - 485)*/}
+          {/* Collapses summit mass to center-top node at (960, 345)   */}
+          {/* ======================================================== */}
+          {localFrame >= 450 && (
+            <div
+              style={{
+                position: 'absolute',
+                top: '32%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                width: t5Singularity.singularitySize,
+                height: t5Singularity.singularitySize,
+                borderRadius: '50%',
+                backgroundColor: '#D4AF37',
+                boxShadow: '0 0 32px rgba(212, 175, 55, 1)',
+                opacity: t5Singularity.singularityOpacity,
+                pointerEvents: 'none',
+              }}
+            />
+          )}
         </AbsoluteFill>
       </CameraGrammarRig>
     </AbsoluteFill>

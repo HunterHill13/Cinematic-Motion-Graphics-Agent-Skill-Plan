@@ -2,48 +2,39 @@ import React from 'react';
 import { interpolate, useCurrentFrame, Easing, AbsoluteFill } from 'remotion';
 import { CameraGrammarRig } from '../../../../src/camera/CameraGrammarRig';
 import { CanvasAtmosphereV19 } from '../../../../src/effects/CanvasAtmosphereV19';
-import { calculateCollision } from '../../../../src/motion/mechanisms/Collision';
+import { calculateSettleLock, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { calculateRipple } from '../../../../src/motion/mechanisms/Ripple';
-import { calculateIdleBreathing, calculateCausalSecondaryReaction } from '../../../../src/motion/secondaryMotion';
 import { evaluateProsodicState } from '../../../../src/motion/prosody/prosodicMotionHook';
 import { AUTHORIZED_CONTENT } from '../../../../src/content/authorizedContent';
 import { AutoFitText } from '../../../../src/motion/recipes/AutoFitTextRecipe';
+import { executeSymmetricFission } from '../../../../src/transition/carryTransitions';
 
 /**
- * SHOT 02 — THE OFFICIAL STATUTE DECREE MONOLITH (V19)
- * True Motion Graphics Transformation: Asymmetrical Editorial Broadside
- * Replaces the web card box with full-frame architectural editorial layout.
+ * SHOT 02 — THE OFFICIAL STATUTE DECREE MONOLITH (V20 STABLE)
+ * V20 Motion Stability: Settle-locked legal seal, stable typography,
+ * continuous T1 intake, and true T2 symmetric fission handoff.
  * Frame Range: 350 - 650 (Global) / 0 - 300 (Local)
  */
 export const Shot02_DecreeV19: React.FC = () => {
   const localFrame = useCurrentFrame();
   const globalFrame = localFrame + 350;
 
-  // Prosodic speech modulation
+  // Prosodic speech modulation (rim lighting only, no geometric scale jitter)
   const prosodic = evaluateProsodicState(globalFrame);
-  const prosodicScale = prosodic?.modulatedScale ?? 1.0;
   const prosodicRim = prosodic?.rimIntensity ?? 0.6;
 
-  // 1. T1 Intake: Incoming beam locks as an architectural vertical divider (local 0 - 35f)
-  const dividerHeight = interpolate(localFrame, [0, 30], [0, 940], {
-    easing: Easing.bezier(0.16, 1, 0.3, 1),
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  // 1. T1 Intake: Seamless continuity from Shot 01's rotational sweep
+  // Divider is already docked at right: 560 with height 940px
+  const dividerHeight = 940;
 
   // 2. Official Seal Collision Lock at local f = 45 (global f = 395)
-  const sealCollision = calculateCollision(localFrame, 45, {
-    reboundAmplitude: 12,
-    decay: 0.22,
-    maxSquash: 0.16,
-  });
-  const sealScale = interpolate(localFrame, [10, 45], [0.2, 1], {
-    easing: Easing.bezier(0.16, 1, 0.3, 1),
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
+  // Settles into hard lock by frame 65 (Zero Jitter)
+  const sealSettle = calculateSettleLock(localFrame, 45, {
+    anticipationFrames: 14,
+    settleFrames: 18,
+    scalePeak: 1.15,
   });
   const ripple = calculateRipple(localFrame, 45, 40, 260);
-  const sealSecondary = calculateCausalSecondaryReaction(localFrame, 45, 4, 24);
 
   // 3. Typographic Headline Unroll (40 - 75f)
   const headlineProgress = interpolate(localFrame, [40, 75], [0, 1], {
@@ -66,26 +57,14 @@ export const Shot02_DecreeV19: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // 6. Living Idle Motion (continuous rotation & breath)
-  const sealRotation = (localFrame * 0.2) % 360;
-  const breathing = calculateIdleBreathing(localFrame, 0.32, 0.008);
-
-  // 7. T2 Symmetric Fission Handoff into Shot 03 (local 270 - 300f)
-  // The single divider splits into 3 harmonic vertical vectors
-  const fissionProgress = interpolate(localFrame, [270, 300], [0, 1], {
-    easing: Easing.bezier(0.2, 0.8, 0.2, 1),
-    extrapolateLeft: 'clamp',
-    extrapolateRight: 'clamp',
-  });
+  // 6. T2 Symmetric Fission Handoff into Shot 03 (local 270 - 300f)
+  // Single vertical divider splits into 3 harmonic vertical vectors:
+  // right: 640 (Zone 1), right: 1200 (Zone 2), right: 1760 (Zone 3)
+  const fission = executeSymmetricFission(localFrame, 270, 300);
   const isFissionActive = localFrame >= 270;
 
-  // Split positions: center (560), left (340), right (1580), center target (960)
-  const axisLeftX = interpolate(fissionProgress, [0, 1], [560, 340]);
-  const axisCenterX = interpolate(fissionProgress, [0, 1], [560, 960]);
-  const axisRightX = interpolate(fissionProgress, [0, 1], [560, 1580]);
-
-  // Overall shot fade out during fission handoff
-  const contentFadeOut = interpolate(localFrame, [280, 300], [1, 0.1], {
+  // Fade out text gently during fission handoff, but KEEP the 3 lines active
+  const contentFadeOut = interpolate(localFrame, [275, 300], [1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -148,7 +127,7 @@ export const Shot02_DecreeV19: React.FC = () => {
                 style={{
                   position: 'absolute',
                   top: 70,
-                  right: axisLeftX,
+                  right: fission.axis1Right,
                   width: 2,
                   height: 940,
                   backgroundColor: '#D4AF37',
@@ -159,7 +138,7 @@ export const Shot02_DecreeV19: React.FC = () => {
                 style={{
                   position: 'absolute',
                   top: 70,
-                  right: axisCenterX,
+                  right: fission.axis2Right,
                   width: 2,
                   height: 940,
                   backgroundColor: '#D4AF37',
@@ -170,7 +149,7 @@ export const Shot02_DecreeV19: React.FC = () => {
                 style={{
                   position: 'absolute',
                   top: 70,
-                  right: axisRightX,
+                  right: fission.axis3Right,
                   width: 2,
                   height: 940,
                   backgroundColor: '#D4AF37',
@@ -188,7 +167,7 @@ export const Shot02_DecreeV19: React.FC = () => {
               position: 'absolute',
               top: '50%',
               right: 180,
-              transform: `translate(0, -50%) scale(${sealScale * sealCollision.squashScaleX * breathing.scale * (1 + (sealSecondary.expansionScale - 1) * 0.5)}) translateY(${sealCollision.displacementY}px)`,
+              transform: `translate(0, -50%) scale(${sealSettle.scale}) translateY(${sealSettle.translateY}px)`,
               opacity: contentFadeOut,
               display: 'flex',
               flexDirection: 'column',
@@ -206,14 +185,14 @@ export const Shot02_DecreeV19: React.FC = () => {
                 justifyContent: 'center',
               }}
             >
-              {/* Outer Rotating Architectural Wireframe */}
+              {/* Outer Architectural Wireframe (Stabilized Orientation) */}
               <div
                 style={{
                   position: 'absolute',
                   inset: 0,
                   border: '1.5px dashed rgba(212, 175, 55, 0.5)',
                   borderRadius: '50%',
-                  transform: `rotate(${sealRotation}deg)`,
+                  transform: 'rotate(45deg)',
                 }}
               />
 
