@@ -47,6 +47,21 @@ import { Benchmark5_ClichéVsCinematic } from '../projects/v18_motion_benchmarks
 import { V18BenchmarkGallery } from '../projects/v18_motion_benchmarks/src/V18BenchmarkGallery';
 import { ProofOfQualityV18 } from '../projects/persian_editorial_motion_test_v18/src/ProofOfQualityV18';
 import { PersianEditorialMasterV18 } from '../projects/persian_editorial_motion_test_v18/src/PersianEditorialMasterV18';
+import { V18BenchmarkReviewReel } from '../projects/v18_motion_benchmarks/src/V18BenchmarkReviewReel';
+import { V18VisualReviewContactSheet } from '../projects/v18_motion_benchmarks/src/V18VisualReviewContactSheet';
+import {
+  V18MotionSheetB1,
+  V18MotionSheetB2,
+  V18MotionSheetB3,
+  V18MotionSheetB4,
+  V18MotionSheetB5,
+  V18MotionSheetMaster,
+} from '../projects/v18_motion_benchmarks/src/V18MotionContactSheets';
+import { PersianEditorialMasterV19 } from '../projects/persian_editorial_motion_test_v19/src/PersianEditorialMasterV19';
+import {
+  V19MasterFinalContactSheet,
+  V19MotionSheetMaster,
+} from '../projects/persian_editorial_motion_test_v19/src/V19ReviewSheets';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -587,6 +602,106 @@ export const Root: React.FC = () => {
         id="PersianEditorialMasterV18"
         component={PersianEditorialMasterV18}
         durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 Benchmark Review Reel (990 frames @ 30 FPS = 33.0s) */}
+      <Composition
+        id="V18BenchmarkReview"
+        component={V18BenchmarkReviewReel}
+        durationInFrames={990}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 Visual Review Master Contact Sheet (3840x2160 4K UHD) */}
+      <Composition
+        id="V18VisualReviewContactSheet"
+        component={V18VisualReviewContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* V18 Motion Contact Sheets (1920x1080) */}
+      <Composition
+        id="V18MotionSheetB1"
+        component={V18MotionSheetB1}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V18MotionSheetB2"
+        component={V18MotionSheetB2}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V18MotionSheetB3"
+        component={V18MotionSheetB3}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V18MotionSheetB4"
+        component={V18MotionSheetB4}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V18MotionSheetB5"
+        component={V18MotionSheetB5}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V18MotionSheetMaster"
+        component={V18MotionSheetMaster}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V19 True Motion Graphics Master Composition (2361 frames @ 30 FPS = 78.71s) */}
+      <Composition
+        id="PersianEditorialMasterV19"
+        component={PersianEditorialMasterV19}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V19 Master Final Contact Sheet (3840x2160 4K UHD) */}
+      <Composition
+        id="V19MasterFinalContactSheet"
+        component={V19MasterFinalContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* V19 Motion Sheet Master (1920x1080) */}
+      <Composition
+        id="V19MotionSheetMaster"
+        component={V19MotionSheetMaster}
+        durationInFrames={1}
         fps={30}
         width={1920}
         height={1080}

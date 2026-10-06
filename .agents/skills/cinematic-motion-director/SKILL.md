@@ -1,9 +1,9 @@
 ---
 name: cinematic-motion-director
-description: "AI Video Production Pipeline v18: Reference-Integrated, Director-Led, Content-Locked Cinematic Motion System for Remotion and React. Enforces 4-tier decoupled workflow (Director -> Shot Plan -> Builder -> Visual Critique), Search-Before-Authoring catalog reuse, Anti-Cliché materiality restraint (physics over glow), Diagnose-Before-Decorating hierarchy, 8-criteria quantitative critique scorecard, Voice-First prosody dual-clock authority with beat grid alignment, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
+description: "AI Video Production Pipeline v19: Time-Based Choreography, Motion Personalities & Transformation-Driven Cinematic Motion System for Remotion and React. Enforces 4-tier decoupled workflow (Director -> Shot Plan -> Builder -> Visual Critique), Canvas-First Staging (zero empty black voids / card soup), Transformation > Replacement (continuous state morphing over crossfades), 6 Motion Personalities (Impact, Elastic, Glide, Build, Hold, Release), Anti-Cliché materiality restraint, 8-criteria quantitative critique scorecard, Voice-First prosody dual-clock authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
 ---
 
-# cinematic-motion-director v18
+# cinematic-motion-director v19
 
 An end-to-end reference-integrated motion graphics engineering system for Google Antigravity + Remotion.
 Transforms briefs, scientific research, academic lectures, and scripts into publication-grade cinematic films.
@@ -11,23 +11,24 @@ Transforms briefs, scientific research, academic lectures, and scripts into publ
 ```text
 [DIRECTOR]
 1. Intake & Semantic Truth Lock (Script / Audio / Source Provenance)
-2. Motion Thesis & Frame System (MOTION.md, Color Ramp, Accent Role)
+2. Motion Thesis & Frame System (docs/v19_director_shot_plan.md, Color Ramp, Accent Role)
 3. Audio Rhythm Grid & Prosody Alignment (Dual-Clock Authority, beats.py)
-4. Shot Plan Formulation (docs/shotlist.md) → [GATE 1: OK REQUIRED]
+4. Canvas-First Staging & Choreography Engine (IMPACT, ELASTIC, GLIDE, BUILD, HOLD, RELEASE)
+5. Shot Plan Formulation (docs/shotlist.md) → [GATE 1: OK REQUIRED]
         ↓
 [BUILDER]
-5. Search Before Authoring (V18_MOTION_CATALOG.md & src/motion/recipes/)
-6. Composition Assembly (Remotion TSX, Springs, Sequential Swaps)
-7. Anti-Cliché Physics (Add Shape, Not Word; Zero Fake Premium)
+6. Search Before Authoring (V18_MOTION_CATALOG.md & src/motion/choreography/)
+7. Composition Assembly (Remotion TSX, Continuous Transformations, Dynamic Camera)
+8. Anti-Cliché Physics (Add Shape, Not Word; Zero Card Soup / SaaS Sliders)
         ↓
 [VISUAL CRITIQUE]
-8. Contact Sheet & Fast Strip Generation (2 fps sheets, 60 fps strips)
-9. 8-Criteria Quantitative Scorecard (1-10 with Automatic Caps)
-10. Diagnose Before Decorating Loop (≥ 3 Rounds, All Scores ≥ 8)
+9. Contact Sheet & Fast Strip Generation (2 fps sheets, 60 fps strips)
+10. 8-Criteria Quantitative Scorecard (1-10 with Automatic Caps)
+11. Diagnose Before Decorating Loop (≥ 3 Rounds, All Scores ≥ 8)
         ↓
 [TECHNICAL QC & DELIVERY]
-11. Two-Tier Verification (13 Automated CV & Audio QA Gates)
-12. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
+12. Two-Tier Verification (13 Automated CV & Audio QA Gates)
+13. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
 ```
 
 ---
@@ -40,20 +41,32 @@ Transforms briefs, scientific research, academic lectures, and scripts into publ
    - **Critic**: Unsentimental review of rendered stills and strips. Scores 8 criteria; enforces automatic caps for defects.
    - **QC Gatekeeper**: Runs automated verification scripts; guarantees zero regressions.
 
-2. **Search Before Authoring (Reuse-First Principle)**:
-   - Before writing bespoke inline transforms or animation logic, the agent **MUST** search `V18_MOTION_CATALOG.md` and `src/motion/recipes/`.
-   - Reusable atomic recipes (`TypographySlam`, `TextMaskReveal`, `DotToLine`, `RibbonGrowth`, `ShapeMorph`, `ChartBarToLine`, `RingTunnel`, `GridWave`, `ScatterReassemble`, `CameraPushPull`, `SequentialSwap`) must be composed rather than hand-coded from scratch.
+2. **Canvas-First Staging & Anti-UI Ban (V19 Core)**:
+   - **Strictly Banned UI Mentalities**: Rounded cards with soft shadows, feature grids, pricing tables, web sliders, dashboard panels, SaaS wrappers, and isolated floating boxes on black voids.
+   - **Canvas-First Design**: The 1920×1080 canvas is an architectural plane. Use full-bleed framing rules, typographic scale hierarchies, spatial architectural depths, and connecting coordinate vectors.
 
-3. **Materiality Restraint & Anti-Cliché Rules**:
+3. **Transformation Over Replacement ($A \to B$)**:
+   - Do NOT swap elements via opacity fades. Elements physically morph, fold, split, stretch, or guide the eye to the next focal point. Outgoing energy flows directly into incoming form.
+
+4. **Choreography Engine & 6 Motion Personalities**:
+   - Every movement is categorized into a physics personality:
+     - **IMPACT (2–8f)**: Heavy anticipation, zero dampening overshoot, seismic energy dissipation.
+     - **ELASTIC (8–24f)**: Fluid overshoot, secondary follow-through, spring rebound.
+     - **GLIDE (30–120f)**: Steady parabolic drift, idle atmospheric energy.
+     - **BUILD (45–180f)**: Monumental accumulation, architectural growth.
+     - **HOLD**: Dynamic breathing stillness, never dead freeze.
+     - **RELEASE (5–30f)**: Explosive fission, snap collapse, or vacuum exit.
+
+5. **Search Before Authoring (Reuse-First Principle)**:
+   - Before writing bespoke inline transforms or animation logic, consult `V18_MOTION_CATALOG.md` and `src/motion/choreography/`.
+   - Reusable atomic recipes and choreography engines must be composed rather than hand-coded from scratch.
+
+6. **Materiality Restraint & Anti-Cliché Rules**:
    - **Add Shape, Not Word**: Agent may invent geometry, lines, grids, masks, and camera moves, but **NEVER** content, buzzwords, or unverified claims.
-   - **Banned Defaults**: Frosted glass panels (`backdrop-filter`), neon glow outlines, blurred floating orbs, arbitrary 3D spheres, and card soup (every idea in a rounded rectangle).
-   - **True Premium**: Premium motion is weight, anticipation, follow-through, spatial transformation (one thing becoming another), and motivated camera moves.
+   - **Banned Defaults**: Frosted glass panels (`backdrop-filter`), neon glow outlines, blurred floating orbs, arbitrary 3D spheres, and card soup.
+   - **True Premium**: Premium motion is weight, anticipation, follow-through, spatial transformation, and motivated camera moves.
 
-4. **Diagnose Before Decorating**:
-   - If a graphic feels flat or awkward, diagnose top-down: (1) Enter/exit curves $\to$ (2) Non-robotic spring easing $\to$ (3) Stagger timing $\to$ (4) Visual hierarchy $\to$ (5) Readability.
-   - **NEVER** add decorative particles, glows, or extra motion to mask a timing defect!
-
-5. **Voice-First Prosody Authority & Rhythm Grid**:
+7. **Voice-First Prosody Authority & Rhythm Grid**:
    - Spoken audio is the master physical clock (`VOICEOVER = Timing Truth`).
    - Hits lead the beat by 2–4 frames (`spHit` pattern) so visual impact registers synchronously with acoustic transients.
    - Sequential Swaps: Outgoing text is 100% exited before incoming text arrives (zero double-exposure).
