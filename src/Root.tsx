@@ -139,6 +139,7 @@ import { V27_Test04_ShapeMorph } from './motion/precision_lab/V27_Test04_ShapeMo
 import { V27_Test05_KineticTypography } from './motion/precision_lab/V27_Test05_KineticTypography';
 import { V27_Test06_FullEditorialBeat } from './motion/precision_lab/V27_Test06_FullEditorialBeat';
 import { V28_BounceLab } from './motion/precision_lab/V28_BounceLab';
+import { V29_TransformationLab } from './motion/precision_lab/V29_TransformationLab';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1565,6 +1566,24 @@ export const Root: React.FC = () => {
         component={V28_BounceLab}
         durationInFrames={360}
         fps={120}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V29 Transformation Continuity & Momentum Laboratory */}
+      <Composition
+        id="V29-TransformationLab"
+        component={V29_TransformationLab}
+        durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V29-Transformation-60fps"
+        component={V29_TransformationLab}
+        durationInFrames={240}
+        fps={60}
         width={1920}
         height={1080}
       />

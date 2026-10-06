@@ -14,6 +14,7 @@ import {
   Point2D,
 } from '../../../../../src/motion/fidelity/MotionFidelityEngine';
 import { defaultOwnershipController } from '../../../../../src/motion/ownership/MotionOwnershipController';
+import { evaluateImpactExtrusionHandoff } from '../../../../../src/motion/TransformationContinuityEngine';
 
 /**
  * V25.5 — INTEGRATED PRODUCTION MASTER
@@ -226,19 +227,34 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                 scaleX = interpolate(p, [0, 0.35, 1], [0.75, 1.5, 1.0]);
                 scaleY = interpolate(p, [0, 0.35, 1], [1.3, 0.7, 1.0]);
                 trailWidth = interpolate(p, [0, 0.45, 1], [0, 380, 0]);
-              } else {
-                // Controlled settle lock
-                const p = Math.min(1, (b2Frame - 65) / 30);
-                const settle = calculateSettleLock(b2Frame - 65, 0, { settleFrames: 30 });
-                posX = interpolate(p, [0, 1], [1280, 1260]) + settle.translateY;
+              } else if (b2Frame < 110) {
+                // Settle and arc toward ground foundation
+                const p = (b2Frame - 65) / 45;
+                const settleCurve = Easing.bezier(0.16, 1, 0.3, 1)(p);
+                posX = interpolate(settleCurve, [0, 1], [1280, 960]);
+                const posY = interpolate(settleCurve, [0, 1], [540, 720]);
                 scaleX = 1.0;
                 scaleY = 1.0;
+              } else {
+                // Ground strike impact: transferred into Beat 03 pillars
+                posX = 960;
+                scaleX = 1.8;
+                scaleY = 0.4;
+              }
+
+              let posY = 540;
+              if (b2Frame >= 65 && b2Frame < 110) {
+                const p = (b2Frame - 65) / 45;
+                const settleCurve = Easing.bezier(0.16, 1, 0.3, 1)(p);
+                posY = interpolate(settleCurve, [0, 1], [540, 720]);
+              } else if (b2Frame >= 110) {
+                posY = 720;
               }
 
               // Arbitrate transform via Motion Ownership
               const resolved = defaultOwnershipController.arbitrateTransform({
-                primary: { x: posX, y: 540 },
-                secondary: { scaleX, scaleY, isActive: b2Frame < 65 },
+                primary: { x: posX, y: posY },
+                secondary: { scaleX, scaleY, isActive: b2Frame < 65 || b2Frame >= 110 },
                 tertiary: { isAllowed: false },
               });
 
@@ -264,7 +280,7 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                     style={{
                       position: 'absolute',
                       left: resolved.translateX - 18,
-                      top: 540 - 18,
+                      top: resolved.translateY - 18,
                       width: 36,
                       height: 36,
                       borderRadius: '50%',
@@ -354,6 +370,21 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                       backgroundColor: 'rgba(212, 175, 55, 0.4)',
                     }}
                   />
+
+                  {/* Kinetic Momentum Handoff Shockwave (transmitted from Beat 02 seed strike) */}
+                  {b3Frame < 25 && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        left: 960 - (b3Frame * 22),
+                        top: 718,
+                        width: b3Frame * 44,
+                        height: 6,
+                        background: 'linear-gradient(to right, transparent, rgba(56, 189, 248, 0.9), transparent)',
+                        opacity: 1 - b3Frame / 25,
+                      }}
+                    />
+                  )}
 
                   {/* 4 Staggered Monolith Pillars */}
                   {xPositions.map((posX, i) => {
