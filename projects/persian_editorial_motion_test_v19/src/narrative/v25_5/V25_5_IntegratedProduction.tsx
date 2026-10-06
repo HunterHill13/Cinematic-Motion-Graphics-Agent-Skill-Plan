@@ -182,126 +182,127 @@ export const V25_5_IntegratedProduction: React.FC = () => {
         )}
 
         {/* ========================================================================= */}
-        {/* BEAT 02: NUCLEUS COMPRESSION & SLINGSHOT LAUNCH (115 - 240f)              */}
-        {/* MIGRATION A: C1 VELOCITY HANDOFF APPLIED HERE (NO OPACITY DISSOLVE)       */}
+        {/* BEAT 02: NEGATIVE-SPACE RAZOR INCISION & MOMENTUM LAUNCH (115 - 255f)     */}
+        {/* V31 CHOREOGRAPHY REDESIGN: Canvas Fabric Incision -> Datum Strike         */}
         {/* ========================================================================= */}
         {frame >= 115 && frame < 255 && (
           <div
             style={{
               position: 'absolute',
               inset: 0,
-              opacity: frame > 235 ? interpolate(frame, [235, 255], [1, 0]) : 1,
+              opacity: frame > 240 ? interpolate(frame, [240, 255], [1, 0]) : 1,
             }}
           >
             {(() => {
-              const b2Frame = frame - 120; // Starts slightly before at 115 (-5f)
+              const b2Frame = frame - 120; // -5 to 135
               
-              // Continuous kinematic handoff calculation:
-              // Source compression anticipation (-5f to 25f)
-              // Slingshot release with C1 conserved momentum (25f to 65f)
-              // Target settle (65f to 120f)
-              let posX = 960;
-              let scaleX = 1.0;
-              let scaleY = 1.0;
-              let trailWidth = 0;
+              // 1. TENSION ACCUMULATION & PINCH (Frames -5 to 25)
+              // 2. SURGICAL DIAGONAL INCISION (Frames 25 to 65)
+              // 3. TRAJECTORY BEND & GROUND DATUM STRIKE (Frames 65 to 115)
+              // 4. MOMENTUM ABSORPTION & MONOLITH EXTRUSION TRIGGER (Frames 115+)
+              
+              let seedX = 360;
+              let seedY = 680;
+              let slitProgress = 0;
+              let slitWidth = 0;
+              let seedScaleX = 1.0;
+              let seedScaleY = 1.0;
+              let seedRotation = -20;
 
-              if (b2Frame < 0) {
-                // Pre-handoff compression seeding (115f - 120f)
-                const preP = (b2Frame + 5) / 5;
-                posX = 960;
-                scaleX = interpolate(preP, [0, 1], [1.0, 0.9]);
-                scaleY = interpolate(preP, [0, 1], [1.0, 1.1]);
-              } else if (b2Frame < 25) {
-                // Negative anticipation pullback left
-                const kin = calculateKinematics(b2Frame, 0, 25, 'EXPLOSIVE');
-                posX = interpolate(kin.position, [0, 1], [960, 460]);
-                scaleX = 0.75;
-                scaleY = 1.3;
+              if (b2Frame < 25) {
+                // Tension gathering at anchor point (360, 680)
+                const p = Math.min(1, Math.max(0, (b2Frame + 5) / 30));
+                seedX = 360 - interpolate(p, [0, 1], [0, 60]);
+                seedY = 680 + interpolate(p, [0, 1], [0, 15]);
+                seedScaleX = interpolate(p, [0, 1], [1.0, 0.7]);
+                seedScaleY = interpolate(p, [0, 1], [1.0, 1.35]);
               } else if (b2Frame < 65) {
-                // Slingshot acceleration rightward with conserved momentum
+                // Surgical Diagonal Incision across negative space: (360, 680) -> (1380, 420)
                 const p = (b2Frame - 25) / 40;
-                // Inherit source launch velocity via calculateVelocityHandoff
-                const handoff = calculateVelocityHandoff(24.5, 'PRESERVE');
-                const launchCurve = Easing.bezier(0.12, 0, 0.39, 0)(p);
-                posX = interpolate(launchCurve, [0, 1], [460, 1280]) + (handoff.initialTargetVelocity * 0.05 * p);
-                scaleX = interpolate(p, [0, 0.35, 1], [0.75, 1.5, 1.0]);
-                scaleY = interpolate(p, [0, 0.35, 1], [1.3, 0.7, 1.0]);
-                trailWidth = interpolate(p, [0, 0.45, 1], [0, 380, 0]);
+                slitProgress = Easing.bezier(0.12, 0, 0.39, 0)(p);
+                seedX = interpolate(slitProgress, [0, 1], [300, 1380]);
+                seedY = interpolate(slitProgress, [0, 1], [695, 420]);
+                slitWidth = interpolate(p, [0, 0.4, 1], [0, 10, 2]);
+                seedScaleX = interpolate(p, [0, 0.3, 1], [0.7, 1.8, 1.1]);
+                seedScaleY = interpolate(p, [0, 0.3, 1], [1.35, 0.6, 0.95]);
+                seedRotation = interpolate(slitProgress, [0, 1], [-20, -12]);
               } else if (b2Frame < 110) {
-                // Settle and arc toward ground foundation
+                // Trajectory curving down toward ground foundation (960, 720)
                 const p = (b2Frame - 65) / 45;
                 const settleCurve = Easing.bezier(0.16, 1, 0.3, 1)(p);
-                posX = interpolate(settleCurve, [0, 1], [1280, 960]);
-                const posY = interpolate(settleCurve, [0, 1], [540, 720]);
-                scaleX = 1.0;
-                scaleY = 1.0;
+                seedX = interpolate(settleCurve, [0, 1], [1380, 960]);
+                seedY = interpolate(settleCurve, [0, 1], [420, 720]);
+                slitProgress = 1.0;
+                slitWidth = interpolate(p, [0, 1], [2, 0]);
+                seedScaleX = interpolate(p, [0, 0.5, 1], [1.1, 1.0, 1.0]);
+                seedScaleY = interpolate(p, [0, 0.5, 1], [0.95, 1.0, 1.0]);
+                seedRotation = interpolate(p, [0, 1], [-12, 0]);
               } else {
                 // Ground strike impact: transferred into Beat 03 pillars
-                posX = 960;
-                scaleX = 1.8;
-                scaleY = 0.4;
+                seedX = 960;
+                seedY = 720;
+                slitProgress = 1.0;
+                slitWidth = 0;
+                const impactP = Math.min(1, (b2Frame - 110) / 15);
+                seedScaleX = interpolate(impactP, [0, 0.3, 1], [1.0, 2.2, 1.0]);
+                seedScaleY = interpolate(impactP, [0, 0.3, 1], [1.0, 0.3, 0.8]);
+                seedRotation = 0;
               }
-
-              let posY = 540;
-              if (b2Frame >= 65 && b2Frame < 110) {
-                const p = (b2Frame - 65) / 45;
-                const settleCurve = Easing.bezier(0.16, 1, 0.3, 1)(p);
-                posY = interpolate(settleCurve, [0, 1], [540, 720]);
-              } else if (b2Frame >= 110) {
-                posY = 720;
-              }
-
-              // Arbitrate transform via Motion Ownership
-              const resolved = defaultOwnershipController.arbitrateTransform({
-                primary: { x: posX, y: posY },
-                secondary: { scaleX, scaleY, isActive: b2Frame < 65 || b2Frame >= 110 },
-                tertiary: { isAllowed: false },
-              });
 
               return (
-                <>
-                  {/* Velocity wake trail */}
-                  {trailWidth > 0 && (
-                    <div
-                      style={{
-                        position: 'absolute',
-                        left: resolved.translateX - trailWidth,
-                        top: 538,
-                        width: trailWidth,
-                        height: 4,
-                        background: `linear-gradient(to right, transparent, ${goldColor})`,
-                        opacity: 0.85,
-                      }}
-                    />
+                <div style={{ position: 'absolute', inset: 0 }}>
+                  {/* Luminous Spatial Seam (Negative Space Incision) */}
+                  {slitProgress > 0 && (
+                    <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }}>
+                      <line
+                        x1={300}
+                        y1={695}
+                        x2={seedX}
+                        y2={seedY}
+                        stroke={goldColor}
+                        strokeWidth={Math.max(1, slitWidth)}
+                        strokeLinecap="round"
+                        strokeOpacity={Math.max(0.2, 1 - (b2Frame - 25) / 80)}
+                      />
+                      <line
+                        x1={300}
+                        y1={695}
+                        x2={seedX}
+                        y2={seedY}
+                        stroke={cyanAccent}
+                        strokeWidth={Math.max(2, slitWidth * 2.2)}
+                        strokeOpacity={Math.max(0.1, (1 - (b2Frame - 25) / 75) * 0.4)}
+                      />
+                    </svg>
                   )}
 
-                  {/* Golden Nucleus Seed */}
+                  {/* Traveling Razor Seed Head */}
                   <div
                     style={{
                       position: 'absolute',
-                      left: resolved.translateX - 18,
-                      top: resolved.translateY - 18,
-                      width: 36,
-                      height: 36,
+                      left: seedX - 16,
+                      top: seedY - 16,
+                      width: 32,
+                      height: 32,
                       borderRadius: '50%',
-                      backgroundColor: goldColor,
-                      boxShadow: `0 0 28px ${goldColor}, 0 0 60px rgba(212, 175, 55, 0.5)`,
-                      transform: `scale(${resolved.scaleX}, ${resolved.scaleY})`,
+                      backgroundColor: '#FFF',
+                      boxShadow: `0 0 25px ${goldColor}, 0 0 50px ${cyanAccent}`,
+                      transform: `scale(${seedScaleX}, ${seedScaleY}) rotate(${seedRotation}deg)`,
+                      transformOrigin: 'center center',
                     }}
                   />
 
-                  {/* Dynamic Verb Typography */}
-                  {b2Frame > 35 && (
+                  {/* Dynamic Verb Typography - Off-Axis Staging */}
+                  {b2Frame > 25 && (
                     <div
                       style={{
                         position: 'absolute',
-                        left: 480,
-                        top: 480,
+                        left: 280,
+                        top: 440,
                         direction: 'rtl',
-                        opacity: interpolate(b2Frame, [35, 60], [0, 1], {
-                          extrapolateRight: 'clamp',
-                        }),
-                        transform: `translateX(${interpolate(b2Frame, [35, 70], [-40, 0], {
+                        fontFamily: 'Vazirmatn',
+                        opacity: interpolate(b2Frame, [25, 50], [0, 1], { extrapolateRight: 'clamp' }),
+                        transform: `translateX(${interpolate(b2Frame, [25, 60], [-30, 0], {
                           easing: Easing.out(Easing.cubic),
                           extrapolateRight: 'clamp',
                         })}px)`,
@@ -309,28 +310,30 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                     >
                       <div
                         style={{
-                          fontSize: 52,
+                          fontSize: 54,
                           fontWeight: 900,
                           color: '#F8FAFC',
                           letterSpacing: -1,
+                          textShadow: '0 2px 20px rgba(0,0,0,0.8)',
                         }}
                       >
-                        تمرکز
+                        شکاف فضا
                       </div>
                       <div
                         style={{
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: 600,
-                          color: 'rgba(56, 189, 248, 0.9)',
+                          color: goldColor,
                           marginTop: 6,
-                          letterSpacing: 2,
+                          letterSpacing: 3,
+                          fontFamily: 'monospace',
                         }}
                       >
-                        CONVERGENT MOMENTUM
+                        CHOREOGRAPHY: SPATIAL INCISION
                       </div>
                     </div>
                   )}
-                </>
+                </div>
               );
             })()}
           </div>
@@ -613,7 +616,8 @@ export const V25_5_IntegratedProduction: React.FC = () => {
         )}
 
         {/* ========================================================================= */}
-        {/* BEAT 05: DEEP FROZEN SILENCE / HAIRLINE IRIS (540 - 660f)                 */}
+        {/* BEAT 05: PINNED IRIS STILLNESS & CATALYTIC BREACH (535 - 675f)            */}
+        {/* V31 CHOREOGRAPHY REDESIGN: Zero-Drift Frozen Hold -> Explosive Radial Clear */}
         {/* ========================================================================= */}
         {frame >= 535 && frame < 675 && (
           <div
@@ -623,77 +627,137 @@ export const V25_5_IntegratedProduction: React.FC = () => {
               opacity:
                 frame < 545
                   ? interpolate(frame, [535, 545], [0, 1])
-                  : frame > 655
-                  ? interpolate(frame, [655, 675], [1, 0])
+                  : frame > 665
+                  ? interpolate(frame, [665, 675], [1, 0])
                   : 1,
             }}
           >
-            {/* The Iris is 100% FROZEN in stillness. Zero drift, zero scale change. */}
-            <div
-              style={{
-                position: 'absolute',
-                left: 1220 - 160,
-                top: 540 - 160,
-                width: 320,
-                height: 320,
-                borderRadius: '50%',
-                border: '1.2px solid rgba(212, 175, 55, 0.85)',
-                boxShadow: '0 0 20px rgba(212, 175, 55, 0.25)',
-              }}
-            >
-              {/* Ultra-pure singular center point */}
-              <div
-                style={{
-                  position: 'absolute',
-                  left: 160 - 3,
-                  top: 160 - 3,
-                  width: 6,
-                  height: 6,
-                  borderRadius: '50%',
-                  backgroundColor: goldColor,
-                }}
-              />
-            </div>
+            {(() => {
+              const b5Frame = frame - 540; // 0 to 135
+              
+              // Phase 1: Rapid centripetal braking into center (0 to 20f)
+              // Phase 2: Absolute 100% frozen tension hold (20 to 52f = 32 frames of silence!)
+              // Phase 3: Catalytic radial breach outward (52 to 95f) clearing the stage for Beat 06
+              
+              const isBraking = b5Frame < 20;
+              const isFrozen = b5Frame >= 20 && b5Frame < 52;
+              const isBreach = b5Frame >= 52;
+              
+              let irisRadius = 140;
+              let irisOpacity = 1.0;
+              let centerNodeScale = 1.0;
+              let breachShockwaveRadius = 0;
+              let breachShockwaveOpacity = 0;
 
-            {/* Sub-label during silence */}
-            <div
-              style={{
-                position: 'absolute',
-                left: 700,
-                top: 540,
-                transform: 'translateY(-50%)',
-                direction: 'rtl',
-                textAlign: 'right',
-              }}
-            >
-              <div
-                style={{
-                  fontSize: 36,
-                  fontWeight: 800,
-                  color: '#F8FAFC',
-                  letterSpacing: -0.5,
-                }}
-              >
-                سکوت ساختاری
-              </div>
-              <div
-                style={{
-                  fontSize: 14,
-                  fontWeight: 500,
-                  color: 'rgba(212, 175, 55, 0.7)',
-                  marginTop: 6,
-                  letterSpacing: 2,
-                }}
-              >
-                MOMENT OF EQUILIBRIUM
-              </div>
-            </div>
+              if (isBraking) {
+                const brakeP = b5Frame / 20;
+                const brakeCurve = Easing.bezier(0.16, 1, 0.3, 1)(brakeP);
+                irisRadius = interpolate(brakeCurve, [0, 1], [320, 140]);
+                centerNodeScale = interpolate(brakeCurve, [0, 1], [2.2, 1.0]);
+              } else if (isFrozen) {
+                // ABSOLUTE ZERO VELOCITY / STILLNESS DISCIPLINE
+                irisRadius = 140;
+                irisOpacity = 1.0;
+                centerNodeScale = 1.0;
+              } else if (isBreach) {
+                const breachP = Math.min(1, (b5Frame - 52) / 38);
+                const breachCurve = Easing.bezier(0.12, 0, 0.39, 0)(breachP);
+                irisRadius = interpolate(breachCurve, [0, 1], [140, 880]);
+                irisOpacity = interpolate(breachP, [0, 0.5, 1], [1.0, 0.7, 0]);
+                centerNodeScale = interpolate(breachP, [0, 0.2, 1], [1.0, 3.5, 0]);
+                breachShockwaveRadius = interpolate(breachCurve, [0, 1], [0, 940]);
+                breachShockwaveOpacity = interpolate(breachP, [0, 0.4, 1], [0.9, 0.4, 0]);
+              }
+
+              return (
+                <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  {/* Concentric Breached Shockwave Ring */}
+                  {isBreach && breachShockwaveRadius > 0 && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: breachShockwaveRadius * 2,
+                        height: breachShockwaveRadius * 2,
+                        borderRadius: '50%',
+                        border: '1.5px solid rgba(56, 189, 248, 0.8)',
+                        opacity: breachShockwaveOpacity,
+                        boxShadow: '0 0 35px rgba(56, 189, 248, 0.4)',
+                      }}
+                    />
+                  )}
+
+                  {/* The Precision Hairline Iris */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      width: irisRadius * 2,
+                      height: irisRadius * 2,
+                      borderRadius: '50%',
+                      border: '1.2px solid rgba(212, 175, 55, 0.85)',
+                      opacity: irisOpacity,
+                      boxShadow: '0 0 25px rgba(212, 175, 55, 0.3)',
+                    }}
+                  />
+
+                  {/* Singular Center Anchor Node */}
+                  {centerNodeScale > 0 && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: 8,
+                        height: 8,
+                        borderRadius: '50%',
+                        backgroundColor: goldColor,
+                        boxShadow: `0 0 22px ${goldColor}`,
+                        transform: `scale(${centerNodeScale})`,
+                      }}
+                    />
+                  )}
+
+                  {/* Contemplative Silence Editorial Typography (Only visible during frozen hold) */}
+                  {isFrozen && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: 140,
+                        direction: 'rtl',
+                        fontFamily: 'Vazirmatn',
+                        textAlign: 'center',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 34,
+                          fontWeight: 800,
+                          color: '#F8FAFC',
+                          letterSpacing: -0.5,
+                        }}
+                      >
+                        سکوت سرشار از تعلیق
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 13,
+                          fontWeight: 600,
+                          color: goldColor,
+                          marginTop: 6,
+                          letterSpacing: 4,
+                          fontFamily: 'monospace',
+                        }}
+                      >
+                        CHOREOGRAPHY: 32-FRAME ZERO-DRIFT HOLD
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })()}
           </div>
         )}
 
         {/* ========================================================================= */}
-        {/* BEAT 06: KINETIC TYPOGRAPHY AS GEOMETRY / SLAM & STAR (660 - 810f)         */}
-        {/* MIGRATION C: COORDINATED KINEMATIC SLAM & SQUASH (NO FLOATING DISCONNECT)  */}
+        {/* BEAT 06: ANATOMICAL LIGATURE METAMORPHOSIS / «اصالت» -> COMPASS (655 - 825f)*/}
+        {/* V31 CHOREOGRAPHY REDESIGN: Typography as Material -> Sovereign Navigation   */}
         {/* ========================================================================= */}
         {frame >= 655 && frame < 825 && (
           <div
@@ -709,114 +773,83 @@ export const V25_5_IntegratedProduction: React.FC = () => {
             }}
           >
             {(() => {
-              const b6Frame = frame - 660;
-              let wordY = 540;
-              let scaleX = 1.0;
-              let scaleY = 1.0;
-              let wordOpacity = 1.0;
-              let emblemProgress = 0;
-
-              // Migration C: Authoritative Kinematic Impact Curve
-              if (b6Frame < 35) {
-                const p = b6Frame / 35;
-                if (p < 0.65) {
-                  // Air descent with high-speed elongation (stretch)
-                  const fp = p / 0.65;
-                  const dropCurve = evaluatePersonalityValue(fp, 'EXPLOSIVE');
-                  wordY = interpolate(dropCurve.value, [0, 1], [140, 540]);
-                  scaleX = 0.82;
-                  scaleY = 1.32;
-                } else {
-                  // Direct impact instant: squash and elastic rebound
-                  const ip = (p - 0.65) / 0.35;
-                  scaleX = interpolate(ip, [0, 0.35, 1], [1.45, 0.96, 1.0]);
-                  scaleY = interpolate(ip, [0, 0.35, 1], [0.65, 1.04, 1.0]);
-                  wordY = 540;
-                }
-              } else if (b6Frame < 85) {
-                // Hard settle lock on word before transitioning into emblem
-                wordOpacity = interpolate(b6Frame, [40, 65], [1, 0]);
-                emblemProgress = interpolate(b6Frame, [42, 85], [0, 1], {
-                  easing: Easing.bezier(0.16, 1, 0.3, 1),
-                });
-              } else {
-                wordOpacity = 0;
-                emblemProgress = 1.0;
-              }
-
-              const emblemRotation = interpolate(b6Frame, [42, 150], [0, 90]);
+              const b6Frame = frame - 660; // -5 to 165
+              
+              // 1. Authoritative Typographic Arrival & Anchor: «اصالت» (0 to 35f)
+              // 2. Ligature Fracture & Radial Spine Extrusion (35 to 85f)
+              // 3. Compass Star Metamorphosis & Sovereign Rotation (85 to 140f)
+              
+              const pArrival = Math.min(1, Math.max(0, b6Frame / 30));
+              const arrivalCurve = Easing.bezier(0.16, 1, 0.3, 1)(pArrival);
+              
+              const pFracture = Math.min(1, Math.max(0, (b6Frame - 32) / 50));
+              const fractureCurve = Easing.bezier(0.16, 1, 0.3, 1)(pFracture);
+              
+              const wordOpacity = interpolate(pFracture, [0, 0.7, 1], [1, 0.6, 0]);
+              const starProgress = fractureCurve;
+              const starRotation = interpolate(b6Frame, [35, 150], [0, 90]);
 
               return (
-                <div style={{ position: 'absolute', inset: 0 }}>
-                  {/* Baseline Datum */}
+                <div style={{ position: 'relative', width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                  {/* Horizontal Baseline Datum Anchor */}
                   <div
                     style={{
                       position: 'absolute',
-                      left: 360,
-                      right: 360,
+                      left: 320,
+                      right: 320,
                       top: 540,
                       height: 2,
-                      backgroundColor: 'rgba(212, 175, 55, 0.5)',
+                      backgroundColor: 'rgba(212, 175, 55, 0.45)',
                     }}
                   />
 
-                  {/* Impact Shockwave Ring */}
-                  {b6Frame >= 23 && b6Frame <= 65 && (
+                  {/* Impact Shockwave Ring upon Arrival */}
+                  {b6Frame >= 20 && b6Frame <= 65 && (
                     <div
                       style={{
                         position: 'absolute',
-                        left: 960 - (b6Frame - 23) * 14,
-                        top: 540 - (b6Frame - 23) * 14,
-                        width: (b6Frame - 23) * 28,
-                        height: (b6Frame - 23) * 28,
+                        width: (b6Frame - 20) * 26,
+                        height: (b6Frame - 20) * 26,
                         borderRadius: '50%',
-                        border: '2px solid rgba(56, 189, 248, 0.85)',
-                        opacity: interpolate(b6Frame, [23, 65], [1, 0]),
+                        border: '1.5px solid rgba(56, 189, 248, 0.75)',
+                        opacity: interpolate(b6Frame, [20, 65], [1, 0]),
                       }}
                     />
                   )}
 
-                  {/* Typographic Hero Slam & Graphic Ligature Dissection: «شتاب» */}
+                  {/* Hero Word: «اصالت» (Authenticity / Sovereignty) */}
                   {wordOpacity > 0 && (
                     <div
                       style={{
                         position: 'absolute',
-                        left: 960,
-                        top: wordY,
-                        transform: `translate(-50%, -50%) scale(${scaleX}, ${scaleY})`,
-                        textAlign: 'center',
                         direction: 'rtl',
+                        fontFamily: 'Vazirmatn',
+                        fontSize: 96,
+                        fontWeight: 900,
+                        color: '#F8FAFC',
+                        textAlign: 'center',
                         opacity: wordOpacity,
+                        transform: `translateY(${interpolate(arrivalCurve, [0, 1], [-60, -32])}px) scale(${interpolate(arrivalCurve, [0, 1], [0.85, 1])})`,
+                        textShadow: '0 4px 35px rgba(0,0,0,0.95)',
                       }}
                     >
-                      <div
-                        style={{
-                          fontSize: 88,
-                          fontWeight: 900,
-                          color: '#F8FAFC',
-                          textShadow: '0 4px 30px rgba(0,0,0,0.9)',
-                        }}
-                      >
-                        شتاب
-                      </div>
+                      اصالت
                     </div>
                   )}
 
-                  {/* Assembling Compass Star Emblem: Physically extruded from letterform vector fractures */}
-                  {emblemProgress > 0 && (
+                  {/* Extruded Navigational Compass Star (Emerged from letterform vector fractures) */}
+                  {starProgress > 0 && (
                     <div
                       style={{
                         position: 'absolute',
-                        left: 960,
-                        top: 540,
-                        transform: `translate(-50%, -50%) rotate(${emblemRotation}deg)`,
+                        transform: `rotate(${starRotation}deg)`,
                       }}
                     >
-                      <svg width={360} height={360} viewBox="-180 -180 360 360">
-                        {/* 8 Radial Ray Spines that emerged from the fractured ligatures */}
+                      <svg width={400} height={400} viewBox="-200 -200 400 400">
+                        {/* 8 Radial Ray Spines unfolding outwards */}
                         {[0, 45, 90, 135, 180, 225, 270, 315].map((angle, idx) => {
                           const rad = (angle * Math.PI) / 180;
-                          const rayLen = interpolate(emblemProgress, [0, 1], [25, 140]);
+                          const rayLen = interpolate(starProgress, [0, 1], [25, 150]);
                           const x2 = rayLen * Math.cos(rad);
                           const y2 = rayLen * Math.sin(rad);
 
@@ -829,42 +862,43 @@ export const V25_5_IntegratedProduction: React.FC = () => {
                               y2={y2}
                               stroke={idx % 2 === 0 ? goldColor : cyanAccent}
                               strokeWidth={idx % 2 === 0 ? 3.5 : 2}
-                              strokeOpacity={emblemProgress}
+                              strokeOpacity={starProgress}
                             />
                           );
                         })}
 
-                        {/* Central Concentric Rings */}
+                        {/* Concentric Precision Rings */}
                         <circle
-                          r={interpolate(emblemProgress, [0, 1], [0, 44])}
+                          r={interpolate(starProgress, [0, 1], [0, 52])}
                           fill="none"
                           stroke={goldColor}
                           strokeWidth={2}
+                          strokeOpacity={starProgress}
                         />
                         <circle
-                          r={interpolate(emblemProgress, [0, 1], [0, 18])}
+                          r={interpolate(starProgress, [0, 1], [0, 20])}
                           fill={goldColor}
+                          opacity={starProgress}
                         />
                       </svg>
                     </div>
                   )}
 
-                  {/* Art Direction Sub-Label: Graphic Typographic Metamorphosis */}
-                  {b6Frame > 45 && (
+                  {/* Choreography Editorial Sub-Label */}
+                  {b6Frame > 40 && (
                     <div
                       style={{
                         position: 'absolute',
-                        left: 360,
-                        top: 720,
+                        bottom: 150,
                         direction: 'rtl',
-                        color: 'rgba(255,255,255,0.6)',
-                        fontFamily: 'monospace',
-                        fontSize: 12,
-                        letterSpacing: 2,
-                        opacity: interpolate(b6Frame, [45, 70], [0, 1], { extrapolateRight: 'clamp' }),
+                        fontFamily: 'Vazirmatn',
+                        textAlign: 'center',
+                        opacity: interpolate(b6Frame, [40, 65], [0, 1], { extrapolateRight: 'clamp' }),
                       }}
                     >
-                      CHOREOGRAPHY: LIGATURE_FRACTURE → RADIAL_COMPASS_STAR
+                      <div style={{ fontSize: 13, color: goldColor, letterSpacing: 4, fontFamily: 'monospace' }}>
+                        CHOREOGRAPHY: ANATOMICAL LIGATURE UNCOILS INTO SOVEREIGN STAR
+                      </div>
                     </div>
                   )}
                 </div>
