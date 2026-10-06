@@ -138,6 +138,7 @@ import { V27_Test03_ElasticBounce } from './motion/precision_lab/V27_Test03_Elas
 import { V27_Test04_ShapeMorph } from './motion/precision_lab/V27_Test04_ShapeMorph';
 import { V27_Test05_KineticTypography } from './motion/precision_lab/V27_Test05_KineticTypography';
 import { V27_Test06_FullEditorialBeat } from './motion/precision_lab/V27_Test06_FullEditorialBeat';
+import { V28_BounceLab } from './motion/precision_lab/V28_BounceLab';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1530,6 +1531,40 @@ export const Root: React.FC = () => {
         component={V25_5_IntegratedProduction}
         durationInFrames={1080}
         fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V28 Precision Bounce Laboratory & Comparison */}
+      <Composition
+        id="V28-BounceLab"
+        component={V28_BounceLab}
+        durationInFrames={90}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V28-Bounce-30fps"
+        component={V28_BounceLab}
+        durationInFrames={90}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V28-Bounce-60fps"
+        component={V28_BounceLab}
+        durationInFrames={180}
+        fps={60}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V28-Bounce-120fps"
+        component={V28_BounceLab}
+        durationInFrames={360}
+        fps={120}
         width={1920}
         height={1080}
       />

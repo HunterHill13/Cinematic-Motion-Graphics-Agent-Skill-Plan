@@ -14,10 +14,13 @@ import { interpolate, Easing } from 'remotion';
 
 export type KeyframeRoleType =
   | 'REST'
+  | 'RELEASE'
   | 'ANTICIPATION'
   | 'LAUNCH'
   | 'CRUISE'
   | 'PEAK'
+  | 'APEX'
+  | 'CONTACT'
   | 'IMPACT'
   | 'PUNCTUATION'
   | 'OVERSHOOT'
