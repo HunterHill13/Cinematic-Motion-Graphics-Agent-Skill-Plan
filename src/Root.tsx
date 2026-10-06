@@ -83,6 +83,18 @@ import {
   V21Transition05Sheet,
 } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V21TransitionFrameSheets';
 import { V21MasterFinalContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V21ContactSheet';
+import { V22TransformationLab } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V22TransformationLab';
+import { V22KineticTypeLab } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V22KineticTypeLab';
+import { V22AssetIntegrationBenchmark } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V22AssetIntegrationBenchmark';
+import { V22MotionReview } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V22MotionReview';
+import { V22MasterFinalContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V22ContactSheet';
+import {
+  V22Transition01Sheet,
+  V22Transition02Sheet,
+  V22Transition03Sheet,
+  V22Transition04Sheet,
+  V22Transition05Sheet,
+} from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V22TransitionFrameSheets';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -909,6 +921,111 @@ export const Root: React.FC = () => {
       <Composition
         id="V21MasterFinalContactSheet"
         component={V21MasterFinalContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* ======================================================== */}
+      {/* V22 VISUAL TRANSFORMATION GRAMMAR & KINETIC TYPOGRAPHY   */}
+      {/* ======================================================== */}
+      {/* V22 Transformation Lab (540 frames @ 30 FPS = 18.00s) */}
+      <Composition
+        id="V22TransformationLab"
+        component={V22TransformationLab}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V22 Kinetic Typography Lab (360 frames @ 30 FPS = 12.00s) */}
+      <Composition
+        id="V22KineticTypeLab"
+        component={V22KineticTypeLab}
+        durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V22 Asset Integration Benchmark (300 frames @ 30 FPS = 10.00s) */}
+      <Composition
+        id="V22AssetIntegrationBenchmark"
+        component={V22AssetIntegrationBenchmark}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V22 Motion Review (360 frames @ 30 FPS = 12.00s) */}
+      <Composition
+        id="V22MotionReview"
+        component={V22MotionReview}
+        durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V22 Transition Boundary Sheets (1920x1080) */}
+      <Composition
+        id="V22Transition01Sheet"
+        component={V22Transition01Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V22Transition02Sheet"
+        component={V22Transition02Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V22Transition03Sheet"
+        component={V22Transition03Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V22Transition04Sheet"
+        component={V22Transition04Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V22Transition05Sheet"
+        component={V22Transition05Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V22 Master Final Narrative Composition (2361 frames @ 30 FPS = 78.71s) */}
+      <Composition
+        id="V22MasterFinal"
+        component={PersianEditorialMasterV19}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V22 Master Final Contact Sheet (3840x2160 4K UHD) */}
+      <Composition
+        id="V22MasterFinalContactSheet"
+        component={V22MasterFinalContactSheet}
         durationInFrames={1}
         fps={30}
         width={3840}

@@ -1,24 +1,19 @@
 import React from 'react';
-import { interpolate, useCurrentFrame, Easing, staticFile, Img } from 'remotion';
+import { interpolate, useCurrentFrame, Easing, Img } from 'remotion';
 import { calculateSettleLock } from '../motion/secondaryMotion';
+import { ExternalVisualAsset } from '../assets/assetTypes';
 
 /**
- * INSTITUTIONAL LOGO SYSTEM (V21 BRANDING ARCHITECTURE)
+ * INSTITUTIONAL LOGO SYSTEM (V22 DECOUPLED ARCHITECTURE)
  * 
- * Assets:
- * 1. PR Relations Logo: public/assets/logos/pr_relations.png (1024x1024)
- * 2. University Emblem: public/assets/logos/university.png (202x252)
- * 3. Research Committee Emblem: public/assets/logos/research_committee.png (345x319)
- * 
- * Strict Quality Controls:
- * - Deterministic staticFile repository-relative paths
- * - Aspect ratio strictly preserved (no stretching)
- * - Circular clip-path to eliminate non-transparent corner boxes on PR seal
- * - High-contrast monochromatic filter on University emblem for dark canvas legibility
- * - Deterministic settle locks: x, y, scale, opacity strictly constant once settled
+ * Strict Invariant (V22 CRITICAL ASSET RULE):
+ * The master composition and generic Skill have 0 hardcoded external PNG dependencies.
+ * Default presentation renders pure vector SVG heraldic crests.
+ * External assets (logos, seals, emblems) can be injected optionally via ExternalVisualAsset.
  */
 
 export interface PublicRelationsLogoStingProps {
+  asset?: ExternalVisualAsset;
   startFrame?: number; // local frame in Shot 01 (default 15)
   settleFrame?: number; // default 45
   exitFrame?: number; // default 145
@@ -26,6 +21,7 @@ export interface PublicRelationsLogoStingProps {
 }
 
 export const PublicRelationsLogoSting: React.FC<PublicRelationsLogoStingProps> = ({
+  asset,
   startFrame = 15,
   settleFrame = 45,
   exitFrame = 140,
@@ -154,26 +150,43 @@ export const PublicRelationsLogoSting: React.FC<PublicRelationsLogoStingProps> =
           />
         </svg>
 
-        {/* The Official PR Relations Image Seal (Clipped into perfect circle) */}
+        {/* Seal Presentation: Injected Asset or Pure Vector Heraldic Medallion */}
         <div
           style={{
             width: 196,
             height: 196,
             borderRadius: '50%',
             overflow: 'hidden',
-            backgroundColor: '#0F172A',
+            backgroundColor: '#0A0F1D',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          <Img
-            src={staticFile('assets/logos/pr_relations.png')}
-            style={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              clipPath: 'circle(49.2% at 50% 50%)',
-              display: 'block',
-            }}
-          />
+          {asset ? (
+            <Img
+              src={asset.src}
+              style={{
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                clipPath: asset.clipPath || 'circle(49.2% at 50% 50%)',
+                filter: asset.filter,
+                display: 'block',
+              }}
+            />
+          ) : (
+            <svg width="180" height="180" viewBox="0 0 100 100" fill="none">
+              {/* Heraldic Geometric 8-Pointed Star & Precision Compass */}
+              <circle cx="50" cy="50" r="46" stroke="#D4AF37" strokeWidth="1" strokeDasharray="3 3" opacity="0.6" />
+              <circle cx="50" cy="50" r="41" stroke="#D4AF37" strokeWidth="1.5" />
+              <rect x="26" y="26" width="48" height="48" fill="none" stroke="#D4AF37" strokeWidth="1.2" opacity="0.8" />
+              <rect x="26" y="26" width="48" height="48" fill="none" stroke="#D4AF37" strokeWidth="1.2" opacity="0.8" transform="rotate(45 50 50)" />
+              <circle cx="50" cy="50" r="22" fill="rgba(212, 175, 55, 0.12)" stroke="#38BDF8" strokeWidth="1.2" />
+              <polygon points="50,33 53.5,45 66,50 53.5,55 50,67 46.5,55 34,50 46.5,45" fill="#D4AF37" />
+              <circle cx="50" cy="50" r="4" fill="#FFFFFF" />
+            </svg>
+          )}
         </div>
       </div>
 
@@ -236,12 +249,16 @@ export const PublicRelationsLogoSting: React.FC<PublicRelationsLogoStingProps> =
 };
 
 export interface InstitutionalEndCardProps {
+  universityAsset?: ExternalVisualAsset;
+  committeeAsset?: ExternalVisualAsset;
   startFrame?: number; // local frame in Shot 06 (default 125)
   settleFrame?: number; // default 155
   style?: React.CSSProperties;
 }
 
 export const InstitutionalEndCard: React.FC<InstitutionalEndCardProps> = ({
+  universityAsset,
+  committeeAsset,
   startFrame = 125,
   settleFrame = 155,
   style,
@@ -318,7 +335,7 @@ export const InstitutionalEndCard: React.FC<InstitutionalEndCardProps> = ({
           width: '100%',
         }}
       >
-        {/* Left Entity: University Official Emblem & Calligraphy */}
+        {/* Left Entity: University Official Emblem / Pure Vector Heraldic Crest */}
         <div
           style={{
             display: 'flex',
@@ -335,16 +352,29 @@ export const InstitutionalEndCard: React.FC<InstitutionalEndCardProps> = ({
               justifyContent: 'center',
             }}
           >
-            {/* White/Gold High-Contrast Monochrome Inversion for Dark Background */}
-            <Img
-              src={staticFile('assets/logos/university.png')}
-              style={{
-                maxHeight: 180,
-                width: 'auto',
-                filter: 'brightness(0) invert(1) drop-shadow(0 0 16px rgba(212, 175, 55, 0.45)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.9))',
-                objectFit: 'contain',
-              }}
-            />
+            {universityAsset ? (
+              <Img
+                src={universityAsset.src}
+                style={{
+                  maxHeight: 180,
+                  width: 'auto',
+                  filter: universityAsset.filter || 'brightness(0) invert(1) drop-shadow(0 0 16px rgba(212, 175, 55, 0.45)) drop-shadow(0 4px 12px rgba(0, 0, 0, 0.9))',
+                  objectFit: 'contain',
+                }}
+              />
+            ) : (
+              <svg width="170" height="170" viewBox="0 0 100 100" fill="none">
+                {/* Academic Heraldic Seal */}
+                <circle cx="50" cy="50" r="46" stroke="#D4AF37" strokeWidth="1.5" />
+                <circle cx="50" cy="50" r="42" stroke="rgba(212, 175, 55, 0.4)" strokeWidth="1" strokeDasharray="3 3" />
+                {/* Book & Beacon geometry */}
+                <path d="M 28 65 Q 50 60 50 48 Q 50 60 72 65 L 72 40 Q 50 35 50 46 Q 50 35 28 40 Z" fill="rgba(212, 175, 55, 0.15)" stroke="#D4AF37" strokeWidth="1.5" />
+                <path d="M 50 25 L 50 48" stroke="#FDE047" strokeWidth="2" strokeLinecap="round" />
+                <circle cx="50" cy="22" r="4" fill="#FBBF24" />
+                {/* Laurel Leaves left/right */}
+                <path d="M 22 52 Q 20 40 28 32 M 78 52 Q 80 40 72 32" stroke="#38BDF8" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+              </svg>
+            )}
           </div>
           <span
             style={{
@@ -379,7 +409,7 @@ export const InstitutionalEndCard: React.FC<InstitutionalEndCardProps> = ({
           }}
         />
 
-        {/* Right Entity: Student Research & Technology Committee Emblem */}
+        {/* Right Entity: Student Research Committee Emblem / Pure Vector Crest */}
         <div
           style={{
             display: 'flex',
@@ -396,15 +426,27 @@ export const InstitutionalEndCard: React.FC<InstitutionalEndCardProps> = ({
               justifyContent: 'center',
             }}
           >
-            <Img
-              src={staticFile('assets/logos/research_committee.png')}
-              style={{
-                maxHeight: 180,
-                width: 'auto',
-                filter: 'drop-shadow(0 0 18px rgba(56, 189, 248, 0.35)) drop-shadow(0 4px 14px rgba(0, 0, 0, 0.9))',
-                objectFit: 'contain',
-              }}
-            />
+            {committeeAsset ? (
+              <Img
+                src={committeeAsset.src}
+                style={{
+                  maxHeight: 180,
+                  width: 'auto',
+                  filter: committeeAsset.filter || 'drop-shadow(0 0 18px rgba(56, 189, 248, 0.35)) drop-shadow(0 4px 14px rgba(0, 0, 0, 0.9))',
+                  objectFit: 'contain',
+                }}
+              />
+            ) : (
+              <svg width="170" height="170" viewBox="0 0 100 100" fill="none">
+                {/* Research & Tech Atom / Shield Crest */}
+                <circle cx="50" cy="50" r="46" stroke="#38BDF8" strokeWidth="1.5" />
+                <ellipse cx="50" cy="50" rx="36" ry="14" stroke="#D4AF37" strokeWidth="1.2" transform="rotate(-30 50 50)" />
+                <ellipse cx="50" cy="50" rx="36" ry="14" stroke="#D4AF37" strokeWidth="1.2" transform="rotate(30 50 50)" />
+                <circle cx="50" cy="50" r="7" fill="#38BDF8" />
+                <circle cx="50" cy="50" r="3" fill="#FFFFFF" />
+                <polygon points="50,18 53,24 60,25 55,30 56,37 50,33 44,37 45,30 40,25 47,24" fill="#D4AF37" />
+              </svg>
+            )}
           </div>
           <span
             style={{

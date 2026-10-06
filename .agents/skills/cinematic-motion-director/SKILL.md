@@ -1,9 +1,9 @@
 ---
 name: cinematic-motion-director
-description: "AI Video Production Pipeline v21: Choreography 2.0, Semantic Event Graph, Motion Rhythm 2.0, and Institutional Branding System for Remotion and React. Enforces Continuous Visual Causality, 4-tier decoupled workflow (Director -> Shot Plan -> Builder -> Visual Critique), Canvas-First Staging, Settle-Locked Typography (zero subpixel font rasterization shimmer), Reading Hold Camera Pinned Windows, Institutional Identity Integration (Opening PR Logo Sting + Grand Unified University and Research Committee End Card), Voice-First Prosody Dual-Clock Authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
+description: "AI Video Production Pipeline v22: Visual Transformation Grammar, Kinetic Typography 2.0, Decoupled Asset Architecture, Choreography 2.0, Semantic Event Graph, and Motion Rhythm 2.0 for Remotion/React. Enforces Mass Conservation in Metamorphosis (Object A physically becomes visual idea B), zero-subpixel-jitter Persian kinetic typography (whole-word ligature preservation), 100% vector SVG self-contained master narrative, dynamic optional asset injection (ExternalVisualAsset), Reading Hold Camera Pinned Windows, Voice-First Prosody Dual-Clock Authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
 ---
 
-# cinematic-motion-director v21
+# cinematic-motion-director v22
 
 An end-to-end reference-integrated motion graphics engineering system for Google Antigravity + Remotion.
 Transforms briefs, scientific research, academic lectures, and scripts into publication-grade cinematic films.
@@ -18,17 +18,18 @@ Transforms briefs, scientific research, academic lectures, and scripts into publ
         ↓
 [BUILDER]
 6. Search Before Authoring (V18_MOTION_CATALOG.md & src/motion/choreography/)
-7. Composition Assembly (Remotion TSX, Continuous Transformations, Dynamic Camera)
-8. Anti-Cliché Physics (Add Shape, Not Word; Zero Card Soup / SaaS Sliders)
+7. Visual Transformation Grammar (DEFORM, SPLIT, MERGE, COLLAPSE, EXPANSION, TRACE, WRAP, RECONFIGURE)
+8. Kinetic Typography 2.0 (Word Slam, Tracking Expansion, Outline-to-Fill, Baseline Extraction)
+9. Decoupled Visual Asset Architecture (100% Vector Self-Contained Core, Optional ExternalVisualAsset)
         ↓
 [VISUAL CRITIQUE]
-9. Contact Sheet & Fast Strip Generation (2 fps sheets, 60 fps strips)
-10. 8-Criteria Quantitative Scorecard (1-10 with Automatic Caps)
-11. Diagnose Before Decorating Loop (≥ 3 Rounds, All Scores ≥ 8)
+10. Contact Sheet & Fast Strip Generation (2 fps sheets, 60 fps strips)
+11. 8-Criteria Quantitative Scorecard (1-10 with Automatic Caps)
+12. Diagnose Before Decorating Loop (≥ 3 Rounds, All Scores ≥ 8)
         ↓
 [TECHNICAL QC & DELIVERY]
-12. Two-Tier Verification (13 Automated CV & Audio QA Gates)
-13. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
+13. Two-Tier Verification (13 Automated CV & Audio QA Gates)
+14. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
 ```
 
 ---
@@ -41,13 +42,28 @@ Transforms briefs, scientific research, academic lectures, and scripts into publ
    - **Critic**: Unsentimental review of rendered stills and strips. Scores 8 criteria; enforces automatic caps for defects.
    - **QC Gatekeeper**: Runs automated verification scripts; guarantees zero regressions.
 
-2. **Canvas-First Staging & Anti-UI Ban (V19 Core)**:
+2. **Visual Transformation Grammar (V22 Core)**:
+   - **Metamorphic Causality**: Moves beyond affine moves/scales ("Object A moves to B") to physical metamorphosis ("Object A physically becomes visual idea B").
+   - **Mass Conservation & Momentum Transfer**: Graphic elements preserve perceptual visual mass across state changes. E.g. A dot compresses and accelerates into a line; a line expands into a ribbon; a ribbon curls into a ring tunnel; text extrudes an architectural baseline.
+   - **Taxonomy**: `DEFORM`, `SPLIT`, `MERGE`, `COLLAPSE`, `EXPANSION`, `TRACE`, `WRAP`, `RECONFIGURE`, `MASK_REVEAL`, `CAMERA_PASS`.
+
+3. **Kinetic Typography 2.0 (V22 Core)**:
+   - **Persian Ligature Integrity**: RTL whole-word kerning and cursive character joinery is strictly preserved. Tracking expansion operates exclusively at whole-word boundaries.
+   - **Typography as Structural Material**: Words slam with decaying elastic impact, lock into zero-jitter subpixel settle states, and extrude structural datum rules into subsequent geometry.
+
+4. **Decoupled Visual Asset Architecture (V22 Mandate)**:
+   - **Zero Mandatory External PNGs**: The core production engine and default master narrative are 100% self-contained pure vector SVG.
+   - **Dynamic Optional Ingestion**: External visual assets (logos, seals, diagrams) are injected strictly via the `ExternalVisualAsset` interface, with optical bounds, aspect-ratio preservation, and luminance/alpha filtering.
+
+5. **Canvas-First Staging & Anti-UI Ban**:
    - **Strictly Banned UI Mentalities**: Rounded cards with soft shadows, feature grids, pricing tables, web sliders, dashboard panels, SaaS wrappers, and isolated floating boxes on black voids.
    - **Canvas-First Design**: The 1920×1080 canvas is an architectural plane. Use full-bleed framing rules, typographic scale hierarchies, spatial architectural depths, and connecting coordinate vectors.
 
-3. **Transformation Over Replacement ($A \to B$)**:
-   - Do NOT swap elements via opacity fades. Elements physically morph, fold, split, stretch, or guide the eye to the next focal point. Outgoing energy flows directly into incoming form.
+6. **Audio-Visual Lock & Canonical Pronunciation**:
+   - Canonical pronunciation for sensitive institutional terms (especially **«بقیه‌الله»**) is locked and immutable via `PersianPronunciationValidator`.
+   - Audio loudness strictly complies with EBU R128 ($-14\,\text{LUFS} \pm 0.5$, True Peak $\le -1\,\text{dBTP}$).
 
+---
 4. **Choreography Engine & 6 Motion Personalities**:
    - Every movement is categorized into a physics personality:
      - **IMPACT (2–8f)**: Heavy anticipation, zero dampening overshoot, seismic energy dissipation.
