@@ -1,3 +1,4 @@
+// Core V17 Baseline Recipes
 export * from './ObjectHandoff';
 export * from './DiagramReveal';
 export * from './ImpactAndRippleRecipe';
@@ -18,3 +19,17 @@ export * from './SequentialMilestoneRecipe';
 export * from './ElasticSnappingRecipe';
 export * from './SpatialReorientationRecipe';
 export * from './DimensionalPortalRecipe';
+
+// V18 Research & Integrated Recipes
+export * from './DotToLineRecipe';
+export * from './RibbonGrowthRecipe';
+export * from './ShapeMorphRecipe';
+export * from './ChartBarToLineRecipe';
+export * from './RingTunnelRecipe';
+export * from './GridWaveRecipe';
+export * from './ScatterReassembleRecipe';
+export * from './CameraPushPullRecipe';
+export * from './TextMaskRevealRecipe';
+export * from './TypeOutlineFillRecipe';
+export * from './SequentialSwapRecipe';
+export * from './AutoFitTextRecipe';

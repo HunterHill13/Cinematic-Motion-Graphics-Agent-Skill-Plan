@@ -39,6 +39,14 @@ import { ProofOfQualityV16 } from '../projects/persian_editorial_motion_test_v16
 import { PersianEditorialMasterV16 } from '../projects/persian_editorial_motion_test_v16/src/PersianEditorialMasterV16';
 import { ProofOfQualityV17 } from '../projects/persian_editorial_motion_test_v17/src/ProofOfQualityV17';
 import { PersianEditorialMasterV17 } from '../projects/persian_editorial_motion_test_v17/src/PersianEditorialMasterV17';
+import { Benchmark1_KineticTypeSlam } from '../projects/v18_motion_benchmarks/src/Benchmark1_KineticTypeSlam';
+import { Benchmark2_DotToLineRibbon } from '../projects/v18_motion_benchmarks/src/Benchmark2_DotToLineRibbon';
+import { Benchmark3_ShapeMorphToChart } from '../projects/v18_motion_benchmarks/src/Benchmark3_ShapeMorphToChart';
+import { Benchmark4_RingTunnelDepth } from '../projects/v18_motion_benchmarks/src/Benchmark4_RingTunnelDepth';
+import { Benchmark5_ClichéVsCinematic } from '../projects/v18_motion_benchmarks/src/Benchmark5_ClichéVsCinematic';
+import { V18BenchmarkGallery } from '../projects/v18_motion_benchmarks/src/V18BenchmarkGallery';
+import { ProofOfQualityV18 } from '../projects/persian_editorial_motion_test_v18/src/ProofOfQualityV18';
+import { PersianEditorialMasterV18 } from '../projects/persian_editorial_motion_test_v18/src/PersianEditorialMasterV18';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -498,6 +506,86 @@ export const Root: React.FC = () => {
       <Composition
         id="PersianEditorialMasterV17"
         component={PersianEditorialMasterV17}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 BENCHMARK 1: Kinetic Typography Slam (120 frames @ 30 FPS = 4.0s) */}
+      <Composition
+        id="Benchmark1-KineticTypeSlam"
+        component={Benchmark1_KineticTypeSlam}
+        durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 BENCHMARK 2: Geometric Evolution Dot-Line-Ribbon (120 frames @ 30 FPS = 4.0s) */}
+      <Composition
+        id="Benchmark2-DotToLineRibbon"
+        component={Benchmark2_DotToLineRibbon}
+        durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 BENCHMARK 3: Shape Morph to Data Chart (120 frames @ 30 FPS = 4.0s) */}
+      <Composition
+        id="Benchmark3-ShapeMorphToChart"
+        component={Benchmark3_ShapeMorphToChart}
+        durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 BENCHMARK 4: Spatial Ring Tunnel Depth (120 frames @ 30 FPS = 4.0s) */}
+      <Composition
+        id="Benchmark4-RingTunnelDepth"
+        component={Benchmark4_RingTunnelDepth}
+        durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 BENCHMARK 5: Cliché vs Cinematic Split Screen (150 frames @ 30 FPS = 5.0s) */}
+      <Composition
+        id="Benchmark5-ClicheVsCinematic"
+        component={Benchmark5_ClichéVsCinematic}
+        durationInFrames={150}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 BENCHMARK GALLERY (630 frames @ 30 FPS = 21.0s) */}
+      <Composition
+        id="V18BenchmarkGallery"
+        component={V18BenchmarkGallery}
+        durationInFrames={630}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 Hero Shot Gate Quality Proof (540 frames @ 30 FPS = 18.0s) */}
+      <Composition
+        id="ProofOfQualityV18"
+        component={ProofOfQualityV18}
+        durationInFrames={540}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V18 Reference-Integrated Persian Editorial Master Composition (2361 frames @ 30 FPS = 78.71s) */}
+      <Composition
+        id="PersianEditorialMasterV18"
+        component={PersianEditorialMasterV18}
         durationInFrames={2361}
         fps={30}
         width={1920}

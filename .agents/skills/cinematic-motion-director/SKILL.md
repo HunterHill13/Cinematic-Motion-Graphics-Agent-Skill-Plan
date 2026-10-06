@@ -1,108 +1,110 @@
 ---
 name: cinematic-motion-director
-description: "AI Video Production Pipeline v2 for professional motion graphics, explainers, educational, scientific, medical, and documentary videos in Remotion and React. Enforces full creative direction, Living Motion Engine (L0-L7, organic procedural noise, breathing micro-motion, secondary follower physics), Voice Director & Voice-First Pipeline (dual-clock authority, stem mixing, automated -14dB ducking), Natural Persian Voice System (phonetic normalization, anti-robotic TTS routing), pilot gates, and two-tier quantitative QC before rendering."
+description: "AI Video Production Pipeline v18: Reference-Integrated, Director-Led, Content-Locked Cinematic Motion System for Remotion and React. Enforces 4-tier decoupled workflow (Director -> Shot Plan -> Builder -> Visual Critique), Search-Before-Authoring catalog reuse, Anti-Cliché materiality restraint (physics over glow), Diagnose-Before-Decorating hierarchy, 8-criteria quantitative critique scorecard, Voice-First prosody dual-clock authority with beat grid alignment, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
 ---
 
-# cinematic-motion-director v2
+# cinematic-motion-director v18
 
-An end-to-end AI Video Production Pipeline for Google Antigravity + Gemini.
-Transforms topics, scripts, audio recordings, or lectures into cinematic, publication-grade motion graphics videos rendered in Remotion.
+An end-to-end reference-integrated motion graphics engineering system for Google Antigravity + Remotion.
+Transforms briefs, scientific research, academic lectures, and scripts into publication-grade cinematic films.
 
 ```text
-IDEA / TOPIC / SCRIPT / AUDIO
+[DIRECTOR]
+1. Intake & Semantic Truth Lock (Script / Audio / Source Provenance)
+2. Motion Thesis & Frame System (MOTION.md, Color Ramp, Accent Role)
+3. Audio Rhythm Grid & Prosody Alignment (Dual-Clock Authority, beats.py)
+4. Shot Plan Formulation (docs/shotlist.md) → [GATE 1: OK REQUIRED]
         ↓
-CREATIVE DIRECTION (Brief & Style Lock)
+[BUILDER]
+5. Search Before Authoring (V18_MOTION_CATALOG.md & src/motion/recipes/)
+6. Composition Assembly (Remotion TSX, Springs, Sequential Swaps)
+7. Anti-Cliché Physics (Add Shape, Not Word; Zero Fake Premium)
         ↓
-RESEARCH GROUNDING (Source Traceability Ledger)
+[VISUAL CRITIQUE]
+8. Contact Sheet & Fast Strip Generation (2 fps sheets, 60 fps strips)
+9. 8-Criteria Quantitative Scorecard (1-10 with Automatic Caps)
+10. Diagnose Before Decorating Loop (≥ 3 Rounds, All Scores ≥ 8)
         ↓
-STORY ARCHITECTURE (Narrative Arc & Beats)
-        ↓
-VOICE DIRECTOR (Persian Optimizer, VoiceEngine, Stems, Dual-Clock)
-        ↓
-CANONICAL BEAT SHEET (production/beat-sheet.yaml)
-        ↓
-STORYBOARD & CINEMATOGRAPHY (production/storyboard.yaml)
-        ↓
-LIVING MOTION ENGINE (L0-L7, LivingCameraRig, OrganicBreathing, SecondaryPhysics)
-        ↓
-PILOT GATE (First 10–30s Render & Visual Inspection)
-        ↓
-PARALLEL SHOT IMPLEMENTATION (Shared Theme Tokens)
-        ↓
-TWO-TIER QC (Automated Computer Vision + Visual Inspection)
-        ↓
-FULL RENDER & STEM-MIXED MASTER DELIVERY
+[TECHNICAL QC & DELIVERY]
+11. Two-Tier Verification (13 Automated CV & Audio QA Gates)
+12. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
 ```
 
 ---
 
-## 1. Operating Rules & Core Principles
+## 1. Core Operating Invariants & Mandates
 
-1. **Do Not Code Before Thinking**: When asked to make a video, never start writing React code immediately. First establish Input Mode, Creative Brief, Narrative Arc, Beat Sheet, and Storyboard.
-2. **Never Reinvent Proven Infrastructure**: Reuses official Remotion APIs (`remotion-markup`, `remotion-render`, `remotion-captions`), `tts_build.py` audio timing, CV QC scripts (`motion_check.py`, `frame_metrics.py`), and proven motion recipes. Build only the orchestration layer.
-3. **Living Motion Engine (Anti-Slideshow v2)**: Prohibits static stages and raw cuts. Every scene must have an active `LivingCameraRig` executing continuous scale ($1.00 \to 1.05$), procedural handheld drift, hero `OrganicBreathing` micro-motion ($1.000 \to 1.012$), and `ParticleDrift` environments.
-4. **Active Hand-Off (`Live demoteAt`) & Secondary Physics**: Preceding elements yield visual focus by scaling down ($0.92$), dimming ($-66\%$), and blurring ($3\text{px}$). Attached annotations follow with `SecondaryPhysics` spring inertia.
-5. **Voice-First Authority & Natural Persian System**: Spoken audio is the immutable physical clock (`VOICEOVER = Timing Truth`). Avoid robotic Microsoft voices; use Gemini, ElevenLabs, or Pocket TTS Farsi v2 preceded by `PersianTextOptimizer.py` normalization.
-6. **Audio Stem Separation & Ducking**: Master audio is assembled from 3 discrete stems (`narration`, `music`, `sfx`) with automated $-14\,\text{dB}$ ducking under dialogue.
-7. **Enforced Pilot Gate**: Build and render the first 10–30 seconds first. Inspect frames and obtain approval before building the rest of the project.
-8. **Accuracy > Beauty in Medical/Scientific Mode**: Zero unverified claims. Every factual statement and pathway mechanism must be logged in `research/sources.md`.
-9. **Mandatory QC Loop**: Never deliver a video without running quantitative checks (`motion_check.py`, `frame_metrics.py`, `selfcheck.py`) and visual frame inspection.
+1. **Decoupled 4-Tier Roles**:
+   - **Director**: Owns the concept, visual thesis, beat map, and shotlist. Pauses for explicit approval before code authoring.
+   - **Builder**: Implements Remotion TSX strictly following the approved shotlist. Never invents design or text on the fly.
+   - **Critic**: Unsentimental review of rendered stills and strips. Scores 8 criteria; enforces automatic caps for defects.
+   - **QC Gatekeeper**: Runs automated verification scripts; guarantees zero regressions.
 
----
+2. **Search Before Authoring (Reuse-First Principle)**:
+   - Before writing bespoke inline transforms or animation logic, the agent **MUST** search `V18_MOTION_CATALOG.md` and `src/motion/recipes/`.
+   - Reusable atomic recipes (`TypographySlam`, `TextMaskReveal`, `DotToLine`, `RibbonGrowth`, `ShapeMorph`, `ChartBarToLine`, `RingTunnel`, `GridWave`, `ScatterReassemble`, `CameraPushPull`, `SequentialSwap`) must be composed rather than hand-coded from scratch.
 
-## 2. Input Mode Routing
+3. **Materiality Restraint & Anti-Cliché Rules**:
+   - **Add Shape, Not Word**: Agent may invent geometry, lines, grids, masks, and camera moves, but **NEVER** content, buzzwords, or unverified claims.
+   - **Banned Defaults**: Frosted glass panels (`backdrop-filter`), neon glow outlines, blurred floating orbs, arbitrary 3D spheres, and card soup (every idea in a rounded rectangle).
+   - **True Premium**: Premium motion is weight, anticipation, follow-through, spatial transformation (one thing becoming another), and motivated camera moves.
 
-Identify the user's input type and route accordingly:
+4. **Diagnose Before Decorating**:
+   - If a graphic feels flat or awkward, diagnose top-down: (1) Enter/exit curves $\to$ (2) Non-robotic spring easing $\to$ (3) Stagger timing $\to$ (4) Visual hierarchy $\to$ (5) Readability.
+   - **NEVER** add decorative particles, glows, or extra motion to mask a timing defect!
 
-* **Mode A: TOPIC IN** (`workflows/mode-a-topic.md`)
-  * User provides a subject/idea. Executes full research, narration, timing, storyboard, and production.
-* **Mode B: SCRIPT IN** (`workflows/mode-b-script.md`)
-  * User provides a written script. Script is immutable semantic truth; visuals are built around it.
-* **Mode C: VOICEOVER IN** (`workflows/mode-c-voiceover.md`)
-  * User provides audio. Audio is physical timing truth; word boundaries anchor every frame.
-* **Mode D: SCRIPT + VOICEOVER IN** (`workflows/mode-d-script-and-voiceover.md`)
-  * Audio = Timing Truth; Script = Semantic Truth. Reconciled at word boundary level.
-* **Mode E: DOCUMENTS / SLIDES / LECTURE IN** (`workflows/mode-e-docs-and-lecture.md`)
-  * Converts PDF, PPTX, or lecture recording into an educational video with 100% source provenance.
+5. **Voice-First Prosody Authority & Rhythm Grid**:
+   - Spoken audio is the master physical clock (`VOICEOVER = Timing Truth`).
+   - Hits lead the beat by 2–4 frames (`spHit` pattern) so visual impact registers synchronously with acoustic transients.
+   - Sequential Swaps: Outgoing text is 100% exited before incoming text arrives (zero double-exposure).
 
----
-
-## 3. Production Checkpoints (User Interaction Gates)
-
-Only pause for user approval at material milestones:
-* **CHECKPOINT 1**: Creative Brief & Visual Style Lock (`production/creative-brief.yaml`, `production/style-lock.yaml`).
-* **CHECKPOINT 2**: Narration Script & Storyboard (`production/beat-sheet.yaml`, `production/storyboard.yaml`).
-* **CHECKPOINT 3**: Pilot Visual Approval (First 10–30 seconds rendered and inspected).
-* **CHECKPOINT 4**: Final Delivery Package & Quality Report.
-
-Routine technical decisions are resolved autonomously.
+6. **Absolute Pronunciation & Content Locking**:
+   - Canonical pronunciation for sensitive institutional terms (especially **«بقیه‌الله»**) is locked and immutable via `PersianPronunciationValidator`.
+   - Audio loudness strictly complies with EBU R128 ($-14\,\text{LUFS} \pm 0.5$, True Peak $\le -1\,\text{dBTP}$).
 
 ---
 
-## 4. Reference Library (Progressive Disclosure)
+## 2. Decoupled Role Protocols
 
-Consult these reference documents during production:
-* [Creative Direction & Briefs](references/creative-direction.md)
-* [Story Architecture & Narrative Arcs](references/storytelling.md)
-* [Narration & Timing Budgets](references/narration.md)
-* [Cinematography & Anti-Slideshow Rules](references/cinematography.md)
-* [Motion Grammar & Semantic Animation](references/motion-grammar.md) (and comprehensive [docs/motion-grammar.md](../../../docs/motion-grammar.md))
-* [Cinematic Quality Gates & Anti-HTML Rules](../../../docs/cinematic-quality-gates.md)
-* [Music Selection, Scoring & Dynamic Ducking](../../../docs/music-selection.md)
-* [Persian TTS Production & Tehran Presenter Directives](../../../docs/persian-tts-production.md)
-* [Reference Analysis & Claude Opus 5.5 Deconstruction](../../../docs/reference-analysis.md)
-* [Motion Quality Rules & 5-Layer Stack](references/motion-quality-rules.md)
-* [Battle-Tested Aesthetic Rules (R1–R4, Q1–Q10)](references/aesthetic-rules.md)
-* [Sound Design & Beat Synchronization](references/sound-design.md)
-* [Medical & Scientific Accuracy Rules](references/medical-scientific-mode.md)
-* [Remotion Framework Best Practices](references/remotion-best-practices.md)
-* [Cinematic Shot Recipes Library](references/shot-recipes.md)
-* [Two-Tier QC Protocol](references/qc-protocol.md)
+### Phase A: Director (Concept & Shot Planning)
+1. Read source documents and lock semantic truth in `research/sources.md`.
+2. Measure audio prosody (timestamps, pauses, emphasis words).
+3. Formulate the **Motion Thesis** (What moves? What stays still? What is the connective thread?).
+4. Write `docs/shotlist.md` detailing timecode, on-screen text, camera language, and SFX cue.
+5. **PAUSE FOR APPROVAL**: Present the shotlist to the user. Do NOT write code until explicitly approved.
+
+### Phase B: Builder (Remotion Engineering)
+1. Consult `V18_MOTION_CATALOG.md`. Select matching atomic recipes.
+2. Implement components in `src/shots/` or `src/scenes/` using Remotion hooks (`useCurrentFrame`, `spring`, `interpolate`).
+3. Adhere to Remotion invariants:
+   - Always clamp frame-based `interpolate`: `{ extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }`.
+   - Use `clipPath: inset(...)` for reveal panels to prevent typography squashing.
+   - Apply `fontVariantNumeric: 'tabular-nums'` to all animated counters.
+   - Use `display: 'inline-block'` on transformed text spans.
+   - Maintain clean alpha channels on overlays.
+
+### Phase C: Visual Critique (Inspection & Scoring)
+1. Render contact sheets (2 fps) and fast strips (60 fps) across critical transitions.
+2. Hand images to the Critic persona.
+3. Score the 8 criteria (1–10) using `references/visual-critique.md`.
+4. Apply automatic score caps (e.g. empty frame 0 caps at 6, fade-in transition caps at 6).
+5. Identify the **3 worst problems** and apply testable fixes.
+6. **Verdict**: Requires $\ge 3$ rounds and all scores $\ge 8$ to achieve **SHIP**.
+
+### Phase D: Quality Control & Delivery
+1. Run all 13 automated QA gates (`selfcheck.py`, `frame_metrics.py`, `motion_check.py`, audio mix checks).
+2. Ensure 100% PASS with zero warnings.
+3. Package delivery artifacts and emit report.
 
 ---
 
-## 5. Schemas & Templates
+## 3. Reference Library
 
-* **Schemas**: `schemas/creative-brief.schema.json`, `schemas/style-lock.schema.json`, `schemas/beat-sheet.schema.json`, `schemas/storyboard.schema.json`, `schemas/qc-report.schema.json`.
-* **Templates**: `templates/creative-brief.yaml`, `templates/style-lock.yaml`, `templates/beat-sheet.yaml`, `templates/storyboard.yaml`, `templates/sources.md`, `templates/qc-checklist.md`.
-* **Remotion Project Scaffold**: Fully configured in `template/`.
+- [Reference Integration Matrix](../../../REFERENCE_INTEGRATION.md)
+- [V18 Motion Recipe Catalog](../../../V18_MOTION_CATALOG.md)
+- [Anti-Cliché Rules & Materiality Restraint](references/anti-cliche-rules.md)
+- [Visual Critique Protocol & Scorecard](references/visual-critique.md)
+- [Builder Protocol & Remotion Standards](references/builder-protocol.md)
+- [Persian Pronunciation Architecture](../../../docs/persian-tts-production.md)
+- [Sound Design & Dual-Clock Beat Grid](references/sound-design.md)
+- [Two-Tier QC Protocol](references/qc-protocol.md)
