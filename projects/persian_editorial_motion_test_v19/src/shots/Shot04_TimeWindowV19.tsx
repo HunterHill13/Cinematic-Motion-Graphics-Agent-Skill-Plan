@@ -68,8 +68,13 @@ export const Shot04_TimeWindowV19: React.FC = () => {
       {/* Full-Canvas Editorial Atmosphere (Crimson Tint for Deadline Urgency) */}
       <CanvasAtmosphereV19 mood="crimson" intensity={1.1} />
 
-      {/* Motivated Camera Tracking */}
-      <CameraGrammarRig mode="slow-dolly" durationInFrames={280} intensity={1.0}>
+      {/* Motivated Camera Tracking with Reading Hold Lock */}
+      <CameraGrammarRig
+        mode="slow-dolly"
+        durationInFrames={280}
+        intensity={1.0}
+        readingWindows={[[160, 240]]}
+      >
         <AbsoluteFill
           style={{
             direction: 'rtl',

@@ -9,6 +9,8 @@ export interface CameraGrammarRigProps {
   durationInFrames?: number;
   intensity?: number;
   depth?: number;
+  readingWindows?: [number, number][];
+  settleFrame?: number;
   style?: React.CSSProperties;
 }
 
@@ -24,6 +26,8 @@ export const CameraGrammarRig: React.FC<CameraGrammarRigProps> = ({
   durationInFrames = 300,
   intensity = 1.0,
   depth = 1200,
+  readingWindows,
+  settleFrame,
   style,
 }) => {
   const frame = useCurrentFrame();
@@ -32,6 +36,8 @@ export const CameraGrammarRig: React.FC<CameraGrammarRigProps> = ({
     mode,
     durationInFrames,
     depth,
+    readingWindows,
+    settleFrame,
     startZoom: mode === 'micro-pull' ? 1.0 + 0.025 * intensity : 1.0,
     endZoom: mode === 'micro-push' ? 1.0 + 0.025 * intensity : mode === 'micro-pull' ? 1.0 : 1.015,
   };

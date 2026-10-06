@@ -74,8 +74,13 @@ export const Shot02_DecreeV19: React.FC = () => {
       {/* Full-Canvas Editorial Atmosphere */}
       <CanvasAtmosphereV19 mood="gold" intensity={1.05} />
 
-      {/* Motivated Camera Tracking */}
-      <CameraGrammarRig mode="slow-dolly" durationInFrames={300} intensity={1.0}>
+      {/* Motivated Camera Tracking with Reading Hold Lock */}
+      <CameraGrammarRig
+        mode="slow-dolly"
+        durationInFrames={300}
+        intensity={1.0}
+        readingWindows={[[75, 260]]}
+      >
         <AbsoluteFill
           style={{
             direction: 'rtl',

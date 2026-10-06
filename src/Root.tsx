@@ -71,6 +71,18 @@ import {
   V20Transition04Sheet,
   V20Transition05Sheet,
 } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V20TransitionFrameSheets';
+import {
+  V21MotionReviewSequence,
+  V21LogoBenchmarkSequence,
+} from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V21BenchmarkComps';
+import {
+  V21Transition01Sheet,
+  V21Transition02Sheet,
+  V21Transition03Sheet,
+  V21Transition04Sheet,
+  V21Transition05Sheet,
+} from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V21TransitionFrameSheets';
+import { V21MasterFinalContactSheet } from '../projects/persian_editorial_motion_test_v19/src/benchmarks/V21ContactSheet';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -792,6 +804,111 @@ export const Root: React.FC = () => {
       <Composition
         id="V20MasterFinalContactSheet"
         component={V19MasterFinalContactSheet}
+        durationInFrames={1}
+        fps={30}
+        width={3840}
+        height={2160}
+      />
+
+      {/* ======================================================== */}
+      {/* V21 CHOREOGRAPHY 2.0 & INSTITUTIONAL BRANDING BENCHMARKS */}
+      {/* ======================================================== */}
+      {/* V21 Motion Review: Benchmarks A, B, C, D (360 frames @ 30 FPS = 12.00s) */}
+      <Composition
+        id="V21MotionReview"
+        component={V21MotionReviewSequence}
+        durationInFrames={360}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V21 Logo Benchmark: PR Sting & Final End Card (300 frames @ 30 FPS = 10.00s) */}
+      <Composition
+        id="V21LogoBenchmark"
+        component={V21LogoBenchmarkSequence}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V21 Transition Benchmark (300 frames @ 30 FPS = 10.00s) */}
+      <Composition
+        id="V21TransitionBenchmark"
+        component={V20TransitionBenchmark}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V21 Stability Benchmark (180 frames @ 30 FPS = 6.00s) */}
+      <Composition
+        id="V21StabilityBenchmark"
+        component={V20MotionStabilityBenchmark}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V21 Transition Frame Sheets (1920x1080) */}
+      <Composition
+        id="V21Transition01Sheet"
+        component={V21Transition01Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V21Transition02Sheet"
+        component={V21Transition02Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V21Transition03Sheet"
+        component={V21Transition03Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V21Transition04Sheet"
+        component={V21Transition04Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="V21Transition05Sheet"
+        component={V21Transition05Sheet}
+        durationInFrames={1}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V21 Master Final Narrative Composition (2361 frames @ 30 FPS = 78.71s) */}
+      <Composition
+        id="V21MasterFinal"
+        component={PersianEditorialMasterV19}
+        durationInFrames={2361}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V21 Master Final Contact Sheet (3840x2160 4K UHD) */}
+      <Composition
+        id="V21MasterFinalContactSheet"
+        component={V21MasterFinalContactSheet}
         durationInFrames={1}
         fps={30}
         width={3840}

@@ -21,6 +21,8 @@ export interface CameraCurveConfig {
   depth?: number;
   punchFrame?: number;
   punchIntensity?: number;
+  readingWindows?: [number, number][];
+  settleFrame?: number;
 }
 
 export interface CameraState {
@@ -36,6 +38,7 @@ export interface CameraState {
  * CALCULATE CAMERA GRAMMAR CURVE
  * Enforces V13 Rule: Exactly ONE primary camera curve per shot.
  * Smooth, motivated editorial camera motion inspired by video-talkcraft & video-shotcraft.
+ * V21 Choreography 2.0: Supports Reading Holds and Settle Locks for zero font rasterization jitter.
  */
 export function calculateCameraGrammar(
   frame: number,
@@ -52,9 +55,24 @@ export function calculateCameraGrammar(
     depth = 1200,
     punchFrame,
     punchIntensity = 0.025,
+    readingWindows,
+    settleFrame,
   } = config;
 
-  const progress = Math.min(1, Math.max(0, frame / Math.max(1, durationInFrames)));
+  // Determine effective frame considering reading windows or settle lock
+  let effectiveFrame = frame;
+  if (settleFrame !== undefined && frame >= settleFrame) {
+    effectiveFrame = settleFrame;
+  } else if (readingWindows && readingWindows.length > 0) {
+    for (const [wStart, wEnd] of readingWindows) {
+      if (frame >= wStart && frame <= wEnd) {
+        effectiveFrame = wStart;
+        break;
+      }
+    }
+  }
+
+  const progress = Math.min(1, Math.max(0, effectiveFrame / Math.max(1, durationInFrames)));
   const easeInOut = Easing.bezier(0.25, 0.1, 0.25, 1)(progress);
 
   let zoom = startZoom;

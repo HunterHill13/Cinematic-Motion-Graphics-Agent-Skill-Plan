@@ -8,16 +8,24 @@ import { AUTHORIZED_CONTENT } from '../../../../src/content/authorizedContent';
 import { executeTextMaskReveal } from '../../../../src/motion/recipes/TextMaskRevealRecipe';
 import { AutoFitText } from '../../../../src/motion/recipes/AutoFitTextRecipe';
 import { executeKineticUnderlineHandoff } from '../../../../src/transition/carryTransitions';
+import { PublicRelationsLogoSting } from '../../../../src/branding/InstitutionalLogos';
 
 /**
- * SHOT 01 — THE EDITORIAL HOOK & CORE QUESTION (V20 STABLE)
- * V20 Motion Stability: Locked Settle States (Zero Jitter), Stable Typography,
+ * SHOT 01 — THE EDITORIAL HOOK & CORE QUESTION (V21 CHOREOGRAPHY 2.0)
+ * V21 Choreography: Institutional PR Logo Sting (frames 0 - 165),
+ * Locked Settle States (Zero Jitter), Stable Typography,
  * True Continuous Rotational Sweep Handoff into Shot 02.
  * Frame Range: 0 - 380 (12.67s @ 30 FPS)
  */
 export const Shot01_HookV19: React.FC = () => {
   const frame = useCurrentFrame();
   const fps = 30;
+
+  // Reading windows for camera lock (Zero font rasterization jitter)
+  const cameraReadingWindows: [number, number][] = [
+    [50, 140],   // PR Logo presentation
+    [245, 345],  // Hero keyword reading hold
+  ];
 
   // Spoken Prosody Dual-Clock state (lighting rim only, no geometric scale jitter)
   const prosodic = evaluateProsodicState(frame);
@@ -76,8 +84,13 @@ export const Shot01_HookV19: React.FC = () => {
       {/* Layer 0: Full-Canvas Editorial Atmosphere */}
       <CanvasAtmosphereV19 mood="gold" intensity={1.0} />
 
-      {/* Layer 1: Motivated Camera Movement (Glide Push + Subtle Diagonal Angle) */}
-      <CameraGrammarRig mode="micro-push" durationInFrames={380} intensity={1.1}>
+      {/* Layer 1: Motivated Camera Movement with Settle Windows during Reading */}
+      <CameraGrammarRig
+        mode="micro-push"
+        durationInFrames={380}
+        intensity={1.1}
+        readingWindows={cameraReadingWindows}
+      >
         <AbsoluteFill
           style={{
             direction: 'rtl',
@@ -123,71 +136,15 @@ export const Shot01_HookV19: React.FC = () => {
           </div>
 
           {/* ======================================================== */}
-          {/* SECTION 1: INSTITUTIONAL ATTRIBUTION (0 - 170f)          */}
+          {/* SECTION 1: INSTITUTIONAL ATTRIBUTION & PR LOGO STING     */}
+          {/* Frame Range: 0 - 170 (Synchronized with Narration Beat 1)*/}
           {/* ======================================================== */}
           {attributionVisible && (
-            <div
-              style={{
-                position: 'absolute',
-                top: '44%',
-                left: 120,
-                right: 120,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                opacity: 1 - attributionExitProgress,
-                transform: `translateY(${attributionExitProgress * -30}px) scale(${1 - attributionExitProgress * 0.05})`,
-              }}
-            >
-              <div
-                style={{
-                  clipPath: introMask.clipPath,
-                  transform: `translateY(${introMask.translateY}px)`,
-                  opacity: introMask.opacity,
-                  width: '100%',
-                }}
-              >
-                {/* Asymmetrical Badge / Lead Line */}
-                <div
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 16,
-                    marginBottom: 16,
-                  }}
-                >
-                  <div style={{ width: 40, height: 1.5, backgroundColor: '#D4AF37' }} />
-                  <span
-                    style={{
-                      fontSize: 16,
-                      fontWeight: 700,
-                      color: '#D4AF37',
-                      letterSpacing: 2,
-                      textTransform: 'uppercase',
-                    }}
-                  >
-                    اطلاعیه رسمی دانشگاهی
-                  </span>
-                  <div style={{ width: 40, height: 1.5, backgroundColor: '#D4AF37' }} />
-                </div>
-
-                {/* Hero Institutional Title */}
-                <AutoFitText
-                  text={AUTHORIZED_CONTENT.shot01.introPresenter.text}
-                  maxFontSize={42}
-                  minFontSize={28}
-                  color="#F8FAFC"
-                  textAlign="center"
-                  dir="rtl"
-                  style={{
-                    fontWeight: 900,
-                    lineHeight: 1.5,
-                    textShadow: '0 4px 24px rgba(0, 0, 0, 0.8)',
-                  }}
-                />
-              </div>
-            </div>
+            <PublicRelationsLogoSting
+              startFrame={10}
+              settleFrame={42}
+              exitFrame={140}
+            />
           )}
 
           {/* ======================================================== */}

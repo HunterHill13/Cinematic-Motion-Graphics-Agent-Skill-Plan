@@ -1,9 +1,9 @@
 ---
 name: cinematic-motion-director
-description: "AI Video Production Pipeline v19: Time-Based Choreography, Motion Personalities & Transformation-Driven Cinematic Motion System for Remotion and React. Enforces 4-tier decoupled workflow (Director -> Shot Plan -> Builder -> Visual Critique), Canvas-First Staging (zero empty black voids / card soup), Transformation > Replacement (continuous state morphing over crossfades), 6 Motion Personalities (Impact, Elastic, Glide, Build, Hold, Release), Anti-Cliché materiality restraint, 8-criteria quantitative critique scorecard, Voice-First prosody dual-clock authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
+description: "AI Video Production Pipeline v21: Choreography 2.0, Semantic Event Graph, Motion Rhythm 2.0, and Institutional Branding System for Remotion and React. Enforces Continuous Visual Causality, 4-tier decoupled workflow (Director -> Shot Plan -> Builder -> Visual Critique), Canvas-First Staging, Settle-Locked Typography (zero subpixel font rasterization shimmer), Reading Hold Camera Pinned Windows, Institutional Identity Integration (Opening PR Logo Sting + Grand Unified University and Research Committee End Card), Voice-First Prosody Dual-Clock Authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
 ---
 
-# cinematic-motion-director v19
+# cinematic-motion-director v21
 
 An end-to-end reference-integrated motion graphics engineering system for Google Antigravity + Remotion.
 Transforms briefs, scientific research, academic lectures, and scripts into publication-grade cinematic films.

@@ -95,8 +95,13 @@ export const Shot03_CriteriaV19: React.FC = () => {
       {/* Full-Canvas Editorial Atmosphere */}
       <CanvasAtmosphereV19 mood="gold" intensity={1.05} />
 
-      {/* Dynamic Parallax Camera Tracking */}
-      <CameraGrammarRig mode="parallax-drift" durationInFrames={860} intensity={1.1}>
+      {/* Dynamic Parallax Camera Tracking with Stable Reading Windows */}
+      <CameraGrammarRig
+        mode="parallax-drift"
+        durationInFrames={860}
+        intensity={1.1}
+        readingWindows={[[245, 260], [425, 450], [610, 820]]}
+      >
         <AbsoluteFill
           style={{
             direction: 'rtl',

@@ -179,6 +179,8 @@ export function executePlanarStageFold(
   return { progress: raw, translateY, plinthHeight, rotateX, opacity };
 }
 
+export const executePlinthFoundationDock = executePlanarStageFold;
+
 /**
  * T5: Gravitational Singularity (S05 -> S06)
  * Diagonal summit vector collapses all vertices into the singularity node at (960, 345).

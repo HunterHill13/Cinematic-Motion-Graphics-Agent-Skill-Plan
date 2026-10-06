@@ -101,8 +101,13 @@ export const Shot05_ThresholdsV19: React.FC = () => {
       {/* Full-Canvas Editorial Atmosphere */}
       <CanvasAtmosphereV19 mood="gold" intensity={1.1} />
 
-      {/* Ascending Camera Crane Movement */}
-      <CameraGrammarRig mode="continuous" durationInFrames={485} intensity={1.1}>
+      {/* Ascending Camera Crane Movement with Stable Reading Windows */}
+      <CameraGrammarRig
+        mode="continuous"
+        durationInFrames={485}
+        intensity={1.1}
+        readingWindows={[[240, 260], [320, 340], [405, 445]]}
+      >
         <AbsoluteFill
           style={{
             direction: 'rtl',
