@@ -1,46 +1,60 @@
 #!/usr/bin/env python3
 """
-ANTI-SLIDESHOW SIGNATURES AUDIT GATE
-Inspects composition source files and Shotbook plans for the 8 slideshow signatures (S1-S8):
-- S1: Unmotivated scene replacement without causal handoff
-- S2: Template reuse with text swapping
-- S3: Text block fade as primary motion
-- S4: Camera zoom as substitute for animation
-- S5: Sequential card stacking (SaaS tile trap)
-- S6: Disappearing without transformation
-- S7: Lack of persistent spatial identity
-- S8: Scene reset on sentence boundary
+ANTI-SLIDESHOW DATA-FLOW AST AUDIT GATE (PHASE 2 UPGRADE)
+
+Replaces naive regex matching with Data-Flow Aware AST Structural Analysis:
+- Flags opacity-only springs and interpolations
+- Flags camera camouflage (camera moving with static objects)
+- Flags entrance-hold-exit defect (missing middle 60% transformation)
+- Flags ambient / micro-jitter fake motion (delta <= 2px or scale <= 0.03)
+- Flags isolated <Sequence> unmounting slideshow patterns
+- Enforces: VALID MOTION = MEANINGFUL + SPATIAL + CAUSALLY TRIGGERED
 """
 
 import sys
-import re
+import os
+import subprocess
+import json
 from pathlib import Path
 
 def audit_composition_file(file_path: str):
-    path = Path(file_path)
+    path = Path(file_path).resolve()
     if not path.exists():
         return False, [f"File not found: {file_path}"]
 
-    code = path.read_text(encoding='utf-8')
-    violations = []
+    if not str(file_path).endswith('.tsx') and not str(file_path).endswith('.ts'):
+        # For non-TSX files (e.g. shotbook text), verify keywords
+        content = path.read_text(encoding='utf-8')
+        if "PRIMARY VISUAL JOB" not in content and "TransformationContract" not in content:
+            return False, ["MISSING_TRANSFORMATION_PLAN: Shotbook does not define transformation contracts."]
+        return True, []
 
-    # Check S3: Text fade as sole primary motion
-    if re.search(r'opacity:\s*interpolate\(.*\[0,\s*1\]\)', code) and not re.search(r'evaluateAuthoredKeyframeTrack|spring\(|transform:\s*`', code):
-        violations.append("S3_TEXT_FADE_SOLE_MOTION: Detected opacity-only reveal on text without physical geometry or authored keyframe evaluation.")
+    repo_root = Path(__file__).resolve().parent.parent.parent
+    runner_script = repo_root / "src" / "motion" / "validation" / "runAstValidator.ts"
 
-    # Check S4: Continuous Camera Zoom loophole
-    if re.search(r'interpolate\(frame,\s*\[0,\s*durationInFrames\],\s*\[1\.0,\s*1\.0[456]\]\)', code) and not re.search(r'impactFrame|recoil|craneProgress', code):
-        violations.append("S4_CAMERA_ZOOM_LOOPHOLE: Detected continuous 1.05 camera zoom without subject impact recoil or motivated crane trajectory.")
-
-    # Check S5: Generic Card Grids
-    if len(re.findall(r'borderRadius:\s*[\'"]?\d+px[\'"]?.*boxShadow', code)) > 2 and "Card" in code:
-        violations.append("S5_CARD_GRID_DETECTED: Detected multiple rounded dashboard cards. Criteria must be embodied in physical structural entities.")
-
-    # Check generic fade transitions
-    if re.search(r'<ShotTransition[^>]*type=[\'"]fade[\'"]', code):
-        violations.append("GENERIC_FADE_DETECTED: Detected raw fade transition. Use motion-carry, push-through, or persistent world camera reframing.")
-
-    return (len(violations) == 0), violations
+    try:
+        proc = subprocess.run(
+            ["npx.cmd", "tsx", str(runner_script), str(path)],
+            cwd=str(repo_root),
+            capture_output=True,
+            text=True,
+            encoding='utf-8',
+            errors='replace'
+        )
+        
+        output = (proc.stdout or "") + (proc.stderr or "")
+        if "__JSON_REPORT_START__" in output:
+            json_str = output.split("__JSON_REPORT_START__")[1].split("__JSON_REPORT_END__")[0]
+            report = json.loads(json_str)
+            if report.get("passed", False):
+                return True, []
+            else:
+                violations = [f"[{v['code']}]: {v['message']}" for v in report.get("violations", [])]
+                return False, violations
+        else:
+            return False, [f"AST Validator execution error: {proc.stderr or proc.stdout}"]
+    except Exception as e:
+        return False, [f"Execution exception in AST validator: {str(e)}"]
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
