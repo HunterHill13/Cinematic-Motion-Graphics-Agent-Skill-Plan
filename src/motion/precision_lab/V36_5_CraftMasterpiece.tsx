@@ -72,14 +72,11 @@ export const V36_5_CraftMasterpiece: React.FC = () => {
 
   // =========================================================================
   // 2. SECONDARY MOTION: VOLUMETRIC EXTRUSION & LIGHT SWEEP
-  // Extrusion delays slightly behind camera tilt (Frames 52 to 132)
+  // Single Source of Truth: Depth expands continuously in direct synchrony
+  // with the orbital rotation (visible_depth ∝ sin(rotation_angle)).
+  // Zero artificial delay; zero sudden geometric birth.
   // =========================================================================
-  const extrusionProgress = interpolate(frame, [52, 132], [0, 1], {
-    extrapolateLeft: "clamp",
-    extrapolateRight: "clamp",
-    easing: Easing.bezier(0.16, 1, 0.3, 1),
-  });
-  const maxExtrusion = interpolate(extrusionProgress, [0, 1], [0, 160]);
+  const maxExtrusion = interpolate(orbitProgress, [0, 1], [0, 160]);
 
   // Light glint on top bevel during anticipation (Frames 18 to 36)
   const preGlintProgress = interpolate(frame, [18, 36], [0, 1], {
@@ -96,9 +93,9 @@ export const V36_5_CraftMasterpiece: React.FC = () => {
 
   // =========================================================================
   // 3. TERTIARY MOTION: PERSPECTIVE FLOOR GRID DEFORMATION & SHADOW
-  // The layout rules warp subtly with camera perspective
+  // Ground contact shadow and spread grow continuously with transformation
   // =========================================================================
-  const shadowSpread = interpolate(extrusionProgress, [0, 1], [0, 120]);
+  const shadowSpread = interpolate(orbitProgress, [0, 1], [0, 120]);
   const shadowOpacity = interpolate(orbitProgress, [0, 1], [0, 0.45]);
 
   return (
@@ -225,8 +222,10 @@ export const V36_5_CraftMasterpiece: React.FC = () => {
           {maxExtrusion > 0 &&
             Array.from({ length: 48 }).map((_, idx) => {
               const zStep = ((idx + 1) / 48) * maxExtrusion;
-              // Lighting normal: Deeper slices fall into shadow core (#141923 -> #0C0E12)
-              const flankTone = idx === 47 ? "#002FA7" : (idx > 30 ? "#0C0E12" : "#18202C");
+              // Lighting normal: Deeper slices fall into shadow core (#18202C -> #0C0E12)
+              const flankTone = idx > 28 ? "#0C0E12" : "#18202C";
+              // Crown tone: Top 32px of stem remains Klein Blue through depth
+              const crownTone = idx > 28 ? "#00207A" : "#002FA7";
 
               return (
                 <div
@@ -243,26 +242,62 @@ export const V36_5_CraftMasterpiece: React.FC = () => {
                     opacity: 1.0,
                   }}
                 >
-                  {/* Stem "0" Extruded Wall */}
+                  {/* Glyph "0" Extruded Wall — Geometrically Identical to 2D Front Silhouette */}
                   <div
                     style={{
                       width: 150,
                       height: 400,
-                      border: "64px solid #141923",
+                      border: `64px solid ${flankTone}`,
                       boxSizing: "border-box",
                       backgroundColor: "transparent",
                     }}
                   />
 
-                  {/* Stem "1" Extruded Column */}
+                  {/* Glyph "1" Extruded Column — Geometrically Identical to 2D Front Silhouette */}
                   <div
                     style={{
                       width: 110,
                       height: 400,
                       position: "relative",
-                      backgroundColor: flankTone,
                     }}
-                  />
+                  >
+                    {/* Main Stem Slice (Width: 80px, Pinned to Right: 0) */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        width: 80,
+                        height: 400,
+                        backgroundColor: flankTone,
+                      }}
+                    >
+                      {/* Top 32px Crown Slice: Volumetric Klein Blue */}
+                      <div
+                        style={{
+                          position: "absolute",
+                          top: 0,
+                          left: 0,
+                          width: 80,
+                          height: 32,
+                          backgroundColor: crownTone,
+                        }}
+                      />
+                    </div>
+
+                    {/* Architectural Beak Flag Slice (Width: 52px, Height: 52px, Pinned to Left: 0, Top: 0) */}
+                    <div
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: 52,
+                        height: 52,
+                        backgroundColor: flankTone,
+                        clipPath: "polygon(0 0, 100% 0, 100% 100%)",
+                      }}
+                    />
+                  </div>
                 </div>
               );
             })}
