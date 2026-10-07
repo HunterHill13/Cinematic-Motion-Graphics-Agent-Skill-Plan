@@ -150,6 +150,7 @@ import { V35_5_GeometricIntegrity } from './motion/precision_lab/V35_5_Geometric
 import { V36_ShowreelMaster } from './motion/precision_lab/V36_ShowreelMaster';
 import { V36_5_BlindShowreel } from './motion/precision_lab/V36_5_BlindShowreel';
 import { V36_5_CraftMasterpiece } from './motion/precision_lab/V36_5_CraftMasterpiece';
+import { V37_BandMasterpiece } from './motion/precision_lab/V37_BandMasterpiece';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1693,6 +1694,16 @@ export const Root: React.FC = () => {
         id="V36-5-CraftMasterpiece"
         component={V36_5_CraftMasterpiece}
         durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V37 Masterpiece — Biomedical & Advanced Neuroscience Day (BAND) */}
+      <Composition
+        id="V37-BandMasterpiece"
+        component={V37_BandMasterpiece}
+        durationInFrames={480}
         fps={30}
         width={1920}
         height={1080}
