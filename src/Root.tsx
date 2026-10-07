@@ -142,6 +142,7 @@ import { V28_BounceLab } from './motion/precision_lab/V28_BounceLab';
 import { V29_TransformationLab } from './motion/precision_lab/V29_TransformationLab';
 import { V30_CreativeDirectionLab } from './motion/precision_lab/V30_CreativeDirectionLab';
 import { V31_5_ViralStressTest } from './motion/precision_lab/V31_5_ViralStressTest';
+import { V32_VisualCausality } from './motion/precision_lab/V32_VisualCausality';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1604,6 +1605,16 @@ export const Root: React.FC = () => {
       <Composition
         id="V31-5-ViralStressTest"
         component={V31_5_ViralStressTest}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V32 Visual Causality & Shot-to-Shot Continuity Composition */}
+      <Composition
+        id="V32-VisualCausality"
+        component={V32_VisualCausality}
         durationInFrames={450}
         fps={30}
         width={1920}
