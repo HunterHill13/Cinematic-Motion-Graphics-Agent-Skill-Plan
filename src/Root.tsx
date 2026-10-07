@@ -148,6 +148,7 @@ import { V34_MotionChoreography } from './motion/precision_lab/V34_MotionChoreog
 import { V35_ArtDirectedMotion } from './motion/precision_lab/V35_ArtDirectedMotion';
 import { V35_5_GeometricIntegrity } from './motion/precision_lab/V35_5_GeometricIntegrity';
 import { V36_ShowreelMaster } from './motion/precision_lab/V36_ShowreelMaster';
+import { V36_5_BlindShowreel } from './motion/precision_lab/V36_5_BlindShowreel';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1670,6 +1671,16 @@ export const Root: React.FC = () => {
       <Composition
         id="V36-ShowreelMaster"
         component={V36_ShowreelMaster}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V36.5 Blind Showreel Stress Test Master */}
+      <Composition
+        id="V36-5-BlindShowreel"
+        component={V36_5_BlindShowreel}
         durationInFrames={450}
         fps={30}
         width={1920}
