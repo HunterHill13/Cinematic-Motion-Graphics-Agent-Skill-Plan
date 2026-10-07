@@ -145,6 +145,7 @@ import { V31_5_ViralStressTest } from './motion/precision_lab/V31_5_ViralStressT
 import { V32_VisualCausality } from './motion/precision_lab/V32_VisualCausality';
 import { V33_VisualPoetry } from './motion/precision_lab/V33_VisualPoetry';
 import { V34_MotionChoreography } from './motion/precision_lab/V34_MotionChoreography';
+import { V35_ArtDirectedMotion } from './motion/precision_lab/V35_ArtDirectedMotion';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1637,6 +1638,16 @@ export const Root: React.FC = () => {
       <Composition
         id="V34-MotionChoreography"
         component={V34_MotionChoreography}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V35 Visual Art Direction, Materiality & Spatial Depth Master */}
+      <Composition
+        id="V35-ArtDirectedMotion"
+        component={V35_ArtDirectedMotion}
         durationInFrames={450}
         fps={30}
         width={1920}
