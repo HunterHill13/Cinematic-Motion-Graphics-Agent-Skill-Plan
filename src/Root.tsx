@@ -147,6 +147,7 @@ import { V33_VisualPoetry } from './motion/precision_lab/V33_VisualPoetry';
 import { V34_MotionChoreography } from './motion/precision_lab/V34_MotionChoreography';
 import { V35_ArtDirectedMotion } from './motion/precision_lab/V35_ArtDirectedMotion';
 import { V35_5_GeometricIntegrity } from './motion/precision_lab/V35_5_GeometricIntegrity';
+import { V36_ShowreelMaster } from './motion/precision_lab/V36_ShowreelMaster';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1659,6 +1660,16 @@ export const Root: React.FC = () => {
       <Composition
         id="V35-5-GeometricIntegrity"
         component={V35_5_GeometricIntegrity}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V36 Showreel Director Pass Master */}
+      <Composition
+        id="V36-ShowreelMaster"
+        component={V36_ShowreelMaster}
         durationInFrames={450}
         fps={30}
         width={1920}
