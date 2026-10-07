@@ -144,6 +144,7 @@ import { V30_CreativeDirectionLab } from './motion/precision_lab/V30_CreativeDir
 import { V31_5_ViralStressTest } from './motion/precision_lab/V31_5_ViralStressTest';
 import { V32_VisualCausality } from './motion/precision_lab/V32_VisualCausality';
 import { V33_VisualPoetry } from './motion/precision_lab/V33_VisualPoetry';
+import { V34_MotionChoreography } from './motion/precision_lab/V34_MotionChoreography';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1626,6 +1627,16 @@ export const Root: React.FC = () => {
       <Composition
         id="V33-VisualPoetry"
         component={V33_VisualPoetry}
+        durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V34 Motion Choreography & Kinetic Continuity Composition */}
+      <Composition
+        id="V34-MotionChoreography"
+        component={V34_MotionChoreography}
         durationInFrames={450}
         fps={30}
         width={1920}
