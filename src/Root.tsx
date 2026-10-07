@@ -151,6 +151,7 @@ import { V36_ShowreelMaster } from './motion/precision_lab/V36_ShowreelMaster';
 import { V36_5_BlindShowreel } from './motion/precision_lab/V36_5_BlindShowreel';
 import { V36_5_CraftMasterpiece } from './motion/precision_lab/V36_5_CraftMasterpiece';
 import { V37_BandMasterpiece } from './motion/precision_lab/V37_BandMasterpiece';
+import { V38_ShowreelBenchmark } from './motion/precision_lab/V38_ShowreelBenchmark';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1704,6 +1705,16 @@ export const Root: React.FC = () => {
         id="V37-BandMasterpiece"
         component={V37_BandMasterpiece}
         durationInFrames={480}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V38 Benchmark — Ben Kaufman Showreel Benchmark */}
+      <Composition
+        id="V38-ShowreelBenchmark"
+        component={V38_ShowreelBenchmark}
+        durationInFrames={450}
         fps={30}
         width={1920}
         height={1080}
