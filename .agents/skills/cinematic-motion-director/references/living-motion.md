@@ -40,14 +40,14 @@ This led to disastrous practices:
 
 ## 3. Approved Living Motion Patterns (Causally Grounded)
 
-### 3.1 Motivated Camera Rig (`CameraRig`)
-Replaces arbitrary handheld drift with a single, authored spatial journey:
+### 3.1 Motivated Camera Movement (Camera Subordinate to Event)
+Camera movement exists ONLY to follow physical consequence, absorb landing impact, or reframe an expanding structure.
+**BANNED LOOPHOLE:** A continuous 1.00 $\to$ 1.05 camera zoom applied to a static card is NOT cinematic motion and will immediately trigger `ANTI_SLIDESHOW_GATE` Failure Signature S4.
 ```tsx
-// Author a single continuous scale or dolly curve tied to the narrative beat:
-const camScale = interpolate(frame, [0, totalFrames], [1.00, 1.05], {
-  easing: Easing.bezier(0.25, 0.1, 0.25, 1.0),
-  extrapolateLeft: "clamp",
-  extrapolateRight: "clamp",
+// Author camera movement strictly synchronized with a physical subject event:
+// Camera recoils on seismic strike, or cranes back to reveal multi-pillar assembly:
+const camScale = interpolate(craneProgress, [0, 1], [1.08, 1.0], {
+  easing: Easing.bezier(0.16, 1, 0.3, 1),
 });
 ```
 

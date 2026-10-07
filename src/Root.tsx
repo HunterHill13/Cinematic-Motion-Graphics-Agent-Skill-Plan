@@ -4,6 +4,7 @@ import { BandKafPreviewComposition } from './production/BandKafPreviewCompositio
 import { Main } from './Main';
 import { V28_BounceLab } from './motion/precision_lab/V28_BounceLab';
 import { V29_TransformationLab } from './motion/precision_lab/V29_TransformationLab';
+import { GoldenQuantumCoreComposition } from './projects/golden_test/GoldenQuantumCoreComposition';
 
 /**
  * ============================================================================
@@ -33,7 +34,7 @@ export const Root: React.FC = () => {
 
       {/* Backward-compatible alias for CLI renders */}
       <Composition
-        id="V40_KineticMonolithPreview"
+        id="V40KineticMonolithPreview"
         component={BandKafPreviewComposition}
         durationInFrames={570}
         fps={30}
@@ -66,6 +67,16 @@ export const Root: React.FC = () => {
         id="DiagnosticTransformationLab"
         component={V29_TransformationLab}
         durationInFrames={120}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* 5. Golden Test: Quantum Resonator Core (450 Frames @ 30 FPS / 15.0s) */}
+      <Composition
+        id="GoldenQuantumCore"
+        component={GoldenQuantumCoreComposition}
+        durationInFrames={450}
         fps={30}
         width={1920}
         height={1080}

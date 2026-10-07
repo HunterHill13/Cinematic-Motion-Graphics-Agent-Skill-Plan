@@ -12,7 +12,14 @@ export interface WordRevealProps {
 }
 
 /**
- * WordReveal - Reveals typography word-by-word using snappy springs.
+ * WordReveal - Reveals typography word-by-word.
+ * 
+ * WARNING & ANTI-PATTERN ALERT:
+ * - This component must NEVER be used as the primary visual event of a beat.
+ * - Relying on word bouncing to animate a static card triggers SLIDESHOW SIGNATURE S3.
+ * - In cinematic motion design, text should be revealed via physical world mechanics
+ *   (mechanical shutters, structural baselines, or laser engraving).
+ * - Use WordReveal strictly for subordinate subtitle tracks if needed.
  */
 export const WordReveal: React.FC<WordRevealProps> = ({
   text,

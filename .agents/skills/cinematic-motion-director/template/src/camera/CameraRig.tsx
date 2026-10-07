@@ -3,44 +3,56 @@ import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 
 export interface CameraRigProps {
   children: React.ReactNode;
-  /** Direction: 'push' zooms 1.00 -> 1.05; 'pull' zooms 1.05 -> 1.00 */
-  direction?: 'push' | 'pull' | 'static';
-  /** Max scale multiplier (default 1.05 for subtle breathing) */
-  maxScale?: number;
-  /** Tilt angle in degrees for cinematic feel */
-  tiltDeg?: number;
-  /** 2.5D focal depth offset */
+  /** Motivated camera action: 'crane-reveal' | 'impact-absorb' | 'focus-push' | 'static-lock' */
+  action?: 'crane-reveal' | 'impact-absorb' | 'focus-push' | 'static-lock';
+  /** Focal depth for perspective rendering */
   depth?: number;
+  /** Frame at which physical impact occurs, triggering seismic micro-shock */
+  impactFrame?: number;
 }
 
 /**
- * CameraRig - Eliminates the static stage look by ensuring continuous,
- * subtle cinematic camera movement (1.00 -> 1.04-1.06) carrying scene life.
+ * CameraRig (v40.1 Production Standard)
+ * 
+ * Enforces the Single Authoritative Motion Doctrine:
+ * 1. Camera moves ONLY when motivated by narrative scale or physical impact.
+ * 2. Unmotivated sinusoidal breathing or generic continuous 1.05 zooms are BANNED.
+ * 3. Supports 3-frame seismic shock recoil on mass impact.
  */
 export const CameraRig: React.FC<CameraRigProps> = ({
   children,
-  direction = 'push',
-  maxScale = 1.05,
-  tiltDeg = 0,
-  depth = 1000,
+  action = 'static-lock',
+  depth = 1200,
+  impactFrame,
 }) => {
   const frame = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
 
   let scale = 1.0;
-  if (direction === 'push') {
-    scale = interpolate(frame, [0, durationInFrames], [1.0, maxScale], {
+  let offsetY = 0;
+
+  if (action === 'crane-reveal') {
+    // Motivated crane pull-back expanding spatial view
+    scale = interpolate(frame, [0, durationInFrames], [1.08, 1.0], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
-  } else if (direction === 'pull') {
-    scale = interpolate(frame, [0, durationInFrames], [maxScale, 1.0], {
+  } else if (action === 'focus-push') {
+    // Deliberate focus push-in toward active hero transformation
+    scale = interpolate(frame, [0, durationInFrames], [1.0, 1.06], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
   }
 
-  const rotX = tiltDeg !== 0 ? `rotateX(${tiltDeg}deg)` : '';
+  // 3-Frame Seismic Shock Recoil
+  if (impactFrame !== undefined && frame >= impactFrame && frame <= impactFrame + 6) {
+    const shockRel = frame - impactFrame;
+    if (shockRel === 0) offsetY = 6;
+    else if (shockRel === 1) offsetY = -3;
+    else if (shockRel === 2) offsetY = 1;
+    else offsetY = 0;
+  }
 
   return (
     <div
@@ -56,9 +68,9 @@ export const CameraRig: React.FC<CameraRigProps> = ({
         style={{
           width: '100%',
           height: '100%',
-          transform: `scale(${scale}) ${rotX}`,
+          transform: `scale(${scale}) translateY(${offsetY}px)`,
           transformOrigin: 'center center',
-          transition: 'none',
+          backfaceVisibility: 'hidden',
         }}
       >
         {children}
