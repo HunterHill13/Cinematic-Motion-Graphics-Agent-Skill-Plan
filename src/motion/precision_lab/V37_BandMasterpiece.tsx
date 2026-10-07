@@ -138,6 +138,20 @@ export const V37_BandMasterpiece: React.FC = () => {
     easing: Easing.bezier(0.16, 1, 0.3, 1),
   });
 
+  // =========================================================================
+  // V37.1 ART DIRECTION & CONTRAST HIERARCHY CONSTANTS (Direction C)
+  // =========================================================================
+  const BG_COLOR = "#080C14";             // Tier 1: Deep atmospheric navy-void (5% lum)
+  const FRONT_FACE_COLOR = "#2A364B";     // Tier 4: Milled titanium bismuth (25% lum - high separation!)
+  const FRONT_RIM_COLOR = "#4A5D7E";      // Tier 5: Top edge highlight rim (38% lum)
+  const FLANK_FILL_COLOR = "#222D3F";     // Tier 3: Ambient fill normal (18% lum)
+  const FLANK_SHADOW_COLOR = "#131924";   // Tier 3: Core shadow normal (11% lum - safely above BG)
+  const ACCENT_AMBER = "#F59E0B";         // Tier 6: Radiant cadmium amber (68% lum)
+  const ACCENT_AMBER_DEEP = "#B45309";    // Deep amber flank
+  const TEXT_WHITE = "#FFFFFF";           // Tier 7: Pure high-key Alabaster (100% lum)
+  const TEXT_MUTED = "#94A3B8";           // Platinum fog metadata (60% lum)
+  const GRID_LINE_COLOR = "#1B2434";      // Controlled background coordinate grid
+
   // 8 Harmonic Louver Slat Definitions across the chamber (X coords from 420 to 1500)
   // These 8 slats group naturally into 4 pairs representing B, A, N, D
   const louverWidths = [72, 72, 72, 72, 72, 72, 72, 72];
@@ -148,11 +162,11 @@ export const V37_BandMasterpiece: React.FC = () => {
       style={{
         width: W,
         height: H,
-        backgroundColor: "#0B0E14",
+        backgroundColor: BG_COLOR,
         position: "relative",
         overflow: "hidden",
         fontFamily: "'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif",
-        color: "#F1F5F9",
+        color: TEXT_WHITE,
       }}
     >
       {/* ===================================================================== */}
@@ -171,7 +185,7 @@ export const V37_BandMasterpiece: React.FC = () => {
         <defs>
           {/* Ambient Monolith Contact Shadow */}
           <filter id="v37-contact-shadow" x="-50%" y="-50%" width="200%" height="200%">
-            <feDropShadow dx="0" dy="24" stdDeviation="30" floodColor="#000000" floodOpacity={shadowOpacity} />
+            <feDropShadow dx="0" dy="26" stdDeviation="34" floodColor="#000000" floodOpacity={Math.min(1, shadowOpacity * 1.35)} />
           </filter>
         </defs>
 
@@ -185,15 +199,15 @@ export const V37_BandMasterpiece: React.FC = () => {
                 y1={rowY}
                 x2={W - 80}
                 y2={rowY}
-                stroke="#1B2230"
+                stroke={GRID_LINE_COLOR}
                 strokeWidth={1}
-                opacity={0.65}
+                opacity={0.8}
               />
               {/* Telemetry Coordinate Identifiers */}
               <text
                 x={42}
                 y={rowY + 4}
-                fill="#3B485E"
+                fill="#475569"
                 fontSize={9}
                 fontWeight={600}
                 letterSpacing="1.5px"
@@ -205,14 +219,14 @@ export const V37_BandMasterpiece: React.FC = () => {
         })}
 
         {/* Boundary Reflection Planes at X = 360 and X = 1560 */}
-        <line x1={360} y1={80} x2={360} y2={H - 80} stroke="#222B3D" strokeWidth={1.5} strokeDasharray="4 8" />
-        <line x1={1560} y1={80} x2={1560} y2={H - 80} stroke="#222B3D" strokeWidth={1.5} strokeDasharray="4 8" />
+        <line x1={360} y1={80} x2={360} y2={H - 80} stroke="#263348" strokeWidth={1.5} strokeDasharray="4 8" />
+        <line x1={1560} y1={80} x2={1560} y2={H - 80} stroke="#263348" strokeWidth={1.5} strokeDasharray="4 8" />
 
         {/* Boundary Calibration Legends */}
-        <text x={370} y={105} fill="#4B5872" fontSize={8} fontWeight={700} letterSpacing="2px">
+        <text x={370} y={105} fill="#64748B" fontSize={8} fontWeight={700} letterSpacing="2px">
           BOUNDARY_NODE_L // CAVITY_LIMIT
         </text>
-        <text x={1430} y={105} fill="#4B5872" fontSize={8} fontWeight={700} letterSpacing="2px">
+        <text x={1430} y={105} fill="#64748B" fontSize={8} fontWeight={700} letterSpacing="2px">
           BOUNDARY_NODE_R // INTERFEROMETER
         </text>
 
@@ -225,8 +239,8 @@ export const V37_BandMasterpiece: React.FC = () => {
               rx={waveRadius}
               ry={waveRadius * 0.42}
               fill="none"
-              stroke="#D9822B"
-              strokeWidth={2}
+              stroke={ACCENT_AMBER}
+              strokeWidth={2.5}
             />
             <ellipse
               cx={CX}
@@ -234,7 +248,7 @@ export const V37_BandMasterpiece: React.FC = () => {
               rx={Math.max(0, waveRadius - 60)}
               ry={Math.max(0, (waveRadius - 60) * 0.42)}
               fill="none"
-              stroke="#2A384F"
+              stroke="#334155"
               strokeWidth={1.5}
               strokeDasharray="6 6"
             />
@@ -246,7 +260,7 @@ export const V37_BandMasterpiece: React.FC = () => {
               fill="none"
               stroke="#E2E8F0"
               strokeWidth={1}
-              opacity={0.5}
+              opacity={0.6}
             />
           </g>
         )}
@@ -261,13 +275,13 @@ export const V37_BandMasterpiece: React.FC = () => {
             position: "absolute",
             top: CY - 200,
             left: CX - 1 + slitDeflection,
-            width: 2,
+            width: 2.5,
             height: 400,
-            backgroundColor: apertureGlint > 0 ? "#F8FAFC" : "#D9822B",
+            backgroundColor: apertureGlint > 0 ? TEXT_WHITE : ACCENT_AMBER,
             boxShadow: apertureGlint > 0
-              ? `0 0 16px rgba(217, 130, 43, ${apertureGlint * 0.8})`
-              : "none",
-            opacity: interpolate(frame, [0, 20, 95, 120], [0.6, 1, 1, 0]),
+              ? `0 0 20px rgba(245, 158, 11, ${apertureGlint * 0.9})`
+              : "0 0 8px rgba(245, 158, 11, 0.4)",
+            opacity: interpolate(frame, [0, 20, 95, 120], [0.75, 1, 1, 0]),
             zIndex: 10,
           }}
         />
@@ -320,9 +334,9 @@ export const V37_BandMasterpiece: React.FC = () => {
           {louverDepth > 0 &&
             Array.from({ length: 48 }).map((_, idx) => {
               const zStep = ((idx + 1) / 48) * louverDepth;
-              // Differentiated shading normals through depth
-              const flankTone = idx > 28 ? "#0B0E14" : "#171D27";
-              const crownTone = idx > 28 ? "#8F5012" : "#D9822B";
+              // Differentiated shading normals through depth (Direction C High Contrast)
+              const flankTone = idx > 28 ? FLANK_SHADOW_COLOR : FLANK_FILL_COLOR;
+              const crownTone = idx > 28 ? ACCENT_AMBER_DEEP : ACCENT_AMBER;
 
               return (
                 <div
@@ -585,7 +599,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 0,
                   width: 58,
                   height: 420,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                 }}
               >
                 {/* Crown with Amber Accent */}
@@ -596,7 +611,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                     left: 0,
                     width: 58,
                     height: 24,
-                    backgroundColor: "#D9822B",
+                    backgroundColor: ACCENT_AMBER,
                     overflow: "hidden",
                   }}
                 >
@@ -609,7 +624,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                         bottom: 0,
                         width: 32,
                         left: crownLaserX,
-                        backgroundColor: "rgba(255, 255, 255, 0.9)",
+                        backgroundColor: "rgba(255, 255, 255, 0.95)",
                         transform: "skewX(-30deg)",
                       }}
                     />
@@ -624,10 +639,11 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 58,
                   width: 152,
                   height: 195,
-                  border: "48px solid #0F131A",
+                  border: `48px solid ${FRONT_FACE_COLOR}`,
                   borderLeft: "none",
                   boxSizing: "border-box",
                   backgroundColor: "transparent",
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                 }}
               />
               {/* Bottom lobe */}
@@ -638,7 +654,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 58,
                   width: 152,
                   height: 225,
-                  border: "48px solid #0F131A",
+                  border: `48px solid ${FRONT_FACE_COLOR}`,
                   borderLeft: "none",
                   boxSizing: "border-box",
                   backgroundColor: "transparent",
@@ -656,7 +672,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 0,
                   width: 60,
                   height: 420,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                   transform: `skewX(${interpolate(morphProgress, [0, 1], [0, 10])}deg)`,
                 }}
               >
@@ -667,7 +684,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                     left: 0,
                     width: 60,
                     height: 24,
-                    backgroundColor: "#D9822B",
+                    backgroundColor: ACCENT_AMBER,
                   }}
                 />
               </div>
@@ -679,7 +696,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   right: 0,
                   width: 60,
                   height: 420,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                   transform: `skewX(${interpolate(morphProgress, [0, 1], [0, -10])}deg)`,
                 }}
               >
@@ -690,7 +708,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                     left: 0,
                     width: 60,
                     height: 24,
-                    backgroundColor: "#D9822B",
+                    backgroundColor: ACCENT_AMBER,
                   }}
                 />
               </div>
@@ -702,7 +720,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 35,
                   width: 160,
                   height: 48,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                 }}
               />
             </div>
@@ -717,7 +736,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 0,
                   width: 60,
                   height: 420,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                 }}
               >
                 <div
@@ -727,7 +747,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                     left: 0,
                     width: 60,
                     height: 24,
-                    backgroundColor: "#D9822B",
+                    backgroundColor: ACCENT_AMBER,
                   }}
                 />
               </div>
@@ -739,7 +759,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 20,
                   width: 58,
                   height: 440,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                   transformOrigin: "top left",
                   transform: `rotate(${interpolate(morphProgress, [0, 1], [0, 24])}deg)`,
                   opacity: morphProgress,
@@ -753,7 +774,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   right: 0,
                   width: 60,
                   height: 420,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                 }}
               >
                 <div
@@ -763,7 +785,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                     left: 0,
                     width: 60,
                     height: 24,
-                    backgroundColor: "#D9822B",
+                    backgroundColor: ACCENT_AMBER,
                   }}
                 />
               </div>
@@ -779,7 +801,8 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 0,
                   width: 58,
                   height: 420,
-                  backgroundColor: "#0F131A",
+                  backgroundColor: FRONT_FACE_COLOR,
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                 }}
               >
                 <div
@@ -789,7 +812,7 @@ export const V37_BandMasterpiece: React.FC = () => {
                     left: 0,
                     width: 58,
                     height: 24,
-                    backgroundColor: "#D9822B",
+                    backgroundColor: ACCENT_AMBER,
                   }}
                 />
               </div>
@@ -801,11 +824,12 @@ export const V37_BandMasterpiece: React.FC = () => {
                   left: 58,
                   width: 152,
                   height: 420,
-                  border: "52px solid #0F131A",
+                  border: `52px solid ${FRONT_FACE_COLOR}`,
                   borderLeft: "none",
                   borderRadius: "0 180px 180px 0",
                   boxSizing: "border-box",
                   backgroundColor: "transparent",
+                  boxShadow: `inset 0 1.5px 0 0 ${FRONT_RIM_COLOR}`,
                 }}
               />
             </div>
@@ -835,7 +859,7 @@ export const V37_BandMasterpiece: React.FC = () => {
               fontSize: 26,
               fontWeight: 800,
               letterSpacing: "4px",
-              color: "#F1F5F9",
+              color: TEXT_WHITE,
               textTransform: "uppercase",
               opacity: titleReveal,
               transform: `translateY(${interpolate(titleReveal, [0, 1], [14, 0])}px)`,
@@ -848,7 +872,7 @@ export const V37_BandMasterpiece: React.FC = () => {
               fontSize: 14,
               fontWeight: 600,
               letterSpacing: "3px",
-              color: "#D9822B",
+              color: ACCENT_AMBER,
               textTransform: "uppercase",
               marginTop: 8,
               opacity: themeReveal,
@@ -866,7 +890,7 @@ export const V37_BandMasterpiece: React.FC = () => {
             fontSize: 10,
             fontWeight: 700,
             letterSpacing: "2.5px",
-            color: "#64748B",
+            color: TEXT_MUTED,
             textTransform: "uppercase",
             opacity: metaReveal,
             lineHeight: "18px",
@@ -891,7 +915,7 @@ export const V37_BandMasterpiece: React.FC = () => {
           fontSize: 11,
           fontWeight: 700,
           letterSpacing: "3px",
-          color: "#475569",
+          color: TEXT_MUTED,
           textTransform: "uppercase",
           pointerEvents: "none",
         }}
