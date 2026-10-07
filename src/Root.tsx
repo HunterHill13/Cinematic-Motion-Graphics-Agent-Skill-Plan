@@ -149,6 +149,7 @@ import { V35_ArtDirectedMotion } from './motion/precision_lab/V35_ArtDirectedMot
 import { V35_5_GeometricIntegrity } from './motion/precision_lab/V35_5_GeometricIntegrity';
 import { V36_ShowreelMaster } from './motion/precision_lab/V36_ShowreelMaster';
 import { V36_5_BlindShowreel } from './motion/precision_lab/V36_5_BlindShowreel';
+import { V36_5_CraftMasterpiece } from './motion/precision_lab/V36_5_CraftMasterpiece';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1682,6 +1683,16 @@ export const Root: React.FC = () => {
         id="V36-5-BlindShowreel"
         component={V36_5_BlindShowreel}
         durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V36.5 Craft Test — Micro-Sequence Motion Polish Master */}
+      <Composition
+        id="V36-5-CraftMasterpiece"
+        component={V36_5_CraftMasterpiece}
+        durationInFrames={180}
         fps={30}
         width={1920}
         height={1080}
