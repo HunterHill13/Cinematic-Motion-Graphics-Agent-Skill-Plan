@@ -1,12 +1,12 @@
 ---
 name: cinematic-motion-director
-description: "AI Video Production Pipeline v40.1: Semantic Beat Mapping, Causal Event Graph, No Orphan Element Discipline, Element Budgeting, Intentional Stillness, Motion-Carry Transitions, Long-Take World Canvas, Topological 3D Transformation, Authored Keyframe Curves, Zero-Subpixel-Jitter Persian Kinetic Typography, and 8-Point Adversarial Independent Review for Remotion/React. Enforces Mass Conservation in Metamorphosis (Object A physically becomes visual idea B), 100% vector SVG self-contained master narrative, Sovereign Calibration Pavilion architecture, Voice-First Prosody Dual-Clock Authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
+description: "AI Video Production Pipeline: Universal Semantic Beat Mapping, Causal Event Graph, No Orphan Element Discipline, Element Budgeting, Intentional Stillness, Motion-Carry Transitions, Long-Take Persistent World Canvas, Topological 3D Transformation, Authored Keyframe Curves, Zero-Subpixel-Jitter Kinetic Typography, and 8-Point Adversarial Independent Review for Remotion/React. Enforces Mass Conservation in Metamorphosis (Object A physically becomes visual idea B), 100% vector SVG self-contained master narrative, Voice-First Prosody Dual-Clock Authority, Domain Pronunciation Locks, and 13-gate automated QC."
 ---
 
-# cinematic-motion-director v40.1
+# cinematic-motion-director
 
 An end-to-end reference-integrated motion graphics engineering system for Google Antigravity + Remotion.
-Transforms briefs, scientific research, academic lectures, and Persian scripts into publication-grade cinematic films.
+Transforms briefs, scientific research, academic lectures, and educational scripts into publication-grade cinematic films.
 
 ```text
 [DIRECTOR: SEMANTIC & CAUSAL LOCK]
@@ -17,10 +17,10 @@ Transforms briefs, scientific research, academic lectures, and Persian scripts i
 5. SHOTBOOK Formulation (docs/SHOTBOOK.md) → [GATE 1: USER OK REQUIRED]
         ↓
 [BUILDER: PHYSICAL IMPLEMENTATION]
-6. Persistent World Canvas & Sovereign Material Hierarchy (Titanium / Cadmium / Stone)
+6. Persistent World Canvas & Coherent Material Hierarchy (Theme-appropriate physical substrate)
 7. AuthoredKeyframeEngine (5 Physical Profiles: Pneumatic, Hydraulic, Seismic, Magnetic, Crane)
 8. Visual Transformation Grammar & Topological 3D Extrusion (Mass Conservation)
-9. Kinetic Typography 2.0 (Structural baselines, mechanical shutters, engraved backlit numerals)
+9. Kinetic Typography (Structural baselines, mechanical shutters, engraved backlit numerals)
 10. Motion-Carry Transitions (6 Formulas) & Intentional Stillness (Zero idle jiggle)
         ↓
 [INDEPENDENT CRITIQUE & REVIEW GATES]
@@ -30,8 +30,8 @@ Transforms briefs, scientific research, academic lectures, and Persian scripts i
 14. Defect Clearance (P0 / P1 Must Be Zero Before Ship)
         ↓
 [TECHNICAL QC & DELIVERY]
-15. Automated QA Gates (freezedetect, sfx_check, beat_lint, Persian pronunciation lock)
-16. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
+15. Automated QA Gates (freezedetect, sfx_check, beat_lint, pronunciation locks)
+16. Final Master Render & Stem-Mixed Delivery (EBU R128 -16 LUFS)
 ```
 
 ---
@@ -104,7 +104,7 @@ Movement is driven by mathematically authored keyframe tracks rather than generi
 ### 2.2 Camera as an Active Participant
 Camera movements must be causally grounded by stage events:
 ```text
-CAMERA_CAUSE   : [Physical trigger, e.g. Column 3 explosive launch]
+CAMERA_CAUSE   : [Physical trigger, e.g. explosive launch of hero entity]
 CAMERA_TARGET  : [Active hero entity being tracked]
 CAMERA_PURPOSE : [Reveal structural scale or absorb seismic impact]
 ```
@@ -120,29 +120,31 @@ Transitions between visual scenes must carry motion across the cut (12–16 fram
 6. **Particle-Weld / Structural Reconfiguration:** Geometry of A physically deconstructs and reconstitutes into B.
 
 ### 2.4 Long-Take World Canvas
-For short-form educational videos, default to a **single persistent spatial world** (e.g. Sovereign Calibration Pavilion) rather than discrete slide swaps. The camera travels through coordinate stations or the architecture reconfigures dynamically.
+For short-form educational videos, default to a **single persistent spatial world** (e.g. Sovereign Calibration Pavilion for institutional/architectural, cellular micro-environments for biology, or topological manifolds for mathematics) rather than discrete slide swaps. The camera travels through coordinate stations or the architecture reconfigures dynamically.
 
 ---
 
-## 3. Typography & Persian Language Invariants
+## 3. Typography & Language Invariants
 
-1. **Ligature Integrity:** Persian text is rendered natively with complete whole-word cursive joinery. Letter-spacing and tracking expansion operate strictly at whole-word boundaries.
-2. **Zero Diacritics on Screen:** All on-screen Persian strings must pass through `sanitizeForDisplay()` to purge all Arabic/Persian diacritic marks (`َ ُ ِ ّ ْ ً ٍ ٌ`).
-3. **Typography as World Geometry:** Text must feel physically embedded in the world:
-   - Engraved on plinth faces.
+1. **Ligature & RTL Integrity:** Right-to-left and cursive typography is rendered natively with complete whole-word cursive joinery. Letter-spacing and tracking expansion operate strictly at whole-word boundaries.
+2. **Dual-Representation Architecture:**
+   - **`speechText` (Phonetic):** Carries all phonetic diacritics (harakat/tashdid) required to prevent TTS mispronunciations.
+   - **`displayText` (Visual):** Processed via `sanitizeForDisplay()` to purge all diacritics and normalize typography for clean display.
+3. **Typography as World Geometry:** Text must feel physically embedded in the visual world:
+   - Engraved on physical plinth faces.
    - Unveiled by physical sliding mechanical shutters.
    - Extruded as structural datum baselines.
    - Lit by internal backlight fixtures.
    Floating generic web cards and SaaS modals are strictly banned.
-4. **Canonical Institutional Pronunciation:** The pronunciation of **«بقیه‌الله»** and related institutional titles is locked and validated via `PersianPronunciationValidator`.
-5. **Exclusive Voice Engine Mandate (Google Gemini API):** Spoken voiceover must be generated exclusively via the Google Gemini Audio API (`gemini-2.5-flash-preview-tts` with voice `Puck`). Microsoft Azure / Edge-TTS (`fa-IR-FaridNeural`, `DilaraNeural`) is strictly banned and purged due to robotic inflection, dropped ezafe, and severe quality regression. Fallback to Edge-TTS is forbidden.
+4. **Domain & Institutional Pronunciation Lock:** Technical, academic, and proper nouns (e.g. «بقیه‌الله») must be strictly validated for correct vocal stress and vowelization.
+5. **Exclusive Voice Engine Mandate (Google Gemini API):** Spoken voiceover must be generated exclusively via the Google Gemini Multimodal Audio API (`gemini-2.5-flash-preview-tts` with voice `Puck`). Falling back to Edge-TTS or robotic neural voices is an immediate disqualification.
 
 ---
 
 ## 4. Production Workflow & Decoupled Roles
 
 ### Phase 1: Director (Planning & Causal Shotbook)
-1. Ingest Persian script and audio; extract word-level timestamps.
+1. Ingest script and audio; extract word-level timestamps.
 2. Map script to narrative beats; assign exactly 1 primary visual job per beat.
 3. Construct the Causal Graph and enforce the "No Orphan Element" rule.
 4. Calculate Element Budgets and assign layer roles (L1–L7).
@@ -151,7 +153,7 @@ For short-form educational videos, default to a **single persistent spatial worl
 
 ### Phase 2: Builder (Remotion Engineering)
 1. Build upon existing engines: `AuthoredKeyframeEngine`, `TransformationContinuityEngine`, and `sanitizeForDisplay`.
-2. Construct the persistent world canvas in `src/motion/`.
+2. Construct the persistent world canvas in `src/motion/` or project composition folder.
 3. Implement authored keyframe tracks for each entity.
 4. Connect mechanical shutters, momentum handoffs, and camera choreography.
 5. Adhere to intentional stillness: ensure elements hold with zero velocity once settled.
@@ -170,20 +172,19 @@ For short-form educational videos, default to a **single persistent spatial worl
 3. Classify and eliminate all P0 (blockers) and P1 (defects) before proceeding.
 
 ### Phase 4: QC & Delivery
-1. Run automated test suite: `beat_lint.py`, `motion_check.py` (with intentional stillness overrides), audio LUFS checks.
-2. Render master video with multi-track stem audio mix (voiceover ducked over parametric score and physical SFX).
+1. Run automated test suite: `npx tsc --noEmit`, `beat_lint.py`, `motion_check.py` (with intentional stillness overrides), audio LUFS checks.
+2. Render master video with multi-track stem audio mix (voiceover ducked over score and physical SFX).
 3. Deliver final artifact with verification report.
 
 ---
 
 ## 5. Reference Library
 
-- [Skill Integration Audit](../../../docs/SKILL_INTEGRATION_AUDIT.md)
 - [Causal Planning & Relational Choreography](references/causal-planning.md)
 - [Living Motion & Intentional Stillness](references/living-motion.md)
+- [Anti-Patterns Catalog](references/anti-patterns.md)
 - [Cinematography & Layer Matrix Specification](references/cinematography.md)
 - [Anti-Cliché Rules & Materiality Restraint](references/anti-cliche-rules.md)
 - [Visual Critique Protocol & Scorecard](references/visual-critique.md)
-- [Persian Pronunciation Architecture](../../../docs/persian-tts-production.md)
+- [Voice Director & Google Gemini TTS](references/voice-director-and-persian-tts.md)
 - [Sound Design & Dual-Clock Beat Grid](references/sound-design.md)
-- [V40.1 Causal Audit](../../../docs/V40.1_CAUSAL_AUDIT.md)

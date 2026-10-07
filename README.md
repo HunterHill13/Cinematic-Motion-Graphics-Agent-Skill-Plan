@@ -86,29 +86,52 @@ npx tsc --noEmit
 ## 📂 Repository Layout
 
 ```text
-├── .agents/skills/cinematic-motion-director/  # Canonical Skill Package (v40.1)
-│   ├── SKILL.md                              # Master Skill Directive & Core Rules
-│   ├── references/                           # Architectural Knowledge Base
+.
+├── .agents/skills/cinematic-motion-director/  # REUSABLE AGENT SKILL (Universal Directing Pipeline)
+│   ├── SKILL.md                              # Master Directing Directive & Core Rules
+│   ├── references/                           # Architectural Standards
 │   │   ├── causal-planning.md                # Causal Event Graphs & Element Budgets
 │   │   ├── living-motion.md                  # Organic Motion & Authored Curves
-│   │   ├── voice-director-and-persian-tts.md # Gemini TTS Protocol & Persian Rules
-│   │   ├── camera-director.md                # Cinematic 3D Camera Choreography
-│   │   └── remotion-core-engine.md           # Remotion React Engine Standards
+│   │   ├── voice-director-and-persian-tts.md # Gemini TTS Protocol & Audio Ducking
+│   │   ├── camera-director.md                # Motivated 3D Camera Choreography
+│   │   ├── anti-patterns.md                  # Catalog of Historical Failure Modes
+│   │   └── anti-cliche-rules.md              # Materiality & Layout Restraint
 │   └── template/                             # Production scaffolding & configs
-├── docs/                                     # Verification audits & failure reviews
-│   ├── SKILL_INTEGRATION_AUDIT.md            # Video-Talkcraft integration audit
-│   ├── V40.1_CAUSAL_AUDIT.md                 # Mechanical causality audit
-│   └── V40.1_INTEGRATION_VERIFICATION.md     # Production runtime verification report
-├── projects/v40_audio/                       # Audio generation scripts & assets
-│   └── build_preview_audio.py                # Gemini TTS + FFmpeg master mixer
-├── renders/v40/                              # Master video renders & frame proofs
-│   ├── V40.1_PREVIEW_KINETIC_MONOLITH.mp4    # Official v40.1 preview video
-│   └── stills/                               # High-res audit stills
-├── src/                                      # Remotion React Source
-│   ├── Root.tsx                              # Composition registration
-│   └── motion/precision_lab/
-│       └── V40_KineticMonolithPreview.tsx    # V40.1 Monolith production code
-└── README.md                                 # Project documentation
+│
+├── src/                                      # CORE PRODUCTION CODEBASE
+│   ├── production/                           # Active Production Entrypoints
+│   │   └── BandKafPreviewComposition.tsx     # Active Monolith Preview Master
+│   ├── motion/                               # Mathematical Motion Engines
+│   │   ├── curves/                           # AuthoredKeyframeEngine (bezier tracks)
+│   │   ├── physics/                          # PhysicalBounceRecipe (parabolic, COR)
+│   │   ├── fidelity/                         # MotionFidelityEngine (8 profiles)
+│   │   └── recipes/                          # Reusable animation building blocks
+│   ├── camera/                               # CameraGrammarRig & Seismic Shock
+│   ├── typography/                           # Zero-Subpixel Typography & persianSanitizer
+│   ├── transition/                           # Motion-Carry Transitions
+│   ├── Root.tsx                              # Minimal, clean Remotion registry (~50 lines)
+│   └── Main.tsx                              # Modular 6-shot cinematic film template
+│
+├── projects/                                 # PRODUCTION PROJECTS
+│   └── band-kaf/                             # Standalone Band Kaf Project
+│       ├── script/                           # SpeechText & DisplayText specs
+│       ├── audio/                            # Gemini TTS `Puck` audio & FFmpeg mixer
+│       ├── compositions/                     # BandKafMonolithPreview
+│       ├── renders/                          # MP4 masters and high-res stills
+│       └── project-notes/                    # Art direction, causality maps, plans
+│
+├── archive/                                  # HISTORICAL RESEARCH ARCHIVE (V1 → V39)
+│   ├── README.md                             # Version history registry and lessons learned
+│   ├── legacy_projects/                      # Archived test suites (v3 to v19)
+│   ├── legacy_labs/                          # Archived precision labs (v27 to v38)
+│   └── experiments/v39/                      # Failed slideshow experiment run
+│
+└── docs/                                     # ARCHITECTURAL DOCUMENTATION
+    ├── CAPABILITY_INVENTORY.md               # Historical capability audit
+    ├── CAPABILITY_CONSOLIDATION_MATRIX.md    # Consolidation decisions matrix
+    ├── ARCHITECTURE.md                       # Single Source of Truth architecture
+    ├── PRODUCTION_CONTRACT.md                # Quality contract for future productions
+    └── CONSOLIDATION_REPORT.md               # Final consolidation report
 ```
 
 ---

@@ -1,76 +1,128 @@
-# CINEMATIC MOTION-GRAPHICS AGENT v2: FULL SYSTEM ARCHITECTURE
+# Consolidated Architecture Specification (v40.1)
 
-**System:** `cinematic-motion-director` v2  
-**Platform:** Google Antigravity + Gemini 2.5 / Pro  
-**Architecture Date:** 2026-10-04  
+## 1. System Overview & Clean Separation of Concerns
+The Cinematic Motion Director system strictly isolates three functional boundaries:
+1. **The Reusable Skill (`.agents/skills/cinematic-motion-director/`):** The general, project-agnostic directing and production intelligence. Governs causal graphs, element budgeting, authored keyframes, camera grammar, audio ducking standards, and quality release gates.
+2. **The Core Production Library (`src/`):** The shared React and Remotion components, mathematical motion engines (`src/motion/`), camera rigs (`src/camera/`), typography systems (`src/typography/`), and transition handlers (`src/transition/`).
+3. **The Project Workspace (`projects/band-kaf/`):** Project-specific narrative assets, scripts, audio recordings, custom 3D art direction, and storyboard specifications.
 
 ---
 
-## 1. Core Production Pipeline
+## 2. End-to-End Production Pipeline Architecture
 
-```mermaid
-flowchart TD
-    subgraph PreProduction [Pre-Production & Creative Foundation]
-        Input[User Input: Topic / Script / Audio / Docs] --> ModeRoute{Mode Router: A / B / C / D / E}
-        ModeRoute --> CD[Creative Director: Creative Brief & Style Lock]
-        CD --> Research[Research & Factual Grounding: sources.md]
-        Research --> StoryArc[Story Architect: 3-Act / Explainer Arc]
-        StoryArc --> Script[Narration Script]
-    end
-
-    subgraph VoiceSubsystem [Voice Director & Dual-Clock Authority]
-        Script --> TextOpt[Persian / Multi-lingual Text Optimizer]
-        TextOpt --> VoiceEngine[Voice Director Provider Engine]
-        VoiceEngine --> Synth[TTS Audio Synthesis: Gemini / ElevenLabs / Aava / Pocket]
-        Synth --> WordAlign[Whisper / Phoneme Alignment: Word Boundaries & Timestamps]
-        WordAlign --> DualClock[Dual-Clock Master Contract: VOICEOVER = timing truth, SCRIPT = semantic truth]
-    end
-
-    subgraph VisualDirection [Cinematography & Storyboarding]
-        DualClock --> BeatSheet[Canonical Beat Sheet: beat-sheet.yaml]
-        BeatSheet --> Storyboard[Cinematic Storyboard: storyboard.yaml]
-        Storyboard --> ShotRecipes[Shot & Motion Recipes: 7-Layer Architecture]
-    end
-
-    subgraph LivingMotionSubsystem [Living Motion Engine]
-        ShotRecipes --> L0L7[L0-L7 Layer Composition]
-        L0L7 --> CamRig[Living CameraRig: Procedural Drift & Impulse]
-        L0L7 --> OrganicNoise[Seeded Simplex Noise & Micro-Oscillations]
-        L0L7 --> SecondaryPhys[Secondary Inertial Lag & Fluid Follow-Through]
-        L0L7 --> ReactiveAudio[Narration & Beat Semantic Pulse]
-    end
-
-    subgraph SoundAndRender [Sound Design, Assembly & Pilot Gate]
-        VoiceEngine --> StemAudio[Audio Stems: Narration, Music, SFX]
-        StemAudio --> AutoDuck[Dynamic Stem Mixer: -14dB Ducking, -16 LUFS]
-        LivingMotionSubsystem --> PilotComp[Pilot Sequence: First 10-30s]
-        AutoDuck --> PilotComp
-        PilotComp --> PilotRender[Render Pilot Video & CV Extraction]
-        PilotRender --> PilotGate{Pilot Gate Approval}
-        PilotGate -- Revision Needed --> Storyboard
-        PilotGate -- Approved --> FullAssembly[Full Shot Implementation]
-        FullAssembly --> FullRender[Full Render: remotion render --concurrency]
-        FullRender --> TwoTierQC[Two-Tier QC: Quantitative CV + Human Checklist]
-        TwoTierQC --> Delivery[Final Master Delivery Package]
-    end
+```text
+               REUSABLE SKILL (cinematic-motion-director)
+                                   ↓
+                       DIRECTOR: SEMANTIC INTAKE
+      (Script Analysis, ASR Word Timestamps, Semantic Beat Mapping)
+                                   ↓
+                                SHOTBOOK
+     (docs/SHOTBOOK.md: 1 Primary Visual Job per Beat, Timing Windows)
+                                   ↓
+                           CAUSAL EVENT GRAPH
+  (references/causal-planning.md: State -> Anticipation -> Cause -> Action -> Settle)
+                                   ↓
+                        ELEMENT BUDGETING & LAYOUT
+      (Max 1 Primary Hero, 1-2 Secondary, 0-2 Tertiary, >= 1 Empty Quadrant)
+                                   ↓
+                    CORE MOTION & TRANSFORMATION ENGINES
+ (AuthoredKeyframeEngine, PhysicalBounceRecipe, TransformationContinuityEngine)
+                                   ↓
+                       CINEMATIC CAMERA GRAMMAR
+    (CameraGrammarRig: Motivated moves only, Seismic Shock, Zero Idle Jitter)
+                                   ↓
+                      AUDIO & PROSODY INTEGRATION
+   (Google Gemini TTS `Puck`, Dual-Script Sanitizer, -14dB Sidechain Ducking)
+                                   ↓
+=========================== PROJECT BOUNDARY ===========================
+                                   ↓
+                   PROJECT-SPECIFIC COMPOSITIONS
+   (e.g., Sovereign Calibration Pavilion & Kinetic Monolith in `projects/band-kaf/`)
+                                   ↓
+                     13 AUTOMATED RELEASE GATES
+ (Frame Metrics, Causal Audits, Audio Loudness, Anti-Pattern Review, Zero Lint)
+                                   ↓
+                       FINAL MASTER RENDER (Remotion)
+            (renders/v40/V40.1_PREVIEW_KINETIC_MONOLITH.mp4)
 ```
 
 ---
 
-## 2. The 3 Architectural Pillars of v2
+## 3. Directory Layout & Boundaries
 
-### 2.1 Living Motion Engine
-Every frame of video must feel alive, breathing, and physical:
-- **Zero Static Freezes:** No element ever rests in absolute stillness. Even in "hold" states, elements exhibit micro-breathing ($1.000 \to 1.012$ scale at $0.2\,\text{Hz}$) or slow gravitational drift ($0.5\,\text{px/sec}$).
-- **Procedural Multi-Octave Noise:** Deterministic, frame-indexed Simplex noise ensures organic motion without rendering nondeterminism.
-- **Secondary Delayed Physics:** Attached indicators, badges, and labels follow the primary hero with spring-modeled inertial lag (phase delay: 4–8 frames).
-- **Audio-Reactive Semantics:** Subtle luminescence and scale expansions trigger on stressed narration syllables and musical beat drops.
+```text
+.
+├── .agents/skills/cinematic-motion-director/  # REUSABLE AGENT SKILL (Project-Agnostic)
+│   ├── SKILL.md                              # Master Directing Directive
+│   ├── references/                           # Architectural Standards
+│   │   ├── causal-planning.md                # Causal Event Graphs & Budgeting
+│   │   ├── living-motion.md                  # Organic Motion & Authored Curves
+│   │   ├── voice-director-and-persian-tts.md # Gemini TTS Protocol & Audio Ducking
+│   │   ├── camera-director.md                # Cinematic 3D Camera Choreography
+│   │   ├── remotion-core-engine.md           # Remotion React Engine Standards
+│   │   └── anti-patterns.md                  # Catalog of Historical Failures
+│   └── template/                             # Clean scaffolding for fresh projects
+│
+├── src/                                      # PRODUCTION CODEBASE
+│   ├── production/                           # Production Entrypoints
+│   │   └── BandKafPreviewComposition.tsx     # Active Flagship Composition Export
+│   ├── motion/                               # Mathematical Motion Engines
+│   │   ├── curves/                           # AuthoredKeyframeEngine (bezier profiles)
+│   │   ├── physics/                          # PhysicalBounceRecipe (parabolic, COR)
+│   │   ├── fidelity/                         # MotionFidelityEngine (8 personalities)
+│   │   ├── recipes/                          # Reusable animation building blocks
+│   │   └── TransformationContinuityEngine.ts # 2D->3D & Volume Conservation
+│   ├── camera/                               # CameraGrammarRig & CameraRig
+│   ├── typography/                           # Zero-Subpixel Persian typography & Sanitizer
+│   ├── transition/                           # Motion-Carry Transitions
+│   ├── choreography/                         # ChoreographyEventGraph Engine
+│   ├── Root.tsx                              # Minimal, clean Remotion registry
+│   └── Main.tsx                              # Modular 6-shot film template
+│
+├── projects/                                 # PROJECT WORKSPACES
+│   └── band-kaf/                             # Standalone Band Kaf Project
+│       ├── script/                           # Phonetic & Display scripts
+│       ├── audio/                            # Gemini TTS WAVs, MP3 master, Python mix
+│       ├── compositions/                     # BandKafMonolithPreview
+│       ├── renders/                          # Video exports and audit stills
+│       └── project-notes/                    # Art direction, causality maps, plans
+│
+├── archive/                                  # HISTORICAL R&D (V1 - V39)
+│   ├── README.md                             # Version registry and lessons learned
+│   ├── legacy_projects/                      # Archived test suites (v3 to v19)
+│   ├── legacy_labs/                          # Archived precision labs (v27 to v38)
+│   └── experiments/                          # Failed experiments (e.g. v39 slideshow)
+│
+├── docs/                                     # ARCHITECTURAL DOCUMENTATION
+│   ├── CAPABILITY_INVENTORY.md               # Historical capability audit
+│   ├── CAPABILITY_CONSOLIDATION_MATRIX.md    # Consolidation decisions
+│   ├── ARCHITECTURE.md                       # This document (Single Source of Truth)
+│   ├── PRODUCTION_CONTRACT.md                # Acceptance criteria for future videos
+│   └── CONSOLIDATION_REPORT.md               # Final consolidation report
+│
+└── renders/                                  # Global build exports
+```
 
-### 2.2 Voice Director & Voice-First Pipeline
-- **Dual-Clock Authority:** The spoken audio track (`narration.wav`) is the immutable physical clock. Visual cuts and camera moves lock strictly to word boundaries, never arbitrary timer guesses.
-- **Stem Architecture:** Narration, cinematic underscore, and sound effects are generated and managed as independent stems before automated ducking and LUFS normalization.
+---
 
-### 2.3 Natural Persian Voice System
-- **Rejection of Monotone Engines:** Explicitly avoids default Microsoft/Azure voices in favor of modern prosody-aware models.
-- **Orthographic & Phonetic Optimization:** Automated preprocessing handles نیم‌فاصله (ZWNJ), silent ezafe (`-e` / `-ye`), number to Persian words conversion, and English scientific term phonetic substitution.
-- **Standardized Benchmark Suite:** Reproducible benchmarking across Gemini Cloud TTS, ElevenLabs, Aava Persian TTS, and Pocket TTS Farsi v2.
+## 4. Subsystem Specifications
+
+### 4.1 Motion & Transformation Engine
+- **AuthoredKeyframeEngine:** Evaluates multi-phase piecewise bezier curves (`evaluateAuthoredKeyframeTrack`). Keyframe roles (`REST`, `ANTICIPATION`, `LAUNCH`, `PEAK`, `IMPACT`, `OVERSHOOT`, `SETTLE`) provide micro-frame directorial control over speed and force.
+- **Continuous 2D $\to$ 3D:** Vector SVGs preserve topological slice integrity, rotating into orthographic and perspective depth using CSS 3D transforms without Three.js overhead.
+- **Mass & Volume Conservation:** All squashing or impact deformations maintain physical mass volume:
+  $$\text{scaleX} \cdot \text{scaleY} = 1.0$$
+
+### 4.2 Camera Grammar
+- **Motivated Motion Only:** Camera moves are tied directly to narrative scope. A crane pull-back is used when the scope broadens (e.g. revealing the full trilogy); an orbital push-in occurs during high-stakes focus.
+- **Seismic Shock Reaction:** When an entity strikes the ground with mass, the camera executes a 3-frame vertical kick ($+8\text{px} \to -4\text{px} \to 0\text{px}$).
+- **Intentional Stillness:** Continuous camera breathing or idle sinusoidal floating is strictly banned.
+
+### 4.3 Typography & Dual-Script Architecture
+- **SpeechText (Phonetic):** Carries Arabic/Persian diacritics (harakat/tashdid) required to prevent Google Gemini TTS from mispronouncing scientific or institutional terms.
+- **DisplayText (Visual):** Processed via `src/typography/persianSanitizer.ts`, stripping all diacritics and normalizing zero-width non-joiners for clean visual typography.
+- **Subpixel Locking:** Integer coordinates (`Math.round`), `translate3d(0,0,0)`, and `backface-visibility: hidden` prevent blur and text vibration during animation.
+
+### 4.4 Audio Mastering
+- **Gemini TTS Mandate:** Exclusively uses Google Gemini Multimodal Audio API (`gemini-2.5-flash-preview-tts` with voice `Puck`).
+- **Dynamic Ducking:** Music ducks by -14 dB under voiceover using FFmpeg `sidechaincompress` (200ms attack, 800ms release) and normalized to EBU R128 (-16 LUFS).
