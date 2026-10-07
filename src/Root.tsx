@@ -152,6 +152,7 @@ import { V36_5_BlindShowreel } from './motion/precision_lab/V36_5_BlindShowreel'
 import { V36_5_CraftMasterpiece } from './motion/precision_lab/V36_5_CraftMasterpiece';
 import { V37_BandMasterpiece } from './motion/precision_lab/V37_BandMasterpiece';
 import { V38_ShowreelBenchmark } from './motion/precision_lab/V38_ShowreelBenchmark';
+import { V39_BandKafProduction } from './motion/precision_lab/V39_BandKafProduction';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1715,6 +1716,16 @@ export const Root: React.FC = () => {
         id="V38-ShowreelBenchmark"
         component={V38_ShowreelBenchmark}
         durationInFrames={450}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V39 Production — Ben Kaufman Full Video Production (Band K) */}
+      <Composition
+        id="V39-BandKafProduction"
+        component={V39_BandKafProduction}
+        durationInFrames={2755}
         fps={30}
         width={1920}
         height={1080}
