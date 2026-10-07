@@ -107,30 +107,39 @@ If `TRANSFORMATION` is `NONE`, the director must provide written justification u
 
 ---
 
-## 5. Voice Synthesis & Audio Mandates (Quota-Aware Gemini Architecture)
+## 5. Voice Synthesis & Audio Mandates (Edge-TTS Preview + Quota-Aware Gemini Architecture)
 
-1. **Quota-Aware Gemini TTS Engine:** Voiceover synthesized strictly via Google Gemini Multimodal Audio API (`https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent?key={GEMINI_API_KEY}`).
-2. **Fixed Model Priority Hierarchy:**
-   - **Priority 1 (Default / Highest Quality):** `gemini-3.8-flash-tts` (Mandatory starting choice for all new productions).
-   - **Priority 2 (First Quota Fallback):** `gemini-3.8-flash-lite-tts` (Used ONLY upon authentic quota/rate-limit failure of Priority 1).
-   - **Priority 3 (Final Quota Fallback):** `gemini-3.1-flash-tts-preview` (Used ONLY upon authentic quota/rate-limit failure of Priorities 1 & 2).
-   - If Priority 3 also encounters quota exhaustion: Halt production immediately with `GeminiTTSQuotaError`.
-3. **Zero Speculative Probing Doctrine:**
-   - NEVER call models one-by-one to "test connectivity", "compare quality", or "probe quotas".
-   - Select Priority 1, send the live generation request once.
-   - ONLY fallback upon authentic quota exhaustion (HTTP 429, `RESOURCE_EXHAUSTED`, `GenerateRequestsPerDayPerProjectPerModel-FreeTier`, etc.).
-   - Non-quota errors (401, 403, 400 bad argument, network bugs) MUST NOT trigger fallback; fail immediately.
-4. **Mandatory User Voice Selection:** Must explicitly prompt user to select between:
+1. **Two-Stage Architecture (Preview vs Production):**
+   - **Stage 1 (Validation Preview):** Microsoft Edge-TTS (`fa-IR-FaridNeural`) generates complete preview narration for testing motion graphics, camera pacing, scene transitions, and visual composition. **Consumes ZERO Gemini quota.**
+   - **Stage 2 (Final Production):** Google Gemini Multimodal Audio API generates master production audio **ONLY after explicit user approval of the motion design**.
+2. **Approval State Machine Enforcement:**
+   - Production follows this strict state progression:
+     `DRAFT -> EDGE_PREVIEW_GENERATING -> EDGE_PREVIEW_READY -> WAITING_USER_APPROVAL`
+   - User Decision Paths:
+     - **REVISION:** Modify motion or script; re-render Edge Preview. (If script unchanged, reuse cached Edge audio with 0 TTS calls). **Gemini remains strictly blocked.**
+     - **CANCEL:** Halt production.
+     - **APPROVE:** Transition to `GEMINI_PREFLIGHT -> GEMINI_VOICE_APPROVAL -> GEMINI_FINAL_GENERATION -> FINAL_TIMING_CALIBRATION -> FINAL_RENDER -> DONE`.
+3. **Strict Ban on Pre-Approval Gemini Execution:**
+   - BEFORE explicit user approval of the Edge Preview, the agent MUST NOT send any Gemini requests, test any Gemini models, or execute Gemini preflight.
+4. **Independent Artifact Separation:**
+   - Preview audio: `public/audio/preview/edge/{video_id}_preview_voice.wav`
+   - Final audio: `public/audio/final/gemini/{video_id}_master_voice.wav`
+   - Preview video render: `renders/preview/{video_id}_preview_edge.mp4`
+   - Final video render: `renders/final/{video_id}_final_gemini.mp4`
+5. **Final Timing Recalibration:**
+   - Edge Preview audio duration != Gemini final audio duration.
+   - Upon Gemini audio generation, actual WAV duration is measured (`measure_wav_duration`), and Remotion timeline/frame counts are recalculated with Gemini actual duration as the absolute **Source of Truth**.
+6. **Gemini Fixed Priority Hierarchy & Quota Fallback:**
+   - **Priority 1 (Default / Highest Quality):** `gemini-3.8-flash-tts`
+   - **Priority 2 (First Quota Fallback):** `gemini-3.8-flash-lite-tts` (Used ONLY upon authentic quota failure of Priority 1)
+   - **Priority 3 (Final Quota Fallback):** `gemini-3.1-flash-tts-preview` (Used ONLY upon authentic quota failure of Priorities 1 & 2)
+   - If Priority 3 also encounters quota exhaustion: Halt immediately with `GeminiTTSQuotaError`.
+7. **Zero Speculative Probing Doctrine:** Never probe models in advance. Send live request to Priority 1; fallback only on authentic quota exhaustion (HTTP 429, `RESOURCE_EXHAUSTED`, `GenerateRequestsPerDayPerProjectPerModel-FreeTier`).
+8. **Mandatory User Voice Selection:** Prompt user before generation:
    - **`Puck`** — مردانه (رسمی، پرانرژی، مدرن و پویا)
    - **`Callirrhoe`** — زنانه (طبیعی، آرام، صمیمی و روان)
-   Never automatically default or bypass this selection unless already answered in the active session.
-5. **One Video = One TTS Request:** The entire narration of a video must be sent in exactly ONE single TTS request. Never split narration into per-scene requests. Chunking is strictly prohibited unless text exceeds technical model boundaries (>4000 characters).
-6. **Preflight Sample Protocol:** Exactly ONE 10–15s sample synthesized using `CANONICAL_PREFLIGHT_TEXT` and presented to user. Full narration request occurs only after explicit user approval.
-7. **Fail-Closed Security:** Read `GEMINI_API_KEY` from environment. Never commit, log, or leak the key.
-8. **Default Narration Style:** Production prompt is strictly:
-   `«رسمی و پرانرژی، مناسب کلیپ تبلیغاتی؛ طبیعی، روان و محاوره‌ای، با ریتم مناسب و confident delivery، بدون لحن گویندگی خشک، رسمیِ سنگین یا اغراق‌آمیز.»`
-9. **Deterministic Caching:** Every successful synthesis is cached by hash (`model`, `voice`, `language`, `script_hash`, `style_hash`). Exact cache matches return local audio with 0 API calls.
-10. **Actual Audio Duration Truth:** Measure duration from resulting WAV file (`measure_wav_duration`). Never rely on estimated WPM for final Remotion timeline frames. Audio mastered to EBU R128 (-16 LUFS, True Peak < -1.0 dBFS).
+9. **One Video = One Request Doctrine:** Monolithic narration request for full video. No per-scene splitting.
+10. **Audio Mastering:** EBU R128 (-16 LUFS Integrated, True Peak < -1.0 dBFS) with -14 dB background music ducking.
 
 ---
 
