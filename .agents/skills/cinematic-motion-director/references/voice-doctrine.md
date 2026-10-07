@@ -2,56 +2,75 @@
 
 ## 1. Persona & Delivery Philosophy
 The spoken voiceover must embody:
-> **A highly skilled Persian educator/presenter explaining a breakthrough concept naturally, fluently, and energetically to an intelligent audience.**
+> **A highly skilled Persian narrator delivering a punchy, energetic, modern promotional/educational film with confidence, fluency, and warmth.**
 
 It must NEVER sound like:
-- An elderly ceremonial cleric reading a parchment.
-- An artificially slow, robotic voice crawling at 80 words per minute.
-- A lifeless bureaucrat reciting legal clauses with dead, uniform cadence.
+- ❌ An antiquated ceremonial cleric reading a religious parchment.
+- ❌ An artificially slow, robotic voice crawling at $< 115$ words per minute.
+- ❌ A lifeless bureaucrat reciting legal clauses with dead, uniform cadence.
+- ❌ A melodramatic stage actor overacting with theatrical breathiness.
+
+**Target Delivery:**
+> **Professional + Energetic + Fluent + Confident + Natural Persian.**
 
 ---
 
-## 2. Style Instruction Mandate (Google Gemini TTS)
-When calling the official Google Gemini Multimodal Audio API (`gemini-2.5-flash-preview-tts` with voice `Puck`), the prompt must enforce natural fluency and energy:
+## 2. Mandatory Voice Selection Gate (`VOICE_SELECTION_GATE`)
 
-```python
-# MANDATORY PROMPT TEMPLATE FOR PERSIAN TTS:
-STYLE_INSTRUCTION = (
-    "با لحن یک مجری علمی و دانشگاهی حرفه‌ای، پرانرژی، روان، مسلط و صمیمی صحبت کن. "
-    "ریتم کلام باید کاملاً طبیعی، پویا و زنده باشد. از مکث‌های طولانی، کشیدن بیش از حد کلمات و لحن کند یا تشریفاتی خودداری کن. "
-    "کسره‌های اضافه و اعراب‌های واژگان تخصصی را دقیق و روان ادا کن."
-)
+Before generating narration, timing, or beginning visual Remotion production, the director **MUST** prompt the user to explicitly select an approved Gemini narration voice (unless already answered in the active session):
+
+### Approved Voices:
+* **🎙️ Puck (پوک):** مرد — رسمی، پرانرژی، مدرن و پویا (مناسب کلیپ‌های تبلیغاتی، علمی و پروموشن)
+* **🎙️ Callirrhoe (کالیرو):** زن — طبیعی، آرام، صمیمی و روان (مناسب محتوای آموزشی، فاخر و پروموشن)
+
+### Mandatory Persian Prompt:
+> «قبل از شروع ساخت ویدیو، لطفاً صدای راوی را انتخاب کنید:
+> 
+> **🎙️ گزینه‌های مصوب (Google Gemini Multimodal Audio):**  
+> 1. **Puck (پوک)** — مرد: رسمی، پرانرژی، مدرن و پویا  
+> 2. **Callirrhoe (کالیرو)** — زن: طبیعی، آرام، صمیمی و روان  
+> 
+> کدام را انتخاب می‌کنید؟»
+
+---
+
+## 3. Quota-Aware Model Hierarchy
+
+* **Priority 1 (Default / Highest Quality):** `gemini-3.8-flash-tts`
+* **Priority 2 (First Quota Fallback):** `gemini-3.8-flash-lite-tts`
+* **Priority 3 (Final Quota Fallback):** `gemini-3.1-flash-tts-preview`
+
+### Zero Speculative Probing Doctrine:
+* **NEVER** probe candidate models in advance.
+* Only fall back if an authentic quota failure occurs (`is_authentic_quota_failure()`).
+* Non-quota failures (e.g. 401 Unauthorized, 400 Bad Request, network errors) fail immediately without switching models.
+
+---
+
+## 4. Default Narration Style Mandate
+
+The production prompt for Gemini Persian narration is:
+
+```text
+«رسمی و پرانرژی، مناسب کلیپ تبلیغاتی؛
+طبیعی، روان و محاوره‌ای،
+با ریتم مناسب و confident delivery،
+بدون لحن گویندگی خشک، رسمیِ سنگین یا اغراق‌آمیز.»
 ```
 
-### PROHIBITED WORDS IN PROMPT:
-- Do NOT use: `بدون شتاب` (unhurried)
-- Do NOT use: `شمرده شمرده` (measured/slow)
-- Do NOT use: `با طمأنینه` (at a leisurely pace)
-- Do NOT use: `سنگین و موقر` (solemn/heavy)
+---
 
-These phrases trigger severe model slowdown and robotic phrasing.
+## 5. Preflight Sample Protocol
+
+1. Synthesize exactly ONE 10–15s sample using canonical preflight text:
+   `«کمیته تحقیقات دانشگاه علوم پزشکی بقیه‌الله، این ویدیو را برای معرفی مسیر جدید پژوهش و نوآوری تقدیم می‌کند.»`
+2. Present sample to user for approval.
+3. Upon approval, synthesize the final full-video narration in ONE single request.
 
 ---
 
-## 3. Measurable Voice Speed Gate (`VOICE_SPEED_GATE`)
-Every synthesized voiceover must be evaluated against mathematical metrics before any visuals are choreographed:
+## 6. One Video = One TTS Request
 
-| Metric | Minimum Acceptable | Target Ideal | Maximum Acceptable | Action if Violated |
-| :--- | :--- | :--- | :--- | :--- |
-| **Speaking Rate (WPM)** | **125 WPM** | **140 – 165 WPM** | **180 WPM** | If $< 125$ WPM: **VOICE FAIL** (Regenerate). |
-| **Pause Ratio** | $\le 10\%$ | **15% – 25%** | $\ge 35\%$ | If $> 35\%$: **VOICE FAIL** (Excessive dead pauses). |
-| **Max Unvoiced Silence** | — | **0.3s – 0.6s** | **1.2s** | If any pause $> 1.2\text{s}$: Trim silence with FFmpeg. |
-
-$$\text{WPM} = \frac{\text{Persian Word Count}}{\text{Audio Duration in Seconds}} \times 60$$
-
-If the voiceover falls below 125 WPM, **HALT PRODUCTION AND REGENERATE AUDIO**.  
-Do NOT stretch the visual Remotion timeline to accommodate dragged-out speech.
-
----
-
-## 4. Dual-Clock Timing: Voice is NOT the Sole Timing Truth
-The spoken speech waveform provides semantic anchors, but the visual choreography operates on its own physical clock:
-- **Visual Anticipation:** A heavy mass begins pre-loading 15–25 frames *before* the keyword is uttered.
-- **Visual Overlap:** A transformation may initiate during clause A and resolve smoothly through clause B.
-- **Visual Settle:** Elements can settle into intentional stillness while speech continues.
-- Never force an animation to freeze or wait for each individual syllable.
+* Entire script synthesized in ONE single call.
+* No scene-by-scene splitting.
+* Long text exception (>4000 characters) cleanly chunked at sentence boundaries.
