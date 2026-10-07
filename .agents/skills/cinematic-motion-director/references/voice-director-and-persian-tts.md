@@ -1,45 +1,109 @@
-# Voice Director & Natural Persian TTS Reference (v2)
+# Voice Director & Google Gemini TTS Authority Reference (v40.1)
 
-Voiceover is the physical timing clock of production. Visual motion synchronizes strictly to spoken speech.
-
----
-
-## 1. Dual-Clock Authority Contract
-
-- **`VOICEOVER = Physical Timing Truth`**: The synthesized/recorded audio waveform and its extracted word timestamps govern exact frame positions for cuts, zooms, camera transitions, and visual emphases.
-- **`SCRIPT = Semantic Meaning Truth`**: The written text provides semantic definitions, source citations, on-screen typography, and scientific grounding.
+> **Mandate:** Fail-Closed Audio Authority  
+> **Primary Engine:** Google Gemini Audio API (`gemini-2.5-flash-preview-tts` / `Puck`)  
+> **Status:** ABSOLUTE BAN ON EDGE-TTS & AZURE VOICES
 
 ---
 
-## 2. Natural Persian TTS Architecture
+## 1. The Voice Authority Contract
 
-### 2.1 Rejection of Azure as Default
-Microsoft/Azure voices (`DilaraNeural`, `FaridNeural`) produce a mechanical, monotone cadence that often drops the grammatical Persian ezafe.
-
-### 2.2 Recommended Provider Hierarchy
-1. **Google Gemini TTS / Cloud Audio:** Exceptional natural breath pauses, natural sentence contours.
-2. **ElevenLabs Multilingual v2:** Cinema-grade dramatic resonance.
-3. **Pocket TTS Farsi v2 (`mehdi-hf/pocket-tts-farsi`):** Lightweight local CPU/ONNX fallback.
-4. **Edge-TTS:** Emergency fallback only.
+1. **`VOICEOVER = Physical Timing Truth`**: Spoken speech waveform and its exact acoustic transients govern frame boundaries, cut points, camera accelerations, and impact hits.
+2. **`SCRIPT = Semantic Meaning Truth`**: Spoken text provides academic definitions, research metrics, and on-screen typography.
 
 ---
 
-## 3. Persian Text Normalization Pipeline
+## 2. Mandatory TTS Architecture: Google Gemini API
 
-Always run Persian text through `audio/engine/PersianTextOptimizer.py` before synthesis:
-- **ZWNJ (\u200c):** Corrects prefixes (`می‌رود`, `نمی‌شود`) and suffixes (`سلول‌ها`, `سامانه‌ها`).
-- **Numbers to Words:** Automatically expands digits into Persian written words (`۲۵٪` $\to$ `بیست و پنج درصد`).
-- **Phonetic Glossary:** Standardizes biomedical English terms into natural Persian phonetic spelling (`Apoptosis` $\to$ `آپوپتوز`).
+### 2.1 Complete Ban on Edge-TTS / Microsoft Azure
+- **BANNED:** `edge-tts`, `fa-IR-FaridNeural`, `fa-IR-DilaraNeural`.
+- **Reason for Ban:** Mechanical cadence, robotic pitch, and frequent dropping of Persian grammatical *ezafe* (-e / -ye), causing severe regressions in educational and academic credibility.
+- **Rule:** Under NO circumstances should any production script fallback to Edge-TTS. If API quota is reached, the process must halt and prompt the user rather than quietly degrading audio quality.
+
+### 2.2 Locked Production Engine: Google Gemini 2.5 Flash TTS
+- **Endpoint:** `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key={GEMINI_API_KEY}`
+- **Default Voice:** `Puck` (Authentic warmth, dynamic prosody, accurate Persian pronunciation, zero robotic artifacts).
+- **Format:** Linear PCM 24kHz / 44.1kHz mono WAV.
 
 ---
 
-## 4. Audio Stems & Dynamic Ducking
+## 3. Canonical Voice Synthesis Script (`scripts/synthesize_gemini_voice.py`)
+
+Every production project must use this exact script template to generate Persian voiceover:
+
+```python
+import os
+import json
+import base64
+import wave
+import urllib.request
+from pathlib import Path
+
+def synthesize_persian_voice(
+    text: str,
+    out_wav_path: str,
+    style_instruction: str = "با لحن یک دانشمند برجسته، دقیق، مقتدر، بدون شتاب و با ادای کامل کسره‌های اضافه فارسی صحبت کن.",
+    voice_name: str = "Puck",
+    gemini_api_key: str = None
+):
+    api_key = gemini_api_key or os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        raise ValueError("FATAL: GEMINI_API_KEY is not set. Edge-TTS fallback is forbidden.")
+
+    full_prompt = f"{style_instruction}\n\nمتن نریشن:\n{text}"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key={api_key}"
+    
+    payload = {
+        "contents": [{"parts": [{"text": full_prompt}]}],
+        "generationConfig": {
+            "responseModalities": ["AUDIO"],
+            "speechConfig": {
+                "voiceConfig": {
+                    "prebuiltVoiceConfig": {
+                        "voiceName": voice_name
+                    }
+                }
+            }
+        }
+    }
+    
+    req = urllib.request.Request(
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={"Content-Type": "application/json"}
+    )
+    
+    with urllib.request.urlopen(req, timeout=60) as resp:
+        res = json.loads(resp.read().decode("utf-8"))
+        
+    parts = res["candidates"][0]["content"]["parts"]
+    for p in parts:
+        if "inlineData" in p and "audio" in p["inlineData"].get("mimeType", ""):
+            raw_pcm = base64.b64decode(p["inlineData"]["data"])
+            mime = p["inlineData"]["mimeType"]
+            rate = 24000
+            if "rate=" in mime:
+                rate = int(mime.split("rate=")[1].split(";")[0])
+                
+            out_file = Path(out_wav_path)
+            out_file.parent.mkdir(parents=True, exist_ok=True)
+            with wave.open(str(out_file), "wb") as wf:
+                wf.setnchannels(1)
+                wf.setsampwidth(2)
+                wf.setframerate(rate)
+                wf.writeframes(raw_pcm)
+            print(f"[VOICE GENERATION OK] Written to {out_file} ({rate}Hz, {len(raw_pcm)} bytes)")
+            return out_file
+            
+    raise RuntimeError("Failed to extract audio from Gemini TTS response.")
+```
+
+---
+
+## 4. Multi-Stem Audio Mastering & Ducking
 
 Maintain three distinct audio stems:
-- `audio/narration/`: Processed voice normalized to $-19\,\text{LUFS}$.
-- `audio/music/`: Cinematic underscore normalized to $-22\,\text{LUFS}$.
-- `audio/sfx/`: Impact hits, whooshes, risers, and UI clicks normalized to $-18\,\text{LUFS}$.
-
-Execute automated ducking via `StemMixer.py`:
-- Music ducks by **$-14\,\text{dB}$** whenever narration voice is active.
-- Target master mix loudness: **$-16\,\text{LUFS}$**.
+- **Narration:** Processed voice normalized to $-16\,\text{LUFS} \pm 0.5$ (`loudnorm=I=-16:TP=-1.0:LRA=7`).
+- **Music Bed:** Parametric or orchestral underscore sidechain-compressed by $-14\,\text{dB}$ when voice is active.
+- **Physical SFX:** Impact hits, mechanical clicks, and hydraulic whooshes aligned to frame-accurate causal milestones.
+- **Master Mix Target:** Complies strictly with EBU R128 ($-14\,\text{LUFS}$, True Peak $\le -1\,\text{dBTP}$).

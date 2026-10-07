@@ -1,139 +1,189 @@
 ---
 name: cinematic-motion-director
-description: "AI Video Production Pipeline v22: Visual Transformation Grammar, Kinetic Typography 2.0, Decoupled Asset Architecture, Choreography 2.0, Semantic Event Graph, and Motion Rhythm 2.0 for Remotion/React. Enforces Mass Conservation in Metamorphosis (Object A physically becomes visual idea B), zero-subpixel-jitter Persian kinetic typography (whole-word ligature preservation), 100% vector SVG self-contained master narrative, dynamic optional asset injection (ExternalVisualAsset), Reading Hold Camera Pinned Windows, Voice-First Prosody Dual-Clock Authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
+description: "AI Video Production Pipeline v40.1: Semantic Beat Mapping, Causal Event Graph, No Orphan Element Discipline, Element Budgeting, Intentional Stillness, Motion-Carry Transitions, Long-Take World Canvas, Topological 3D Transformation, Authored Keyframe Curves, Zero-Subpixel-Jitter Persian Kinetic Typography, and 8-Point Adversarial Independent Review for Remotion/React. Enforces Mass Conservation in Metamorphosis (Object A physically becomes visual idea B), 100% vector SVG self-contained master narrative, Sovereign Calibration Pavilion architecture, Voice-First Prosody Dual-Clock Authority, Persian pronunciation lock («بقیه‌الله»), and 13-gate automated QC."
 ---
 
-# cinematic-motion-director v22
+# cinematic-motion-director v40.1
 
 An end-to-end reference-integrated motion graphics engineering system for Google Antigravity + Remotion.
-Transforms briefs, scientific research, academic lectures, and scripts into publication-grade cinematic films.
+Transforms briefs, scientific research, academic lectures, and Persian scripts into publication-grade cinematic films.
 
 ```text
-[DIRECTOR]
-1. Intake & Semantic Truth Lock (Script / Audio / Source Provenance)
-2. Motion Thesis & Frame System (docs/v19_director_shot_plan.md, Color Ramp, Accent Role)
-3. Audio Rhythm Grid & Prosody Alignment (Dual-Clock Authority, beats.py)
-4. Canvas-First Staging & Choreography Engine (IMPACT, ELASTIC, GLIDE, BUILD, HOLD, RELEASE)
-5. Shot Plan Formulation (docs/shotlist.md) → [GATE 1: OK REQUIRED]
+[DIRECTOR: SEMANTIC & CAUSAL LOCK]
+1. Intake & Semantic Truth Lock (Script / Audio / ASR Word Timestamps)
+2. Semantic Beat Mapping → Exactly 1 Primary Visual Job per Beat
+3. Causal Graph & "No Orphan Element" Validation (10 Allowed Relationships)
+4. Element Budget Enforcement (Max 1 Primary, 1–2 Secondary, 0–2 Tertiary, ≥ 1 Empty Quadrant)
+5. SHOTBOOK Formulation (docs/SHOTBOOK.md) → [GATE 1: USER OK REQUIRED]
         ↓
-[BUILDER]
-6. Search Before Authoring (V18_MOTION_CATALOG.md & src/motion/choreography/)
-7. Visual Transformation Grammar (DEFORM, SPLIT, MERGE, COLLAPSE, EXPANSION, TRACE, WRAP, RECONFIGURE)
-8. Kinetic Typography 2.0 (Word Slam, Tracking Expansion, Outline-to-Fill, Baseline Extraction)
-9. Decoupled Visual Asset Architecture (100% Vector Self-Contained Core, Optional ExternalVisualAsset)
+[BUILDER: PHYSICAL IMPLEMENTATION]
+6. Persistent World Canvas & Sovereign Material Hierarchy (Titanium / Cadmium / Stone)
+7. AuthoredKeyframeEngine (5 Physical Profiles: Pneumatic, Hydraulic, Seismic, Magnetic, Crane)
+8. Visual Transformation Grammar & Topological 3D Extrusion (Mass Conservation)
+9. Kinetic Typography 2.0 (Structural baselines, mechanical shutters, engraved backlit numerals)
+10. Motion-Carry Transitions (6 Formulas) & Intentional Stillness (Zero idle jiggle)
         ↓
-[VISUAL CRITIQUE]
-10. Contact Sheet & Fast Strip Generation (2 fps sheets, 60 fps strips)
-11. 8-Criteria Quantitative Scorecard (1-10 with Automatic Caps)
-12. Diagnose Before Decorating Loop (≥ 3 Rounds, All Scores ≥ 8)
+[INDEPENDENT CRITIQUE & REVIEW GATES]
+11. Contact Sheets (2 fps) & Motion Strip Analysis (60 fps)
+12. 8-Point Adversarial Review (Semantic, Causal, Relational, Spatial, Motion, Hierarchy, Continuity)
+13. The Mandatory Removal Test ("If this element is removed, does meaning suffer? If NO: DELETE IT")
+14. Defect Clearance (P0 / P1 Must Be Zero Before Ship)
         ↓
 [TECHNICAL QC & DELIVERY]
-13. Two-Tier Verification (13 Automated CV & Audio QA Gates)
-14. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
+15. Automated QA Gates (freezedetect, sfx_check, beat_lint, Persian pronunciation lock)
+16. Final Master Render & Stem-Mixed Delivery (EBU R128 -14 LUFS)
 ```
 
 ---
 
 ## 1. Core Operating Invariants & Mandates
 
-1. **Decoupled 4-Tier Roles**:
-   - **Director**: Owns the concept, visual thesis, beat map, and shotlist. Pauses for explicit approval before code authoring.
-   - **Builder**: Implements Remotion TSX strictly following the approved shotlist. Never invents design or text on the fly.
-   - **Critic**: Unsentimental review of rendered stills and strips. Scores 8 criteria; enforces automatic caps for defects.
-   - **QC Gatekeeper**: Runs automated verification scripts; guarantees zero regressions.
+### 1.1 The Causal Planning Law: Semantic Beat → Visual Job → Causal Graph
+1. **One Beat, One Primary Visual Job:** Each narration beat performs exactly ONE primary visual job (Hook, Define, Benchmark, Compare, Escalate, Climax, Conclude). Never allow multiple simultaneous hero jobs.
+2. **Timing Windows vs. Rigid Frame Equality:** Semantic beats define *narrative intent and primary timing windows*, NOT instantaneous single-frame locks. An emphasis word at $F_{\text{word}}$ anchors a multi-phase physical choreography:
+   - `ANTICIPATION`: Pre-load begins 10–25 frames *before* the word (leading the beat).
+   - `LAUNCH`: High velocity acceleration curve toward peak travel.
+   - `IMPACT` (`spHit`): Synchronizes within $\pm 2$ frames of the spoken acoustic transient.
+   - `OVERSHOOT & SETTLE`: Energy dissipates over 15–35 frames *after* the word.
+   Never force physical keyframes to artificially collapse onto a single beat frame.
+3. **The Question of Every Beat:**
+   - *What is the narration saying?*
+   - *What single visual entity represents this thought?*
+   - *What physical cause initiates its appearance or transformation?*
+   - *What downstream consequence does it produce?*
+   - *Which entity receives that consequence?*
 
-2. **Visual Transformation Grammar (V22 Core)**:
-   - **Metamorphic Causality**: Moves beyond affine moves/scales ("Object A moves to B") to physical metamorphosis ("Object A physically becomes visual idea B").
-   - **Mass Conservation & Momentum Transfer**: Graphic elements preserve perceptual visual mass across state changes. E.g. A dot compresses and accelerates into a line; a line expands into a ribbon; a ribbon curls into a ring tunnel; text extrudes an architectural baseline.
-   - **Taxonomy**: `DEFORM`, `SPLIT`, `MERGE`, `COLLAPSE`, `EXPANSION`, `TRACE`, `WRAP`, `RECONFIGURE`, `MASK_REVEAL`, `CAMERA_PASS`.
+### 1.2 The Mandatory "NO ORPHAN ELEMENT" Rule
+Every visible graphic entity must have an explicit, documented relationship. An element without a physical parent or downstream consequence is an **orphan** and must be deleted.
+Allowed relationships:
+- `CAUSE`: Physical initiator of downstream force/action.
+- `CONSEQUENCE`: Result of an upstream physical action.
+- `TRANSFORMATION`: Physical entity morphing or extruding into state B.
+- `BRIDGE`: Mechanical or spatial link between two entities.
+- `SHARED_IDENTITY`: Integral sub-part of a single mechanical body.
+- `MATERIAL_REACTION`: Lighting, shadow, or surface response to an event.
+- `SPATIAL_RELATION`: Geometric containment or alignment fixture.
+- `CAMERA_REVEAL`: Camera movement motivated specifically to frame this entity.
+- `TYPOGRAPHIC_FORMATION`: Words/numerals formed from physical world geometry.
+- `INFORMATION_ENCODING`: Genuine script data point required for understanding.
 
-3. **Kinetic Typography 2.0 (V22 Core)**:
-   - **Persian Ligature Integrity**: RTL whole-word kerning and cursive character joinery is strictly preserved. Tracking expansion operates exclusively at whole-word boundaries.
-   - **Typography as Structural Material**: Words slam with decaying elastic impact, lock into zero-jitter subpixel settle states, and extrude structural datum rules into subsequent geometry.
+**Forbidden Justifications:** "Adds atmosphere," "fills empty space," "prevents dead hold," "looks like a sci-fi HUD."
 
-4. **Decoupled Visual Asset Architecture (V22 Mandate)**:
-   - **Zero Mandatory External PNGs**: The core production engine and default master narrative are 100% self-contained pure vector SVG.
-   - **Dynamic Optional Ingestion**: External visual assets (logos, seals, diagrams) are injected strictly via the `ExternalVisualAsset` interface, with optical bounds, aspect-ratio preservation, and luminance/alpha filtering.
+### 1.3 The Law of Intentional Stillness (Ambient Motion is Banned)
+- **Stillness is Power:** Never introduce motion solely because nothing is moving. Stillness communicates architectural mass, academic certainty, authority, and narrative resolution.
+- **Zero Idle Jiggle (`idle = false`):** Once an element settles into its rest keyframe, its coordinates must lock completely. Sinusoidal floor oscillations, Brownian dust particles, and arbitrary camera breathing are strictly prohibited.
+- **Continuous Life:** If a long speech hold requires spatial vitality, that vitality is carried by **one continuous, motivated camera movement** (e.g. slow crane pull-back) or internal mechanical operation, never by decorative jitter.
 
-5. **Canvas-First Staging & Anti-UI Ban**:
-   - **Strictly Banned UI Mentalities**: Rounded cards with soft shadows, feature grids, pricing tables, web sliders, dashboard panels, SaaS wrappers, and isolated floating boxes on black voids.
-   - **Canvas-First Design**: The 1920×1080 canvas is an architectural plane. Use full-bleed framing rules, typographic scale hierarchies, spatial architectural depths, and connecting coordinate vectors.
+### 1.4 Element Budget Discipline
+At any given frame, the screen layout must obey strict numerical budgets:
+- **Primary Hero:** Maximum 1 dominant visual job.
+- **Secondary Elements:** 1–2 supporting elements cooperating directly with the hero.
+- **Tertiary Details:** 0–2 subordinate datum indicators.
+- **Group Limit:** $\le 3$ subject groups on screen simultaneously. A 4th group requires a prior group to exit or be demoted (`demoteAt`).
+- **Negative Space Anchor:** At least 1 clear empty quadrant must remain open throughout the shot.
+- **Single Hero Styling:** Only 1 element may enjoy hero styling (maximum scale, brightest accent, highest contrast).
+- **No Text Duplication:** On-screen text is an architectural label ($\le 12$ words), never a verbatim copy of the spoken subtitle.
 
-6. **Audio-Visual Lock & Canonical Pronunciation**:
-   - Canonical pronunciation for sensitive institutional terms (especially **«بقیه‌الله»**) is locked and immutable via `PersianPronunciationValidator`.
-   - Audio loudness strictly complies with EBU R128 ($-14\,\text{LUFS} \pm 0.5$, True Peak $\le -1\,\text{dBTP}$).
-
----
-4. **Choreography Engine & 6 Motion Personalities**:
-   - Every movement is categorized into a physics personality:
-     - **IMPACT (2–8f)**: Heavy anticipation, zero dampening overshoot, seismic energy dissipation.
-     - **ELASTIC (8–24f)**: Fluid overshoot, secondary follow-through, spring rebound.
-     - **GLIDE (30–120f)**: Steady parabolic drift, idle atmospheric energy.
-     - **BUILD (45–180f)**: Monumental accumulation, architectural growth.
-     - **HOLD**: Dynamic breathing stillness, never dead freeze.
-     - **RELEASE (5–30f)**: Explosive fission, snap collapse, or vacuum exit.
-
-5. **Search Before Authoring (Reuse-First Principle)**:
-   - Before writing bespoke inline transforms or animation logic, consult `V18_MOTION_CATALOG.md` and `src/motion/choreography/`.
-   - Reusable atomic recipes and choreography engines must be composed rather than hand-coded from scratch.
-
-6. **Materiality Restraint & Anti-Cliché Rules**:
-   - **Add Shape, Not Word**: Agent may invent geometry, lines, grids, masks, and camera moves, but **NEVER** content, buzzwords, or unverified claims.
-   - **Banned Defaults**: Frosted glass panels (`backdrop-filter`), neon glow outlines, blurred floating orbs, arbitrary 3D spheres, and card soup.
-   - **True Premium**: Premium motion is weight, anticipation, follow-through, spatial transformation, and motivated camera moves.
-
-7. **Voice-First Prosody Authority & Rhythm Grid**:
-   - Spoken audio is the master physical clock (`VOICEOVER = Timing Truth`).
-   - Hits lead the beat by 2–4 frames (`spHit` pattern) so visual impact registers synchronously with acoustic transients.
-   - Sequential Swaps: Outgoing text is 100% exited before incoming text arrives (zero double-exposure).
-
-6. **Absolute Pronunciation & Content Locking**:
-   - Canonical pronunciation for sensitive institutional terms (especially **«بقیه‌الله»**) is locked and immutable via `PersianPronunciationValidator`.
-   - Audio loudness strictly complies with EBU R128 ($-14\,\text{LUFS} \pm 0.5$, True Peak $\le -1\,\text{dBTP}$).
+### 1.5 The Review Test: "Who is it cooperating with?"
+Every animation, transition, and keyframe track must answer:
+> **"Who is this action cooperating with?"**
+If an action cannot name its partner, delete or redesign it.
 
 ---
 
-## 2. Decoupled Role Protocols
+## 2. Technical Motion & Camera Engineering
 
-### Phase A: Director (Concept & Shot Planning)
-1. Read source documents and lock semantic truth in `research/sources.md`.
-2. Measure audio prosody (timestamps, pauses, emphasis words).
-3. Formulate the **Motion Thesis** (What moves? What stays still? What is the connective thread?).
-4. Write `docs/shotlist.md` detailing timecode, on-screen text, camera language, and SFX cue.
-5. **PAUSE FOR APPROVAL**: Present the shotlist to the user. Do NOT write code until explicitly approved.
+### 2.1 AuthoredKeyframeEngine (5 Physical Profiles)
+Movement is driven by mathematically authored keyframe tracks rather than generic linear or spring interpolations:
+- **`HYDRAULIC_HEAVY` (60–90f):** Heavy anticipation pre-load, slow acceleration, controlled overshoot, multi-stage hydraulic damping.
+- **`PNEUMATIC_SNAPPY` (35–55f):** Rapid valve release, high velocity peak, minimal overshoot, sharp mechanical latch.
+- **`SEISMIC_CLIMAX` (90–140f):** Prolonged charging pre-load, volcanic upward surge, structural vibration, Dutch camera recoil.
+- **`MAGNETIC_LEVITATE` (40–70f):** Smooth exponential glide, zero overshoot, cushioned magnetic deceleration.
+- **`CRANE_CAMERA` (60–180f):** Smooth cinematographic dolly, tracking, or crane pull-back with continuous velocity.
 
-### Phase B: Builder (Remotion Engineering)
-1. Consult `V18_MOTION_CATALOG.md`. Select matching atomic recipes.
-2. Implement components in `src/shots/` or `src/scenes/` using Remotion hooks (`useCurrentFrame`, `spring`, `interpolate`).
-3. Adhere to Remotion invariants:
-   - Always clamp frame-based `interpolate`: `{ extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }`.
-   - Use `clipPath: inset(...)` for reveal panels to prevent typography squashing.
-   - Apply `fontVariantNumeric: 'tabular-nums'` to all animated counters.
-   - Use `display: 'inline-block'` on transformed text spans.
-   - Maintain clean alpha channels on overlays.
+### 2.2 Camera as an Active Participant
+Camera movements must be causally grounded by stage events:
+```text
+CAMERA_CAUSE   : [Physical trigger, e.g. Column 3 explosive launch]
+CAMERA_TARGET  : [Active hero entity being tracked]
+CAMERA_PURPOSE : [Reveal structural scale or absorb seismic impact]
+```
+Banned: Unmotivated whip pans, continuous sinusoidal camera breathing, arbitrary handheld camera drift.
 
-### Phase C: Visual Critique (Inspection & Scoring)
-1. Render contact sheets (2 fps) and fast strips (60 fps) across critical transitions.
-2. Hand images to the Critic persona.
-3. Score the 8 criteria (1–10) using `references/visual-critique.md`.
-4. Apply automatic score caps (e.g. empty frame 0 caps at 6, fade-in transition caps at 6).
-5. Identify the **3 worst problems** and apply testable fixes.
-6. **Verdict**: Requires $\ge 3$ rounds and all scores $\ge 8$ to achieve **SHIP**.
+### 2.3 Motion-Carry Transitions (6 Formulas)
+Transitions between visual scenes must carry motion across the cut (12–16 frame overlap):
+1. **Push-Through:** Camera accelerates past object A into object B's origin.
+2. **Overexpose-Flip:** Focus zooms to evidence core; radial luminance burst reveals new scene.
+3. **Whip-Pan Carry:** Directional velocity vector of A exits screen and enters B in the same direction.
+4. **Black-Slam:** Climax freezes with high-contrast frame, snaps off on last frame, and next scene launches at full velocity (reserved for major narrative turns; max once per video).
+5. **Pull-Back Cool:** Camera cranes out as energetic elements power down, revealing the macro world.
+6. **Particle-Weld / Structural Reconfiguration:** Geometry of A physically deconstructs and reconstitutes into B.
 
-### Phase D: Quality Control & Delivery
-1. Run all 13 automated QA gates (`selfcheck.py`, `frame_metrics.py`, `motion_check.py`, audio mix checks).
-2. Ensure 100% PASS with zero warnings.
-3. Package delivery artifacts and emit report.
+### 2.4 Long-Take World Canvas
+For short-form educational videos, default to a **single persistent spatial world** (e.g. Sovereign Calibration Pavilion) rather than discrete slide swaps. The camera travels through coordinate stations or the architecture reconfigures dynamically.
 
 ---
 
-## 3. Reference Library
+## 3. Typography & Persian Language Invariants
 
-- [Reference Integration Matrix](../../../REFERENCE_INTEGRATION.md)
-- [V18 Motion Recipe Catalog](../../../V18_MOTION_CATALOG.md)
+1. **Ligature Integrity:** Persian text is rendered natively with complete whole-word cursive joinery. Letter-spacing and tracking expansion operate strictly at whole-word boundaries.
+2. **Zero Diacritics on Screen:** All on-screen Persian strings must pass through `sanitizeForDisplay()` to purge all Arabic/Persian diacritic marks (`َ ُ ِ ّ ْ ً ٍ ٌ`).
+3. **Typography as World Geometry:** Text must feel physically embedded in the world:
+   - Engraved on plinth faces.
+   - Unveiled by physical sliding mechanical shutters.
+   - Extruded as structural datum baselines.
+   - Lit by internal backlight fixtures.
+   Floating generic web cards and SaaS modals are strictly banned.
+4. **Canonical Institutional Pronunciation:** The pronunciation of **«بقیه‌الله»** and related institutional titles is locked and validated via `PersianPronunciationValidator`.
+5. **Exclusive Voice Engine Mandate (Google Gemini API):** Spoken voiceover must be generated exclusively via the Google Gemini Audio API (`gemini-2.5-flash-preview-tts` with voice `Puck`). Microsoft Azure / Edge-TTS (`fa-IR-FaridNeural`, `DilaraNeural`) is strictly banned and purged due to robotic inflection, dropped ezafe, and severe quality regression. Fallback to Edge-TTS is forbidden.
+
+---
+
+## 4. Production Workflow & Decoupled Roles
+
+### Phase 1: Director (Planning & Causal Shotbook)
+1. Ingest Persian script and audio; extract word-level timestamps.
+2. Map script to narrative beats; assign exactly 1 primary visual job per beat.
+3. Construct the Causal Graph and enforce the "No Orphan Element" rule.
+4. Calculate Element Budgets and assign layer roles (L1–L7).
+5. Write `docs/SHOTBOOK.md` detailing every beat, element relationship, and camera trigger.
+6. **GATE 1 PAUSE:** Present SHOTBOOK to user for explicit approval. Do NOT write Remotion code before approval.
+
+### Phase 2: Builder (Remotion Engineering)
+1. Build upon existing engines: `AuthoredKeyframeEngine`, `TransformationContinuityEngine`, and `sanitizeForDisplay`.
+2. Construct the persistent world canvas in `src/motion/`.
+3. Implement authored keyframe tracks for each entity.
+4. Connect mechanical shutters, momentum handoffs, and camera choreography.
+5. Adhere to intentional stillness: ensure elements hold with zero velocity once settled.
+
+### Phase 3: Independent Critique & Review Gates
+1. Extract contact sheets (2 fps) and critical transition motion strips (60 fps).
+2. Execute the **8-Point Adversarial Audit**:
+   - Semantic truth?
+   - Causal parent and consequence documented?
+   - "Who is it cooperating with?" answered?
+   - Spatial empty quadrant preserved?
+   - Motion mass and personality authentic?
+   - Hierarchy respected (1 Hero)?
+   - Continuity preserved?
+   - **Removal Test:** *"If removed, does meaning suffer?"* If NO, delete.
+3. Classify and eliminate all P0 (blockers) and P1 (defects) before proceeding.
+
+### Phase 4: QC & Delivery
+1. Run automated test suite: `beat_lint.py`, `motion_check.py` (with intentional stillness overrides), audio LUFS checks.
+2. Render master video with multi-track stem audio mix (voiceover ducked over parametric score and physical SFX).
+3. Deliver final artifact with verification report.
+
+---
+
+## 5. Reference Library
+
+- [Skill Integration Audit](../../../docs/SKILL_INTEGRATION_AUDIT.md)
+- [Causal Planning & Relational Choreography](references/causal-planning.md)
+- [Living Motion & Intentional Stillness](references/living-motion.md)
+- [Cinematography & Layer Matrix Specification](references/cinematography.md)
 - [Anti-Cliché Rules & Materiality Restraint](references/anti-cliche-rules.md)
 - [Visual Critique Protocol & Scorecard](references/visual-critique.md)
-- [Builder Protocol & Remotion Standards](references/builder-protocol.md)
 - [Persian Pronunciation Architecture](../../../docs/persian-tts-production.md)
 - [Sound Design & Dual-Clock Beat Grid](references/sound-design.md)
-- [Two-Tier QC Protocol](references/qc-protocol.md)
+- [V40.1 Causal Audit](../../../docs/V40.1_CAUSAL_AUDIT.md)

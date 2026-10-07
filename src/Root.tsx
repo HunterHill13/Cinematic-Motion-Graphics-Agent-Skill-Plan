@@ -153,6 +153,7 @@ import { V36_5_CraftMasterpiece } from './motion/precision_lab/V36_5_CraftMaster
 import { V37_BandMasterpiece } from './motion/precision_lab/V37_BandMasterpiece';
 import { V38_ShowreelBenchmark } from './motion/precision_lab/V38_ShowreelBenchmark';
 import { V39_BandKafProduction } from './motion/precision_lab/V39_BandKafProduction';
+import { V40_KineticMonolithPreview } from './motion/precision_lab/V40_KineticMonolithPreview';
 import { Main } from './Main';
 
 export const Root: React.FC = () => {
@@ -1726,6 +1727,16 @@ export const Root: React.FC = () => {
         id="V39-BandKafProduction"
         component={V39_BandKafProduction}
         durationInFrames={2755}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* V40 Preview — Kinetic Monolith Threshold Climax (65/110/130) */}
+      <Composition
+        id="V40-KineticMonolithPreview"
+        component={V40_KineticMonolithPreview}
+        durationInFrames={570}
         fps={30}
         width={1920}
         height={1080}
