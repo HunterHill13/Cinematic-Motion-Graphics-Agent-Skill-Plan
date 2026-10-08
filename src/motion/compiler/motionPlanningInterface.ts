@@ -40,6 +40,7 @@ import {
 import { MotionGraphCompiler } from './motionGraphCompiler';
 import { VisualWorld } from '../visual_world/visualWorldSchema';
 import { VisualWorldValidator } from '../visual_world/visualWorldValidator';
+import { MaterialValidator } from '../visual_world/materialValidator';
 
 export interface RawMotionTransformationPlan {
   description: string;
@@ -502,6 +503,26 @@ export class MotionPlanner {
       throw error;
     }
 
+    // Check Material validity in isolation (Phase 5B.1)
+    const materialReport = MaterialValidator.validate(request.visualWorld);
+    if (!materialReport.passed) {
+      const heroMissing = materialReport.violations.find((v) => v.code === 'V_M1_MISSING_HERO_MATERIAL');
+      const ambiguity = materialReport.violations.find((v) => v.code === 'MATERIAL_DIRECTION_AMBIGUOUS');
+      const targetViolation = heroMissing || ambiguity || materialReport.violations[0];
+
+      let mappedCode = 'MATERIAL_INVALID';
+      if (targetViolation.code === 'V_M1_MISSING_HERO_MATERIAL') {
+        mappedCode = 'MATERIAL_REQUIRED';
+      } else if (targetViolation.code === 'MATERIAL_DIRECTION_AMBIGUOUS') {
+        mappedCode = 'MATERIAL_DIRECTION_AMBIGUOUS';
+      }
+
+      const error = new Error(`[${mappedCode}] Material violation in cinematic planner: ${targetViolation.message}`);
+      (error as any).code = mappedCode;
+      (error as any).violationCode = targetViolation.code;
+      throw error;
+    }
+
     // Check Hero alignment between request and visualWorld
     const heroEntity = request.entities.find((e) => e.role === 'HERO');
     if (heroEntity && request.visualWorld.hero && heroEntity.id !== request.visualWorld.hero.id) {
@@ -553,6 +574,26 @@ export class MotionPlanner {
       }
 
       const error = new Error(`[${mappedCode}] VisualWorld violation in cinematic planner: ${targetViolation.message}`);
+      (error as any).code = mappedCode;
+      (error as any).violationCode = targetViolation.code;
+      throw error;
+    }
+
+    // Material Governance Check (Phase 5B.1)
+    const materialReport = MaterialValidator.validate(visualWorld, graph);
+    if (!materialReport.passed) {
+      const heroMissing = materialReport.violations.find((v) => v.code === 'V_M1_MISSING_HERO_MATERIAL');
+      const ambiguity = materialReport.violations.find((v) => v.code === 'MATERIAL_DIRECTION_AMBIGUOUS');
+      const targetViolation = heroMissing || ambiguity || materialReport.violations[0];
+
+      let mappedCode = 'MATERIAL_INVALID';
+      if (targetViolation.code === 'V_M1_MISSING_HERO_MATERIAL') {
+        mappedCode = 'MATERIAL_REQUIRED';
+      } else if (targetViolation.code === 'MATERIAL_DIRECTION_AMBIGUOUS') {
+        mappedCode = 'MATERIAL_DIRECTION_AMBIGUOUS';
+      }
+
+      const error = new Error(`[${mappedCode}] Material violation in cinematic planner: ${targetViolation.message}`);
       (error as any).code = mappedCode;
       (error as any).violationCode = targetViolation.code;
       throw error;

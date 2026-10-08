@@ -20,6 +20,8 @@
  * ============================================================================
  */
 
+import { MaterialReference } from './materialSchema';
+
 export type SemanticEntityRole = 'HERO' | 'SECONDARY' | 'TERTIARY' | 'ENVIRONMENT';
 
 export type VisualHierarchyRank = 'PRIMARY' | 'SECONDARY' | 'TERTIARY' | 'ENVIRONMENT';
@@ -87,6 +89,7 @@ export interface VisualEntityIdentity {
   visualPriority: number; // 1 (highest, primary hero anchor) to 10 (lowest, deep starfield)
   semanticPurpose: string;
   colorCue?: string;
+  materialId?: string; // Reference to MaterialReference.id in VisualWorld.materials
 }
 
 /**
@@ -180,4 +183,5 @@ export interface VisualWorld {
   composition: CompositionContract;
   depth: DepthModel;
   artDirection: ArtDirectionContract;
+  materials?: MaterialReference[];
 }

@@ -46,6 +46,11 @@
     },
     "art_direction": {
       "$ref": "#/definitions/ArtDirectionContract"
+    },
+    "materials": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/MaterialReference" },
+      "default": []
     }
   },
   "definitions": {
@@ -90,7 +95,8 @@
           "maximum": 10
         },
         "semantic_purpose": { "type": "string" },
-        "color_cue": { "type": "string" }
+        "color_cue": { "type": "string" },
+        "material_id": { "type": "string" }
       }
     },
     "CompositionContract": {
@@ -207,6 +213,72 @@
               "enum": ["DARK_CINEMATIC", "LIGHT_CLINICAL", "MONOCHROME_TECHNICAL", "HIGH_CONTRAST"]
             },
             "background_hex": { "type": "string" }
+          }
+        }
+      }
+    },
+    "MaterialReference": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "category",
+        "surface_response",
+        "edge_response",
+        "deformation_response",
+        "light_response",
+        "emission",
+        "opacity_behavior",
+        "texture_character",
+        "motion_responses"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "category": {
+          "type": "string",
+          "enum": ["PLASMA", "METAL", "ORGANIC", "GLASS", "ENERGY", "SMOKE", "LIQUID", "STONE", "CELESTIAL", "FLAT_GRAPHIC"]
+        },
+        "surface_response": {
+          "type": "string",
+          "enum": ["SOFT", "RIGID", "GLOSSY", "MATTE", "WET", "TRANSLUCENT", "REFLECTIVE", "DIFFUSE"]
+        },
+        "edge_response": {
+          "type": "string",
+          "enum": ["STABLE", "SOFT", "GLOWING", "FLUID", "FRACTURED", "TRANSLUCENT", "UNSTABLE"]
+        },
+        "deformation_response": {
+          "type": "string",
+          "enum": ["RIGID", "ELASTIC", "VISCOELASTIC", "FLUID", "BRITTLE", "SOFT_BODY", "PARTICULATE"]
+        },
+        "light_response": {
+          "type": "string",
+          "enum": ["DIFFUSE", "SPECULAR", "SUBSURFACE", "EMISSIVE", "REFRACTIVE", "ABSORPTIVE"]
+        },
+        "emission": {
+          "type": "string",
+          "enum": ["NON_EMISSIVE", "WEAKLY_EMISSIVE", "EMISSIVE", "HIGHLY_EMISSIVE"]
+        },
+        "opacity_behavior": {
+          "type": "string",
+          "enum": ["OPAQUE", "TRANSLUCENT", "FADING", "DENSITY_DRIVEN", "VOLUME_DRIVEN"]
+        },
+        "texture_character": {
+          "type": "string",
+          "enum": ["SMOOTH", "MICROTEXTURED", "GRAINED", "FLUID", "STRIATED", "POROUS", "FIBROUS"]
+        },
+        "motion_responses": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["verb", "description"],
+            "properties": {
+              "verb": {
+                "type": "string",
+                "enum": ["SPLIT", "EXPAND", "TRAVEL", "COLLAPSE", "MORPH", "MERGE", "DEFORM", "REASSEMBLE"]
+              },
+              "description": { "type": "string" }
+            }
           }
         }
       }

@@ -43,26 +43,27 @@ Every visual and motion decision follows this strict priority:
 6. [MANDATORY VISUAL WORLD HARD-GATE]: Plan `VisualWorld` and `ArtDirectionContract` via `VisualWorldPlanner` (`schemas/visual-world.schema.json`). Establish Hero Identity, Visual Hierarchy (PRIMARY, SECONDARY, TERTIARY, ENVIRONMENT), Depth Model, Composition Contract, and concrete Art Direction. Validate with `VisualWorldValidator.validate`. Reject vague buzzwords via `ArtDirectionAmbiguityGate`.
    * **Cinematic Pipeline Enforcement:** The cinematic compilation pipeline (`MotionGraphCompiler.compileCinematicGraph` and `MotionPlanner.planCinematicScene`) strictly requires `visualWorld`. Compilation without a validated VisualWorld is rejected with `VISUAL_WORLD_REQUIRED`.
    * **Legacy Low-Level API Distinction:** Low-level `compileGraph()` / `planScene()` is reserved exclusively for historical Phase 1–4B engine unit tests. The Cinematic Production agent MUST compile via `compileCinematicGraph()`.
-7. Construct `MotionSceneGraph` bound to `VisualWorld` and write `docs/SHOTBOOK.md`.
-8. Run `REMOVAL_TEST_GATE`: Purge all unmotivated decorative elements. (Rule: MORE ELEMENTS ≠ BETTER CINEMATIC QUALITY).
-9. [GATE 1 PAUSE]: Present SHOTBOOK and Visual World to user for explicit approval before coding.
+7. [MANDATORY MATERIAL RESPONSE CONTRACT (PHASE 5B.1)]: Establish concrete `MaterialReference` for all focal actors in `world.materials`. Objects are not generic SVG vectors; their material identity (`PLASMA`, `METAL`, `ORGANIC`, `GLASS`, `ENERGY`, `SMOKE`, `LIQUID`, `STONE`, `CELESTIAL`) dictates surface, edge, deformation, light, emission, and causal `motionResponses` for each `MotionVerb`. Validate with `MaterialValidator.validate`. Reject vague buzzwords via `MaterialAmbiguityGate` (`MATERIAL_DIRECTION_AMBIGUOUS`). Missing hero material strictly fails compilation with `MATERIAL_REQUIRED`.
+8. Construct `MotionSceneGraph` bound to `VisualWorld` and write `docs/SHOTBOOK.md`.
+9. Run `REMOVAL_TEST_GATE`: Purge all unmotivated decorative elements. (Rule: MORE ELEMENTS ≠ BETTER CINEMATIC QUALITY).
+10. [GATE 1 PAUSE]: Present SHOTBOOK and Visual World to user for explicit approval before coding.
         ↓
 [BUILDER: REMOTION IMPLEMENTATION]
-10. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler.compileCinematicGraph` from `MotionSceneGraph`.
-11. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
-12. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
-13. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
-14. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
+11. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler.compileCinematicGraph` from `MotionSceneGraph`.
+12. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
+13. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
+14. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
+15. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
         ↓
 [INDEPENDENT BLIND REVIEW]
-15. Render video master (`.mp4`) with stem-mixed audio.
-16. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
-17. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
-18. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
+16. Render video master (`.mp4`) with stem-mixed audio.
+17. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
+18. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
+19. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
         ↓
 [TECHNICAL QC & DELIVERY]
-19. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS).
-20. Final delivery with verified artifact.
+20. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS).
+21. Final delivery with verified artifact.
 ```
 
 ---
@@ -80,6 +81,7 @@ Regardless of technical compilation or average numerical scores, a production **
 8. **Generic Dissolves:** Scene transitions relying on generic fades rather than physical momentum-carry or spatial reframing.
 9. **Diacritics on Screen:** Raw Arabic/Persian diacritics rendered in visual display typography.
 10. **Ambiguous / Flat Visual World (`VISUAL_WORLD_GATE`):** Visual World lacking a primary persistent Hero, collapsing all elements into a single flat plane without explicit flat composition justification, or relying on empty aesthetic buzzwords ('cinematic', 'premium') rejected by `ArtDirectionAmbiguityGate`.
+11. **Missing or Contradictory Material Contract (`MATERIAL_GATE`):** Hero entity lacking an established `MaterialReference` in `world.materials`, declaring internal physical contradictions (e.g. `METAL` with `FLUID` deformation), or relying on decorative buzzwords ('premium material', 'glowy'). Compilation strictly blocked with `MATERIAL_REQUIRED` or `MATERIAL_INVALID`.
 
 ---
 

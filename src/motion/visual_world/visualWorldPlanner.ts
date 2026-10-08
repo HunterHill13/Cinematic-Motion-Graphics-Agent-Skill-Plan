@@ -17,6 +17,7 @@ import {
 } from './visualWorldSchema';
 import { ArtDirectionAmbiguityGate, VisualDirectionAmbiguityError } from './artDirectionAmbiguityGate';
 import { VisualWorldValidator } from './visualWorldValidator';
+import { MaterialPlanner } from './materialPlanner';
 import { MotionPlanningRequest, RawMotionTransformationPlan } from '../compiler/motionPlanningInterface';
 
 export interface VisualWorldPlanningOptions {
@@ -97,6 +98,7 @@ export class VisualWorldPlanner {
       visualPriority: 1,
       semanticPurpose: 'Primary gravitational center driving scene dynamics',
       colorCue: '#05070D',
+      materialId: 'mat_black_hole_core',
     };
 
     const secondaryEntities: VisualEntityIdentity[] = [
@@ -210,6 +212,9 @@ export class VisualWorldPlanner {
       composition,
       depth,
       artDirection,
+      materials: [
+        MaterialPlanner.createCelestialMaterial('mat_black_hole_core', 'Singularity Core Celestial Material'),
+      ],
     };
   }
 
@@ -232,6 +237,7 @@ export class VisualWorldPlanner {
       visualPriority: 1,
       semanticPurpose: 'Hero pathological agent undergoing mitotic and cytotoxic changes',
       colorCue: '#9E2A2B',
+      materialId: 'mat_cancer_cell_core',
     };
 
     const secondaryEntities: VisualEntityIdentity[] = [
@@ -345,6 +351,9 @@ export class VisualWorldPlanner {
       composition,
       depth,
       artDirection,
+      materials: [
+        MaterialPlanner.createOrganicCellMaterial('mat_cancer_cell_core', 'Neoplastic Cell Organic Membrane'),
+      ],
     };
   }
 
@@ -367,6 +376,7 @@ export class VisualWorldPlanner {
       visualPriority: 1,
       semanticPurpose: 'Physical centerpiece demonstrating engineering precision',
       colorCue: '#E0E1DD',
+      materialId: 'mat_device_core',
     };
 
     const secondaryEntities: VisualEntityIdentity[] = [
@@ -463,6 +473,9 @@ export class VisualWorldPlanner {
       composition,
       depth,
       artDirection,
+      materials: [
+        MaterialPlanner.createMetalMaterial('mat_device_core', 'Precision Hardware Metal Chassis'),
+      ],
     };
   }
 
@@ -544,6 +557,9 @@ export class VisualWorldPlanner {
       },
     };
 
+    const heroMaterial = MaterialPlanner.planMaterialForEntity(hero, creativeIntent);
+    hero.materialId = heroMaterial.id;
+
     return {
       worldId: options?.worldId || 'world_generic',
       title: options?.title || 'Generic Visual World',
@@ -554,6 +570,7 @@ export class VisualWorldPlanner {
       composition,
       depth,
       artDirection,
+      materials: [heroMaterial],
     };
   }
 
