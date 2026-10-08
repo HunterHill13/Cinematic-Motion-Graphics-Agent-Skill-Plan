@@ -7,6 +7,7 @@ import { V29_TransformationLab } from './motion/precision_lab/V29_Transformation
 import { GoldenQuantumCoreComposition } from './projects/golden_test/GoldenQuantumCoreComposition';
 import { Apoptosis916Main } from './projects/apoptosis_cancer_9_16/src/Apoptosis916Main';
 import { CanonicalMotionScene } from './motion/grammar/CanonicalMotionScene';
+import { CanonicalCompilerScene } from './motion/compiler/CanonicalCompilerScene';
 import {
   VerbTest_SPLIT,
   VerbTest_EXPAND,
@@ -110,6 +111,15 @@ export const Root: React.FC = () => {
       <Composition
         id="CanonicalMotionScene"
         component={CanonicalMotionScene}
+        durationInFrames={600}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      <Composition
+        id="CanonicalCompilerScene"
+        component={CanonicalCompilerScene}
         durationInFrames={600}
         fps={30}
         width={1920}

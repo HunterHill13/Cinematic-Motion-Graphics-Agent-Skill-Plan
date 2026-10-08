@@ -87,8 +87,15 @@ export class AstMotionValidator {
 
     // Check for high-level continuity architecture
     const hasPersistentWorld = this.code.includes('<PersistentWorld') || this.code.includes('PersistentWorld');
+    const hasCompilerInvocation = this.code.includes('MotionGraphCompiler') || this.code.includes('compileGraph');
     const hasVerbTemplate = /create(Split|Expand|Travel|Collapse|Morph|Merge|Deform|Reassemble)Template/.test(this.code);
-    const hasTransformationContract = this.code.includes('TransformationContract') || this.code.includes('evaluateTransformationContract') || hasVerbTemplate;
+    const hasTransformationContract =
+      this.code.includes('TransformationContract') ||
+      this.code.includes('evaluateTransformationContract') ||
+      this.code.includes('contracts=') ||
+      this.code.includes('contract=') ||
+      hasVerbTemplate ||
+      hasCompilerInvocation;
     const hasAuthoredKeyframe = this.code.includes('evaluateAuthoredKeyframeTrack');
 
     // 1. AST Traversal: Extract JSX Sequences, CameraRig, Interpolations, Springs
@@ -257,7 +264,7 @@ export class AstMotionValidator {
           : (selfCloseEnd !== -1 ? selfCloseEnd : this.code.length);
         const renderSection = this.code.substring(renderIdx, endPos);
 
-        const usesSpatialParam =
+        const usesStateSpatialParam =
           renderSection.includes('.scale') ||
           renderSection.includes('.position') ||
           renderSection.includes('.components') ||
@@ -265,14 +272,20 @@ export class AstMotionValidator {
           renderSection.includes('.aspectRatio') ||
           renderSection.includes('.shearDeg') ||
           renderSection.includes('.geometry') ||
-          renderSection.includes('transform') ||
-          renderSection.includes('scale') ||
-          renderSection.includes('translate');
+          renderSection.includes('.activeVerb');
 
-        const isOnlyOpacity = (renderSection.includes('opacity') || renderSection.includes('.opacity')) && !usesSpatialParam;
-        const isStatic = !usesSpatialParam;
+        const usesRawFrameAnimation = (renderSection.includes('useCurrentFrame') || this.code.includes('useCurrentFrame')) &&
+          (renderSection.includes('translate') || renderSection.includes('transform'));
 
-        if (isOnlyOpacity) {
+        const isOnlyOpacity = (renderSection.includes('opacity') || renderSection.includes('.opacity')) && !usesStateSpatialParam;
+        const isStatic = !usesStateSpatialParam && !usesRawFrameAnimation && !isOnlyOpacity;
+
+        if (usesRawFrameAnimation && !usesStateSpatialParam) {
+          violations.push({
+            code: 'RAW_JSX_MOTION_ESCAPE',
+            message: 'Raw JSX motion escape detected. Animate elements through TransformationContract and MotionSceneGraph state, not raw uncontracted frame calculations.',
+          });
+        } else if (isOnlyOpacity) {
           violations.push({
             code: 'OPACITY_ONLY_MOTION_TRAP',
             message: 'PersistentHeroEntity render prop only binds opacity. Meaningful transformation requires spatial, scale, or topological changes.',
@@ -286,8 +299,9 @@ export class AstMotionValidator {
       }
     }
 
-    // 3. Validate that TransformationContract specifies midpointEvent with meaningfulDelta or uses certified VerbTemplates
-    const hasVerbTemplate = /create(Split|Expand|Travel|Collapse|Morph|Merge|Deform|Reassemble)Template/.test(this.code);
+    // 3. Validate that TransformationContract specifies midpointEvent with meaningfulDelta, uses certified VerbTemplates, or compiles through MotionGraphCompiler
+    const hasCompilerInvocation = this.code.includes('MotionGraphCompiler') || this.code.includes('compileGraph');
+    const hasVerbTemplate = /create(Split|Expand|Travel|Collapse|Morph|Merge|Deform|Reassemble)Template/.test(this.code) || hasCompilerInvocation;
     const hasMidpointEvent = (this.code.includes('midpointEvent') && this.code.includes('meaningfulDelta')) || hasVerbTemplate;
     if (!hasMidpointEvent) {
       violations.push({
