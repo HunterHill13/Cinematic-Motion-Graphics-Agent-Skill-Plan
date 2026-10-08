@@ -22,6 +22,7 @@
 
 import { MaterialReference } from './materialSchema';
 import { LightingContract } from './lightingSchema';
+import { SpatialDepthContract } from './depthSchema';
 
 export type SemanticEntityRole = 'HERO' | 'SECONDARY' | 'TERTIARY' | 'ENVIRONMENT';
 
@@ -186,4 +187,5 @@ export interface VisualWorld {
   artDirection: ArtDirectionContract;
   materials?: MaterialReference[];
   lighting?: LightingContract;
+  spatial?: SpatialDepthContract;
 }

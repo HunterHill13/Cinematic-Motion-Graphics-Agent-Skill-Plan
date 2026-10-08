@@ -39,6 +39,7 @@ import {
 import { VisualWorldValidator } from '../visual_world/visualWorldValidator';
 import { MaterialValidator } from '../visual_world/materialValidator';
 import { LightingValidator } from '../visual_world/lightingValidator';
+import { DepthValidator } from '../visual_world/depthValidator';
 
 export interface CompiledMotionScene {
   sceneId: string;
@@ -300,7 +301,31 @@ export class MotionGraphCompiler {
       throw error;
     }
 
-    // Delegate to core compiler once Visual World, Material, and Lighting contracts are certified
+    // 4. Spatial Depth Governance & 2.5D Layering Hard-Gate (Phase 5C)
+    const depthReport = DepthValidator.validate(graph.visualWorld, graph);
+    if (!depthReport.passed) {
+      const missingSpatial = depthReport.violations.find((v) => v.code === 'V_D1_MISSING_SPATIAL_CONTRACT');
+      const heroMissing = depthReport.violations.find((v) => v.code === 'V_D2_MISSING_HERO_SPATIAL');
+      const depthCollapse = depthReport.violations.find((v) => v.code === 'V_D11_DEPTH_COLLAPSE');
+      const ambiguity = depthReport.violations.find((v) => v.code === 'DEPTH_DIRECTION_AMBIGUOUS');
+      const targetViolation = missingSpatial || heroMissing || depthCollapse || ambiguity || depthReport.violations[0];
+
+      let mappedCode = 'SPATIAL_INVALID';
+      if (targetViolation.code === 'V_D1_MISSING_SPATIAL_CONTRACT' || targetViolation.code === 'V_D2_MISSING_HERO_SPATIAL') {
+        mappedCode = 'SPATIAL_REQUIRED';
+      } else if (targetViolation.code === 'V_D11_DEPTH_COLLAPSE') {
+        mappedCode = 'DEPTH_COLLAPSE_DETECTED';
+      } else if (targetViolation.code === 'DEPTH_DIRECTION_AMBIGUOUS') {
+        mappedCode = 'DEPTH_DIRECTION_AMBIGUOUS';
+      }
+
+      const error = new Error(`[${mappedCode}] Spatial depth violation in cinematic pipeline: ${targetViolation.message}`);
+      (error as any).code = mappedCode;
+      (error as any).violationCode = targetViolation.code;
+      throw error;
+    }
+
+    // Delegate to core compiler once Visual World, Material, Lighting, and Spatial contracts are certified
     return this.compileGraph(graph);
   }
 

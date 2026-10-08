@@ -19,6 +19,7 @@ import { ArtDirectionAmbiguityGate, VisualDirectionAmbiguityError } from './artD
 import { VisualWorldValidator } from './visualWorldValidator';
 import { MaterialPlanner } from './materialPlanner';
 import { LightingPlanner } from './lightingPlanner';
+import { DepthPlanner } from './depthPlanner';
 import { MotionPlanningRequest, RawMotionTransformationPlan } from '../compiler/motionPlanningInterface';
 
 export interface VisualWorldPlanningOptions {
@@ -224,6 +225,13 @@ export class VisualWorldPlanner {
         hero.materialId!,
         secondaryEntities[0]?.id
       ),
+      spatial: DepthPlanner.createCelestialSpatialContract(
+        'spatial_black_hole',
+        hero.id,
+        secondaryEntities[0]?.id,
+        tertiaryEntities[0]?.id,
+        environmentEntities[0]?.id
+      ),
     };
   }
 
@@ -368,6 +376,13 @@ export class VisualWorldPlanner {
         hero.id,
         hero.materialId!
       ),
+      spatial: DepthPlanner.createCellularSpatialContract(
+        'spatial_cancer_cell',
+        hero.id,
+        secondaryEntities[0]?.id,
+        tertiaryEntities[0]?.id,
+        environmentEntities[0]?.id
+      ),
     };
   }
 
@@ -409,7 +424,21 @@ export class VisualWorldPlanner {
       },
     ];
 
-    const tertiaryEntities: VisualEntityIdentity[] = [];
+    const tertiaryEntities: VisualEntityIdentity[] = [
+      {
+        id: 'assembly_rail',
+        label: 'Precision Mechanical Guide Rail',
+        semanticRole: 'TERTIARY',
+        visualRole: 'Anodized positioning track framing foreground plane',
+        importance: 'TERTIARY',
+        persistence: true,
+        depthLayer: 'FOREGROUND',
+        scaleClass: 'SUPPORTING',
+        visualPriority: 4,
+        semanticPurpose: 'Structural rail establishing depth framing and scale benchmark',
+        colorCue: '#4A5568',
+      },
+    ];
 
     const environmentEntities: VisualEntityIdentity[] = [
       {
@@ -494,6 +523,13 @@ export class VisualWorldPlanner {
         'lighting_device_core',
         hero.id,
         hero.materialId!
+      ),
+      spatial: DepthPlanner.createMetalSpatialContract(
+        'spatial_device_core',
+        hero.id,
+        secondaryEntities[0]?.id,
+        tertiaryEntities[0]?.id,
+        environmentEntities[0]?.id
       ),
     };
   }
@@ -583,6 +619,10 @@ export class VisualWorldPlanner {
       ? LightingPlanner.createFlatGraphicLighting('lighting_flat_graphic')
       : LightingPlanner.planLightingFromText(creativeIntent, hero.id, heroMaterial.id, heroMaterial.category);
 
+    const spatial = options?.isExplicitFlatComposition
+      ? DepthPlanner.createFlatGraphicSpatialContract('spatial_flat_graphic')
+      : DepthPlanner.planSpatialContractFromText(creativeIntent, hero.id, [], environmentEntities[0]?.id);
+
     return {
       worldId: options?.worldId || 'world_generic',
       title: options?.title || 'Generic Visual World',
@@ -595,6 +635,7 @@ export class VisualWorldPlanner {
       artDirection,
       materials: [heroMaterial],
       lighting,
+      spatial,
     };
   }
 

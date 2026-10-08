@@ -45,26 +45,27 @@ Every visual and motion decision follows this strict priority:
    * **Legacy Low-Level API Distinction:** Low-level `compileGraph()` / `planScene()` is reserved exclusively for historical Phase 1–4B engine unit tests. The Cinematic Production agent MUST compile via `compileCinematicGraph()`.
 7. [MANDATORY MATERIAL RESPONSE CONTRACT (PHASE 5B.1)]: Establish concrete `MaterialReference` for all focal actors in `world.materials`. Objects are not generic SVG vectors; their material identity (`PLASMA`, `METAL`, `ORGANIC`, `GLASS`, `ENERGY`, `SMOKE`, `LIQUID`, `STONE`, `CELESTIAL`) dictates surface, edge, deformation, light, emission, and causal `motionResponses` for each `MotionVerb`. Validate with `MaterialValidator.validate`. Reject vague buzzwords via `MaterialAmbiguityGate` (`MATERIAL_DIRECTION_AMBIGUOUS`). Missing hero material strictly fails compilation with `MATERIAL_REQUIRED`.
 8. [MANDATORY LIGHTING & LIGHT RESPONSE CONTRACT (PHASE 5B.2)]: Establish concrete `LightingContract` in `world.lighting`. Light has explicit purpose, direction (`UPPER_LEFT`, `UPPER_RIGHT`, etc.), intensity, color, softness, and causal material interaction (`MaterialLightInteraction`). Enforce `LightingValidator.validate` (V-L1 to V-L12). Reject vague buzzwords ('cinematic lighting', 'premium lighting') or CSS drop-shadows/glows pretending to be lighting via `LightingAmbiguityGate` (`LIGHTING_DIRECTION_AMBIGUOUS`). Missing hero lighting strictly fails compilation with `LIGHTING_REQUIRED`.
-9. Construct `MotionSceneGraph` bound to `VisualWorld` and write `docs/SHOTBOOK.md`.
-10. Run `REMOVAL_TEST_GATE`: Purge all unmotivated decorative elements. (Rule: MORE ELEMENTS ≠ BETTER CINEMATIC QUALITY).
-11. [GATE 1 PAUSE]: Present SHOTBOOK and Visual World to user for explicit approval before coding.
+9. [MANDATORY SPATIAL DEPTH & 2.5D ARCHITECTURE CONTRACT (PHASE 5C)]: Establish concrete `SpatialDepthContract` in `world.spatial`. Objects must not live on a flat canvas; they occupy normalized coordinates $(x \in [-1, 1], y \in [-1, 1], z \in [0, 1])$, discrete depth bands (`FOREGROUND`, `MIDGROUND`, `HERO_PLANE`, `BACKGROUND`, `DEEP_BACKGROUND`), machine-readable spatial relationships (`IN_FRONT_OF`, `BEHIND`, `CONTAINS`, `SURROUNDS`, `ORBITAL_AROUND`, etc.), coherent occlusion intent (`PARTIAL`, `FRAMING`, `TRANSLUCENT_VEILING`), and motion-aware Z-plane responses (`TOWARD_VIEWER`, `AWAY_FROM_VIEWER`, `MULTI_DEPTH_CONVERGENCE`, etc.). Enforce `SpatialDepthValidator.validate` (V-D1 to V-D14). Reject vague buzzwords ('make it 3D', 'more depth', 'make it pop') or fake CSS drop-shadow/blur depth tricks via `SpatialAmbiguityGate` (`DEPTH_DIRECTION_AMBIGUOUS`). Missing hero spatial placement or depth collapse strictly fails compilation with `SPATIAL_REQUIRED`, `DEPTH_COLLAPSE_DETECTED`, or `SPATIAL_INVALID`.
+10. Construct `MotionSceneGraph` bound to `VisualWorld` and write `docs/SHOTBOOK.md`.
+11. Run `REMOVAL_TEST_GATE`: Purge all unmotivated decorative elements. (Rule: MORE ELEMENTS ≠ BETTER CINEMATIC QUALITY).
+12. [GATE 1 PAUSE]: Present SHOTBOOK and Visual World to user for explicit approval before coding.
         ↓
 [BUILDER: REMOTION IMPLEMENTATION]
-12. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler.compileCinematicGraph` from `MotionSceneGraph`.
-13. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
-14. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
-15. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
-16. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
+13. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler.compileCinematicGraph` from `MotionSceneGraph`.
+14. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
+15. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
+16. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
+17. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
         ↓
 [INDEPENDENT BLIND REVIEW]
-17. Render video master (`.mp4`) with stem-mixed audio.
-18. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
-19. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
-20. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
+18. Render video master (`.mp4`) with stem-mixed audio.
+19. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
+20. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
+21. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
         ↓
 [TECHNICAL QC & DELIVERY]
-21. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS).
-22. Final delivery with verified artifact.
+22. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS).
+23. Final delivery with verified artifact.
 ```
 
 ---
@@ -84,6 +85,7 @@ Regardless of technical compilation or average numerical scores, a production **
 10. **Ambiguous / Flat Visual World (`VISUAL_WORLD_GATE`):** Visual World lacking a primary persistent Hero, collapsing all elements into a single flat plane without explicit flat composition justification, or relying on empty aesthetic buzzwords ('cinematic', 'premium') rejected by `ArtDirectionAmbiguityGate`.
 11. **Missing or Contradictory Material Contract (`MATERIAL_GATE`):** Hero entity lacking an established `MaterialReference` in `world.materials`, declaring internal physical contradictions (e.g. `METAL` with `FLUID` deformation), or relying on decorative buzzwords ('premium material', 'glowy'). Compilation strictly blocked with `MATERIAL_REQUIRED` or `MATERIAL_INVALID`.
 12. **Missing, Ambiguous, or Contradictory Lighting Contract (`LIGHTING_GATE`):** Cinematic scene lacking an established `LightingContract` in `world.lighting`, Hero lacking a meaningful `MaterialLightInteraction`, declaring physical contradictions (e.g. `METAL` with diffuse wrapping or `PLASMA` with sharp specular mirror reflection), or relying on decorative buzzwords ('cinematic lighting', 'premium lighting') or CSS drop-shadow/glow pretending to be lighting. Compilation strictly blocked with `LIGHTING_REQUIRED`, `LIGHTING_DIRECTION_AMBIGUOUS`, or `LIGHTING_INVALID`.
+13. **Missing, Ambiguous, or Collapsed Spatial Depth Contract (`DEPTH_GATE`):** Cinematic scene lacking an established `SpatialDepthContract` in `world.spatial`, Hero entity lacking a concrete spatial placement with numeric $z \in [0, 1]$, depth collapse where all major entities share identical or nearly identical depth ($|z_{max} - z_{min}| < 0.05$), incoherent physical occlusion ($z_{occluding} \ge z_{occluded}$), or relying on decorative buzzwords ('make it 3D', 'cinematic depth', 'make it pop') or CSS drop-shadow/blur pretending to be depth. Compilation strictly blocked with `SPATIAL_REQUIRED`, `DEPTH_DIRECTION_AMBIGUOUS`, `DEPTH_COLLAPSE_DETECTED`, or `SPATIAL_INVALID`.
 
 ---
 

@@ -54,6 +54,9 @@
     },
     "lighting": {
       "$ref": "#/definitions/LightingContract"
+    },
+    "spatial": {
+      "$ref": "#/definitions/SpatialDepthContract"
     }
   },
   "definitions": {
@@ -401,6 +404,118 @@
         "trailing_response": { "type": "string" },
         "intensity_modulation": { "type": "string" },
         "shadow_displacement": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "SpatialDepthContract": {
+      "type": "object",
+      "required": ["id", "composition_intent", "placements", "relationships", "occlusions", "parallax_profile", "motion_responses"],
+      "properties": {
+        "id": { "type": "string" },
+        "composition_intent": {
+          "type": "string",
+          "enum": ["HERO_DOMINANT", "DEPTH_CORRIDOR", "LAYERED_WORLD", "CENTERED_STAGE", "DIAGONAL_DEPTH", "ORBITAL_COMPOSITION", "ENVIRONMENTAL_IMMERSION", "FLAT_SCHEMATIC"]
+        },
+        "placements": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/EntitySpatialPlacement" }
+        },
+        "relationships": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SpatialRelationship" }
+        },
+        "occlusions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/OcclusionIntent" }
+        },
+        "parallax_profile": {
+          "type": "object",
+          "required": ["sensitivity", "response", "depth_factor"],
+          "properties": {
+            "sensitivity": { "type": "string", "enum": ["STRONG", "BALANCED", "SUBTLE", "STATIC"] },
+            "response": { "type": "string", "enum": ["LINEAR", "SUBTLE", "STRONG"] },
+            "depth_factor": { "type": "number", "minimum": 0, "maximum": 1 },
+            "description": { "type": "string" }
+          }
+        },
+        "motion_responses": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/SpatialMotionResponse" }
+        },
+        "is_flat_graphic_override": { "type": "boolean" }
+      }
+    },
+    "EntitySpatialPlacement": {
+      "type": "object",
+      "required": ["entity_id", "depth_band", "transform", "semantic_spatial_role"],
+      "properties": {
+        "entity_id": { "type": "string" },
+        "depth_band": {
+          "type": "string",
+          "enum": ["FOREGROUND", "MIDGROUND", "HERO_PLANE", "BACKGROUND", "DEEP_BACKGROUND"]
+        },
+        "transform": {
+          "type": "object",
+          "required": ["x", "y", "z", "scale"],
+          "properties": {
+            "x": { "type": "number", "minimum": -1.5, "maximum": 1.5 },
+            "y": { "type": "number", "minimum": -1.5, "maximum": 1.5 },
+            "z": { "type": "number", "minimum": 0, "maximum": 1 },
+            "scale": { "type": "number", "minimum": 0.05, "maximum": 5 },
+            "rotation_x": { "type": "number" },
+            "rotation_y": { "type": "number" },
+            "rotation_z": { "type": "number" }
+          }
+        },
+        "apparent_scale": { "type": "number" },
+        "semantic_spatial_role": { "type": "string" }
+      }
+    },
+    "SpatialRelationship": {
+      "type": "object",
+      "required": ["id", "source_entity_id", "relation", "target_entity_id"],
+      "properties": {
+        "id": { "type": "string" },
+        "source_entity_id": { "type": "string" },
+        "relation": {
+          "type": "string",
+          "enum": ["IN_FRONT_OF", "BEHIND", "BESIDE", "ABOVE", "BELOW", "SURROUNDS", "INTERSECTS", "CONTAINS", "ORBITAL_AROUND", "CONNECTED_TO"]
+        },
+        "target_entity_id": { "type": "string" },
+        "depth_delta": { "type": "number" },
+        "description": { "type": "string" }
+      }
+    },
+    "OcclusionIntent": {
+      "type": "object",
+      "required": ["id", "occluding_entity_id", "occluded_entity_id", "type", "depth_difference"],
+      "properties": {
+        "id": { "type": "string" },
+        "occluding_entity_id": { "type": "string" },
+        "occluded_entity_id": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["FULL", "PARTIAL", "TRANSLUCENT_VEILING", "FRAMING", "NONE"]
+        },
+        "depth_difference": { "type": "number" },
+        "description": { "type": "string" }
+      }
+    },
+    "SpatialMotionResponse": {
+      "type": "object",
+      "required": ["verb", "entity_id", "trajectory", "start_z", "end_z", "description"],
+      "properties": {
+        "verb": {
+          "type": "string",
+          "enum": ["SPLIT", "EXPAND", "TRAVEL", "COLLAPSE", "MORPH", "MERGE", "DEFORM", "REASSEMBLE"]
+        },
+        "entity_id": { "type": "string" },
+        "trajectory": {
+          "type": "string",
+          "enum": ["TOWARD_VIEWER", "AWAY_FROM_VIEWER", "PLANAR_XY", "MULTI_DEPTH_CONVERGENCE", "VOLUMETRIC_RADIAL"]
+        },
+        "start_z": { "type": "number", "minimum": 0, "maximum": 1 },
+        "end_z": { "type": "number", "minimum": 0, "maximum": 1 },
         "description": { "type": "string" }
       }
     }

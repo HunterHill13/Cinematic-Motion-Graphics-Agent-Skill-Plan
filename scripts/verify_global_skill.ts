@@ -48,6 +48,10 @@ async function verifyGlobalSkill() {
     { name: 'LightingAmbiguityGate', rel: 'src/motion/visual_world/lightingAmbiguityGate.ts' },
     { name: 'LightingValidator', rel: 'src/motion/visual_world/lightingValidator.ts' },
     { name: 'LightingPlanner', rel: 'src/motion/visual_world/lightingPlanner.ts' },
+    { name: 'DepthSchema', rel: 'src/motion/visual_world/depthSchema.ts' },
+    { name: 'DepthAmbiguityGate', rel: 'src/motion/visual_world/depthAmbiguityGate.ts' },
+    { name: 'DepthValidator', rel: 'src/motion/visual_world/depthValidator.ts' },
+    { name: 'DepthPlanner', rel: 'src/motion/visual_world/depthPlanner.ts' },
   ];
 
   console.log('--- Step 12: Verifying Mandated Global Files ---');
@@ -83,6 +87,10 @@ async function verifyGlobalSkill() {
     'visual_world/lightingAmbiguityGate.ts',
     'visual_world/lightingValidator.ts',
     'visual_world/lightingPlanner.ts',
+    'visual_world/depthSchema.ts',
+    'visual_world/depthAmbiguityGate.ts',
+    'visual_world/depthValidator.ts',
+    'visual_world/depthPlanner.ts',
   ];
   for (const rel of templateFiles) {
     const fullPath = path.join(GLOBAL_SKILL_ROOT, 'template/src/motion', rel);
@@ -331,6 +339,56 @@ async function verifyGlobalSkill() {
         console.log('  [PASS] compileCinematicGraph blocked with LIGHTING_REQUIRED');
       } else {
         errors.push(`compileCinematicGraph threw unexpected code on missing lighting: ${lightGateErr.code}`);
+      }
+    }
+
+    // Phase 5C: Depth, Spatial Layering & 2.5D Architecture Hard-Gate Check
+    console.log('\n--- Phase 5C: Depth, Spatial Layering & 2.5D Architecture Hard-Gate Check ---');
+    const depthPlannerPath = path.join(GLOBAL_SKILL_ROOT, 'src/motion/visual_world/depthPlanner.ts');
+    const depthValidatorPath = path.join(GLOBAL_SKILL_ROOT, 'src/motion/visual_world/depthValidator.ts');
+    const depthAmbiguityPath = path.join(GLOBAL_SKILL_ROOT, 'src/motion/visual_world/depthAmbiguityGate.ts');
+
+    const { DepthPlanner } = require(depthPlannerPath);
+    const { DepthValidator } = require(depthValidatorPath);
+    const { DepthAmbiguityGate } = require(depthAmbiguityPath);
+
+    const depthReport = DepthValidator.validate(testWorld);
+    if (depthReport && depthReport.passed) {
+      console.log(`  [PASS] Live DepthValidator executed: World spatial contract valid (placements=${testWorld.spatial?.placements.length})`);
+    } else {
+      errors.push('DepthValidator failed on test world');
+      console.log('  [FAIL] DepthValidator failed on test world');
+    }
+
+    try {
+      DepthAmbiguityGate.validateNaturalIntent('make it 3D');
+      errors.push('DepthAmbiguityGate allowed vague buzzword');
+      console.log('  [FAIL] DepthAmbiguityGate allowed vague buzzword');
+    } catch (ambDepthErr: any) {
+      if (ambDepthErr.code === 'DEPTH_DIRECTION_AMBIGUOUS') {
+        console.log('  [PASS] DepthAmbiguityGate blocked with DEPTH_DIRECTION_AMBIGUOUS');
+      } else {
+        errors.push(`DepthAmbiguityGate threw unexpected error: ${ambDepthErr.code}`);
+      }
+    }
+
+    try {
+      const worldWithoutSpatial = {
+        ...testWorld,
+        spatial: undefined,
+      };
+      const graphWithoutSpatial = MotionPlanner.planCinematicSceneFromNaturalLanguage(
+        'Central core expands outward radially',
+        worldWithoutSpatial
+      );
+      MotionGraphCompiler.compileCinematicGraph(graphWithoutSpatial);
+      errors.push('compileCinematicGraph allowed scene without spatial contract');
+      console.log('  [FAIL] compileCinematicGraph allowed scene without spatial contract');
+    } catch (spatialGateErr: any) {
+      if (spatialGateErr.code === 'SPATIAL_REQUIRED' || spatialGateErr.code === 'SPATIAL_INVALID') {
+        console.log('  [PASS] compileCinematicGraph blocked with SPATIAL_REQUIRED');
+      } else {
+        errors.push(`compileCinematicGraph threw unexpected code on missing spatial contract: ${spatialGateErr.code}`);
       }
     }
   } catch (err: any) {
