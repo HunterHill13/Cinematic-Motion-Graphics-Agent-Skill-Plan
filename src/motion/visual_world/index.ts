@@ -6,3 +6,7 @@ export * from './materialSchema';
 export * from './materialAmbiguityGate';
 export * from './materialValidator';
 export * from './materialPlanner';
+export * from './lightingSchema';
+export * from './lightingAmbiguityGate';
+export * from './lightingValidator';
+export * from './lightingPlanner';

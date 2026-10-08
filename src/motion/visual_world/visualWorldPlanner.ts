@@ -18,6 +18,7 @@ import {
 import { ArtDirectionAmbiguityGate, VisualDirectionAmbiguityError } from './artDirectionAmbiguityGate';
 import { VisualWorldValidator } from './visualWorldValidator';
 import { MaterialPlanner } from './materialPlanner';
+import { LightingPlanner } from './lightingPlanner';
 import { MotionPlanningRequest, RawMotionTransformationPlan } from '../compiler/motionPlanningInterface';
 
 export interface VisualWorldPlanningOptions {
@@ -114,6 +115,7 @@ export class VisualWorldPlanner {
         visualPriority: 2,
         semanticPurpose: 'Visualizes kinetic mass-flow into the singularity',
         colorCue: '#FF7A00',
+        materialId: 'mat_accretion_disk',
       },
     ];
 
@@ -214,7 +216,14 @@ export class VisualWorldPlanner {
       artDirection,
       materials: [
         MaterialPlanner.createCelestialMaterial('mat_black_hole_core', 'Singularity Core Celestial Material'),
+        MaterialPlanner.createPlasmaMaterial('mat_accretion_disk', 'Relativistic Accretion Disk Plasma'),
       ],
+      lighting: LightingPlanner.createCelestialLighting(
+        'lighting_black_hole',
+        hero.id,
+        hero.materialId!,
+        secondaryEntities[0]?.id
+      ),
     };
   }
 
@@ -354,6 +363,11 @@ export class VisualWorldPlanner {
       materials: [
         MaterialPlanner.createOrganicCellMaterial('mat_cancer_cell_core', 'Neoplastic Cell Organic Membrane'),
       ],
+      lighting: LightingPlanner.createCellularLighting(
+        'lighting_cancer_cell',
+        hero.id,
+        hero.materialId!
+      ),
     };
   }
 
@@ -476,6 +490,11 @@ export class VisualWorldPlanner {
       materials: [
         MaterialPlanner.createMetalMaterial('mat_device_core', 'Precision Hardware Metal Chassis'),
       ],
+      lighting: LightingPlanner.createMetalLighting(
+        'lighting_device_core',
+        hero.id,
+        hero.materialId!
+      ),
     };
   }
 
@@ -560,6 +579,10 @@ export class VisualWorldPlanner {
     const heroMaterial = MaterialPlanner.planMaterialForEntity(hero, creativeIntent);
     hero.materialId = heroMaterial.id;
 
+    const lighting = options?.isExplicitFlatComposition
+      ? LightingPlanner.createFlatGraphicLighting('lighting_flat_graphic')
+      : LightingPlanner.planLightingFromText(creativeIntent, hero.id, heroMaterial.id, heroMaterial.category);
+
     return {
       worldId: options?.worldId || 'world_generic',
       title: options?.title || 'Generic Visual World',
@@ -571,6 +594,7 @@ export class VisualWorldPlanner {
       depth,
       artDirection,
       materials: [heroMaterial],
+      lighting,
     };
   }
 

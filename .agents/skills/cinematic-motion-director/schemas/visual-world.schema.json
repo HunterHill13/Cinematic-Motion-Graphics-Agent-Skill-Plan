@@ -51,6 +51,9 @@
       "type": "array",
       "items": { "$ref": "#/definitions/MaterialReference" },
       "default": []
+    },
+    "lighting": {
+      "$ref": "#/definitions/LightingContract"
     }
   },
   "definitions": {
@@ -281,6 +284,124 @@
             }
           }
         }
+      }
+    },
+    "LightingContract": {
+      "type": "object",
+      "required": ["id", "sources", "ambient_profile", "material_interactions", "motion_responses"],
+      "properties": {
+        "id": { "type": "string" },
+        "sources": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/LightSourceReference" }
+        },
+        "ambient_profile": {
+          "type": "object",
+          "required": ["level", "value", "color"],
+          "properties": {
+            "level": { "type": "string", "enum": ["VERY_LOW", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] },
+            "value": { "type": "number", "minimum": 0, "maximum": 1 },
+            "color": { "$ref": "#/definitions/LightColor" },
+            "description": { "type": "string" }
+          }
+        },
+        "material_interactions": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/MaterialLightInteraction" }
+        },
+        "motion_responses": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/MotionLightingResponse" }
+        },
+        "is_flat_graphic_override": { "type": "boolean" }
+      }
+    },
+    "LightSourceReference": {
+      "type": "object",
+      "required": ["id", "type", "direction", "intensity", "color", "softness"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": {
+          "type": "string",
+          "enum": ["KEY", "FILL", "RIM", "AMBIENT", "EMISSIVE", "ENVIRONMENT", "PRACTICAL"]
+        },
+        "direction": {
+          "type": "object",
+          "required": ["semantic"],
+          "properties": {
+            "semantic": {
+              "type": "string",
+              "enum": ["UPPER_LEFT", "UPPER_RIGHT", "LOWER_LEFT", "LOWER_RIGHT", "LEFT", "RIGHT", "TOP", "BOTTOM", "FRONT", "BACK", "CUSTOM"]
+            }
+          }
+        },
+        "intensity": {
+          "type": "object",
+          "required": ["level", "value"],
+          "properties": {
+            "level": { "type": "string", "enum": ["VERY_LOW", "LOW", "MEDIUM", "HIGH", "VERY_HIGH"] },
+            "value": { "type": "number", "minimum": 0, "maximum": 2.5 }
+          }
+        },
+        "color": { "$ref": "#/definitions/LightColor" },
+        "softness": {
+          "type": "string",
+          "enum": ["HARD", "MEDIUM", "SOFT", "VERY_SOFT"]
+        },
+        "target_entity_id": { "type": "string" },
+        "emissive_source_entity_id": { "type": "string" }
+      }
+    },
+    "LightColor": {
+      "type": "object",
+      "required": ["semantic"],
+      "properties": {
+        "semantic": {
+          "type": "string",
+          "enum": ["NEUTRAL", "WARM", "COOL", "CYAN", "BLUE", "MAGENTA", "RED", "AMBER", "GREEN", "CUSTOM"]
+        },
+        "hex": { "type": "string" }
+      }
+    },
+    "MaterialLightInteraction": {
+      "type": "object",
+      "required": ["id", "entity_id", "material_id", "light_source_id", "highlight_character", "shadow_character", "rim_character", "description"],
+      "properties": {
+        "id": { "type": "string" },
+        "entity_id": { "type": "string" },
+        "material_id": { "type": "string" },
+        "light_source_id": { "type": "string" },
+        "highlight_character": {
+          "type": "string",
+          "enum": ["SHARP_SPECULAR", "SOFT_DIFFUSE", "TRANSMITTED_SPECULAR", "GLAZING_FRESNEL", "NONE"]
+        },
+        "shadow_character": {
+          "type": "string",
+          "enum": ["HARD_TERMINATOR", "SOFT_GRADIENT", "DIFFUSE_WRAPPING", "MINIMAL_SHADOW", "NONE"]
+        },
+        "rim_character": {
+          "type": "string",
+          "enum": ["RAZOR_RIM", "SOFT_HALO", "SUBSURFACE_GLOW", "FRESNEL_GRAZING", "NONE"]
+        },
+        "description": { "type": "string" }
+      }
+    },
+    "MotionLightingResponse": {
+      "type": "object",
+      "required": ["verb", "entity_id", "light_source_id", "description"],
+      "properties": {
+        "verb": {
+          "type": "string",
+          "enum": ["SPLIT", "EXPAND", "TRAVEL", "COLLAPSE", "MORPH", "MERGE", "DEFORM", "REASSEMBLE"]
+        },
+        "entity_id": { "type": "string" },
+        "light_source_id": { "type": "string" },
+        "highlight_displacement": { "type": "string" },
+        "trailing_response": { "type": "string" },
+        "intensity_modulation": { "type": "string" },
+        "shadow_displacement": { "type": "string" },
+        "description": { "type": "string" }
       }
     }
   }

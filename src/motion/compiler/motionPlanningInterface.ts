@@ -41,6 +41,7 @@ import { MotionGraphCompiler } from './motionGraphCompiler';
 import { VisualWorld } from '../visual_world/visualWorldSchema';
 import { VisualWorldValidator } from '../visual_world/visualWorldValidator';
 import { MaterialValidator } from '../visual_world/materialValidator';
+import { LightingValidator } from '../visual_world/lightingValidator';
 
 export interface RawMotionTransformationPlan {
   description: string;
@@ -594,6 +595,27 @@ export class MotionPlanner {
       }
 
       const error = new Error(`[${mappedCode}] Material violation in cinematic planner: ${targetViolation.message}`);
+      (error as any).code = mappedCode;
+      (error as any).violationCode = targetViolation.code;
+      throw error;
+    }
+
+    // Lighting Governance Check (Phase 5B.2)
+    const lightingReport = LightingValidator.validate(visualWorld, graph);
+    if (!lightingReport.passed) {
+      const missingLighting = lightingReport.violations.find((v) => v.code === 'V_L1_MISSING_LIGHTING');
+      const heroMissingLighting = lightingReport.violations.find((v) => v.code === 'V_L2_MISSING_HERO_LIGHTING');
+      const ambiguity = lightingReport.violations.find((v) => v.code === 'LIGHTING_DIRECTION_AMBIGUOUS');
+      const targetViolation = missingLighting || heroMissingLighting || ambiguity || lightingReport.violations[0];
+
+      let mappedCode = 'LIGHTING_INVALID';
+      if (targetViolation.code === 'V_L1_MISSING_LIGHTING' || targetViolation.code === 'V_L2_MISSING_HERO_LIGHTING') {
+        mappedCode = 'LIGHTING_REQUIRED';
+      } else if (targetViolation.code === 'LIGHTING_DIRECTION_AMBIGUOUS') {
+        mappedCode = 'LIGHTING_DIRECTION_AMBIGUOUS';
+      }
+
+      const error = new Error(`[${mappedCode}] Lighting violation in cinematic planner: ${targetViolation.message}`);
       (error as any).code = mappedCode;
       (error as any).violationCode = targetViolation.code;
       throw error;
