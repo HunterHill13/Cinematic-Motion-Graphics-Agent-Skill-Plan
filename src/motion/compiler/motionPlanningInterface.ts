@@ -38,6 +38,8 @@ import {
   VerbSelectionContext,
 } from './motionVerbSelector';
 import { MotionGraphCompiler } from './motionGraphCompiler';
+import { VisualWorld } from '../visual_world/visualWorldSchema';
+import { VisualWorldValidator } from '../visual_world/visualWorldValidator';
 
 export interface RawMotionTransformationPlan {
   description: string;
@@ -85,6 +87,7 @@ export interface MotionPlanningRequest {
   }[];
   transformations: RawMotionTransformationPlan[];
   camera?: CameraTrajectorySpec;
+  visualWorld?: VisualWorld;
 }
 
 export class MotionPlanner {
@@ -205,6 +208,7 @@ export class MotionPlanner {
       transformations,
       continuity: [],
       camera: request.camera,
+      visualWorld: request.visualWorld,
     };
 
     // Pre-validate graph before returning
@@ -214,6 +218,17 @@ export class MotionPlanner {
       const error = new Error(`[${firstIssue.code}] ${firstIssue.message}`);
       (error as any).code = firstIssue.code;
       throw error;
+    }
+
+    // Phase 5A: Validate VisualWorld if attached
+    if (request.visualWorld) {
+      const worldReport = VisualWorldValidator.validate(request.visualWorld, graph);
+      if (!worldReport.passed) {
+        const first = worldReport.violations[0];
+        const error = new Error(`[${first.code}] VisualWorld violation: ${first.message}`);
+        (error as any).code = first.code;
+        throw error;
+      }
     }
 
     return graph;
@@ -229,6 +244,7 @@ export class MotionPlanner {
     options?: {
       totalDurationFrames?: number;
       camera?: CameraTrajectorySpec;
+      visualWorld?: VisualWorld;
     }
   ): MotionSceneGraph {
     const rawText = creativeIntent.trim();
@@ -269,17 +285,20 @@ export class MotionPlanner {
     const isChainedExpandSplitTravel =
       lower.includes('expand') && lower.includes('split') && (lower.includes('travel') || lower.includes('opposite'));
 
+    const customHeroId = options?.visualWorld?.hero?.id;
+
     if (isChainedExpandSplitTravel) {
+      const heroCoreId = customHeroId || 'hero_core';
       return this.planScene({
         creativeIntent,
         sceneId: 'fresh_agent_chained_core',
         totalDurationFrames: options?.totalDurationFrames || 600,
         entities: [
           {
-            id: 'hero_core',
-            label: 'Glowing Central Core',
+            id: heroCoreId,
+            label: options?.visualWorld?.hero?.label || 'Glowing Central Core',
             role: 'HERO',
-            semanticPurpose: 'Primary energy entity undergoing multi-stage metamorphosis',
+            semanticPurpose: options?.visualWorld?.hero?.semanticPurpose || 'Primary energy entity undergoing multi-stage metamorphosis',
             initialGeometry: 'dense_singularity',
             initialScale: 0.7,
             persistent: true,
@@ -288,14 +307,14 @@ export class MotionPlanner {
         transformations: [
           {
             description: 'Central core accumulates energy and expands radially',
-            sourceEntityIds: ['hero_core'],
+            sourceEntityIds: [heroCoreId],
             trigger: 'Energy accumulation reaches threshold',
             consequence: 'Expanded core matrix stabilizes',
             spatialIntent: { origin: { x: 960, y: 540, z: 0 }, scaleShift: { from: 0.7, to: 1.4 } },
           },
           {
             description: 'Expanded core splits into two daughter structures',
-            sourceEntityIds: ['hero_core'],
+            sourceEntityIds: [heroCoreId],
             targetEntityIds: ['daughter_left', 'daughter_right'],
             trigger: 'Cleavage shear forces rupture core axis',
             consequence: 'Two discrete structures separate horizontally',
@@ -303,13 +322,14 @@ export class MotionPlanner {
           },
           {
             description: 'Two daughter structures travel in opposite directions across the canvas',
-            sourceEntityIds: ['hero_core'],
+            sourceEntityIds: [heroCoreId],
             trigger: 'Opposing kinetic vectors propel structures',
             consequence: 'Daughter structures travel to perimeter docks',
             spatialIntent: { origin: { x: 960, y: 540, z: 0 }, target: { x: 1600, y: 540, z: 0 }, displacementPx: 640 },
           },
         ],
         camera: options?.camera,
+        visualWorld: options?.visualWorld,
       });
     }
 
@@ -320,16 +340,17 @@ export class MotionPlanner {
       (lower.includes('scatter') || lower.includes('pull') || lower.includes('lock') || lower.includes('converge') || lower.includes('reassemble'));
 
     if (isReassemble) {
+      const assemblyId = customHeroId || 'assembly_lattice';
       return this.planScene({
         creativeIntent,
         sceneId: 'fresh_agent_reassemble',
         totalDurationFrames: options?.totalDurationFrames || 300,
         entities: [
           {
-            id: 'assembly_lattice',
-            label: 'Crystalline Assembly Lattice',
+            id: assemblyId,
+            label: options?.visualWorld?.hero?.label || 'Crystalline Assembly Lattice',
             role: 'HERO',
-            semanticPurpose: 'Scattered structural fragments locking into unified architecture',
+            semanticPurpose: options?.visualWorld?.hero?.semanticPurpose || 'Scattered structural fragments locking into unified architecture',
             initialGeometry: 'scattered_fragments',
             initialScale: 1.0,
             persistent: true,
@@ -338,17 +359,20 @@ export class MotionPlanner {
         transformations: [
           {
             description: 'Several scattered fragments are pulled toward central structure and lock together into one coherent assembly',
-            sourceEntityIds: ['assembly_lattice'],
+            sourceEntityIds: [assemblyId],
             trigger: 'Electromagnetic centripetal pulse triggers fragment convergence',
             consequence: 'Unified crystalline assembly achieves perimeter lock',
             spatialIntent: { origin: { x: 960, y: 540, z: 0 }, separationDistance: 280, fragmentCount: 4 },
           },
         ],
         camera: options?.camera,
+        visualWorld: options?.visualWorld,
       });
     }
 
     // 4. Single-Beat Intent Analysis
+    const heroEntityId = customHeroId || 'hero_entity';
+
     if (lower.includes('expand') || lower.includes('grow')) {
       return this.planScene({
         creativeIntent,
@@ -356,10 +380,10 @@ export class MotionPlanner {
         totalDurationFrames: options?.totalDurationFrames || 300,
         entities: [
           {
-            id: 'hero_entity',
-            label: 'Hero Entity',
+            id: heroEntityId,
+            label: options?.visualWorld?.hero?.label || 'Hero Entity',
             role: 'HERO',
-            semanticPurpose: 'Entity expanding outward',
+            semanticPurpose: options?.visualWorld?.hero?.semanticPurpose || 'Entity expanding outward',
             initialScale: 0.65,
             persistent: true,
           },
@@ -367,13 +391,14 @@ export class MotionPlanner {
         transformations: [
           {
             description: 'Entity expands radially outward from center',
-            sourceEntityIds: ['hero_entity'],
+            sourceEntityIds: [heroEntityId],
             trigger: 'Volumetric pulse',
             consequence: 'Expanded state locked',
             spatialIntent: { origin: { x: 960, y: 540, z: 0 }, scaleShift: { from: 0.65, to: 1.4 } },
           },
         ],
         camera: options?.camera,
+        visualWorld: options?.visualWorld,
       });
     }
 
@@ -384,17 +409,17 @@ export class MotionPlanner {
         totalDurationFrames: options?.totalDurationFrames || 300,
         entities: [
           {
-            id: 'hero_entity',
-            label: 'Hero Entity',
+            id: heroEntityId,
+            label: options?.visualWorld?.hero?.label || 'Hero Entity',
             role: 'HERO',
-            semanticPurpose: 'Entity dividing into daughter components',
+            semanticPurpose: options?.visualWorld?.hero?.semanticPurpose || 'Entity dividing into daughter components',
             persistent: true,
           },
         ],
         transformations: [
           {
             description: 'Entity splits into two daughter structures under cleavage force',
-            sourceEntityIds: ['hero_entity'],
+            sourceEntityIds: [heroEntityId],
             targetEntityIds: ['d1', 'd2'],
             trigger: 'Cleavage force applied',
             consequence: 'Two separated daughter structures',
@@ -402,6 +427,7 @@ export class MotionPlanner {
           },
         ],
         camera: options?.camera,
+        visualWorld: options?.visualWorld,
       });
     }
 
@@ -412,23 +438,24 @@ export class MotionPlanner {
         totalDurationFrames: options?.totalDurationFrames || 300,
         entities: [
           {
-            id: 'hero_entity',
-            label: 'Hero Entity',
+            id: heroEntityId,
+            label: options?.visualWorld?.hero?.label || 'Hero Entity',
             role: 'HERO',
-            semanticPurpose: 'Entity in transit',
+            semanticPurpose: options?.visualWorld?.hero?.semanticPurpose || 'Entity in transit',
             persistent: true,
           },
         ],
         transformations: [
           {
             description: 'Entity travels from coordinate A to coordinate B across the screen',
-            sourceEntityIds: ['hero_entity'],
+            sourceEntityIds: [heroEntityId],
             trigger: 'Propulsion vector engaged',
             consequence: 'Entity arrives at destination dock',
             spatialIntent: { origin: { x: 300, y: 540, z: 0 }, target: { x: 1500, y: 540, z: 0 }, displacementPx: 600 },
           },
         ],
         camera: options?.camera,
+        visualWorld: options?.visualWorld,
       });
     }
 
@@ -437,4 +464,101 @@ export class MotionPlanner {
     (error as any).code = 'MOTION_INTENT_AMBIGUOUS';
     throw error;
   }
+
+  /**
+   * ========================================================================
+   * PHASE-5 CINEMATIC DIRECTOR PIPELINE PLANNER (HARD-GATED)
+   * ========================================================================
+   *
+   * Strictly enforces that any cinematic scene planning requires a valid
+   * VisualWorld. Rejects direct motion bypass.
+   */
+  public static planCinematicScene(request: MotionPlanningRequest): MotionSceneGraph {
+    if (!request.visualWorld) {
+      const error = new Error(
+        '[VISUAL_WORLD_REQUIRED] Cinematic Director pipeline requires a validated VisualWorld before MotionSceneGraph planning. Direct motion planning without VisualWorld is prohibited.'
+      );
+      (error as any).code = 'VISUAL_WORLD_REQUIRED';
+      throw error;
+    }
+
+    // Check VisualWorld validity in isolation
+    const worldReport = VisualWorldValidator.validate(request.visualWorld);
+    if (!worldReport.passed) {
+      const heroMismatch = worldReport.violations.find((v) => v.code === 'V8_HERO_MISMATCH');
+      const ambiguity = worldReport.violations.find((v) => v.code === 'V6_AMBIGUOUS_ART_DIRECTION' || v.code === 'VISUAL_DIRECTION_AMBIGUOUS');
+      const targetViolation = heroMismatch || ambiguity || worldReport.violations[0];
+
+      let mappedCode = 'VISUAL_WORLD_INVALID';
+      if (targetViolation.code === 'V8_HERO_MISMATCH') {
+        mappedCode = 'V8_HERO_MISMATCH';
+      } else if (targetViolation.code === 'VISUAL_DIRECTION_AMBIGUOUS' || targetViolation.code === 'V6_AMBIGUOUS_ART_DIRECTION') {
+        mappedCode = 'VISUAL_DIRECTION_AMBIGUOUS';
+      }
+
+      const error = new Error(`[${mappedCode}] VisualWorld violation in cinematic planner: ${targetViolation.message}`);
+      (error as any).code = mappedCode;
+      (error as any).violationCode = targetViolation.code;
+      throw error;
+    }
+
+    // Check Hero alignment between request and visualWorld
+    const heroEntity = request.entities.find((e) => e.role === 'HERO');
+    if (heroEntity && request.visualWorld.hero && heroEntity.id !== request.visualWorld.hero.id) {
+      const error = new Error(
+        `[V8_HERO_MISMATCH] MotionPlanningRequest hero "${heroEntity.id}" does not match VisualWorld hero "${request.visualWorld.hero.id}".`
+      );
+      (error as any).code = 'V8_HERO_MISMATCH';
+      throw error;
+    }
+
+    return this.planScene(request);
+  }
+
+  /**
+   * Cinematic natural language planning entry point. Requires VisualWorld.
+   */
+  public static planCinematicSceneFromNaturalLanguage(
+    creativeIntent: string,
+    visualWorld: VisualWorld,
+    options?: {
+      totalDurationFrames?: number;
+      camera?: CameraTrajectorySpec;
+    }
+  ): MotionSceneGraph {
+    if (!visualWorld) {
+      const error = new Error(
+        '[VISUAL_WORLD_REQUIRED] Cinematic Director pipeline requires a validated VisualWorld before MotionSceneGraph planning. Direct motion planning without VisualWorld is prohibited.'
+      );
+      (error as any).code = 'VISUAL_WORLD_REQUIRED';
+      throw error;
+    }
+
+    const graph = this.planFromNaturalIntent(creativeIntent, {
+      ...options,
+      visualWorld,
+    });
+
+    const worldReport = VisualWorldValidator.validate(visualWorld, graph);
+    if (!worldReport.passed) {
+      const heroMismatch = worldReport.violations.find((v) => v.code === 'V8_HERO_MISMATCH');
+      const ambiguity = worldReport.violations.find((v) => v.code === 'V6_AMBIGUOUS_ART_DIRECTION' || v.code === 'VISUAL_DIRECTION_AMBIGUOUS');
+      const targetViolation = heroMismatch || ambiguity || worldReport.violations[0];
+
+      let mappedCode = 'VISUAL_WORLD_INVALID';
+      if (targetViolation.code === 'V8_HERO_MISMATCH') {
+        mappedCode = 'V8_HERO_MISMATCH';
+      } else if (targetViolation.code === 'VISUAL_DIRECTION_AMBIGUOUS' || targetViolation.code === 'V6_AMBIGUOUS_ART_DIRECTION') {
+        mappedCode = 'VISUAL_DIRECTION_AMBIGUOUS';
+      }
+
+      const error = new Error(`[${mappedCode}] VisualWorld violation in cinematic planner: ${targetViolation.message}`);
+      (error as any).code = mappedCode;
+      (error as any).violationCode = targetViolation.code;
+      throw error;
+    }
+
+    return graph;
+  }
 }
+

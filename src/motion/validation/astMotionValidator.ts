@@ -310,13 +310,52 @@ export class AstMotionValidator {
       });
     }
 
+    // 4. Count distinct executable transformation contracts/verbs in AST
+    let motionsCount = 0;
+    const templateMatches = this.code.match(/create(Split|Expand|Travel|Collapse|Morph|Merge|Deform|Reassemble)Template/g);
+    if (templateMatches && templateMatches.length > 0) {
+      motionsCount = templateMatches.length;
+    }
+    const contractIndexMatches = this.code.match(/contracts\[\d+\]/g);
+    if (contractIndexMatches && contractIndexMatches.length > 0) {
+      const distinctIndices = new Set(contractIndexMatches);
+      motionsCount = Math.max(motionsCount, distinctIndices.size);
+    }
+    const importedGraphMatch = this.code.match(/import\s*\{[^}]*([a-zA-Z0-9_]*SceneGraph[a-zA-Z0-9_]*)[^}]*\}\s*from\s*['"]([^'"]+)['"]/);
+    if (importedGraphMatch) {
+      try {
+        const importRelPath = importedGraphMatch[2];
+        const dir = path.dirname(this.filePath);
+        const candidates = [
+          path.resolve(dir, importRelPath + '.ts'),
+          path.resolve(dir, importRelPath + '.tsx'),
+          path.resolve(dir, importRelPath),
+        ];
+        for (const cand of candidates) {
+          if (fs.existsSync(cand)) {
+            const graphCode = fs.readFileSync(cand, 'utf-8');
+            const verbMatches = graphCode.match(/verb\s*:\s*['"](SPLIT|EXPAND|TRAVEL|COLLAPSE|MORPH|MERGE|DEFORM|REASSEMBLE)['"]/g);
+            if (verbMatches && verbMatches.length > 0) {
+              motionsCount = Math.max(motionsCount, verbMatches.length);
+            }
+            break;
+          }
+        }
+      } catch (e) {
+        // Fallback to detected count
+      }
+    }
+    if (motionsCount === 0 && violations.length === 0) {
+      motionsCount = 1;
+    }
+
     return {
       passed: violations.length === 0,
       filePath: this.filePath,
       hasPersistentWorld: true,
       hasTransformationContract: true,
       sequenceCount: 0,
-      meaningfulMotionsCount: violations.length === 0 ? 1 : 0,
+      meaningfulMotionsCount: violations.length === 0 ? motionsCount : 0,
       violations,
     };
   }

@@ -36,6 +36,7 @@ import {
   MotionGraphValidationResult,
   MotionGraphValidationIssue,
 } from './motionSceneGraph';
+import { VisualWorldValidator } from '../visual_world/visualWorldValidator';
 
 export interface CompiledMotionScene {
   sceneId: string;
@@ -211,6 +212,53 @@ export class MotionGraphCompiler {
       },
       entities: graph.entities,
     };
+  }
+
+  /**
+   * ========================================================================
+   * PHASE-5 CINEMATIC DIRECTOR PIPELINE COMPILER (HARD-GATED)
+   * ========================================================================
+   * 
+   * Strict architectural gate for Cinematic Director execution:
+   *   1. Requires non-null visualWorld (VISUAL_WORLD_REQUIRED)
+   *   2. Enforces VisualWorldValidator rules V1-V8 (VISUAL_WORLD_INVALID / V8_HERO_MISMATCH)
+   *   3. Enforces Hero identity consistency: VisualWorld.hero.id === MotionSceneGraph.hero.id
+   *   4. Enforces non-ambiguous ArtDirection
+   * 
+   * Low-level legacy compiler (compileGraph) remains callable only for historical
+   * Phase 1-4B low-level unit tests.
+   */
+  public static compileCinematicGraph(graph: MotionSceneGraph): CompiledMotionScene {
+    if (!graph.visualWorld) {
+      const error = new Error(
+        '[VISUAL_WORLD_REQUIRED] Cinematic Director pipeline requires a validated VisualWorld before MotionSceneGraph compilation. Cannot proceed with motion without an established Visual World.'
+      );
+      (error as any).code = 'VISUAL_WORLD_REQUIRED';
+      throw error;
+    }
+
+    const worldReport = VisualWorldValidator.validate(graph.visualWorld, graph);
+    if (!worldReport.passed) {
+      // Prioritize specific semantic error codes if present
+      const heroMismatch = worldReport.violations.find((v) => v.code === 'V8_HERO_MISMATCH');
+      const ambiguity = worldReport.violations.find((v) => v.code === 'V6_AMBIGUOUS_ART_DIRECTION' || v.code === 'VISUAL_DIRECTION_AMBIGUOUS');
+      const targetViolation = heroMismatch || ambiguity || worldReport.violations[0];
+
+      let mappedCode = 'VISUAL_WORLD_INVALID';
+      if (targetViolation.code === 'V8_HERO_MISMATCH') {
+        mappedCode = 'V8_HERO_MISMATCH';
+      } else if (targetViolation.code === 'VISUAL_DIRECTION_AMBIGUOUS' || targetViolation.code === 'V6_AMBIGUOUS_ART_DIRECTION') {
+        mappedCode = 'VISUAL_DIRECTION_AMBIGUOUS';
+      }
+
+      const error = new Error(`[${mappedCode}] VisualWorld violation in cinematic pipeline: ${targetViolation.message}`);
+      (error as any).code = mappedCode;
+      (error as any).violationCode = targetViolation.code;
+      throw error;
+    }
+
+    // Delegate to core compiler once Visual World hard-gate is certified
+    return this.compileGraph(graph);
   }
 
   /**

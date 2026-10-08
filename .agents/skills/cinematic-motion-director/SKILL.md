@@ -40,26 +40,29 @@ Every visual and motion decision follows this strict priority:
 3. Ingest script and synthesize full audio via ElevenLabs (`voice-doctrine.md`, `voice-selection.md`).
 4. Run `AUDIO_QA_GATE`: Verify natural delivery (115–190 WPM), continuity, and decodability.
 5. Map script to semantic beats; assign exactly ONE primary visual job per beat.
-6. Construct the `VisualStateGraph` and write `docs/SHOTBOOK.md`.
-7. Run `REMOVAL_TEST_GATE`: Purge all non-essential decorative elements.
-8. [GATE 1 PAUSE]: Present SHOTBOOK to user for explicit approval before coding.
+6. [MANDATORY VISUAL WORLD HARD-GATE]: Plan `VisualWorld` and `ArtDirectionContract` via `VisualWorldPlanner` (`schemas/visual-world.schema.json`). Establish Hero Identity, Visual Hierarchy (PRIMARY, SECONDARY, TERTIARY, ENVIRONMENT), Depth Model, Composition Contract, and concrete Art Direction. Validate with `VisualWorldValidator.validate`. Reject vague buzzwords via `ArtDirectionAmbiguityGate`.
+   * **Cinematic Pipeline Enforcement:** The cinematic compilation pipeline (`MotionGraphCompiler.compileCinematicGraph` and `MotionPlanner.planCinematicScene`) strictly requires `visualWorld`. Compilation without a validated VisualWorld is rejected with `VISUAL_WORLD_REQUIRED`.
+   * **Legacy Low-Level API Distinction:** Low-level `compileGraph()` / `planScene()` is reserved exclusively for historical Phase 1–4B engine unit tests. The Cinematic Production agent MUST compile via `compileCinematicGraph()`.
+7. Construct `MotionSceneGraph` bound to `VisualWorld` and write `docs/SHOTBOOK.md`.
+8. Run `REMOVAL_TEST_GATE`: Purge all unmotivated decorative elements. (Rule: MORE ELEMENTS ≠ BETTER CINEMATIC QUALITY).
+9. [GATE 1 PAUSE]: Present SHOTBOOK and Visual World to user for explicit approval before coding.
         ↓
 [BUILDER: REMOTION IMPLEMENTATION]
-9. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler` from `MotionSceneGraph`.
-10. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
-11. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
-12. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
-13. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
+10. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler.compileCinematicGraph` from `MotionSceneGraph`.
+11. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
+12. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
+13. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
+14. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
         ↓
 [INDEPENDENT BLIND REVIEW]
-14. Render video master (`.mp4`) with stem-mixed audio.
-15. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
-16. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
-17. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
+15. Render video master (`.mp4`) with stem-mixed audio.
+16. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
+17. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
+18. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
         ↓
 [TECHNICAL QC & DELIVERY]
-18. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS).
-19. Final delivery with verified artifact.
+19. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS).
+20. Final delivery with verified artifact.
 ```
 
 ---
@@ -76,6 +79,7 @@ Regardless of technical compilation or average numerical scores, a production **
 7. **Orphan Elements:** Graphic items lingering on screen after their narrative utility ended.
 8. **Generic Dissolves:** Scene transitions relying on generic fades rather than physical momentum-carry or spatial reframing.
 9. **Diacritics on Screen:** Raw Arabic/Persian diacritics rendered in visual display typography.
+10. **Ambiguous / Flat Visual World (`VISUAL_WORLD_GATE`):** Visual World lacking a primary persistent Hero, collapsing all elements into a single flat plane without explicit flat composition justification, or relying on empty aesthetic buzzwords ('cinematic', 'premium') rejected by `ArtDirectionAmbiguityGate`.
 
 ---
 

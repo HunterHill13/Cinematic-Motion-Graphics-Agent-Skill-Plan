@@ -21,6 +21,7 @@ import {
   EntitySpatialState,
   TransformationContract,
 } from '../grammar/motionGrammar';
+import { VisualWorld } from '../visual_world/visualWorldSchema';
 
 export type EntityRole = 'HERO' | 'SECONDARY' | 'ENVIRONMENT';
 
@@ -124,6 +125,7 @@ export interface MotionSceneGraph {
   transformations: MotionTransformationNode[];
   continuity: ContinuityConstraint[];
   camera?: CameraTrajectorySpec;
+  visualWorld?: VisualWorld;
 }
 
 /**

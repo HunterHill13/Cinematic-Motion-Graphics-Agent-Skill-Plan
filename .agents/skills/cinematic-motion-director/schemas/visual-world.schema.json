@@ -1,0 +1,215 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VisualWorld",
+  "description": "Executable semantic contract for Visual World, Art Direction, Depth Model, and Visual Hierarchy in Cinematic Video Production",
+  "type": "object",
+  "required": [
+    "world_id",
+    "title",
+    "hero",
+    "composition",
+    "depth",
+    "art_direction"
+  ],
+  "properties": {
+    "world_id": {
+      "type": "string",
+      "description": "Unique identifier for the persistent visual world"
+    },
+    "title": {
+      "type": "string",
+      "description": "Descriptive title of the visual world"
+    },
+    "hero": {
+      "$ref": "#/definitions/VisualEntityIdentity"
+    },
+    "secondary_entities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/VisualEntityIdentity" },
+      "default": []
+    },
+    "tertiary_entities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/VisualEntityIdentity" },
+      "default": []
+    },
+    "environment_entities": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/VisualEntityIdentity" },
+      "default": []
+    },
+    "composition": {
+      "$ref": "#/definitions/CompositionContract"
+    },
+    "depth": {
+      "$ref": "#/definitions/DepthModel"
+    },
+    "art_direction": {
+      "$ref": "#/definitions/ArtDirectionContract"
+    }
+  },
+  "definitions": {
+    "VisualEntityIdentity": {
+      "type": "object",
+      "required": [
+        "id",
+        "label",
+        "semantic_role",
+        "visual_role",
+        "importance",
+        "persistence",
+        "depth_layer",
+        "scale_class",
+        "visual_priority",
+        "semantic_purpose"
+      ],
+      "properties": {
+        "id": { "type": "string" },
+        "label": { "type": "string" },
+        "semantic_role": {
+          "type": "string",
+          "enum": ["HERO", "SECONDARY", "TERTIARY", "ENVIRONMENT"]
+        },
+        "visual_role": { "type": "string" },
+        "importance": {
+          "type": "string",
+          "enum": ["PRIMARY", "SECONDARY", "TERTIARY", "ENVIRONMENT"]
+        },
+        "persistence": { "type": "boolean" },
+        "depth_layer": {
+          "type": "string",
+          "enum": ["FOREGROUND", "MIDGROUND", "HERO_PLANE", "BACKGROUND", "DEEP_BACKGROUND"]
+        },
+        "scale_class": {
+          "type": "string",
+          "enum": ["HERO_MONUMENTAL", "FOCAL", "SUPPORTING", "ENVIRONMENTAL", "ACCENT"]
+        },
+        "visual_priority": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 10
+        },
+        "semantic_purpose": { "type": "string" },
+        "color_cue": { "type": "string" }
+      }
+    },
+    "CompositionContract": {
+      "type": "object",
+      "required": [
+        "composition_intent",
+        "hero_anchor",
+        "safe_region",
+        "focal_region",
+        "visual_balance",
+        "negative_space"
+      ],
+      "properties": {
+        "composition_intent": { "type": "string" },
+        "hero_anchor": {
+          "type": "string",
+          "enum": ["CENTER", "LEFT_THIRD", "RIGHT_THIRD", "TOP", "BOTTOM", "GOLDEN_SPIRAL", "CUSTOM"]
+        },
+        "safe_region": {
+          "type": "object",
+          "required": ["x_min", "x_max", "y_min", "y_max"],
+          "properties": {
+            "x_min": { "type": "number" },
+            "x_max": { "number": "number" },
+            "y_min": { "type": "number" },
+            "y_max": { "type": "number" }
+          }
+        },
+        "focal_region": {
+          "type": "string",
+          "enum": ["CENTRAL", "UPPER_THIRD", "LOWER_THIRD", "SPLIT_BILATERAL", "RADIAL_CONCENTRIC"]
+        },
+        "visual_balance": {
+          "type": "string",
+          "enum": ["RADIAL", "ASYMMETRICAL", "BILATERAL", "DYNAMIC_TRIANGULAR"]
+        },
+        "negative_space": {
+          "type": "string",
+          "enum": ["HIGH", "BALANCED", "MINIMAL"]
+        },
+        "aspect_ratio": { "type": "string", "default": "16:9" }
+      }
+    },
+    "DepthModel": {
+      "type": "object",
+      "required": ["depth_layers", "depth_order", "relative_depth"],
+      "properties": {
+        "depth_layers": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["FOREGROUND", "MIDGROUND", "HERO_PLANE", "BACKGROUND", "DEEP_BACKGROUND"]
+          }
+        },
+        "depth_order": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "relative_depth": {
+          "type": "object",
+          "additionalProperties": { "type": "number" }
+        },
+        "parallax_intent": {
+          "type": "string",
+          "enum": ["STRONG", "SUBTLE", "STATIC", "ISOMETRIC"],
+          "default": "SUBTLE"
+        },
+        "is_explicit_flat_composition": {
+          "type": "boolean",
+          "default": false
+        }
+      }
+    },
+    "ArtDirectionContract": {
+      "type": "object",
+      "required": [
+        "visual_style",
+        "visual_density",
+        "contrast_profile",
+        "depth_profile",
+        "motion_character",
+        "visual_hierarchy",
+        "composition_intent",
+        "atmosphere_intent",
+        "color_language"
+      ],
+      "properties": {
+        "visual_style": { "type": "string" },
+        "visual_density": {
+          "type": "string",
+          "enum": ["MINIMAL", "MEDIUM", "MEDIUM_HIGH", "HIGH"]
+        },
+        "contrast_profile": { "type": "string" },
+        "depth_profile": { "type": "string" },
+        "motion_character": { "type": "string" },
+        "visual_hierarchy": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": ["PRIMARY", "SECONDARY", "TERTIARY", "ENVIRONMENT"]
+          }
+        },
+        "composition_intent": { "type": "string" },
+        "atmosphere_intent": { "type": "string" },
+        "color_language": {
+          "type": "object",
+          "required": ["primary_hue", "secondary_hue", "dominant_tone", "background_hex"],
+          "properties": {
+            "primary_hue": { "type": "string" },
+            "secondary_hue": { "type": "string" },
+            "accent_hue": { "type": "string" },
+            "dominant_tone": {
+              "type": "string",
+              "enum": ["DARK_CINEMATIC", "LIGHT_CLINICAL", "MONOCHROME_TECHNICAL", "HIGH_CONTRAST"]
+            },
+            "background_hex": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
