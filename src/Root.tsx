@@ -23,6 +23,7 @@ import {
 import { Phase5CSpatialRuntimeProof } from './motion/visual_world/Phase5CSpatialRuntimeProof';
 import { Phase5DMaterialRuntimeProof } from './motion/visual_world/Phase5DMaterialRuntimeProof';
 import { Phase5D1LightingRuntimeProof } from './motion/visual_world/Phase5D1LightingRuntimeProof';
+import { Phase5ECameraCompositionProof } from './motion/visual_world/Phase5ECameraCompositionProof';
 
 /**
  * ============================================================================
@@ -191,11 +192,30 @@ export const Root: React.FC = () => {
         width={1920}
         height={1080}
       />
+      {/* 12. Phase 5E Camera & Composition Runtime Proof Compositions (300 Frames @ 30 FPS) */}
       <Composition
-        id="Phase5D1-LightingCollapsedProof"
-        component={Phase5D1LightingRuntimeProof}
-        defaultProps={{ mode: 'LIGHTING_COLLAPSED' as const }}
-        durationInFrames={180}
+        id="Phase5E-CameraProof"
+        component={Phase5ECameraCompositionProof}
+        defaultProps={{ mode: 'SPATIAL_CAMERA' as const }}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5E-CameraGlobalTransformProof"
+        component={Phase5ECameraCompositionProof}
+        defaultProps={{ mode: 'GLOBAL_TRANSFORM' as const }}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5E-CameraStaticProof"
+        component={Phase5ECameraCompositionProof}
+        defaultProps={{ mode: 'STATIC_CAMERA' as const }}
+        durationInFrames={300}
         fps={30}
         width={1920}
         height={1080}

@@ -20,3 +20,4 @@ export { DepthPlanner as SpatialDepthPlanner } from './depthPlanner';
 export * from './spatialRenderAdapter';
 export * from './materialRenderAdapter';
 export * from './lightingRenderAdapter';
+export * from './cinematicCameraAdapter';
