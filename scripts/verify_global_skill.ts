@@ -53,6 +53,7 @@ async function verifyGlobalSkill() {
     { name: 'DepthValidator', rel: 'src/motion/visual_world/depthValidator.ts' },
     { name: 'DepthPlanner', rel: 'src/motion/visual_world/depthPlanner.ts' },
     { name: 'SpatialRenderAdapter', rel: 'src/motion/visual_world/spatialRenderAdapter.ts' },
+    { name: 'MaterialRenderAdapter', rel: 'src/motion/visual_world/materialRenderAdapter.ts' },
   ];
 
   console.log('--- Step 12: Verifying Mandated Global Files ---');
@@ -93,6 +94,7 @@ async function verifyGlobalSkill() {
     'visual_world/depthValidator.ts',
     'visual_world/depthPlanner.ts',
     'visual_world/spatialRenderAdapter.ts',
+    'visual_world/materialRenderAdapter.ts',
   ];
   for (const rel of templateFiles) {
     const fullPath = path.join(GLOBAL_SKILL_ROOT, 'template/src/motion', rel);
@@ -372,6 +374,21 @@ async function verifyGlobalSkill() {
     } else {
       errors.push('SpatialRenderAdapter failed on test world');
       console.log('  [FAIL] SpatialRenderAdapter failed on test world');
+    }
+
+    // Phase 5D: Material Runtime Adapter Execution & Anti-Bypass Check
+    const matAdapterPath = path.join(GLOBAL_SKILL_ROOT, 'src/motion/visual_world/materialRenderAdapter.ts');
+    const { MaterialRenderAdapter } = require(matAdapterPath);
+    const heroMaterialRef = testWorld.materials?.[testWorld.hero.materialId];
+    if (heroMaterialRef) {
+      const heroMatStyle = MaterialRenderAdapter.resolveMaterialStyle(heroMaterialRef, testWorld.hero.id);
+      const matValidation = MaterialRenderAdapter.validateRenderExecution([heroMatStyle], [heroMaterialRef]);
+      if (matValidation && matValidation.passed) {
+        console.log(`  [PASS] Live MaterialRenderAdapter executed: Hero material styled (category=${heroMatStyle.category}, bg=${heroMatStyle.background.slice(0, 24)}...)`);
+      } else {
+        errors.push('MaterialRenderAdapter failed on hero material');
+        console.log('  [FAIL] MaterialRenderAdapter failed on hero material');
+      }
     }
 
     try {

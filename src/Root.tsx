@@ -21,6 +21,7 @@ import {
   VerbTest_DecorativeCamouflage,
 } from './motion/grammar/VerbTemplateTestCompositions';
 import { Phase5CSpatialRuntimeProof } from './motion/visual_world/Phase5CSpatialRuntimeProof';
+import { Phase5DMaterialRuntimeProof } from './motion/visual_world/Phase5DMaterialRuntimeProof';
 
 /**
  * ============================================================================
@@ -153,6 +154,26 @@ export const Root: React.FC = () => {
         id="Phase5C-DepthCollapsedProof"
         component={Phase5CSpatialRuntimeProof}
         defaultProps={{ mode: 'DEPTH_COLLAPSED' as const }}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* 10. Phase 5D Material Runtime Proof Compositions (180 Frames @ 30 FPS) */}
+      <Composition
+        id="Phase5D-MaterialProof"
+        component={Phase5DMaterialRuntimeProof}
+        defaultProps={{ mode: 'MATERIAL_AWARE' as const }}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5D-MaterialCollapsedProof"
+        component={Phase5DMaterialRuntimeProof}
+        defaultProps={{ mode: 'MATERIAL_COLLAPSED' as const }}
         durationInFrames={180}
         fps={30}
         width={1920}
