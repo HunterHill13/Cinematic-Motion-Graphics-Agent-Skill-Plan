@@ -95,39 +95,15 @@ export class MotionVerbSelector {
       };
     }
 
-    // 2. Structural & Multi-Component Verbs: SPLIT vs REASSEMBLE vs MERGE
-    // SPLIT: Single entity dividing into 2+ daughter vectors
-    if (
-      context.entityRelationship === 'single_to_multiple' ||
-      (context.daughterComponentCount !== undefined && context.daughterComponentCount >= 2) ||
-      lowerIntent.includes('split') ||
-      lowerIntent.includes('cleave') ||
-      lowerIntent.includes('bifurcat') ||
-      lowerIntent.includes('divide') ||
-      lowerIntent.includes('fission') ||
-      lowerIntent.includes('انشعاب') ||
-      lowerIntent.includes('تقسیم')
-    ) {
-      if (
-        !lowerIntent.includes('merge') &&
-        !lowerIntent.includes('reassemble') &&
-        !lowerIntent.includes('converge')
-      ) {
-        return {
-          status: 'RESOLVED',
-          verb: 'SPLIT',
-          confidence: 0.95,
-          rationale: 'Entity divides into daughter components with outward bilateral displacement.',
-        };
-      }
-    }
-
-    // REASSEMBLE: Multiple scattered fragments converging into structured crystalline lattice
+    // 2. Structural & Multi-Component Verbs: REASSEMBLE, MERGE, SPLIT
+    // REASSEMBLE: Multiple scattered fragments converging into structured assembly or lattice
     if (
       context.entityRelationship === 'fragment_to_whole' ||
       lowerIntent.includes('reassemble') ||
       lowerIntent.includes('scatter') ||
-      lowerIntent.includes('fragments converge') ||
+      lowerIntent.includes('fragment') ||
+      lowerIntent.includes('lock together') ||
+      lowerIntent.includes('coherent assembly') ||
       lowerIntent.includes('crystalline lattice') ||
       lowerIntent.includes('assemble from fragments') ||
       lowerIntent.includes('بازسازی قطعات') ||
@@ -158,6 +134,26 @@ export class MotionVerbSelector {
         verb: 'MERGE',
         confidence: 0.94,
         rationale: 'Independent upstream bodies accelerate toward mutual barycenter and fuse.',
+      };
+    }
+
+    // SPLIT: Single entity dividing into 2+ daughter vectors
+    if (
+      context.entityRelationship === 'single_to_multiple' ||
+      (context.daughterComponentCount !== undefined && context.daughterComponentCount >= 2) ||
+      lowerIntent.includes('split') ||
+      lowerIntent.includes('cleave') ||
+      lowerIntent.includes('bifurcat') ||
+      lowerIntent.includes('divide') ||
+      lowerIntent.includes('fission') ||
+      lowerIntent.includes('انشعاب') ||
+      lowerIntent.includes('تقسیم')
+    ) {
+      return {
+        status: 'RESOLVED',
+        verb: 'SPLIT',
+        confidence: 0.95,
+        rationale: 'Entity divides into daughter components with outward bilateral displacement.',
       };
     }
 

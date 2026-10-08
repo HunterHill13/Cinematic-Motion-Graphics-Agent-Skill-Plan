@@ -45,8 +45,8 @@ Every visual and motion decision follows this strict priority:
 8. [GATE 1 PAUSE]: Present SHOTBOOK to user for explicit approval before coding.
         ↓
 [BUILDER: REMOTION IMPLEMENTATION]
-9. Construct persistent 3D world canvas using vector SVG and CSS 3D transforms.
-10. Implement physical transformations using `AuthoredKeyframeEngine.ts`.
+9. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler` from `MotionSceneGraph`.
+10. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
 11. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
 12. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
 13. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
@@ -92,7 +92,7 @@ HERO ELEMENT        : [The single primary actor, e.g. Monolith Core]
 SUPPORTING ELEMENTS : [Max 1-2 items cooperating directly with hero]
 CURRENT STATE       : [Physical appearance before transformation]
 TRIGGER             : [Auditory or narrative catalyst]
-TRANSFORMATION      : [Physical mechanism: Unfolding | Slicing | Telescoping | Docking]
+TRANSFORMATION      : [Core Motion Verb: SPLIT | EXPAND | TRAVEL | COLLAPSE | MORPH | MERGE | DEFORM | REASSEMBLE]
 DESTINATION STATE   : [Physical appearance after transformation]
 CONSEQUENCE         : [Downstream force or reaction transmitted to secondary node]
 MOTION OWNER        : [Primary: Hero element, Secondary: Foundation rail]

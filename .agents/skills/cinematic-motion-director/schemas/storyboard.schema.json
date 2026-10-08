@@ -40,7 +40,26 @@
             }
           },
           "composition": { "type": "string" },
-          "motion": { "type": "string" },
+          "motion": {
+            "type": ["string", "object"],
+            "properties": {
+              "verb": {
+                "type": "string",
+                "enum": ["SPLIT", "EXPAND", "TRAVEL", "COLLAPSE", "MORPH", "MERGE", "DEFORM", "REASSEMBLE"]
+              },
+              "trigger": { "type": "string" },
+              "consequence": { "type": "string" },
+              "source_entity_ids": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "target_entity_ids": {
+                "type": "array",
+                "items": { "type": "string" }
+              },
+              "spatial_intent": { "type": "object" }
+            }
+          },
           "lighting": { "type": "string" },
           "typography": { "type": "string" },
           "transition": { "type": "string" },
