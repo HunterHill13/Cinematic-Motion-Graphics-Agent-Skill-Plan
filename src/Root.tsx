@@ -24,6 +24,7 @@ import { Phase5CSpatialRuntimeProof } from './motion/visual_world/Phase5CSpatial
 import { Phase5DMaterialRuntimeProof } from './motion/visual_world/Phase5DMaterialRuntimeProof';
 import { Phase5D1LightingRuntimeProof } from './motion/visual_world/Phase5D1LightingRuntimeProof';
 import { Phase5ECameraCompositionProof } from './motion/visual_world/Phase5ECameraCompositionProof';
+import { Phase5FSecondaryMotionProof } from './motion/visual_world/Phase5FSecondaryMotionProof';
 
 /**
  * ============================================================================
@@ -215,6 +216,53 @@ export const Root: React.FC = () => {
         id="Phase5E-CameraStaticProof"
         component={Phase5ECameraCompositionProof}
         defaultProps={{ mode: 'STATIC_CAMERA' as const }}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* 13. Phase 5F Secondary Motion, Follow-Through & Motion-Carry Proof Compositions (300 Frames @ 30 FPS) */}
+      <Composition
+        id="Phase5F-SecondaryMotionProof"
+        component={Phase5FSecondaryMotionProof}
+        defaultProps={{ mode: 'REAL_SECONDARY_MOTION' as const }}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5F-SecondaryCollapsedProof"
+        component={Phase5FSecondaryMotionProof}
+        defaultProps={{ mode: 'SECONDARY_COLLAPSED' as const }}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5F-AnticipationCollapsedProof"
+        component={Phase5FSecondaryMotionProof}
+        defaultProps={{ mode: 'ANTICIPATION_COLLAPSED' as const }}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5F-FollowThroughCollapsedProof"
+        component={Phase5FSecondaryMotionProof}
+        defaultProps={{ mode: 'FOLLOWTHROUGH_COLLAPSED' as const }}
+        durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5F-MotionCarryCollapsedProof"
+        component={Phase5FSecondaryMotionProof}
+        defaultProps={{ mode: 'MOTION_CARRY_COLLAPSED' as const }}
         durationInFrames={300}
         fps={30}
         width={1920}

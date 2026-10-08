@@ -56,6 +56,7 @@ async function verifyGlobalSkill() {
     { name: 'MaterialRenderAdapter', rel: 'src/motion/visual_world/materialRenderAdapter.ts' },
     { name: 'LightingRenderAdapter', rel: 'src/motion/visual_world/lightingRenderAdapter.ts' },
     { name: 'CinematicCameraAdapter', rel: 'src/motion/visual_world/cinematicCameraAdapter.ts' },
+    { name: 'SecondaryMotionAdapter', rel: 'src/motion/visual_world/secondaryMotionAdapter.ts' },
   ];
 
   console.log('--- Step 12: Verifying Mandated Global Files ---');
@@ -99,6 +100,7 @@ async function verifyGlobalSkill() {
     'visual_world/materialRenderAdapter.ts',
     'visual_world/lightingRenderAdapter.ts',
     'visual_world/cinematicCameraAdapter.ts',
+    'visual_world/secondaryMotionAdapter.ts',
   ];
   for (const rel of templateFiles) {
     const fullPath = path.join(GLOBAL_SKILL_ROOT, 'template/src/motion', rel);

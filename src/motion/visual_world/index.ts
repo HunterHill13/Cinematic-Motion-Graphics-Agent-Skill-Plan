@@ -21,3 +21,4 @@ export * from './spatialRenderAdapter';
 export * from './materialRenderAdapter';
 export * from './lightingRenderAdapter';
 export * from './cinematicCameraAdapter';
+export * from './secondaryMotionAdapter';
