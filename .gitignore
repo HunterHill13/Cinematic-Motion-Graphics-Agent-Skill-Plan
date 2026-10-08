@@ -9,6 +9,8 @@ _research/
 audio/cache/
 .remotion/
 .cache/
+out/
+renders/
 
 # OS / Editor
 .DS_Store

@@ -534,6 +534,30 @@ export class DepthPlanner {
           endZ: targetZ,
           description: 'Fragments converge along multi-depth 3D vectors into single unified monolith',
         },
+        {
+          verb: 'REASSEMBLE',
+          entityId: fragmentIds[0],
+          trajectory: 'AWAY_FROM_VIEWER',
+          startZ: 0.20,
+          endZ: targetZ,
+          description: 'Anterior fragment moves deeper along z-axis to assemble into hero',
+        },
+        {
+          verb: 'REASSEMBLE',
+          entityId: fragmentIds[1] || 'frag_mid',
+          trajectory: 'PLANAR_XY',
+          startZ: targetZ,
+          endZ: targetZ,
+          description: 'Midground fragment maintains hero focal plane during assembly',
+        },
+        {
+          verb: 'REASSEMBLE',
+          entityId: fragmentIds[2] || 'frag_bg',
+          trajectory: 'TOWARD_VIEWER',
+          startZ: 0.78,
+          endZ: targetZ,
+          description: 'Posterior fragment moves forward along z-axis to assemble into hero',
+        },
       ],
     };
   }

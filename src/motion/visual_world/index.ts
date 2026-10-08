@@ -17,3 +17,4 @@ export * from './depthValidator';
 export { DepthValidator as SpatialDepthValidator } from './depthValidator';
 export * from './depthPlanner';
 export { DepthPlanner as SpatialDepthPlanner } from './depthPlanner';
+export * from './spatialRenderAdapter';

@@ -52,6 +52,7 @@ async function verifyGlobalSkill() {
     { name: 'DepthAmbiguityGate', rel: 'src/motion/visual_world/depthAmbiguityGate.ts' },
     { name: 'DepthValidator', rel: 'src/motion/visual_world/depthValidator.ts' },
     { name: 'DepthPlanner', rel: 'src/motion/visual_world/depthPlanner.ts' },
+    { name: 'SpatialRenderAdapter', rel: 'src/motion/visual_world/spatialRenderAdapter.ts' },
   ];
 
   console.log('--- Step 12: Verifying Mandated Global Files ---');
@@ -91,6 +92,7 @@ async function verifyGlobalSkill() {
     'visual_world/depthAmbiguityGate.ts',
     'visual_world/depthValidator.ts',
     'visual_world/depthPlanner.ts',
+    'visual_world/spatialRenderAdapter.ts',
   ];
   for (const rel of templateFiles) {
     const fullPath = path.join(GLOBAL_SKILL_ROOT, 'template/src/motion', rel);
@@ -358,6 +360,18 @@ async function verifyGlobalSkill() {
     } else {
       errors.push('DepthValidator failed on test world');
       console.log('  [FAIL] DepthValidator failed on test world');
+    }
+
+    // Phase 5C.1: Spatial Runtime Adapter Execution & Depth Ordering Check
+    const adapterPath = path.join(GLOBAL_SKILL_ROOT, 'src/motion/visual_world/spatialRenderAdapter.ts');
+    const { SpatialRenderAdapter } = require(adapterPath);
+    const sortedEls = SpatialRenderAdapter.getDepthSortedElements(testWorld.spatial);
+    const renderValidation = SpatialRenderAdapter.validateRenderExecution(sortedEls, testWorld.spatial);
+    if (renderValidation && renderValidation.passed && sortedEls.length > 0) {
+      console.log(`  [PASS] Live SpatialRenderAdapter executed: Elements rendered with depth ordering (count=${sortedEls.length})`);
+    } else {
+      errors.push('SpatialRenderAdapter failed on test world');
+      console.log('  [FAIL] SpatialRenderAdapter failed on test world');
     }
 
     try {

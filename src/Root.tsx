@@ -20,6 +20,7 @@ import {
   VerbTest_AntiBypass_FakeSplit,
   VerbTest_DecorativeCamouflage,
 } from './motion/grammar/VerbTemplateTestCompositions';
+import { Phase5CSpatialRuntimeProof } from './motion/visual_world/Phase5CSpatialRuntimeProof';
 
 /**
  * ============================================================================
@@ -137,6 +138,26 @@ export const Root: React.FC = () => {
       <Composition id="VerbTest-REASSEMBLE" component={VerbTest_REASSEMBLE} durationInFrames={100} fps={30} width={1920} height={1080} />
       <Composition id="VerbTest-AntiBypass-FakeSplit" component={VerbTest_AntiBypass_FakeSplit} durationInFrames={100} fps={30} width={1920} height={1080} />
       <Composition id="VerbTest-DecorativeCamouflage" component={VerbTest_DecorativeCamouflage} durationInFrames={100} fps={30} width={1920} height={1080} />
+
+      {/* 9. Phase 5C.1 Spatial Runtime Proof Compositions (180 Frames @ 30 FPS) */}
+      <Composition
+        id="Phase5C-RealSpatialProof"
+        component={Phase5CSpatialRuntimeProof}
+        defaultProps={{ mode: 'REAL_SPATIAL' as const }}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5C-DepthCollapsedProof"
+        component={Phase5CSpatialRuntimeProof}
+        defaultProps={{ mode: 'DEPTH_COLLAPSED' as const }}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
     </>
   );
 };
