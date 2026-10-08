@@ -25,6 +25,7 @@ import { Phase5DMaterialRuntimeProof } from './motion/visual_world/Phase5DMateri
 import { Phase5D1LightingRuntimeProof } from './motion/visual_world/Phase5D1LightingRuntimeProof';
 import { Phase5ECameraCompositionProof } from './motion/visual_world/Phase5ECameraCompositionProof';
 import { Phase5FSecondaryMotionProof } from './motion/visual_world/Phase5FSecondaryMotionProof';
+import { CinematicBenchmarkScene } from './motion/benchmark/CinematicBenchmarkScene';
 
 /**
  * ============================================================================
@@ -264,6 +265,71 @@ export const Root: React.FC = () => {
         component={Phase5FSecondaryMotionProof}
         defaultProps={{ mode: 'MOTION_CARRY_COLLAPSED' as const }}
         durationInFrames={300}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* 14. CINEMATIC BENCHMARK: Full-System Visual Quality Benchmark (720 Frames @ 30 FPS / 24.0s) */}
+      <Composition
+        id="CinematicBenchmark"
+        component={CinematicBenchmarkScene}
+        defaultProps={{ mode: 'FULL_SYSTEM' as const }}
+        durationInFrames={720}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Benchmark-NoSecondary"
+        component={CinematicBenchmarkScene}
+        defaultProps={{ mode: 'NO_SECONDARY' as const }}
+        durationInFrames={720}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Benchmark-NoDepth"
+        component={CinematicBenchmarkScene}
+        defaultProps={{ mode: 'NO_DEPTH' as const }}
+        durationInFrames={720}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Benchmark-NoCamera"
+        component={CinematicBenchmarkScene}
+        defaultProps={{ mode: 'NO_CAMERA' as const }}
+        durationInFrames={720}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Benchmark-NoMaterial"
+        component={CinematicBenchmarkScene}
+        defaultProps={{ mode: 'NO_MATERIAL' as const }}
+        durationInFrames={720}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Benchmark-NoLighting"
+        component={CinematicBenchmarkScene}
+        defaultProps={{ mode: 'NO_LIGHTING' as const }}
+        durationInFrames={720}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Benchmark-NoCarry"
+        component={CinematicBenchmarkScene}
+        defaultProps={{ mode: 'NO_CARRY' as const }}
+        durationInFrames={720}
         fps={30}
         width={1920}
         height={1080}
