@@ -216,7 +216,7 @@ export const PersistentCamera: React.FC<PersistentCameraProps> = ({ children }) 
 // PERSISTENT HERO ENTITY RENDERER
 // ============================================================================
 export interface PersistentHeroEntityProps {
-  entityId: string;
+  entityId?: string;
   contract: TransformationContract;
   render: (state: EvaluatedEntityFrame) => React.ReactNode;
   style?: React.CSSProperties;
@@ -229,10 +229,12 @@ export interface PersistentHeroEntityProps {
  * Supports multi-part daughter entities from SPLIT / MERGE / REASSEMBLE.
  */
 export const PersistentHeroEntity: React.FC<PersistentHeroEntityProps> = ({
+  entityId,
   contract,
   render,
   style,
 }) => {
+  const resolvedId = entityId || contract.heroEntity.id;
   const frame = useCurrentFrame();
   const state = useMemo(() => {
     return evaluateTransformationContract(contract, frame);
@@ -246,7 +248,7 @@ export const PersistentHeroEntity: React.FC<PersistentHeroEntityProps> = ({
 
   return (
     <div
-      data-entity-id={contract.heroEntity.id}
+      data-entity-id={resolvedId}
       data-meaningful-active={state.isMeaningfulMotionActive}
       data-verb={state.activeVerb}
       style={{

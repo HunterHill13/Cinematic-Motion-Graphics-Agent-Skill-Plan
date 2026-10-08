@@ -227,10 +227,10 @@ export function createSplitTemplate(config: SplitTemplateConfig): ExecutableVerb
       instantaneousVelocity: { x: (dx / duration) * (f >= midStart ? 1.5 : 0.5), y: 0, z: 0 },
       isMeaningfulMotionActive: isMeaningful,
       components,
-      aspectRatio: elongation,
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }
 
@@ -379,6 +379,7 @@ export function createExpandTemplate(config: ExpandTemplateConfig): ExecutableVe
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }
 
@@ -524,6 +525,7 @@ export function createTravelTemplate(config: TravelTemplateConfig): ExecutableVe
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }
 
@@ -658,6 +660,7 @@ export function createCollapseTemplate(config: CollapseTemplateConfig): Executab
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }
 
@@ -798,6 +801,7 @@ export function createMorphTemplate(config: MorphTemplateConfig): ExecutableVerb
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }
 
@@ -952,6 +956,7 @@ export function createMergeTemplate(config: MergeTemplateConfig): ExecutableVerb
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }
 
@@ -1088,6 +1093,7 @@ export function createDeformTemplate(config: DeformTemplateConfig): ExecutableVe
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }
 
@@ -1236,5 +1242,6 @@ export function createReassembleTemplate(config: ReassembleTemplateConfig): Exec
     };
   };
 
+  contract.evaluateVerbState = evaluate;
   return { contract, evaluate };
 }

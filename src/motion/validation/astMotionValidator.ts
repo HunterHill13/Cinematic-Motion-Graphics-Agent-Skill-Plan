@@ -236,7 +236,57 @@ export class AstMotionValidator {
   }
 
   private validatePersistentWorldComposition(violations: MotionValidationViolation[]): MotionValidationReport {
-    // Validate that TransformationContract specifies midpointEvent with meaningfulDelta or uses certified VerbTemplates
+    // 1. Verify that PersistentHeroEntity exists and binds contract
+    const hasHeroEntity = this.code.includes('<PersistentHeroEntity') && this.code.includes('contract=');
+    if (!hasHeroEntity) {
+      violations.push({
+        code: 'MISSING_PERSISTENT_HERO_ENTITY',
+        message: '<PersistentWorld> must render a <PersistentHeroEntity contract={...}> to bind and display hero transformations.',
+      });
+    }
+
+    // 2. Data-flow check: Verify that PersistentHeroEntity render prop consumes transformation state
+    const heroEntityIdx = this.code.indexOf('<PersistentHeroEntity');
+    if (heroEntityIdx !== -1) {
+      const renderIdx = this.code.indexOf('render={', heroEntityIdx);
+      if (renderIdx !== -1) {
+        const heroEntityEnd = this.code.indexOf('</PersistentHeroEntity>', renderIdx);
+        const selfCloseEnd = this.code.indexOf('/>', renderIdx);
+        const endPos = (heroEntityEnd !== -1 && (selfCloseEnd === -1 || heroEntityEnd < selfCloseEnd))
+          ? heroEntityEnd
+          : (selfCloseEnd !== -1 ? selfCloseEnd : this.code.length);
+        const renderSection = this.code.substring(renderIdx, endPos);
+
+        const usesSpatialParam =
+          renderSection.includes('.scale') ||
+          renderSection.includes('.position') ||
+          renderSection.includes('.components') ||
+          renderSection.includes('.rotation') ||
+          renderSection.includes('.aspectRatio') ||
+          renderSection.includes('.shearDeg') ||
+          renderSection.includes('.geometry') ||
+          renderSection.includes('transform') ||
+          renderSection.includes('scale') ||
+          renderSection.includes('translate');
+
+        const isOnlyOpacity = (renderSection.includes('opacity') || renderSection.includes('.opacity')) && !usesSpatialParam;
+        const isStatic = !usesSpatialParam;
+
+        if (isOnlyOpacity) {
+          violations.push({
+            code: 'OPACITY_ONLY_MOTION_TRAP',
+            message: 'PersistentHeroEntity render prop only binds opacity. Meaningful transformation requires spatial, scale, or topological changes.',
+          });
+        } else if (isStatic) {
+          violations.push({
+            code: 'STATIC_HERO_RENDER_DETECTED',
+            message: 'PersistentHeroEntity render prop ignores template state and renders static elements.',
+          });
+        }
+      }
+    }
+
+    // 3. Validate that TransformationContract specifies midpointEvent with meaningfulDelta or uses certified VerbTemplates
     const hasVerbTemplate = /create(Split|Expand|Travel|Collapse|Morph|Merge|Deform|Reassemble)Template/.test(this.code);
     const hasMidpointEvent = (this.code.includes('midpointEvent') && this.code.includes('meaningfulDelta')) || hasVerbTemplate;
     if (!hasMidpointEvent) {
@@ -252,7 +302,7 @@ export class AstMotionValidator {
       hasPersistentWorld: true,
       hasTransformationContract: true,
       sequenceCount: 0,
-      meaningfulMotionsCount: 1,
+      meaningfulMotionsCount: violations.length === 0 ? 1 : 0,
       violations,
     };
   }

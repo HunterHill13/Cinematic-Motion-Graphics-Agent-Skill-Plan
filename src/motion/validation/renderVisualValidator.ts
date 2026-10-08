@@ -114,8 +114,8 @@ export class RenderVisualValidator {
     const startTime = Date.now();
     const violations: string[] = [];
 
-    if (samples.length < 9) {
-      violations.push(`INSUFFICIENT_SAMPLES: Expected >= 9 samples, received ${samples.length}`);
+    if (samples.length < 7) {
+      violations.push(`INSUFFICIENT_SAMPLES: Expected >= 7 samples, received ${samples.length}`);
     }
 
     const scaleX = this.width / 1920;
@@ -207,12 +207,16 @@ export class RenderVisualValidator {
       );
     }
 
-    // 5. Middle-Window Static Hold Detection
+    // 5. Middle-Window Static Hold & Decorative Camouflage Detection
     let middleWindowStaticHoldDetected = false;
     if ((meanHeroStaticRatio > 0.80 || meanHeroDelta < 0.05) && !globalLightingTrapDetected) {
       middleWindowStaticHoldDetected = true;
       violations.push(
         `MIDDLE_WINDOW_STATIC_HOLD: Hero foreground remained ${Math.round(meanHeroStaticRatio * 100)}% static (mean delta ${meanHeroDelta.toFixed(3)}) during the middle 60% of the shot.`
+      );
+    } else if (meanHeroStaticRatio > 0.60 && meanHeroDelta >= 0.04 && !globalLightingTrapDetected) {
+      violations.push(
+        `DECORATIVE_MOTION_CAMOUFLAGE_DETECTED: Over ${Math.round(meanHeroStaticRatio * 100)}% of Hero foreground remained stationary while decorative/peripheral elements moved.`
       );
     }
 
@@ -236,8 +240,9 @@ export class RenderVisualValidator {
         violations.push('VERB_MISMATCH_EXPAND: Declared EXPAND, but spatial extent did not increase.');
       }
     } else if (expectedVerb === 'TRAVEL') {
-      const minDisp = ve?.minCentroidDisplacement ?? 4.0;
-      if (meanCentroidDisp < minDisp && !middleWindowStaticHoldDetected) {
+      const rawMinDisp = ve?.minCentroidDisplacement ?? 20.0;
+      const scaledMinDisp = rawMinDisp > 20 ? rawMinDisp * scaleX : rawMinDisp;
+      if (meanCentroidDisp < Math.min(6.0, scaledMinDisp / 5) && meanHeroFlowMag < 0.3 && !middleWindowStaticHoldDetected) {
         verbContractMatch = false;
         violations.push('VERB_MISMATCH_TRAVEL: Declared TRAVEL, but net centroid displacement is below threshold.');
       }

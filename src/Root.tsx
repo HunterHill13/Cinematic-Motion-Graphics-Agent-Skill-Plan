@@ -7,6 +7,18 @@ import { V29_TransformationLab } from './motion/precision_lab/V29_Transformation
 import { GoldenQuantumCoreComposition } from './projects/golden_test/GoldenQuantumCoreComposition';
 import { Apoptosis916Main } from './projects/apoptosis_cancer_9_16/src/Apoptosis916Main';
 import { CanonicalMotionScene } from './motion/grammar/CanonicalMotionScene';
+import {
+  VerbTest_SPLIT,
+  VerbTest_EXPAND,
+  VerbTest_TRAVEL,
+  VerbTest_COLLAPSE,
+  VerbTest_MORPH,
+  VerbTest_MERGE,
+  VerbTest_DEFORM,
+  VerbTest_REASSEMBLE,
+  VerbTest_AntiBypass_FakeSplit,
+  VerbTest_DecorativeCamouflage,
+} from './motion/grammar/VerbTemplateTestCompositions';
 
 /**
  * ============================================================================
@@ -103,6 +115,18 @@ export const Root: React.FC = () => {
         width={1920}
         height={1080}
       />
+
+      {/* 8. Verb Template Render Verifications (Phase 4A.1 Hardening: 100 Frames @ 30 FPS) */}
+      <Composition id="VerbTest-SPLIT" component={VerbTest_SPLIT} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-EXPAND" component={VerbTest_EXPAND} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-TRAVEL" component={VerbTest_TRAVEL} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-COLLAPSE" component={VerbTest_COLLAPSE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-MORPH" component={VerbTest_MORPH} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-MERGE" component={VerbTest_MERGE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-DEFORM" component={VerbTest_DEFORM} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-REASSEMBLE" component={VerbTest_REASSEMBLE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-AntiBypass-FakeSplit" component={VerbTest_AntiBypass_FakeSplit} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-DecorativeCamouflage" component={VerbTest_DecorativeCamouflage} durationInFrames={100} fps={30} width={1920} height={1080} />
     </>
   );
 };

@@ -192,6 +192,9 @@ export interface TransformationContract {
 
   /** Phase 4A: Explicit Validator Evidence Contract */
   validatorExpectation?: ValidatorExpectationContract;
+
+  /** Phase 4A.1: Executable Verb State Hook */
+  evaluateVerbState?: (frame: number) => EvaluatedEntityFrame;
 }
 
 // ============================================================================
@@ -232,6 +235,10 @@ export function evaluateTransformationContract(
   contract: TransformationContract,
   currentFrame: number
 ): EvaluatedEntityFrame {
+  if (contract.evaluateVerbState) {
+    return contract.evaluateVerbState(currentFrame);
+  }
+
   const { startFrame, endFrame, initialState, midpointEvent, finalState, exitMomentum } = contract;
 
   // Clamp frame to shot boundaries
