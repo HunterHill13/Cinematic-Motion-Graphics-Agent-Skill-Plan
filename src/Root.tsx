@@ -5,6 +5,7 @@ import { Main } from './Main';
 import { V28_BounceLab } from './motion/precision_lab/V28_BounceLab';
 import { V29_TransformationLab } from './motion/precision_lab/V29_TransformationLab';
 import { GoldenQuantumCoreComposition } from './projects/golden_test/GoldenQuantumCoreComposition';
+import { Apoptosis916Main } from './projects/apoptosis_cancer_9_16/src/Apoptosis916Main';
 
 /**
  * ============================================================================
@@ -80,6 +81,16 @@ export const Root: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* 6. Apoptosis Master Film (9:16 Vertical - 1080x1920 @ 30 FPS) */}
+      <Composition
+        id="Apoptosis916Main"
+        component={Apoptosis916Main}
+        durationInFrames={900}
+        fps={30}
+        width={1080}
+        height={1920}
       />
     </>
   );

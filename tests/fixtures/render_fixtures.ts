@@ -201,3 +201,54 @@ export function generateTestF_HeroEntranceExitHold(): FrameSample[] {
     return { frame: Math.round(pct * 300), percent: pct, pixels, width: W, height: H };
   });
 }
+
+/**
+ * TEST G: Camera Motion + Genuine Hero Motion (PASS)
+ * Camera pans continuously across background AND Hero genuinely splits/transforms in middle 60%.
+ */
+export function generateTestG_CameraMotionPlusGenuineHeroMotion(): FrameSample[] {
+  return SAMPLE_PERCENTS.map((pct) => {
+    const pixels = new Float32Array(W * H);
+    // Background panning horizontally (camera motion)
+    const panOffset = pct * 60;
+    for (let gx = 0; gx < W + 60; gx += 40) {
+      const x = (gx + panOffset) % W;
+      if (Math.abs(x - W / 2) > 60) {
+        drawRect(pixels, x, 10, 4, 200, 0.45);
+      }
+    }
+
+    if (pct < 0.3) {
+      // Phase 1: Unified Core
+      drawRect(pixels, W / 2 - 25, H / 2 - 25, 50, 50, 0.9);
+    } else if (pct <= 0.7) {
+      // Phase 2: Active Middle SPLIT (Divergence into two separating cores)
+      const spread = (pct - 0.25) * 80;
+      drawRect(pixels, W / 2 - 25 - spread, H / 2 - 20, 30, 40, 0.95);
+      drawRect(pixels, W / 2 + 5 + spread, H / 2 - 20, 30, 40, 0.95);
+    } else {
+      // Phase 3: Settled Transformed State
+      drawRect(pixels, W / 2 - 65, H / 2 - 20, 30, 40, 0.9);
+      drawRect(pixels, W / 2 + 45, H / 2 - 20, 30, 40, 0.9);
+    }
+    return { frame: Math.round(pct * 300), percent: pct, pixels, width: W, height: H };
+  });
+}
+
+/**
+ * TEST H: Global Lighting Change + Static Hero (FAIL)
+ * Screen brightness shifts uniformly, hero remains 100% static in geometry/position.
+ */
+export function generateTestH_GlobalLightingChangeStaticHero(): FrameSample[] {
+  return SAMPLE_PERCENTS.map((pct) => {
+    const pixels = new Float32Array(W * H);
+    // Uniform brightness shift across entire buffer
+    const lightingDelta = 0.12 * Math.sin(pct * Math.PI);
+    for (let i = 0; i < W * H; i++) {
+      pixels[i] = 0.1 + lightingDelta;
+    }
+    // Hero remains completely static
+    drawRect(pixels, W / 2 - 25, H / 2 - 25, 50, 50, 0.85 + lightingDelta);
+    return { frame: Math.round(pct * 300), percent: pct, pixels, width: W, height: H };
+  });
+}

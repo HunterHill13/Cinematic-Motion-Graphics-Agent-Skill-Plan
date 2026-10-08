@@ -11,6 +11,8 @@ import {
   generateTestD_BackgroundParticlesHeroStatic,
   generateTestE_HeroGenuineTransformation,
   generateTestF_HeroEntranceExitHold,
+  generateTestG_CameraMotionPlusGenuineHeroMotion,
+  generateTestH_GlobalLightingChangeStaticHero,
 } from './fixtures/render_fixtures';
 
 function runRenderValidationSuite() {
@@ -67,13 +69,30 @@ function runRenderValidationSuite() {
   console.log(`[Test F - Entrance/Exit Only, Middle Static]: Passed: ${passF} (Expected FAIL) - Violation: ${repF.middleWindowStaticHoldDetected ? '✓ MIDDLE_WINDOW_STATIC_HOLD' : '✗ MISSED'} (${repF.executionTimeMs}ms)`);
   if (!passF) allPassed = false;
 
+  // 7. Test G: Camera Motion + Genuine Hero Motion (PASS)
+  const samplesG = generateTestG_CameraMotionPlusGenuineHeroMotion();
+  const repG = validator.evaluateSamples(baseContract, samplesG);
+  const passG = repG.passed && !repG.cameraCamouflageDetected && !repG.middleWindowStaticHoldDetected;
+  console.log(`[Test G - Camera Motion + Genuine Hero Motion]: Passed: ${passG} (Expected PASS) - Violations: ${repG.violations.length} (${repG.executionTimeMs}ms)`);
+  if (!passG) {
+    allPassed = false;
+    console.error('Test G failed unexpectedly:', repG.violations);
+  }
+
+  // 8. Test H: Global Lighting Change + Static Hero (FAIL)
+  const samplesH = generateTestH_GlobalLightingChangeStaticHero();
+  const repH = validator.evaluateSamples(baseContract, samplesH);
+  const passH = !repH.passed && (repH.globalLightingTrapDetected || repH.middleWindowStaticHoldDetected);
+  console.log(`[Test H - Global Lighting Change + Static Hero]: Passed: ${passH} (Expected FAIL) - Violation: ${repH.globalLightingTrapDetected ? '✓ GLOBAL_LIGHTING_TRAP_DETECTED' : repH.middleWindowStaticHoldDetected ? '✓ MIDDLE_WINDOW_STATIC_HOLD' : '✗ MISSED'} (${repH.executionTimeMs}ms)`);
+  if (!passH) allPassed = false;
+
   const totalTime = Date.now() - startTotal;
   console.log(`----------------------------------------------------------------`);
-  console.log(`Total Render Validation Suite Runtime: ${totalTime}ms (Avg ${Math.round(totalTime / 6)}ms per shot)`);
+  console.log(`Total Render Validation Suite Runtime: ${totalTime}ms (Avg ${Math.round(totalTime / 8)}ms per shot)`);
   console.log(`================================================================`);
 
   if (allPassed) {
-    console.log('✓ ALL RENDER-LEVEL VISUAL MOTION TESTS PASSED WITH 100% PRECISION');
+    console.log('✓ 100% fixture agreement on the current regression suite (All designed regression fixtures behaved as expected).');
   } else {
     console.error('✗ SOME RENDER TESTS FAILED');
     process.exit(1);
