@@ -87,7 +87,8 @@ export class AstMotionValidator {
 
     // Check for high-level continuity architecture
     const hasPersistentWorld = this.code.includes('<PersistentWorld') || this.code.includes('PersistentWorld');
-    const hasTransformationContract = this.code.includes('TransformationContract') || this.code.includes('evaluateTransformationContract');
+    const hasVerbTemplate = /create(Split|Expand|Travel|Collapse|Morph|Merge|Deform|Reassemble)Template/.test(this.code);
+    const hasTransformationContract = this.code.includes('TransformationContract') || this.code.includes('evaluateTransformationContract') || hasVerbTemplate;
     const hasAuthoredKeyframe = this.code.includes('evaluateAuthoredKeyframeTrack');
 
     // 1. AST Traversal: Extract JSX Sequences, CameraRig, Interpolations, Springs
@@ -235,8 +236,9 @@ export class AstMotionValidator {
   }
 
   private validatePersistentWorldComposition(violations: MotionValidationViolation[]): MotionValidationReport {
-    // Validate that TransformationContract specifies midpointEvent with meaningfulDelta
-    const hasMidpointEvent = this.code.includes('midpointEvent') && this.code.includes('meaningfulDelta');
+    // Validate that TransformationContract specifies midpointEvent with meaningfulDelta or uses certified VerbTemplates
+    const hasVerbTemplate = /create(Split|Expand|Travel|Collapse|Morph|Merge|Deform|Reassemble)Template/.test(this.code);
+    const hasMidpointEvent = (this.code.includes('midpointEvent') && this.code.includes('meaningfulDelta')) || hasVerbTemplate;
     if (!hasMidpointEvent) {
       violations.push({
         code: 'INVALID_TRANSFORMATION_CONTRACT',

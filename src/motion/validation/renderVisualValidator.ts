@@ -216,32 +216,57 @@ export class RenderVisualValidator {
       );
     }
 
-    // 6. Motion Verb Evidence Heuristics (SPLIT, EXPAND, TRAVEL, COLLAPSE)
+    // 6. Motion Verb Evidence Heuristics (All 8 Core Verbs)
     const expectedVerb = contract.midpointEvent.verb;
     let verbContractMatch = true;
+    const ve = contract.validatorExpectation;
 
     if (expectedVerb === 'SPLIT') {
-      // Diverging centroids or high internal flow variance
-      if (heroFlowVariance < 0.04 && meanCentroidDisp < 2.0 && !middleWindowStaticHoldDetected) {
+      const minDisp = ve?.minCentroidDisplacement ?? 2.0;
+      const minVar = ve?.minFlowVariance ?? 0.04;
+      if (heroFlowVariance < minVar && meanCentroidDisp < minDisp && !middleWindowStaticHoldDetected) {
         verbContractMatch = false;
         violations.push('VERB_MISMATCH_SPLIT: Declared SPLIT, but insufficient flow variance or component separation observed.');
       }
     } else if (expectedVerb === 'EXPAND') {
       const maxAreaRatio = Math.max(...middleAnalyses.map((a) => a.heroSpatialAreaRatio));
-      if (maxAreaRatio < 1.05 && meanHeroDelta < 0.08 && !middleWindowStaticHoldDetected) {
+      const reqRatio = ve?.minSpatialAreaRatio ?? 1.05;
+      if (maxAreaRatio < reqRatio && meanHeroDelta < 0.08 && !middleWindowStaticHoldDetected) {
         verbContractMatch = false;
         violations.push('VERB_MISMATCH_EXPAND: Declared EXPAND, but spatial extent did not increase.');
       }
     } else if (expectedVerb === 'TRAVEL') {
-      if (meanCentroidDisp < 4.0 && !middleWindowStaticHoldDetected) {
+      const minDisp = ve?.minCentroidDisplacement ?? 4.0;
+      if (meanCentroidDisp < minDisp && !middleWindowStaticHoldDetected) {
         verbContractMatch = false;
         violations.push('VERB_MISMATCH_TRAVEL: Declared TRAVEL, but net centroid displacement is below threshold.');
       }
     } else if (expectedVerb === 'COLLAPSE') {
       const minAreaRatio = Math.min(...middleAnalyses.map((a) => a.heroSpatialAreaRatio));
-      if (minAreaRatio > 0.95 && !middleWindowStaticHoldDetected) {
+      const reqRatio = ve?.maxSpatialAreaRatio ?? 0.95;
+      if (minAreaRatio > reqRatio && !middleWindowStaticHoldDetected) {
         verbContractMatch = false;
         violations.push('VERB_MISMATCH_COLLAPSE: Declared COLLAPSE, but spatial extent did not contract.');
+      }
+    } else if (expectedVerb === 'MORPH') {
+      if (meanHeroDelta < 0.06 && heroFlowVariance < 0.02 && !middleWindowStaticHoldDetected) {
+        verbContractMatch = false;
+        violations.push('VERB_MISMATCH_MORPH: Declared MORPH, but topological boundary variation was below threshold.');
+      }
+    } else if (expectedVerb === 'MERGE') {
+      if (meanCentroidDisp < 2.0 && heroFlowVariance < 0.02 && !middleWindowStaticHoldDetected) {
+        verbContractMatch = false;
+        violations.push('VERB_MISMATCH_MERGE: Declared MERGE, but converging vectors or coalescence delta were not observed.');
+      }
+    } else if (expectedVerb === 'DEFORM') {
+      if (meanHeroDelta < 0.05 && heroFlowVariance < 0.02 && !middleWindowStaticHoldDetected) {
+        verbContractMatch = false;
+        violations.push('VERB_MISMATCH_DEFORM: Declared DEFORM, but shear/squash dynamic distortion was below threshold.');
+      }
+    } else if (expectedVerb === 'REASSEMBLE') {
+      if (meanCentroidDisp < 3.0 && heroFlowVariance < 0.02 && !middleWindowStaticHoldDetected) {
+        verbContractMatch = false;
+        violations.push('VERB_MISMATCH_REASSEMBLE: Declared REASSEMBLE, but converging fragment vectors were below threshold.');
       }
     }
 

@@ -128,6 +128,47 @@ export interface HeroEntityContract {
 }
 
 // ============================================================================
+// 3.5 CAUSAL STATE TRANSITION & VALIDATOR EXPECTATIONS (PHASE 4A)
+// ============================================================================
+
+export interface SecondaryReactionContract {
+  entityId: string;
+  reactionType: 'DISPLACE' | 'ORBIT' | 'ABSORB' | 'RECOIL' | 'RESONATE';
+  intensity: number; // 0.0 to 1.0
+  delayFrames?: number;
+}
+
+export interface CausalStateTransitionContract {
+  stateA: EntitySpatialState;
+  trigger: CausalTriggerContract;
+  transformation: MidpointActionContract;
+  midpoint: {
+    frame: number;
+    description: string;
+    intermediateState: EntitySpatialState;
+  };
+  stateB: EntitySpatialState;
+  consequence: {
+    description: string;
+    nextHeroId?: string;
+    exitMomentum: MomentumHandoffContract;
+    secondaryReactions?: SecondaryReactionContract[];
+  };
+}
+
+export interface ValidatorExpectationContract {
+  verb: MotionVerb;
+  minCentroidDisplacement?: number;
+  minFlowVariance?: number;
+  minSpatialAreaRatio?: number;
+  maxSpatialAreaRatio?: number;
+  minRotationDelta?: number;
+  expectedComponentCount?: number;
+  guaranteedActiveWindow: [number, number]; // Normalized [0, 1] e.g. [0.25, 0.75]
+  nonStaticThreshold: number; // Maximum permissible static ratio e.g. 0.30
+}
+
+// ============================================================================
 // 4. THE MACHINE-READABLE TRANSFORMATION CONTRACT
 // ============================================================================
 export interface TransformationContract {
@@ -145,11 +186,27 @@ export interface TransformationContract {
 
   finalState: EntitySpatialState;
   exitMomentum: MomentumHandoffContract;
+
+  /** Phase 4A: Explicit Causal Execution Chain */
+  causalTransition?: CausalStateTransitionContract;
+
+  /** Phase 4A: Explicit Validator Evidence Contract */
+  validatorExpectation?: ValidatorExpectationContract;
 }
 
 // ============================================================================
 // 5. CONTRACT EVALUATION & SOLVER
 // ============================================================================
+
+export interface EvaluatedSubComponent {
+  id: string;
+  position: Vector3D;
+  scale: number;
+  rotation: Rotation3D;
+  opacity: number;
+  geometry?: string;
+  color?: string;
+}
 
 export interface EvaluatedEntityFrame {
   position: Vector3D;
@@ -161,6 +218,9 @@ export interface EvaluatedEntityFrame {
   activeVerb: MotionVerb;
   instantaneousVelocity: Vector3D;
   isMeaningfulMotionActive: boolean;
+  components?: EvaluatedSubComponent[];
+  shearDeg?: number;
+  aspectRatio?: number;
 }
 
 /**
