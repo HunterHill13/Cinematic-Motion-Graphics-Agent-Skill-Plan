@@ -22,6 +22,7 @@ import {
 } from './motion/grammar/VerbTemplateTestCompositions';
 import { Phase5CSpatialRuntimeProof } from './motion/visual_world/Phase5CSpatialRuntimeProof';
 import { Phase5DMaterialRuntimeProof } from './motion/visual_world/Phase5DMaterialRuntimeProof';
+import { Phase5D1LightingRuntimeProof } from './motion/visual_world/Phase5D1LightingRuntimeProof';
 
 /**
  * ============================================================================
@@ -174,6 +175,26 @@ export const Root: React.FC = () => {
         id="Phase5D-MaterialCollapsedProof"
         component={Phase5DMaterialRuntimeProof}
         defaultProps={{ mode: 'MATERIAL_COLLAPSED' as const }}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* 11. Phase 5D.1 Lighting Runtime Proof Compositions (180 Frames @ 30 FPS) */}
+      <Composition
+        id="Phase5D1-LightingProof"
+        component={Phase5D1LightingRuntimeProof}
+        defaultProps={{ mode: 'LIGHTING_AWARE' as const }}
+        durationInFrames={180}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+      <Composition
+        id="Phase5D1-LightingCollapsedProof"
+        component={Phase5D1LightingRuntimeProof}
+        defaultProps={{ mode: 'LIGHTING_COLLAPSED' as const }}
         durationInFrames={180}
         fps={30}
         width={1920}

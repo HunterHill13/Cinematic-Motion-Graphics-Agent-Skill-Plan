@@ -31,6 +31,8 @@ import {
   EmissionResponse,
   OpacityBehavior,
 } from './materialSchema';
+import { NormalizedLightingState } from './lightingRenderAdapter';
+import { LightSoftness } from './lightingSchema';
 
 export interface MaterialMotionState {
   velocity?: number; // Normalized magnitude [0, 1+]
@@ -47,6 +49,17 @@ export interface MaterialLightContext {
   intensity?: number; // Light intensity multiplier [0, 2]
   angleDegrees?: number; // Primary incident light angle [0, 360)
   color?: string; // Dominant incident light tint
+  normalizedLighting?: NormalizedLightingState;
+  keyIntensity?: number;
+  fillIntensity?: number;
+  rimIntensity?: number;
+  rimColor?: string;
+  rimDirectionAngle?: number;
+  softness?: LightSoftness;
+  softnessSpread?: number;
+  contrastRatio?: number;
+  emissiveIntensity?: number;
+  emissiveColor?: string;
 }
 
 export interface RenderedMaterialStyle {
@@ -100,9 +113,21 @@ export class MaterialRenderAdapter {
 
     const velocity = Math.max(0, motionState.velocity ?? 0);
     const progress = Math.max(0, Math.min(1, motionState.progress ?? 0));
-    const incidentAngle = lightContext.angleDegrees ?? 45;
     const compression = deformationState.compression ?? 0;
     const deformFactor = Math.max(0, Math.min(1, deformationState.factor ?? 0));
+
+    // Normalize incoming lighting context
+    const normLight = lightContext.normalizedLighting;
+    const keyInt = normLight?.keyIntensity ?? lightContext.keyIntensity ?? lightContext.intensity ?? 1.0;
+    const fillInt = normLight?.fillIntensity ?? lightContext.fillIntensity ?? 0.4;
+    const rimInt = normLight?.rimIntensity ?? lightContext.rimIntensity ?? 0.0;
+    const rimColor = normLight?.rimColor ?? lightContext.rimColor ?? '#93c5fd';
+    const lightCol = normLight?.keyColor ?? lightContext.color ?? '#ffffff';
+    const incidentAngle = normLight?.keyDirectionAngle ?? lightContext.angleDegrees ?? 45;
+    const softSpread = normLight?.softnessSpread ?? lightContext.softnessSpread ?? 1.0;
+    const contrastRatio = normLight?.contrastRatio ?? lightContext.contrastRatio ?? 1.5;
+    const emissiveLightInt = normLight?.emissiveIntensity ?? lightContext.emissiveIntensity ?? 0.0;
+    const surfaceBrightness = normLight?.surfaceBrightness ?? (keyInt * 0.5 + fillInt * 0.3 + 0.2);
 
     let background = '#3b82f6';
     let border: string | undefined = undefined;
@@ -130,10 +155,15 @@ export class MaterialRenderAdapter {
         case 'METAL': {
           // Dynamic specular highlight rotation based on motion progress & light angle
           specularShift = Math.round((incidentAngle + progress * 90 + velocity * 45) % 360);
-          background = `linear-gradient(${specularShift}deg, #9ca3af 0%, #e5e7eb 28%, #ffffff 48%, #f3f4f6 52%, #6b7280 75%, #4b5563 100%)`;
-          border = '1.5px solid rgba(255, 255, 255, 0.75)';
-          boxShadow = '0 6px 16px rgba(0, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.9)';
-          filter = 'contrast(1.2) brightness(1.05)';
+          const coreHighlight = lightCol.startsWith('#') ? lightCol : '#ffffff';
+          const bandOffset = Math.round(15 * softSpread);
+          background = `linear-gradient(${specularShift}deg, #9ca3af 0%, #e5e7eb ${Math.max(10, 35 - bandOffset)}%, ${coreHighlight} 50%, #f3f4f6 ${Math.min(90, 65 + bandOffset)}%, #6b7280 80%, #4b5563 100%)`;
+          border = rimInt > 0 ? `1.5px solid ${rimColor}` : '1.5px solid rgba(255, 255, 255, 0.75)';
+          const baseMetalShadow = '0 6px 16px rgba(0, 0, 0, 0.5), inset 0 1px 3px rgba(255, 255, 255, 0.9)';
+          boxShadow = rimInt > 0
+            ? `${baseMetalShadow}, inset 0 0 ${Math.round(10 * rimInt)}px ${rimColor}, 0 0 ${Math.round(8 * rimInt)}px ${rimColor}`
+            : baseMetalShadow;
+          filter = `contrast(${Math.round((1.0 + keyInt * 0.2 + (contrastRatio - 1) * 0.1) * 100) / 100}) brightness(${Math.round((0.65 + surfaceBrightness * 0.4) * 100) / 100})`;
           opacity = 1.0;
           emissionIntensity = 0;
           // RIGID: Zero squish under compression
@@ -145,19 +175,22 @@ export class MaterialRenderAdapter {
           // Translucent refraction, subtle specular rim, frosted backdrop
           specularShift = Math.round((incidentAngle + progress * 40) % 360);
           background = `linear-gradient(${specularShift}deg, rgba(255, 255, 255, 0.22) 0%, rgba(200, 225, 255, 0.08) 50%, rgba(255, 255, 255, 0.18) 100%)`;
-          border = '1.5px solid rgba(255, 255, 255, 0.55)';
-          boxShadow = 'inset 0 0 18px rgba(255, 255, 255, 0.35), 0 8px 32px rgba(15, 23, 42, 0.3)';
+          border = rimInt > 0 ? `1.5px solid ${rimColor}` : '1.5px solid rgba(255, 255, 255, 0.55)';
+          const baseGlassShadow = 'inset 0 0 18px rgba(255, 255, 255, 0.35), 0 8px 32px rgba(15, 23, 42, 0.3)';
+          boxShadow = rimInt > 0
+            ? `inset 0 0 ${Math.round(18 + rimInt * 12)}px ${rimColor}, 0 0 ${Math.round(rimInt * 16)}px ${rimColor}, 0 8px 32px rgba(15, 23, 42, 0.3)`
+            : baseGlassShadow;
           backdropFilter = 'blur(10px)';
-          filter = 'brightness(1.1)';
-          opacity = 0.82;
+          filter = `brightness(${Math.round((0.75 + surfaceBrightness * 0.35) * 100) / 100})`;
+          opacity = Math.max(0.45, Math.min(0.92, Math.round((0.82 * (1.0 - fillInt * 0.08)) * 100) / 100));
           emissionIntensity = 0;
           borderRadius = '50%';
           break;
         }
 
         case 'PLASMA': {
-          // Radiant glowing emission core; velocity increases emission intensity and halo radius
-          emissionIntensity = Math.round((1.4 + velocity * 1.6 + progress * 0.4) * 100) / 100;
+          // Radiant glowing emission core; velocity and emissive lighting increase emission intensity
+          emissionIntensity = Math.round((1.4 + velocity * 1.6 + progress * 0.4 + emissiveLightInt * 0.8) * 100) / 100;
           const innerGlow = Math.round(18 * emissionIntensity);
           const midGlow = Math.round(45 * emissionIntensity);
           const outerGlow = Math.round(85 * emissionIntensity);
@@ -165,7 +198,7 @@ export class MaterialRenderAdapter {
           background = 'radial-gradient(circle at 50% 50%, #ffffff 0%, #ff8a00 35%, #e11d48 70%, #7e22ce 100%)';
           border = '2px solid rgba(255, 215, 0, 0.9)';
           boxShadow = `0 0 ${innerGlow}px #ff6600, 0 0 ${midGlow}px #ff0055, 0 0 ${outerGlow}px #9333ea, inset 0 0 20px #ffffff`;
-          filter = `drop-shadow(0 0 20px rgba(255, 100, 0, 0.8)) brightness(${Math.min(2.0, 1.1 + emissionIntensity * 0.2)})`;
+          filter = `drop-shadow(0 0 ${Math.round(20 * (1 + emissiveLightInt * 0.4))}px rgba(255, 100, 0, 0.8)) brightness(${Math.min(2.2, Math.round((1.05 + surfaceBrightness * 0.15 + emissionIntensity * 0.15) * 100) / 100)})`;
           opacity = 0.96;
           edgeBlurRadius = 4;
           borderRadius = '50%';
@@ -183,10 +216,19 @@ export class MaterialRenderAdapter {
             borderRadius = '50%';
           }
 
-          background = 'radial-gradient(ellipse at 42% 38%, #86efac 0%, #22c55e 35%, #15803d 72%, #064e3b 100%)';
-          border = '2px solid rgba(187, 247, 208, 0.8)';
-          boxShadow = 'inset 0 0 22px rgba(187, 247, 208, 0.45), 0 8px 24px rgba(6, 78, 59, 0.4)';
-          filter = 'saturate(1.2)';
+          const radAngle = (incidentAngle * Math.PI) / 180;
+          const centerX = Math.round(50 - Math.cos(radAngle) * 15);
+          const centerY = Math.round(50 - Math.sin(radAngle) * 15);
+          const highlightCol = lightCol.startsWith('#') ? lightCol : '#86efac';
+          const shadowTerminator = contrastRatio >= 2.0 ? '#022c22' : '#065f46';
+
+          background = `radial-gradient(ellipse at ${centerX}% ${centerY}%, ${highlightCol} 0%, #22c55e 35%, #15803d 70%, ${shadowTerminator} 100%)`;
+          border = rimInt > 0 ? `2px solid ${rimColor}` : '2px solid rgba(187, 247, 208, 0.8)';
+          const baseOrgShadow = 'inset 0 0 22px rgba(187, 247, 208, 0.45), 0 8px 24px rgba(6, 78, 59, 0.4)';
+          boxShadow = rimInt > 0
+            ? `${baseOrgShadow}, 0 0 ${Math.round(14 * rimInt)}px ${rimColor}`
+            : baseOrgShadow;
+          filter = `saturate(${Math.round((1.1 + keyInt * 0.1) * 100) / 100}) brightness(${Math.round((0.7 + surfaceBrightness * 0.3) * 100) / 100})`;
           opacity = 0.92;
           emissionIntensity = 0.1;
           break;

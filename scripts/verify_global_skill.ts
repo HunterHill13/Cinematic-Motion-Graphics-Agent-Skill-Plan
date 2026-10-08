@@ -54,6 +54,7 @@ async function verifyGlobalSkill() {
     { name: 'DepthPlanner', rel: 'src/motion/visual_world/depthPlanner.ts' },
     { name: 'SpatialRenderAdapter', rel: 'src/motion/visual_world/spatialRenderAdapter.ts' },
     { name: 'MaterialRenderAdapter', rel: 'src/motion/visual_world/materialRenderAdapter.ts' },
+    { name: 'LightingRenderAdapter', rel: 'src/motion/visual_world/lightingRenderAdapter.ts' },
   ];
 
   console.log('--- Step 12: Verifying Mandated Global Files ---');
@@ -95,6 +96,7 @@ async function verifyGlobalSkill() {
     'visual_world/depthPlanner.ts',
     'visual_world/spatialRenderAdapter.ts',
     'visual_world/materialRenderAdapter.ts',
+    'visual_world/lightingRenderAdapter.ts',
   ];
   for (const rel of templateFiles) {
     const fullPath = path.join(GLOBAL_SKILL_ROOT, 'template/src/motion', rel);
@@ -388,6 +390,19 @@ async function verifyGlobalSkill() {
       } else {
         errors.push('MaterialRenderAdapter failed on hero material');
         console.log('  [FAIL] MaterialRenderAdapter failed on hero material');
+      }
+    }
+
+    // Phase 5D.1: Lighting Runtime Adapter Execution & Normalization Check
+    const lightAdapterPath = path.join(GLOBAL_SKILL_ROOT, 'src/motion/visual_world/lightingRenderAdapter.ts');
+    const { LightingRenderAdapter } = require(lightAdapterPath);
+    if (testWorld.lighting) {
+      const normLighting = LightingRenderAdapter.normalizeContract(testWorld.lighting);
+      if (normLighting && typeof normLighting.keyDirectionAngle === 'number' && normLighting.keyIntensity > 0) {
+        console.log(`  [PASS] Live LightingRenderAdapter executed: Normalized lighting (keyAngle=${normLighting.keyDirectionAngle}°, keyInt=${normLighting.keyIntensity})`);
+      } else {
+        errors.push('LightingRenderAdapter failed to normalize LightingContract');
+        console.log('  [FAIL] LightingRenderAdapter failed to normalize LightingContract');
       }
     }
 
