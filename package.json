@@ -5,7 +5,8 @@
   "scripts": {
     "start": "remotion studio",
     "build": "remotion render src/index.ts out/video.mp4",
-    "upgrade": "remotion upgrade"
+    "upgrade": "remotion upgrade",
+    "create-video": "ts-node --project tsconfig.json cli/create-motion-video.ts"
   },
   "dependencies": {
     "@remotion/captions": "^4.0.218",

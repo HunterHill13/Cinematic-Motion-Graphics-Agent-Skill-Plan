@@ -21,3 +21,4 @@ export * from './StyleAwareAtmosphereLayer';
 export * from './KineticDataViz';
 export * from './UniversalPathMorph';
 export * from './OrganicLiquidGooey';
+export * from './DynamicVectorCatalog';

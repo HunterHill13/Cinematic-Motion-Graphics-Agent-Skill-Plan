@@ -56,6 +56,7 @@ import {
   SKILL_INTRO_WIDTH,
   SKILL_INTRO_HEIGHT,
 } from './motion/claude/SkillIntroShowreel';
+import { UniversalStudioShowreelContent } from './motion/claude/UniversalStudioShowreel';
 
 /**
  * ============================================================================
@@ -423,6 +424,16 @@ export const Root: React.FC = () => {
         fps={SKILL_INTRO_FPS}
         width={SKILL_INTRO_WIDTH}
         height={SKILL_INTRO_HEIGHT}
+      />
+
+      {/* 21. UNIVERSAL PARAMETRIC STUDIO SHOWREEL (ZERO-TO-VIDEO TEMPLATE) */}
+      <Composition
+        id="UniversalStudioShowreel"
+        component={UniversalStudioShowreelContent}
+        durationInFrames={1800}
+        fps={30}
+        width={1920}
+        height={1080}
       />
     </>
   );
