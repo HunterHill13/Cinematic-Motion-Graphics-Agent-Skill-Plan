@@ -125,14 +125,15 @@ def compute_cache_key(model: str, voice: str, language: str, text: str, style: s
     return hashlib.sha256(sig.encode("utf-8")).hexdigest()[:32]
 
 
-def build_gemini_payload(text: str, voice: str, style_prompt: str) -> Dict[str, Any]:
+def build_gemini_payload(text: str, voice: str, style_prompt: str = "") -> Dict[str, Any]:
     """Constructs the standard Generative Language API payload for audio synthesis."""
-    full_prompt = f"{style_prompt}\n\nمتن نریشن:\n{text.strip()}"
+    # TTS models read content text verbatim; do not inject instructions into spoken content
+    clean_text = text.strip()
     return {
         "contents": [
             {
                 "parts": [
-                    {"text": full_prompt}
+                    {"text": clean_text}
                 ]
             }
         ],

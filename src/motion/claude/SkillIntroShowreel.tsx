@@ -23,6 +23,9 @@ import { LissajousOrbit, ParametricWaveformStream } from '../library/ProceduralG
 import { quantizeToBeat } from '../audio/SemanticMusicDirector';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { loadYekanBakhFonts } from '../../fonts/yekanBakh';
+import { CURATED_COLOR_PALETTES } from '../visual_world/colorPaletteGate';
+import { APPROVED_ART_STYLES, ArtStyleDefinition, quantizeFrameForStopMotion } from '../visual_world/artStyleGate';
+import { deriveAtmosphere } from '../visual_world/AtmosphereThemeDeriver';
 
 if (typeof window !== 'undefined') {
   loadYekanBakhFonts().catch((e) => console.warn('Font load warning:', e));
@@ -33,9 +36,30 @@ export const SKILL_INTRO_FPS = 30;
 export const SKILL_INTRO_WIDTH = 1920;
 export const SKILL_INTRO_HEIGHT = 1080;
 
+const PALETTE = CURATED_COLOR_PALETTES.biotech_medical[0]; // Deep Emerald & Cyber Gold
+
 export const SkillIntroShowreelContent: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
+
+  // =========================================================================
+  // GATE 0.6: ACT-BY-ACT ART STYLE RESOLUTION & ATMOSPHERE DERIVATION
+  // =========================================================================
+  // Act 1 (0..330): MODERN_GLASSMORPHIC
+  // Act 2 (330..720): STOP_MOTION_PAPER (Tactile paper cutout & 12fps judder)
+  // Act 3 (720..1220): TECHNICAL_BLUEPRINT (CAD drafting grid & calipers)
+  // Act 4 (1220..1800): NEO_BRUTALIST (High-voltage borders & 100% gold seal)
+  let currentStyle: ArtStyleDefinition = APPROVED_ART_STYLES.MODERN_GLASSMORPHIC;
+  if (frame >= 330 && frame < 720) {
+    currentStyle = APPROVED_ART_STYLES.STOP_MOTION_PAPER;
+  } else if (frame >= 720 && frame < 1220) {
+    currentStyle = APPROVED_ART_STYLES.TECHNICAL_BLUEPRINT;
+  } else if (frame >= 1220) {
+    currentStyle = APPROVED_ART_STYLES.NEO_BRUTALIST;
+  }
+
+  const atmosphere = deriveAtmosphere(PALETTE, currentStyle);
+  const stopMotionFrame = quantizeFrameForStopMotion(frame, 'stop_motion_12fps');
 
   // =========================================================================
   // 1. CONTINUOUS 6-DOF VIRTUAL CAMERA TRACKING
@@ -84,18 +108,18 @@ export const SkillIntroShowreelContent: React.FC = () => {
   );
 
   // =========================================================================
-  // 2. DYNAMIC AUDIO & DUCKING ENVELOPE (124 BPM Future Beats + Voice + SFX)
+  // 2. DYNAMIC AUDIO & DUCKING ENVELOPE (124 BPM Future Beats + Gemini Voice)
   // =========================================================================
-  // Speech segments play during:
-  // Act 1: 30..280 (Voice 1)
-  // Act 2: 370..700 (Voice 2)
-  // Act 3: 770..1180 (Voice 3)
-  // Act 4: 1260..1720 (Voice 4)
+  // Measured clean Google Gemini Audio segments:
+  // Act 1: 30..260 (Voice 1, ~7.4s)
+  // Act 2: 370..610 (Voice 2, ~7.9s)
+  // Act 3: 770..980 (Voice 3, ~6.9s)
+  // Act 4: 1260..1500 (Voice 4, ~7.7s)
   const isSpeaking =
-    (frame >= 30 && frame <= 280) ||
-    (frame >= 370 && frame <= 700) ||
-    (frame >= 770 && frame <= 1180) ||
-    (frame >= 1260 && frame <= 1720);
+    (frame >= 30 && frame <= 260) ||
+    (frame >= 370 && frame <= 610) ||
+    (frame >= 770 && frame <= 980) ||
+    (frame >= 1260 && frame <= 1500);
 
   const baseBgm = isSpeaking ? 0.16 : 0.32;
   const currentBgmVolume = interpolate(
@@ -126,7 +150,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
     config: { damping: 14, mass: 0.9, stiffness: 110 },
   });
 
-  // Act 3 docks left when Act 4 appears (frame 1230)
+  // Act 3 docks left when Act 4 appears (frame 1220)
   const saasDockX = interpolate(frame, [1220, 1270], [0, -380], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
@@ -136,10 +160,10 @@ export const SkillIntroShowreelContent: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  const act4Visible = frame >= 1230;
+  const act4Visible = frame >= 1220;
   const act4Spring = spring({
     fps,
-    frame: frame - 1230,
+    frame: frame - 1220,
     config: { damping: 13, mass: 0.85, stiffness: 120 },
   });
 
@@ -164,17 +188,18 @@ export const SkillIntroShowreelContent: React.FC = () => {
       style={{
         width: SKILL_INTRO_WIDTH,
         height: SKILL_INTRO_HEIGHT,
-        background: 'radial-gradient(ellipse at 50% 30%, #032b1f 0%, #021a14 55%, #010d0a 100%)',
+        background: atmosphere.backgroundCss,
         overflow: 'hidden',
         position: 'relative',
         fontFamily: "'YekanBakh', 'Yekan Bakh', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
         direction: 'rtl',
+        transition: 'background 0.5s ease',
       }}
     >
-      {/* 1. ATMOSPHERIC BACKDROP (EMERALD & CYBER GOLD GLOW) */}
+      {/* 1. ATMOSPHERIC BACKDROP (HARMONIZED RADIUS & GRID) */}
       <AtmosphericBackdrop
-        primaryGlowColor="#10b981"
-        secondaryGlowColor="#f59e0b"
+        primaryGlowColor={atmosphere.radialGlow1.color}
+        secondaryGlowColor={atmosphere.radialGlow2.color}
         showGrid={true}
         gridSpeed={0.6}
       />
@@ -312,17 +337,38 @@ export const SkillIntroShowreelContent: React.FC = () => {
           )}
 
           {/* ================================================================= */}
-          {/* ACT 2: MATHEMATICAL VECTOR ENGINE & LISSAJOUS ORBIT (330..780)     */}
+          {/* ACT 2: STOP-MOTION PAPER CUTOUT & LISSAJOUS ORBIT (330..780)      */}
           {/* ================================================================= */}
           {act2Visible && (
             <div
               style={{
                 position: 'absolute',
                 opacity: act2Opacity,
-                transform: 'translateZ(50px)',
+                transform: `translateZ(50px) rotate(${Math.sin(stopMotionFrame * 0.15) * 0.6}deg)`,
                 pointerEvents: 'none',
+                filter: 'drop-shadow(6px 10px 0px rgba(2, 26, 20, 0.45)) drop-shadow(12px 18px 0px rgba(2, 26, 20, 0.2))',
               }}
             >
+              {/* Paper Header Badge Pill */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: -46,
+                  right: 20,
+                  background: '#f8faf5',
+                  padding: '6px 18px',
+                  borderRadius: 4,
+                  border: '1.5px solid rgba(2, 26, 20, 0.6)',
+                  boxShadow: '3px 3px 0px rgba(2, 26, 20, 0.6)',
+                  fontSize: 13,
+                  fontWeight: 800,
+                  color: '#021a14',
+                  zIndex: 2,
+                }}
+              >
+                {sanitizeForDisplay('✂️ استاپ‌موشن برش کاغذ و کلاژ برداری (۱۲ FPS)')}
+              </div>
+
               {/* Trigonometric Lissajous Orbit in Cyber Gold */}
               <svg
                 width={740}
@@ -347,7 +393,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
           )}
 
           {/* ================================================================= */}
-          {/* ACT 3: 2.5D ISOMETRIC SAAS CONSOLE & TELEMETRY (720..1800)        */}
+          {/* ACT 3: TECHNICAL BLUEPRINT 2.5D ISOMETRIC CONSOLE (720..1800)     */}
           {/* ================================================================= */}
           {act3Visible && (
             <div
@@ -357,39 +403,39 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 height: 490,
                 opacity: act3Entrance,
                 transform: `translate3d(${saasDockX}px, 0px, 60px) scale(${saasDockScale})`,
-                background: 'rgba(2, 36, 28, 0.85)',
-                backdropFilter: 'blur(32px)',
-                WebkitBackdropFilter: 'blur(32px)',
-                borderRadius: 24,
-                border: '1px solid rgba(16, 185, 129, 0.25)',
-                boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 0 45px rgba(16, 185, 129, 0.2)',
+                background: 'rgba(2, 22, 36, 0.92)',
+                backdropFilter: 'blur(28px)',
+                WebkitBackdropFilter: 'blur(28px)',
+                borderRadius: 8,
+                border: '1.5px solid rgba(6, 182, 212, 0.8)',
+                boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.3)',
                 display: 'flex',
                 flexDirection: 'column',
                 overflow: 'hidden',
                 direction: 'rtl',
               }}
             >
-              {/* Console Header */}
+              {/* CAD Blueprint Header */}
               <div
                 style={{
                   height: 52,
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
+                  borderBottom: '1px solid rgba(6, 182, 212, 0.25)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   padding: '0 24px',
-                  background: 'rgba(2, 44, 34, 0.5)',
+                  background: 'rgba(3, 30, 48, 0.65)',
                 }}
               >
                 <div style={{ display: 'flex', gap: 8 }}>
                   <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#ef4444' }} />
                   <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#f59e0b' }} />
-                  <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#10b981' }} />
+                  <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#06b6d4' }} />
                 </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#f0fdf4' }}>
-                  {sanitizeForDisplay('کنسول تله‌متری و تحلیل فضایی اسکیل')}
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#f0fdfa', letterSpacing: '0.02em' }}>
+                  {sanitizeForDisplay('کنسول تله‌متری و تحلیل فضایی (نقشه فنی بلوپرینت)')}
                 </div>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 8px #06b6d4' }} />
               </div>
 
               {/* Console Body */}
@@ -399,16 +445,16 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   <div
                     style={{
                       height: 190,
-                      background: 'rgba(1, 24, 18, 0.6)',
-                      borderRadius: 16,
-                      border: '1px solid rgba(16, 185, 129, 0.15)',
+                      background: 'rgba(1, 16, 28, 0.7)',
+                      borderRadius: 6,
+                      border: '1px solid rgba(6, 182, 212, 0.25)',
                       padding: 16,
                       position: 'relative',
                     }}
                   >
                     <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: 12, color: '#94a3b8' }}>نمودار جریان پیوستگی کادر</span>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: '#10b981' }}>+۹۹.۸٪ پایداری</span>
+                      <span style={{ fontSize: 12, color: '#94a3b8', fontFamily: 'monospace' }}>+ CAD STABILITY METRIC</span>
+                      <span style={{ fontSize: 14, fontWeight: 800, color: '#06b6d4' }}>+۹۹.۸٪ پایداری</span>
                     </div>
 
                     {/* Animated Sparkline */}
@@ -416,9 +462,9 @@ export const SkillIntroShowreelContent: React.FC = () => {
                       <path
                         d="M 10 90 Q 90 20 180 60 T 360 30"
                         fill="none"
-                        stroke="#10b981"
+                        stroke="#06b6d4"
                         strokeWidth={3}
-                        style={{ filter: 'drop-shadow(0 0 10px #10b981)' }}
+                        style={{ filter: 'drop-shadow(0 0 10px #06b6d4)' }}
                       />
                       <circle cx={180 + Math.sin(frame * 0.08) * 40} cy={50} r={6} fill="#f59e0b" style={{ filter: 'drop-shadow(0 0 8px #f59e0b)' }} />
                     </svg>
@@ -428,8 +474,9 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   <div
                     style={{
                       padding: '12px 18px',
-                      background: 'rgba(2, 44, 34, 0.5)',
-                      borderRadius: 12,
+                      background: 'rgba(3, 30, 48, 0.6)',
+                      borderRadius: 6,
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
                       display: 'flex',
                       justifyContent: 'space-between',
                       alignItems: 'center',
@@ -438,7 +485,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                     <span style={{ fontSize: 13, color: '#cbd5e1' }}>
                       {sanitizeForDisplay('وضعیت سیستم: آماده‌باش تولید سینمایی')}
                     </span>
-                    <span style={{ fontSize: 12, color: '#10b981', fontWeight: 700 }}>
+                    <span style={{ fontSize: 12, color: '#06b6d4', fontWeight: 700 }}>
                       ● پایدار
                     </span>
                   </div>
@@ -449,12 +496,12 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   <div
                     style={{
                       padding: '14px 16px',
-                      background: 'rgba(1, 24, 18, 0.65)',
-                      borderRadius: 14,
-                      border: '1px solid rgba(16, 185, 129, 0.15)',
+                      background: 'rgba(1, 16, 28, 0.75)',
+                      borderRadius: 6,
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
                     }}
                   >
-                    <div style={{ fontSize: 11, color: '#6ee7b7' }}>موتور صوتی استودیویی</div>
+                    <div style={{ fontSize: 11, color: '#38bdf8' }}>موتور صوتی استودیویی</div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
                       {sanitizeForDisplay('قفل ضرب‌آهنگ (Beat-Grid)')}
                     </div>
@@ -466,16 +513,16 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   <div
                     style={{
                       padding: '14px 16px',
-                      background: 'rgba(1, 24, 18, 0.65)',
-                      borderRadius: 14,
-                      border: '1px solid rgba(16, 185, 129, 0.15)',
+                      background: 'rgba(1, 16, 28, 0.75)',
+                      borderRadius: 6,
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
                     }}
                   >
-                    <div style={{ fontSize: 11, color: '#6ee7b7' }}>فونت رسمی فارسی</div>
+                    <div style={{ fontSize: 11, color: '#38bdf8' }}>فونت رسمی فارسی</div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
                       {sanitizeForDisplay('یکان بخ نسخه طلایی')}
                     </div>
-                    <div style={{ fontSize: 12, color: '#10b981', marginTop: 4, fontWeight: 600 }}>
+                    <div style={{ fontSize: 12, color: '#06b6d4', marginTop: 4, fontWeight: 600 }}>
                       تایپوگرافی اصیل و بدون پرش
                     </div>
                   </div>
@@ -483,12 +530,12 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   <div
                     style={{
                       padding: '14px 16px',
-                      background: 'rgba(1, 24, 18, 0.65)',
-                      borderRadius: 14,
-                      border: '1px solid rgba(16, 185, 129, 0.15)',
+                      background: 'rgba(1, 16, 28, 0.75)',
+                      borderRadius: 6,
+                      border: '1px solid rgba(6, 182, 212, 0.2)',
                     }}
                   >
-                    <div style={{ fontSize: 11, color: '#6ee7b7' }}>پیوستگی جهان سینمایی</div>
+                    <div style={{ fontSize: 11, color: '#38bdf8' }}>پیوستگی جهان سینمایی</div>
                     <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
                       {sanitizeForDisplay('تک‌پلان بدون کات (One-Take)')}
                     </div>
@@ -509,18 +556,18 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   height: 28,
                   overflow: 'hidden',
                   pointerEvents: 'none',
-                  opacity: 0.7,
+                  opacity: 0.8,
                 }}
               >
                 <svg width="100%" height="28" viewBox="0 0 730 28">
-                  <ParametricWaveformStream x={0} y={14} width={730} amplitude={8} color="#10b981" />
+                  <ParametricWaveformStream x={0} y={14} width={730} amplitude={8} color="#06b6d4" />
                 </svg>
               </div>
             </div>
           )}
 
           {/* ================================================================= */}
-          {/* ACT 4: CALIBRATION GAUGE & MILESTONE (1230..1800)                 */}
+          {/* ACT 4: NEO-BRUTALIST CALIBRATION GAUGE & MILESTONE (1220..1800)   */}
           {/* ================================================================= */}
           {act4Visible && (
             <div
@@ -530,12 +577,10 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 height: 490,
                 opacity: act4Spring,
                 transform: `translate3d(380px, 0px, 60px) scale(${act4Spring})`,
-                background: 'rgba(2, 36, 28, 0.85)',
-                backdropFilter: 'blur(32px)',
-                WebkitBackdropFilter: 'blur(32px)',
-                borderRadius: 24,
-                border: '1px solid rgba(245, 158, 11, 0.35)',
-                boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.85), 0 0 50px rgba(245, 158, 11, 0.25)',
+                background: '#04281e',
+                borderRadius: 16,
+                border: '3.5px solid #021a14',
+                boxShadow: '8px 8px 0px #021a14, 0 0 40px rgba(245, 158, 11, 0.35)',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -545,6 +590,23 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 textAlign: 'center',
               }}
             >
+              {/* Neo-Brutalist Badge Header */}
+              <div
+                style={{
+                  background: '#fef08a',
+                  border: '2px solid #021a14',
+                  boxShadow: '3px 3px 0px #021a14',
+                  padding: '4px 14px',
+                  borderRadius: 6,
+                  color: '#021a14',
+                  fontSize: 12,
+                  fontWeight: 900,
+                  marginBottom: 16,
+                }}
+              >
+                {sanitizeForDisplay('⚡ نئوبروتالیسم · استاندارد طلایی')}
+              </div>
+
               {/* Circular Gauge */}
               <div style={{ position: 'relative', width: 170, height: 170, marginBottom: 24 }}>
                 <svg width={170} height={170} style={{ transform: 'rotate(-90deg)' }}>

@@ -81,7 +81,8 @@ An epic 1-minute production trailer introducing the autonomous motion directing 
 
 * **Video Master:** `renders/claude/SKILL_INTRO_SHOWREEL.mp4` (60.0s, 1080p, 30 FPS)
 * **Visual Contact Sheet:** `renders/claude/SKILL_INTRO_CONTACT_SHEET.png`
-* **Audio Architecture:** 124 BPM syncopated beat grid + 4-act Persian voiceover + 6 beat-aligned SFX (`whoosh`, `sub_drop`, `laser`, `lock`).
+* **Audio Architecture:** 124 BPM syncopated beat grid + Google Gemini Audio Narration (Voice `Puck`, `gemini-3.8-flash-tts` / `gemini-3.8-flash-lite-tts`) + 6 beat-aligned SFX (`whoosh`, `sub_drop`, `laser`, `lock`).
+* **Multi-Style Evolution:** Act 1 Modern Glassmorphism $\to$ Act 2 Stop-Motion Paper Cutout (12 FPS feel) $\to$ Act 3 Technical Blueprint $\to$ Act 4 Neo-Brutalist Gold Climax.
 
 ---
 
@@ -105,6 +106,20 @@ To eliminate arbitrary aesthetic drift, the skill strictly enforces **Gate 0.5**
    - *Palette 3:* Warm Cinematic Heritage / Organic Editorial.
 2. **Custom Write-In Option:** Provides an explicit custom option for custom client brand colors.
 3. **Execution Freeze:** The agent is strictly prohibited from writing or scaffolding Remotion visual components until the user confirms the palette.
+
+---
+
+## 🖌️ Mandatory Gate 0.6: Art Direction & Multi-Style Selection Doctrine
+
+To break free from uniform flat designs and enable rich visual expression, **Gate 0.6** enforces explicit art style selection:
+1. **5 Approved Art Style Paradigms:**
+   - **`MODERN_GLASSMORPHIC`:** Frosted glass (`backdropFilter: blur(20px)`), 3D perspective, luminous borders, and smooth spring physics.
+   - **`STOP_MOTION_PAPER`:** Tactile paper cutout collage, stepped 12 FPS judder, paper fiber textures, rough cut edges, and layered paper shadows.
+   - **`PAINTERLY_WATERCOLOR`:** Expressive organic editorial, halftone stipple dot patterns, watercolor ink bleed washes, and soft textured edges.
+   - **`TECHNICAL_BLUEPRINT`:** Rigorous engineering precision, CAD drafting grid, cyan isometric calipers, monospace telemetry guides, and crosshair corners.
+   - **`NEO_BRUTALIST`:** High-voltage poster punch, thick black outlines (`3.5px solid #000`), un-blurred offset drop shadows (`7px 7px 0px #000`), and acid yellow accents.
+2. **Flexible Assignment:** Supports both single-style global deployment and **Act-by-Act Dynamic Evolution** where each narrative act embodies a distinct visual discipline.
+3. **Full Atmospheric Derivation Engine (`AtmosphereThemeDeriver.ts`):** Guarantees that the base background gradient, radial glows, perspective grid, particle bokeh, and card glows adapt 100% harmoniously to the chosen palette and art style, preventing ambient color mismatches.
 
 ---
 
@@ -139,7 +154,9 @@ To eliminate arbitrary aesthetic drift, the skill strictly enforces **Gate 0.5**
 │   │   │   └── ClaudeOpusShowreel.tsx         # Dribbble Morph & SaaS Climax
 │   │   ├── compiler/                          # MotionSceneGraph & AST Compilers
 │   │   ├── visual_world/                      # Material, Lighting & Depth Adapters
-│   │   │   └── colorPaletteGate.ts            # Mandatory Gate 0.5 Color Palette Selector
+│   │   │   ├── colorPaletteGate.ts            # Mandatory Gate 0.5 Color Palette Selector
+│   │   │   ├── artStyleGate.ts                # Mandatory Gate 0.6 Art Direction & Multi-Style Selector
+│   │   │   └── AtmosphereThemeDeriver.ts      # Full-Atmosphere Color & Theme Harmonization Engine
 │   │   └── validation/                        # Automated Anti-Bypass Validators
 │   └── Root.tsx                               # Remotion Composition Registry
 │
