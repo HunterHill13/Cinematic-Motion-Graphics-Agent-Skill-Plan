@@ -26,6 +26,7 @@ import { Phase5D1LightingRuntimeProof } from './motion/visual_world/Phase5D1Ligh
 import { Phase5ECameraCompositionProof } from './motion/visual_world/Phase5ECameraCompositionProof';
 import { Phase5FSecondaryMotionProof } from './motion/visual_world/Phase5FSecondaryMotionProof';
 import { CinematicBenchmarkScene } from './motion/benchmark/CinematicBenchmarkScene';
+import { Phase6VisualBenchmark } from './motion/director/Phase6VisualBenchmark';
 
 /**
  * ============================================================================
@@ -330,6 +331,16 @@ export const Root: React.FC = () => {
         component={CinematicBenchmarkScene}
         defaultProps={{ mode: 'NO_CARRY' as const }}
         durationInFrames={720}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* 15. PHASE 6: VISUAL DIRECTOR RESET BENCHMARK (420 Frames @ 30 FPS / 14.0s) */}
+      <Composition
+        id="Phase6VisualBenchmark"
+        component={Phase6VisualBenchmark}
+        durationInFrames={420}
         fps={30}
         width={1920}
         height={1080}
