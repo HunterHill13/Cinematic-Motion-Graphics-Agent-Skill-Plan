@@ -74,13 +74,13 @@ class CinematicAudioPipeline:
         video_id: str,
         script_text: str,
         gemini_voice: str = "Puck",
-        edge_voice: str = "fa-IR-FaridNeural",
+        edge_voice: Optional[str] = None,
         fps: int = 30
     ):
         self.video_id = video_id
         self.script_text = script_text.strip()
         self.gemini_voice = gemini_voice
-        self.edge_voice = edge_voice
+        self.edge_voice = edge_voice if edge_voice else ("fa-IR-DilaraNeural" if gemini_voice == "Callirrhoe" else "fa-IR-FaridNeural")
         self.fps = fps
 
         self.state = PipelineState.DRAFT
