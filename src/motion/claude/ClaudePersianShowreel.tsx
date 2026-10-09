@@ -16,6 +16,9 @@ import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig, spring, Easing } from 'remotion';
 import { AtmosphericBackdrop } from '../library/AtmosphericBackdrop';
 import { PersianVectorMorphCard } from '../recipes/PersianVectorMorphRecipe';
+import { AudioDesignLayer } from '../library/AudioDesignLayer';
+import { InteractiveCursor } from '../library/InteractiveCursor';
+import { ForegroundBokehLayer } from '../library/ForegroundBokehLayer';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { loadYekanBakhFonts } from '../../fonts/yekanBakh';
 
@@ -71,10 +74,19 @@ export const ClaudePersianShowreelContent: React.FC = () => {
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
+  // Dynamic Dutch Roll banking during camera accelerations
   const camRoll = interpolate(
     frame,
-    [0, 95, 125, 210, 245, 325, 450],
-    [0, 0, -1.5, 0, 1.2, 0, 0],
+    [0, 85, 105, 125, 205, 230, 255, 320, 350, 375, 450],
+    [0, 0, -2.6, 0, 0, 2.4, 0, 0, -1.8, 0, 0],
+    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+  );
+
+  // Micro-interaction button click depression at frame 95
+  const badgeClickScale = interpolate(
+    frame,
+    [92, 95, 102, 115],
+    [1.0, 0.91, 1.05, 1.0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
@@ -273,6 +285,8 @@ export const ClaudePersianShowreelContent: React.FC = () => {
                   border: '1px solid rgba(56, 189, 248, 0.35)',
                   boxShadow: '0 0 25px rgba(56, 189, 248, 0.25)',
                   marginBottom: 24,
+                  transform: `scale(${badgeClickScale})`,
+                  transition: 'transform 0.05s ease',
                 }}
               >
                 <div
@@ -723,6 +737,21 @@ export const ClaudePersianShowreelContent: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* 3. SIMULATED INTERACTIVE CURSOR POINTER (DRIBBLE/CLAUDE INTERACTION) */}
+      <InteractiveCursor
+        startFrame={55}
+        clickFrame={95}
+        endFrame={118}
+        targetX={960}
+        targetY={430}
+      />
+
+      {/* 4. FOREGROUND SHALLOW DEPTH-OF-FIELD OPTICAL BOKEH (f/1.4 PARALLAX) */}
+      <ForegroundBokehLayer camX={camX} camY={camY} />
+
+      {/* 5. NATIVE REMOTION SOUND DESIGN LAYER (BGM + 5x FRAME-ACCURATE SFX) */}
+      <AudioDesignLayer durationInFrames={CLAUDE_PERSIAN_DURATION} />
     </div>
   );
 };
