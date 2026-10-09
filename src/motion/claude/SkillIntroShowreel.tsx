@@ -511,6 +511,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 <div style={{ position: 'relative', zIndex: 3, marginTop: 30 }}>
                   <PersianVectorMorphCard
                     startFrame={340}
+                    durationInFrames={370}
                     width={700}
                     height={320}
                     glowColor="#2d6a4f"

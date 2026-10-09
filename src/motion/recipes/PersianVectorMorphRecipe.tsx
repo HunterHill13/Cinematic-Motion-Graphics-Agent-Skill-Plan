@@ -29,6 +29,7 @@ export const PATH_CHECKMARK = 'M 72 102 L 92 122 L 134 78';
 
 export interface PersianVectorMorphProps {
   startFrame?: number;
+  durationInFrames?: number;
   width?: number;
   height?: number;
   glowColor?: string;
@@ -36,6 +37,7 @@ export interface PersianVectorMorphProps {
 
 export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   startFrame = 0,
+  durationInFrames = 360,
   width = 620,
   height = 340,
   glowColor = '#38bdf8',
@@ -43,11 +45,13 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   const currentFrame = useCurrentFrame();
   const relFrame = Math.max(0, currentFrame - startFrame);
 
-  // 4 Stages across 150 frames (approx 5.0 seconds @ 30 FPS):
-  // Stage 0 (0..35): Octagram (نشان علمی)
-  // Stage 1 (35..75): Morphing -> Neural Core (مغز عصبی)
-  // Stage 2 (75..115): Morphing -> Quantum Wave (تحلیل موج)
-  // Stage 3 (115..150): Morphing -> Sovereign Shield (سپر کالیبراسیون)
+  // Dynamic stage boundaries across durationInFrames
+  const s1Start = durationInFrames * 0.22;
+  const s1End = durationInFrames * 0.32;
+  const s2Start = durationInFrames * 0.48;
+  const s2End = durationInFrames * 0.58;
+  const s3Start = durationInFrames * 0.72;
+  const s3End = durationInFrames * 0.82;
   
   let currentD = PATH_OCTAGRAM;
   let activeStageIndex = 0;
@@ -56,15 +60,15 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   let stageDetail = 'هندسه برداری کالیبره شده با تقارن هشت‌گانه';
   let activeColor = '#06b6d4';
 
-  if (relFrame < 35) {
+  if (relFrame < s1Start) {
     currentD = PATH_OCTAGRAM;
     activeStageIndex = 0;
     stageTitle = 'نشان علمی و هندسی کمیته';
     stageBadge = 'مرحله ۱: نشان سازمانی';
     stageDetail = 'هندسه برداری کالیبره شده با تقارن هشت‌گانه';
     activeColor = '#06b6d4';
-  } else if (relFrame < 75) {
-    const t = interpolate(relFrame, [35, 65], [0, 1], {
+  } else if (relFrame < s2Start) {
+    const t = interpolate(relFrame, [s1Start, s1End], [0, 1], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
       easing: Easing.inOut(Easing.cubic),
@@ -75,8 +79,8 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
     stageBadge = 'مرحله ۲: موتور تانسوری';
     stageDetail = 'تبدیل پیوسته بردارها به ماتریس سیناپسی هوش مصنوعی';
     activeColor = '#8b5cf6';
-  } else if (relFrame < 115) {
-    const t = interpolate(relFrame, [75, 105], [0, 1], {
+  } else if (relFrame < s3Start) {
+    const t = interpolate(relFrame, [s2Start, s2End], [0, 1], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
       easing: Easing.inOut(Easing.cubic),
@@ -88,7 +92,7 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
     stageDetail = 'پایش بلادرنگ نرخ فریم، دقت محاسبات و همگرایی داده‌ها';
     activeColor = '#3b82f6';
   } else {
-    const t = interpolate(relFrame, [115, 140], [0, 1], {
+    const t = interpolate(relFrame, [s3Start, s3End], [0, 1], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
       easing: Easing.inOut(Easing.cubic),
@@ -102,7 +106,7 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   }
 
   // Checkmark evolve for Stage 3
-  const checkProgress = interpolate(relFrame, [125, 148], [0, 1], {
+  const checkProgress = interpolate(relFrame, [s3End - 10, s3End + 15], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
     easing: Easing.out(Easing.cubic),
@@ -110,8 +114,8 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   const checkEvolve = evolvePath(checkProgress, PATH_CHECKMARK);
 
   // Neural pulse rotation & glow
-  const rotation = interpolate(relFrame, [0, 150], [0, 360]);
-  const pulseScale = 1 + Math.sin(relFrame / 6) * 0.04;
+  const rotation = interpolate(relFrame, [0, durationInFrames], [0, 360]);
+  const pulseScale = 1 + Math.sin(relFrame / 8) * 0.04;
 
   return (
     <div
