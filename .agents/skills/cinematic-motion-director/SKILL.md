@@ -70,6 +70,31 @@ Every visual and motion decision follows this strict priority:
 
 ---
 
+## 2.1 The Claude Motion Studio Paradigm (Component-Driven Studio Architecture)
+
+To match and exceed the visual fidelity of Anthropic's **Claude Motion** (October 2026) and official Remotion design benchmarks, the skill integrates a high-impact, modular component library alongside the semantic compiler:
+
+### A. Architectural Philosophy: Visual Richness vs AST Gatekeeper
+- **The Pitfall:** Over-relying strictly on abstract mathematical AST validators produces sterile geometric wireframes because compilers optimize for validation rules rather than visual aesthetics.
+- **The Modern Claude Workflow:** Combines narrative precision with pre-crafted, glassmorphic, physics-driven Remotion components (`src/motion/library/`):
+  1. `AtmosphericBackdrop`: Multi-layer volumetric radial lighting, perspective grid with horizon vanishing point, and floating depth-bokeh constellations.
+  2. `GlassContainer`: Frosted glass cards (`backdropFilter: blur(18px)`, specular top highlight, micro-borders) with smooth spring-based entry/hover physics.
+  3. `KineticTypography`: Staggered word-by-word spring reveals (`KineticHeadline`), radiant gradient spans (Cyan/Indigo/Purple), glowing status badge pills (`BadgePill`), and clean subtitles (`SubtitleCallout`).
+  4. `MetricCard` & Visualizers: Real-time numeric count-up animations (`0` to target with easing curves), circular animated gauges (`CircularGauge`), and spring-loaded horizontal comparison bars (`BarChartVisualizer`).
+  5. `FlowDiagram`: Declarative architecture nodes, high-contrast SVG cubic bezier conduits, and traveling luminous energy pulses (comet core + radiant diffuse aura).
+
+### B. Spring Physics & Motion Doctrine
+- Always author motion with Remotion `spring()` rather than linear or stepped interpolation:
+  `spring({ fps, frame, config: { damping: 14, mass: 0.8, stiffness: 120 } })`
+- **Continuous Sub-Motion:** Every active scene must maintain subtle life (floating bokeh drift, conduit energy traveling pulses, ambient gradient breathing).
+- **Staggered Delays:** Never pop elements simultaneously. Stagger by 3–6 frames to establish visual hierarchy.
+
+### C. Remotion Sequence Frame Context Rule
+- When nesting components inside a `<Sequence from={startFrame} durationInFrames={N}>`, any child calling `useCurrentFrame()` receives the **sequence-local frame** ($0 \dots N$), **NOT** the global timeline frame.
+- **Rule:** Always supply sequence-local delays (`delayFrames={0..15}`), never global timeline timestamps, to ensure elements animate reliably within their sequence container.
+
+---
+
 ## 3. Hard Fail Conditions (Disqualifications)
 
 Regardless of technical compilation or average numerical scores, a production **FAILS IMMEDIATELY** if any of the following exist:

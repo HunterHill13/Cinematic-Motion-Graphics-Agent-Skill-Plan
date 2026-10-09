@@ -27,6 +27,7 @@ import { Phase5ECameraCompositionProof } from './motion/visual_world/Phase5ECame
 import { Phase5FSecondaryMotionProof } from './motion/visual_world/Phase5FSecondaryMotionProof';
 import { CinematicBenchmarkScene } from './motion/benchmark/CinematicBenchmarkScene';
 import { Phase6VisualBenchmark } from './motion/director/Phase6VisualBenchmark';
+import { ClaudeMotionBenchmark, CLAUDE_BENCHMARK_FRAMES, CLAUDE_BENCHMARK_WIDTH, CLAUDE_BENCHMARK_HEIGHT } from './motion/claude/ClaudeMotionBenchmark';
 
 /**
  * ============================================================================
@@ -344,6 +345,16 @@ export const Root: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* 16. CLAUDE MOTION SHOWCASE BENCHMARK (360 Frames @ 30 FPS / 12.0s) */}
+      <Composition
+        id="ClaudeMotionBenchmark"
+        component={ClaudeMotionBenchmark}
+        durationInFrames={CLAUDE_BENCHMARK_FRAMES}
+        fps={30}
+        width={CLAUDE_BENCHMARK_WIDTH}
+        height={CLAUDE_BENCHMARK_HEIGHT}
       />
     </>
   );
