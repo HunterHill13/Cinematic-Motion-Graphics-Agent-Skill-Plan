@@ -33,6 +33,7 @@ import { DynamicFresnelSweep } from '../library/DynamicFresnelSweep';
 import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer';
 import { KineticBarChart, KineticMetricCounter } from '../library/KineticDataViz';
 import { LiquidButtonSquash } from '../library/OrganicLiquidGooey';
+import { NewtonianAttractorSwarm } from '../library/NewtonianAttractorSwarm';
 import { VideoManifest, ZeroToVideoCompiler } from '../../compiler/ZeroToVideoCompiler';
 
 if (typeof window !== 'undefined') {
@@ -353,6 +354,15 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
                   />
                 </div>
               </div>
+
+              {/* Newtonian Attractor Swarm orbiting SVG Morph Core */}
+              <NewtonianAttractorSwarm
+                attractorX={-320}
+                attractorY={30}
+                particleCount={20}
+                theme="STOP_MOTION_PAPER"
+                beatPulse={beatPulse.scalePulse}
+              />
             </div>
           )}
 
@@ -448,6 +458,15 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
                   </svg>
                 </div>
               </div>
+
+              {/* Newtonian Attractor Swarm in Technical Blueprint Grid */}
+              <NewtonianAttractorSwarm
+                attractorX={350}
+                attractorY={-20}
+                particleCount={18}
+                theme="TECHNICAL_BLUEPRINT"
+                beatPulse={beatPulse.scalePulse}
+              />
             </div>
           )}
 
@@ -520,6 +539,15 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
                 <span>✔</span>
                 <span>{sanitizeForDisplay(manifest.act4.verifiedPillText)}</span>
               </div>
+
+              {/* Newtonian Attractor Swarm in Neo-Brutalist High Voltage */}
+              <NewtonianAttractorSwarm
+                attractorX={0}
+                attractorY={-40}
+                particleCount={18}
+                theme="NEO_BRUTALIST"
+                beatPulse={beatPulse.scalePulse}
+              />
             </div>
           )}
         </div>
@@ -531,6 +559,19 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
       {/* 5. ATMOSPHERIC SHADER PARTICLES */}
       <StyleAwareAtmosphereLayer camX={camX} camY={camY} />
       <ForegroundBokehLayer camX={camX} camY={camY} />
+
+      {/* 6. NATIVE REMOTION AUDIO LAYER (BGM + DYNAMIC SCENARIO SFX) */}
+      <Audio
+        src={staticFile(manifest.audio.bgmFile)}
+        volume={() => manifest.audio.bgmVolume}
+      />
+
+      {/* Dynamic Frame-Accurate Scenario Sound Effects */}
+      {manifest.audio.sfxCues.map((sfx, idx) => (
+        <Sequence key={`${sfx.file}-${sfx.frame}-${idx}`} from={sfx.frame} durationInFrames={sfx.durationInFrames}>
+          <Audio src={staticFile(sfx.file)} volume={sfx.volume} />
+        </Sequence>
+      ))}
     </div>
   );
 };

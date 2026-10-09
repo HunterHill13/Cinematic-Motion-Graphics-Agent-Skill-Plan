@@ -33,6 +33,21 @@ export interface StatusCardData {
   subtitle: string;
 }
 
+export interface SfxCue {
+  file: string;
+  frame: number;
+  volume: number;
+  durationInFrames: number;
+  description: string;
+}
+
+export interface AudioManifest {
+  bgmFile: string;
+  bgmVolume: number;
+  bpm: number;
+  sfxCues: SfxCue[];
+}
+
 export interface VideoManifest {
   meta: {
     title: string;
@@ -43,6 +58,7 @@ export interface VideoManifest {
     canvasWidth: number;
     canvasHeight: number;
   };
+  audio: AudioManifest;
   act1: {
     startFrame: number;
     durationInFrames: number;
@@ -187,6 +203,47 @@ export class ZeroToVideoCompiler {
       card3Sub = 'تراکنش میکروثانیه‌ای';
     }
 
+    // ------------------------------------------------------------------------
+    // Domain-Matched BGM Selection & Frame-Accurate Scenario SFX Matrix
+    // ------------------------------------------------------------------------
+    let bgmFile = 'music/Tech_Live.mp3';
+    let bgmVolume = 0.75;
+
+    if (isBiomedical) {
+      bgmFile = 'music/Brain_Dance.mp3';
+      bgmVolume = 0.80;
+    } else if (isPhysics) {
+      bgmFile = 'music/Cipher2.mp3';
+      bgmVolume = 0.70;
+    } else if (isFintech) {
+      bgmFile = 'music/Tech_Live.mp3';
+      bgmVolume = 0.75;
+    }
+
+    const sfxCues: SfxCue[] = [
+      // Act 1: Interactive cursor approach & mechanical click
+      { file: 'sfx/remotion_whip.wav', frame: 215, volume: 0.25, durationInFrames: 15, description: 'Cursor approach' },
+      { file: 'sfx/kenney_mouseclick.wav', frame: 219, volume: 0.95, durationInFrames: 30, description: 'Hero CTA button click' },
+      { file: 'sfx/remotion_shutter.wav', frame: 220, volume: 0.35, durationInFrames: 25, description: 'Button click resonance' },
+
+      // Act 1 -> Act 2: Dynamic camera whip pan
+      { file: 'sfx/remotion_whip.wav', frame: act2Start + 5, volume: 0.8, durationInFrames: 40, description: 'Act 2 whip pan' },
+
+      // Act 2 -> Act 3: 2.5D Isometric blueprint tilt whoosh
+      { file: 'sfx/remotion_whoosh.wav', frame: act3Start + 5, volume: 0.75, durationInFrames: 45, description: 'Act 3 blueprint whoosh' },
+
+      // Act 3: Living telemetry data milestone chime
+      { file: 'sfx/remotion_ding.wav', frame: act3Start + Math.round(act3Duration * 0.75), volume: 0.85, durationInFrames: 50, description: 'Telemetry chime' },
+
+      // Act 3 -> Act 4: Camera pullback shutter & wide cinematic whoosh
+      { file: 'sfx/remotion_shutter.wav', frame: act4Start + 5, volume: 0.85, durationInFrames: 45, description: 'Act 4 pullback shutter' },
+      { file: 'sfx/remotion_whoosh.wav', frame: act4Start + 8, volume: 0.7, durationInFrames: 40, description: 'Act 4 wide transition whoosh' },
+
+      // Act 4: Climax golden seal lock
+      { file: 'sfx/remotion_ding.wav', frame: act4Start + Math.round(act4Duration * 0.25), volume: 0.95, durationInFrames: 60, description: 'Climax seal lock' },
+      { file: 'sfx/bass-hit-futuristic.mp3', frame: act4Start + Math.round(act4Duration * 0.25), volume: 0.60, durationInFrames: 45, description: 'Seal bass impact' },
+    ];
+
     return {
       meta: {
         title: topic,
@@ -196,6 +253,12 @@ export class ZeroToVideoCompiler {
         bpm,
         canvasWidth: 1920,
         canvasHeight: 1080,
+      },
+      audio: {
+        bgmFile,
+        bgmVolume,
+        bpm,
+        sfxCues,
       },
       act1: {
         startFrame: act1Start,
