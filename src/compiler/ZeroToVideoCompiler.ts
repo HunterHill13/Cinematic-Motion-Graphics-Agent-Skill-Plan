@@ -236,7 +236,7 @@ export class ZeroToVideoCompiler {
         headline: 'استاندارد کیفی طلایی',
         highlightWord: 'طلایی',
         subtitle: `انطباق ۱۰۰٪ با زبان طراحی موشن‌گرافیک کلاد اوپوس ۵.۵: ${topic}`,
-        verifiedPillText: 'تأییدیه کمیته تحقیقاتی و فناوری',
+        verifiedPillText: 'تأییدیه استاندارد طلایی استودیو',
       },
       cameraKeyframes: {
         act1X: 0,

@@ -961,7 +961,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 }}
               >
                 <span>✔</span>
-                <span>{sanitizeForDisplay('تأییدیه کمیته تحقیقاتی و فناوری')}</span>
+                <span>{sanitizeForDisplay('تأییدیه استاندارد طلایی استودیو')}</span>
               </div>
 
               {/* Newtonian Attractor Swarm in Neo-Brutalist High Voltage */}

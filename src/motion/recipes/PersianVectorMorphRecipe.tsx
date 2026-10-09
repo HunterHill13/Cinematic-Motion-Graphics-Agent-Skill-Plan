@@ -64,7 +64,7 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   if (relFrame < s1Start) {
     currentD = PATH_OCTAGRAM;
     activeStageIndex = 0;
-    stageTitle = 'نشان علمی و هندسی کمیته';
+    stageTitle = 'نشان علمی و هندسی استودیو';
     stageBadge = 'مرحله ۱: نشان سازمانی';
     stageDetail = 'هندسه برداری کالیبره شده با تقارن هشت‌گانه';
     activeColor = '#06b6d4';

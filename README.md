@@ -5,232 +5,209 @@
 [![Engine](https://img.shields.io/badge/Render%20Engine-Remotion%20%2B%20React%2019-61dafb.svg?style=for-the-badge&logo=react)](https://remotion.dev)
 [![Typography](https://img.shields.io/badge/Typography-Yekan%20Bakh%20(8%20Weights)-10B981.svg?style=for-the-badge)](public/fonts/YekanBakh/)
 [![Morphing](https://img.shields.io/badge/Morphing%20Engine-SVG%20Path%20Interpolation-8B5CF6.svg?style=for-the-badge)](src/motion/recipes/PersianVectorMorphRecipe.tsx)
-[![Camera](https://img.shields.io/badge/Camera-6--DOF%20One--Take%20Flight-F59E0B.svg?style=for-the-badge)](src/motion/claude/ClaudePersianShowreel.tsx)
+[![Camera](https://img.shields.io/badge/Camera-6--DOF%20One--Take%20Flight-F59E0B.svg?style=for-the-badge)](src/motion/claude/SkillIntroShowreel.tsx)
 
-An enterprise-grade autonomous cinematic video directing system and motion-design codebase engineered for **Google Antigravity & Remotion**. Designed to replicate and surpass the viral visual fluid continuity, SVG vector morphing, and cinematic art direction of **Claude Opus 5.5**, fully optimized for **Persian (فارسی)** typography with **Yekan Bakh** and broadcast-level RTL aesthetics.
-
----
-
-## 🌟 The Claude Opus 5.5 Motion Quality Breakthrough
-
-Traditional generative motion pipelines suffer from the **Slideshow Trap** (static cards swapping text, 1.05x linear zooms pretending to be motion, and box resizing mimicking morphs).
-
-This system completely resolves those defects through four foundational pillars reverse-engineered from primary-source viral Claude Opus 5.5 motion graphics:
-
-```text
-Persistent 3D/2.5D World Stage (No Scene Cuts / Anti-Slideshow)
-                      ↓
-Continuous 6-DOF Virtual Camera Flight (Pan, Tilt, Dolly, Pitch, Roll)
-                      ↓
-Living Energy Conduit ("The Red Thread" Guiding Focus Across Acts)
-                      ↓
-Genuine SVG Vector Path Morphing (@remotion/paths: interpolatePath & evolvePath)
-                      ↓
-Persian RTL Typography (Yekan Bakh 8-Weight Suite + Diacritic Sanitizer)
-                      ↓
-Final Broadcast Master Video (.mp4 @ 60/30 FPS)
-```
+[English](#-english) • [فارسی](#-فارسی)
 
 ---
 
-## 💎 The 5 Hardened Production Pillars
+## 🎥 Master Production Video Showcase / ویدیوی مستر خروجی
+
+### 60-Second Master Video Trailer (`SKILL_INTRO_SHOWREEL.mp4`)
+
+> **[▶ Download & Watch Master 1080p Video](renders/claude/SKILL_INTRO_SHOWREEL.mp4)**  
+> *60.0s (1800 Frames @ 30 FPS) • 1080p Broadcast • 124 BPM Future Beats • Two-Stage Persian Voiceover*
+
+![Master Contact Sheet](renders/claude/SKILL_INTRO_CONTACT_SHEET.png)
+
+| پرده اول / Act 1 (0..12s / f220) | پرده دوم / Act 2 (12..26s / f480) |
+|:---:|:---:|
+| **ورود شیشه‌ای و کلیک ارگانیک**<br>Glassmorphic Monolith with Viscous Liquid Squash Button & Interactive Cursor | **استاپ‌موشن کلاژ و مورفینگ برداری**<br>Stop-Motion Paper Cutout (12 FPS) with 4-Stage Stepper & Topological Vector Morph |
+| **پرده سوم / Act 3 (26..42s / f950)** | **پرده چهارم / Act 4 (42..60s / f1450)** |
+| **کنسول تله‌متری و تحلیل فضایی (بلوپرینت)**<br>Intimate 2.5D CAD Blueprint Console with Kinetic Bar Charts & Live Waveform | **پاویون متقارن و استاندارد طلایی**<br>Symmetrically Docked Dual-Pavilion with Luminous 100% Calibration Gauge |
+
+---
+
+# 🇬🇧 English
+
+## 🌟 Overview
+
+**Cinematic Motion Director** is an autonomous cinematic video directing pipeline and production-grade motion design system built on **Remotion, React 19, and Google Antigravity**.
+
+Designed to replicate and surpass the viral visual fluid continuity, SVG topological morphing, and physical camera choreography of **Claude Opus 5.5**, this architecture features full native support for **Persian (فارسی)** typography with the **Yekan Bakh** suite and zero-subpixel-jitter RTL rendering.
+
+### 🚫 The Anti-Slideshow Mandate
+Traditional AI-generated video tools trap users in the **Slideshow Trap**: static cards swapping text, 1.05x linear scale zooms mimicking movement, and box width resizing masquerading as morphs.
+
+This pipeline eliminates those flaws through an **unbroken spatial world stage**, a **continuous 6-DOF virtual camera**, and **genuine vector topology morphing**.
+
+---
+
+## 💎 The 6 Core Architectural Pillars
 
 ### 1. Genuine SVG Vector Path Morphing (`@remotion/paths`)
-* **Banning Box Resizing:** Simple `div` width/height interpolation is banned as a standalone morph.
-* **Cubic Bezier Path Interpolation:** Using native `@remotion/paths`'s `interpolatePath(progress, pathA, pathB)`, intricate 200×200 vector coordinates morph continuously without tearing or unmounting:
-  $$\text{Iranian Scientific Octagram} \xrightarrow{\text{Morph}} \text{Neural AI Synaptic Core} \xrightarrow{\text{Morph}} \text{Quantum Telemetry Wave} \xrightarrow{\text{Morph}} \text{Sovereign Calibration Shield}$$
-* **Mechanical Vector Stroke Evolution:** Sovereign checkmarks and telemetry lines are dynamically rendered via `evolvePath(progress, path)` to ensure exact physics.
-* **Reusable Recipe:** [`src/motion/recipes/PersianVectorMorphRecipe.tsx`](src/motion/recipes/PersianVectorMorphRecipe.tsx).
+- **No Div Resizing:** Box width/height interpolation is banned as a standalone morph.
+- **Topological Bezier Interpolation:** Using native `interpolatePath(t, pathA, pathB)`, multi-point vector coordinates smoothly morph across parametric states without unmounting or visual tearing:
+  $$\text{Octagram Glyph} \xrightarrow{\text{Morph}} \text{Neural AI Synapse} \xrightarrow{\text{Morph}} \text{Quantum Wave} \xrightarrow{\text{Morph}} \text{Calibration Shield}$$
+- **Mechanical Stroke Evolution:** Telemetry circuits and checkmarks render dynamically via `evolvePath(progress, path)`.
 
-### 2. One-Take 6-DOF Virtual Camera Continuity
-* **Unbroken Spatial Canvas:** Hard scene cuts and sequence wiping are eliminated. All narrative acts unfold within a continuous 2.5D/3D coordinate space (`perspective: 1200`).
-* **Motivated Flight:** Camera moves dynamically to follow physical consequences, banking into 2.5D isometric tilts (`Pitch: 12°`, `Yaw: -8°`) and pulling back into grand dual-wing symmetrical finales.
+### 2. Continuous 6-DOF One-Take Virtual Camera
+- **Unbroken Spatial Canvas:** Sequences never fade to black or wipe. All acts reside in a persistent 3D coordinate space (`perspective: 1200`).
+- **Motivated Flight Grammar:** The camera translates through $X$, $Y$, and $Z$, tilting into 2.5D isometric angles (`Pitch: -1.8°`, `Yaw: 2.2°`) with kinetic banking rolls (`Roll: ±3.5°`) and velocity-driven motion skew during speed ramps.
 
-### 3. The Living Energy Conduit ("The Red Thread")
-* A persistent luminous focal particle with a high-energy white core and trailing comet glow that never leaves the viewport:
-  - **Act 1:** Orbits the hero emblem.
-  - **Act 2:** Dives into the vector core to initiate topological morphing.
-  - **Act 3:** Enters the SaaS console to dynamically paint the live sparkline graph.
-  - **Act 4:** Vaults across 3D space to orbit the 360° rim of the circular gauge and lock the 100% calibration milestone.
+### 3. Newtonian Vector Attractor Swarm Physics
+- **Deterministic Gravitational Vortex:** An inverse-distance particle orbital engine orbiting active vector attractor cores across all narrative acts.
+- **Airy & Delicate Balance:** Low-density particles (18–20 particles per act) with soft glows (0.18 opacity), harmonic beat breathing, and radial click shockwave dispersion.
 
 ### 4. Official Persian Typography System (Yekan Bakh)
-* **Standard Typeface:** Official **Yekan Bakh** loaded in full 8-weight palette from [`public/fonts/YekanBakh/`](public/fonts/YekanBakh/):
-  - `Thin` (100), `Light` (300), `Regular` (400 - Body), `SemiBold` (600 - Badges), `Bold` (700 - Titles), `ExtraBold` (800 - Hero Headlines), `Black` (900), `ExtraBlack` (950).
-* **Dual-Representation Diacritic Sanitizer:** [`src/typography/persianSanitizer.ts`](src/typography/persianSanitizer.ts) automatically strips Arabic/Persian diacritical marks (harakat/tashdid) for clean visual typography while preserving phonetics for TTS.
-* **Zero-Subpixel Jitter:** Text coordinates are locked to integer pixels (`Math.round()`) with hardware acceleration (`translate3d`).
+- **8 Distinct Weights:** Loaded from WOFF2 (`Thin 100`, `Light 300`, `Regular 400`, `SemiBold 600`, `Bold 700`, `ExtraBold 800`, `Black 900`, `ExtraBlack 950`).
+- **Dual-Representation Sanitizer:** Automatically removes diacritical marks (harakat/tashdid) for clean visual layout while preserving phonetic cues for TTS synthesis.
+- **Zero-Subpixel Jitter:** Text coordinates are rounded to whole integer pixels with hardware acceleration (`translate3d`).
 
-### 5. Multi-Layer Visual World & Physical Causality
-* **Materials & Lighting Contracts:** Explicit material shaders (`GLASS`, `METAL`, `ENERGY`, `PLASMA`) interacting with normalized directional key, fill, and rim lights (`UPPER_LEFT`, `UPPER_RIGHT`).
-* **Secondary Motion & Anticipation:** Pre-rupture compression, causal lag, and momentum-carry across event boundaries.
+### 5. Studio Audio & Beat-Grid Synchronization (124 BPM)
+- **Quantized Beat Grid:** Keyframe events snap mathematically to musical subdivisions (whole beat, 8th note, 16th note).
+- **Softened Audio-Reactive Heartbeat:** Subtle kick-drum pulse ($+0.2\%$ to $+0.45\%$ scale) provides organic breathing without frame vibration.
+- **Dynamic Sidechain Ducking:** BGM ducks cleanly from 32% to 16% volume during voiceover segments.
 
----
-
-## 🏆 Master Benchmark Showcases
-
-### 1. Official 60-Second Skill Showcase: `SkillIntroShowreel` (1800 Frames / 60.0s @ 30 FPS)
-
-An epic 1-minute production trailer introducing the autonomous motion directing pipeline, rendered in the **Deep Emerald & Cyber Gold** color palette with high-energy 124 BPM rhythmic music (`Brain_Dance.mp3`), Persian voiceover narration, 6-DOF camera maneuvers, living telemetry, and mechanical gauge calibration.
-
-![Skill Intro Contact Sheet](renders/claude/SKILL_INTRO_CONTACT_SHEET.png)
-
-| Act 1 (0..12s / Frame 180): Sovereign Monolith | Act 2 (12..25s / Frame 520): Lissajous Orbit & SVG Morph |
-|:---:|:---:|
-| **کارگردانی سینمایی ویدیو در تراز کلاد اوپوس ۵.۵**<br>Interactive cursor click triggering continuous 6-DOF flight | **سپهر کالیبراسیون و اعتبار نهایی**<br>Parametric Gold Lissajous curve with topology morphing |
-| **Act 3 (25..42s / Frame 950): 2.5D Isometric SaaS Console** | **Act 4 (42..60s / Frame 1450): 100% Sovereign Climax** |
-| **کنسول تله‌متری و تحلیل فضایی اسکیل**<br>3D tilted glass console with real-time parametric waveform stream | **استاندارد کیفی طلایی (۱۰۰٪)**<br>Receding dual-card spatial perspective with luminous circular gauge |
-
-* **Video Master:** `renders/claude/SKILL_INTRO_SHOWREEL.mp4` (60.0s, 1080p, 30 FPS)
-* **Visual Contact Sheet:** `renders/claude/SKILL_INTRO_CONTACT_SHEET.png`
-* **Audio Architecture:** 124 BPM syncopated beat grid + Google Gemini Audio Narration (Voice `Puck`, `gemini-3.8-flash-tts` / `gemini-3.8-flash-lite-tts`) + 6 beat-aligned SFX (`whoosh`, `sub_drop`, `laser`, `lock`).
-* **Multi-Style Evolution:** Act 1 Modern Glassmorphism $\to$ Act 2 Stop-Motion Paper Cutout (12 FPS feel) $\to$ Act 3 Technical Blueprint $\to$ Act 4 Neo-Brutalist Gold Climax.
+### 6. Multi-Style Visual World Evolution
+- **Gate 0.6 Multi-Style Paradigm:** Supports act-by-act transformation across:
+  - `MODERN_GLASSMORPHIC`: Frosted glass (`backdropFilter: blur(24px)`), dynamic specular highlights, and spring physics.
+  - `STOP_MOTION_PAPER`: Tactile paper cutout collage, 12 FPS stepped motion, and kraft tape accents.
+  - `TECHNICAL_BLUEPRINT`: Engineering CAD drafting grid, cyan isometric calipers, and monospace telemetry metrics.
+  - `NEO_BRUTALIST`: High-voltage poster punch, thick black borders (`4px solid #000`), hard offset drop shadows (`14px 14px 0px #000`), and acid yellow accents.
 
 ---
 
-### 2. Flagship Persian Showreel: `ClaudePersianShowreel` (450 Frames / 15.0s @ 30 FPS)
-
-A master 15-second benchmark authored in Persian, featuring real SVG path morphing, continuous camera flight, live telemetry charting, and dual-wing calibration climax.
-
-![Claude Persian Contact Sheet](renders/claude/CLAUDE_PERSIAN_CONTACT_SHEET.png)
-
-* **Video Output:** `renders/claude/CLAUDE_PERSIAN_SHOWREEL.mp4` (6.2 MB)
-* **Contact Sheet:** `renders/claude/CLAUDE_PERSIAN_CONTACT_SHEET.png`
-
----
-
-## 🎨 Mandatory Gate 0.5: Color Palette Selection Doctrine
-
-To eliminate arbitrary aesthetic drift, the skill strictly enforces **Gate 0.5** immediately following voice persona selection:
-1. **Curated Recommendations:** Proposes exactly **3 tailored 5-color palettes** harmonized with the video's subject matter:
-   - *Palette 1:* Domain-Specific Primary (e.g. Deep Emerald & Cyber Gold for sovereign tech/scientific excellence).
-   - *Palette 2:* High-Contrast Modern Minimalist / Neo-Tokyo Cyberpunk.
-   - *Palette 3:* Warm Cinematic Heritage / Organic Editorial.
-2. **Custom Write-In Option:** Provides an explicit custom option for custom client brand colors.
-3. **Execution Freeze:** The agent is strictly prohibited from writing or scaffolding Remotion visual components until the user confirms the palette.
-
----
-
-## 🖌️ Mandatory Gate 0.6: Art Direction & Multi-Style Selection Doctrine
-
-To break free from uniform flat designs and enable rich visual expression, **Gate 0.6** enforces explicit art style selection:
-1. **5 Approved Art Style Paradigms:**
-   - **`MODERN_GLASSMORPHIC`:** Frosted glass (`backdropFilter: blur(20px)`), 3D perspective, luminous borders, and smooth spring physics.
-   - **`STOP_MOTION_PAPER`:** Tactile paper cutout collage, stepped 12 FPS judder, paper fiber textures, rough cut edges, and layered paper shadows.
-   - **`PAINTERLY_WATERCOLOR`:** Expressive organic editorial, halftone stipple dot patterns, watercolor ink bleed washes, and soft textured edges.
-   - **`TECHNICAL_BLUEPRINT`:** Rigorous engineering precision, CAD drafting grid, cyan isometric calipers, monospace telemetry guides, and crosshair corners.
-   - **`NEO_BRUTALIST`:** High-voltage poster punch, thick black outlines (`3.5px solid #000`), un-blurred offset drop shadows (`7px 7px 0px #000`), and acid yellow accents.
-2. **Flexible Assignment:** Supports both single-style global deployment and **Act-by-Act Dynamic Evolution** where each narrative act embodies a distinct visual discipline.
-3. **Full Atmospheric Derivation Engine (`AtmosphereThemeDeriver.ts`):** Guarantees that the base background gradient, radial glows, perspective grid, particle bokeh, and card glows adapt 100% harmoniously to the chosen palette and art style, preventing ambient color mismatches.
-
----
-
-## 📁 Repository & Architecture Structure
+## 📁 Repository Structure
 
 ```text
-├── .agents/skills/cinematic-motion-director/  # WORKSPACE AGENT SKILL SPECIFICATION
+├── .agents/skills/cinematic-motion-director/  # WORKSPACE AGENT SKILL
 │   ├── SKILL.md                               # Authoritative Production Doctrine
-│   ├── references/                            # Deep Architectural Guides & Rules
-│   │   ├── claude-fluid-continuity.md         # Claude Opus 5.5 Reverse-Engineering Secret
-│   │   ├── claude-opus-prompt-catalog.md      # Primary Prompt Analysis & Catalog
-│   │   ├── motion-doctrine.md                 # Physical Causality & Mass Conservation
-│   │   ├── anti-slideshow.md                  # S1-S8 Anti-Slideshow Hard Gates
-│   │   └── voice-doctrine.md                  # Persian Voiceover & TTS Discipline
-│   └── template/                              # Scaffold Templates for New Projects
+│   └── references/                            # Motion Doctrine & Anti-Slideshow Rules
 │
 ├── public/                                    # STATIC ASSETS
 │   ├── fonts/YekanBakh/                       # 8 Official Yekan Bakh WOFF2 Weights
-│   ├── audio/                                 # Broadcast Audio Masters & Stems
-│   └── music/                                 # Cinematic Ambient Backing Tracks
+│   ├── audio/                                 # Synthesized Speech Audio Segments
+│   └── music/                                 # 124 BPM Studio Backing Tracks
 │
-├── src/                                       # SOURCE IMPLEMENTATION
-│   ├── fonts/yekanBakh.ts                     # Remotion Font Loader for Yekan Bakh
+├── src/                                       # SOURCE CODE
+│   ├── fonts/yekanBakh.ts                     # Remotion Font Loader
 │   ├── typography/persianSanitizer.ts         # Dual-Representation Text Sanitizer
 │   ├── motion/
 │   │   ├── recipes/
-│   │   │   └── PersianVectorMorphRecipe.tsx   # Continuous SVG Path Morphing Engine
+│   │   │   └── PersianVectorMorphRecipe.tsx   # SVG Path Morphing Recipe
+│   │   ├── library/
+│   │   │   ├── NewtonianAttractorSwarm.tsx    # Gravitational Particle Swarm Engine
+│   │   │   ├── KineticDataViz.tsx             # Studio Bar Charts & Live Telemetry
+│   │   │   ├── DynamicFresnelSweep.tsx        # Specular Angle-Driven Light Sweep
+│   │   │   └── OrganicLiquidGooey.tsx         # Viscous Button Squash & Droplets
 │   │   ├── claude/
-│   │   │   ├── SkillIntroShowreel.tsx         # 60s Official Skill Intro Showreel (1800 frames)
-│   │   │   ├── ClaudePersianShowreel.tsx      # Master Persian One-Take Composition
-│   │   │   ├── ClaudeFluidShowreel.tsx        # 6-DOF Virtual Camera Masterpiece
-│   │   │   └── ClaudeOpusShowreel.tsx         # Dribbble Morph & SaaS Climax
-│   │   ├── compiler/                          # MotionSceneGraph & AST Compilers
-│   │   ├── visual_world/                      # Material, Lighting & Depth Adapters
-│   │   │   ├── colorPaletteGate.ts            # Mandatory Gate 0.5 Color Palette Selector
-│   │   │   ├── artStyleGate.ts                # Mandatory Gate 0.6 Art Direction & Multi-Style Selector
-│   │   │   └── AtmosphereThemeDeriver.ts      # Full-Atmosphere Color & Theme Harmonization Engine
-│   │   └── validation/                        # Automated Anti-Bypass Validators
+│   │   │   ├── SkillIntroShowreel.tsx         # 60s Master Showreel (1800 Frames)
+│   │   │   └── ClaudePersianShowreel.tsx      # 15s Persian Showcase
+│   │   └── audio/
+│   │       └── SemanticMusicDirector.ts       # Beat Grid & Audio Envelope
 │   └── Root.tsx                               # Remotion Composition Registry
 │
-├── renders/claude/                            # RENDERED BENCHMARK OUTPUTS
-│   ├── SKILL_INTRO_SHOWREEL.mp4               # Official 60s Skill Intro Master (1080p)
-│   ├── SKILL_INTRO_CONTACT_SHEET.png          # 4-Act Contact Sheet for 60s Intro
-│   ├── CLAUDE_PERSIAN_SHOWREEL.mp4            # Flagship Persian Master Video (6.2 MB)
-│   ├── CLAUDE_PERSIAN_CONTACT_SHEET.png       # 4-Panel Contact Sheet
-│   └── persian_act{1..4}_f*.png               # Diagnostic Stills
+├── renders/claude/                            # RENDER OUTPUTS
+│   ├── SKILL_INTRO_SHOWREEL.mp4               # 60s 1080p Master Video
+│   └── SKILL_INTRO_CONTACT_SHEET.png          # 4-Act Contact Sheet
 │
-└── tests/                                     # AUTOMATED REGRESSION SUITE
-    └── test_cinematic_benchmark.ts            # Full System Audit & Anti-Bypass Tests
+└── tests/                                     # AUDIT & TEST SUITE
+    └── test_zero_to_video.ts                  # Automated Regression Tests
 ```
 
 ---
 
-## 🚀 Quickstart & Rendering Commands
+## 🚀 Quickstart & Commands
 
-### 1. Launch Interactive Studio
 ```bash
+# 1. Install dependencies
+npm install
+
+# 2. Launch interactive Remotion Studio
 npm start
-# Opens Remotion Studio at http://localhost:3000
-```
 
-### 2. Render Official 60-Second Skill Intro Showreel (1800 Frames / 60.0s @ 30 FPS)
-```bash
-npx remotion render src/index.ts SkillIntroShowreel renders/claude/SKILL_INTRO_SHOWREEL.mp4
-```
+# 3. Render 60-Second Master Video
+npx remotion render SkillIntroShowreel renders/claude/SKILL_INTRO_SHOWREEL.mp4 --gl=angle
 
-### 3. Render Persian Showreel Master Video (450 Frames / 15.0s @ 30 FPS)
-```bash
-npx remotion render src/index.ts ClaudePersianShowreel renders/claude/CLAUDE_PERSIAN_SHOWREEL.mp4
-```
+# 4. Generate Key Diagnostic Still
+npx remotion still SkillIntroShowreel out/debug_f870.png --frame=870 --gl=angle
 
-### 3. Render Diagnostic Stills
-```bash
-# Render Act 1 Hero Still
-npx remotion still src/index.ts ClaudePersianShowreel renders/claude/persian_act1_f50.png --frame=50
-
-# Render Act 2 Vector Morph Still
-npx remotion still src/index.ts ClaudePersianShowreel renders/claude/persian_act2_f140.png --frame=140
-
-# Render Act 4 Dual-Wing Climax Still
-npx remotion still src/index.ts ClaudePersianShowreel renders/claude/persian_act4_f410.png --frame=410
-```
-
-### 4. Run TypeScript Check
-```bash
+# 5. Run TypeScript Check
 npx tsc --noEmit
 ```
 
-### 5. Run Full Cinematic Benchmark & Global Skill Verification
-```bash
-# Verify cinematic motion causality and anti-bypass gates
-npx tsx tests/test_cinematic_benchmark.ts
+---
 
-# Verify global skill synchronization with Antigravity
-npx tsx scripts/verify_global_skill.ts
+# 🇮🇷 فارسی
+
+## 🌟 معرفی پروژه
+
+**اسکیل موشن‌گرافیک سینمایی (Cinematic Motion Director)** یک سیستم پیشرفته و خودکار برای کارگردانی و تولید ویدیوهای موشن‌گرافیک سینمایی است که بر پایه فریم‌ورک **Remotion** و هوش مصنوعی **Google Antigravity** توسعه یافته است.
+
+این سامانه با هدف بازتولید و ارتقای کیفیت موشن‌گرافیک‌های مشهور **Claude Opus 5.5** طراحی شده است تا پویایی بصری فوق‌العاده، مورفینگ پیوسته برداری، و پرواز پیوسته دوربین سه‌بعدی را با پشتیبانی کامل از **تایپوگرافی اصیل فارسی (یکان بخ)** و استانداردهای راست‌به‌چپ (RTL) ارائه دهد.
+
+### 🚫 رهایی از تله اسلایدشو (Anti-Slideshow)
+در اکثر ابزارهای تولید ویدیوی هوش مصنوعی، نتیجه نهایی به یک «اسلایدشو متحرک» تبدیل می‌شود که در آن کادرها صرفاً محو شده یا جایگزین می‌شوند. 
+
+این سیستم این مشکل را از طریق **صحنه فضایی یکپارچه بدون برش (One-Take)**، **حرکت پیوسته دوربین با ۶ درجه آزادی**، و **مورفینگ واقعی مسیرهای برداری SVG** به طور کامل ریشه‌کن کرده است.
+
+---
+
+## 💎 ارکان شش‌گانه معماری پروژه
+
+### ۱. مورفینگ پیوسته مسیرهای برداری (`@remotion/paths`)
+- **ممنوعیت تغییر اندازه جعبه:** تغییر سایز ساده `div` هرگز به عنوان مورف پذیرفته نمی‌شود.
+- **مورفینگ بزیه ریاضی:** با استفاده از کتابخانه `@remotion/paths` و تابع `interpolatePath`، بردارها در طول زمان با تقارن ریاضی بدون خروج از کادر یا گسستگی به یکدیگر تبدیل می‌شوند:
+  $$\text{نشان ستاره علمی} \xrightarrow{\text{مورف}} \text{شبکه سیناپسی هوش مصنوعی} \xrightarrow{\text{مورف}} \text{امواج تله‌متری} \xrightarrow{\text{مورف}} \text{سپر کالیبراسیون}$$
+
+### ۲. پرواز پیوسته دوربین تک‌پلان با ۶ درجه آزادی (6-DOF)
+- **جهان فضایی نامحدود:** حذف کامل کات یا ترنزیشن‌های محوشونده؛ تمام پرده‌ها در یک فضای مختصات سه‌بعدی مداوم (`perspective: 1200`) مستقر هستند.
+- **حرکت سینمایی هدفمند:** چرخش‌های نرم دوربین با شیب و زاویه ایزومتریک ۲.۵ بعدی (`Pitch: -1.8°`, `Yaw: 2.2°`)، چرخش بنکینگ در حین جابجایی (`Roll: ±3.5°`)، و فیلتر تاری و اسکیو سرعت در تغییر پرده‌ها.
+
+### ۳. فیزیک ذرات جاذبه‌ای نیوتنی (Newtonian Vector Attractor)
+- **گرداب مداری گرانشی:** محاسبه آنی جاذبه ذرات بر اساس فاصله معکوس حول هسته‌های برداری فعال.
+- **توزیع ملایم و چشم‌نواز:** کاهش تراکم به ۱۸ تا ۲۰ ذره در هر پرده با درخشش ملایم (شفافیت ۰.۱۸)، پالس تنفسی هماهنگ با بیت موسیقی، و دافعه انفجاری در هنگام کلیک نشانگر ماوس.
+
+### ۴. سامانه استاندارد تایپوگرافی فارسی (یکان بخ)
+- **۸ وزن رسمی یکان بخ:** لود کامل فونت‌ها از فرمت استاندارد WOFF2 (`Thin`, `Light`, `Regular`, `SemiBold`, `Bold`, `ExtraBold`, `Black`, `ExtraBlack`).
+- **پالایشگر هوشمند دونمایه‌ای:** حذف اعراب و نشانه‌های نامطلوب در لایه بصری ضمن حفظ خوانش صحیح فونتیک در گویندگی صوتی.
+- **حذف پرش ساب‌پیکسلی:** قفل شدن مختصات متون روی پیکسل‌های صحیح (`Math.round`) همراه با شتاب‌دهی سخت‌افزاری پردازنده گرافیکی.
+
+### ۵. تنظیم استودیویی صدا و ضرب‌آهنگ (124 BPM)
+- **شبکه ضرب‌آهنگ کوانتایز شده:** تراز شدن تمام رویدادها، کلیک‌ها و ورود المان‌ها با ضرب‌های دقیق موسیقی (ضرب کامل، چنگ و دولاچنگ).
+- **پالس نرم و طبیعی:** کاهش ۷۰ درصدی دامنه لرزش کادرها به پالس ظریف (+۰.۲٪ تا +۰.۴۵٪) برای ایجاد تنفس ارگانیک بدون لرزش شدید کادرها.
+- **داکینگ خودکار موسیقی:** کاهش خودکار صدای پس‌زمینه از ۳۲٪ به ۱۶٪ در زمان پخش صدای گوینده.
+
+### ۶. تکامل چندسبکی پرده‌ها (Multi-Style Evolution)
+- **سبک‌های بصری پیاده‌سازی شده:**
+  - **گلاسمورفیسم مدرن:** شیشه مات (`backdropFilter: blur(24px)`)، انعکاس متحرک نور فرسنل و فیزیک فنری.
+  - **استاپ‌موشن کاغذ:** بافت فیبر مقوا، پرش ریتمیک ۱۲ فریم بر ثانیه و چسب کرافت فیزیکی.
+  - **بلوپرینت فنی:** خط‌کش‌های میلی‌متری CAD، خطوط شبکه‌ای فیروزه‌ای و پایش تله‌متری مهندسی.
+  - **نئوبروتالیسم:** کادرهای ضخیم مشکی (`4px solid #000`)، سایه‌های سخت زاویه‌دار و نشان کالیبراسیون ۱۰۰٪ طلایی.
+
+---
+
+## 🚀 راهنمای اجرا و رندرینگ
+
+```bash
+# ۱. نصب پکیج‌ها
+npm install
+
+# ۲. اجرای محیط تعاملی Remotion Studio
+npm start
+
+# ۳. رندر ویدیوی مستر ۶۰ ثانیه‌ای
+npx remotion render SkillIntroShowreel renders/claude/SKILL_INTRO_SHOWREEL.mp4 --gl=angle
+
+# ۴. رندر تک‌فریم تشخیصی
+npx remotion still SkillIntroShowreel out/debug_f870.png --frame=870 --gl=angle
+
+# ۵. بررسی کامل انواع با TypeScript
+npx tsc --noEmit
 ```
 
 ---
 
-## 🛡 Mandatory Pre-Flight Checklist
-
-Before any production composition is submitted, the pipeline enforces:
-- [x] Unbroken 3D/2.5D coordinate world with zero slideshow wipes or cuts.
-- [x] Primary morphing driven by `@remotion/paths`'s `interpolatePath` between genuine vector topologies.
-- [x] Continuous 6-DOF camera maneuvers with motivated translation and banking rolls.
-- [x] Persistent living energy conduit guiding narrative focus across all transitions.
-- [x] Persian typography locked to official **Yekan Bakh** with diacritic sanitization.
-- [x] All 8 narrative audit tests and 6 negative anti-bypass gates report **PASS**.
-- [x] Global skill at `~/.gemini/config/skills/cinematic-motion-director` 100% verified.
-
----
-
-## 📄 License
-Internal Production Skill — Medical Research Committee & Autonomous Cinematic Systems. All rights reserved.
+## 📄 License / مجوز
+MIT License — Autonomous AI Cinematic Motion Systems & Remotion Studio Architecture.
