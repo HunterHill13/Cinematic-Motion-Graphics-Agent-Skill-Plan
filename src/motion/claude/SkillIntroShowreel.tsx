@@ -107,28 +107,28 @@ export const SkillIntroShowreelContent: React.FC = () => {
   const camY = interpolate(
     frame,
     [0, 280, 370, 690, 780, 1190, 1280, 1800],
-    [0, 0, 10, 10, -20, -20, 0, 0],
+    [0, 0, 10, 10, -10, -10, 0, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
   const camZ = interpolate(
     frame,
     [0, 280, 370, 690, 780, 1190, 1280, 1800],
-    [0, 40, 60, 60, 40, 40, -80, -80],
+    [0, 40, 60, 60, 160, 160, -50, -50],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
   const camPitch = interpolate(
     frame,
     [0, 280, 370, 690, 780, 1190, 1280, 1800],
-    [0, 1.5, 4, 4, -8, -8, -2, -2],
+    [0, 1.5, 4, 4, -1.8, -1.8, -1.5, -1.5],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
   const camYaw = interpolate(
     frame,
     [0, 280, 370, 690, 780, 1190, 1280, 1800],
-    [0, 0, -3, -3, 10, 10, 0, 0],
+    [0, 0, -3, -3, 2.2, 2.2, 0, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
@@ -234,13 +234,13 @@ export const SkillIntroShowreelContent: React.FC = () => {
     config: { damping: 14, mass: 0.9, stiffness: 110 },
   });
 
-  // In Act 4 docked pavilion, Act 3 slides smoothly from X=3600 to X=3720 and scales to 0.70
-  const act3X = interpolate(frame, [1190, 1280], [3600, 3720], {
+  // In Act 4 docked pavilion, Act 3 slides smoothly from X=3600 to X=3949 and scales to 0.70
+  const act3X = interpolate(frame, [1190, 1280], [3600, 3949], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
     easing: Easing.inOut(Easing.cubic),
   });
-  const saasDockScale = interpolate(frame, [1190, 1280], [1.0, 0.70], {
+  const saasDockScale = interpolate(frame, [1190, 1280], [1.0, 0.68], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -458,6 +458,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
               <NewtonianAttractorSwarm
                 attractorX={0}
                 attractorY={180}
+                particleCount={20}
                 theme="MODERN_GLASSMORPHIC"
                 clickFrame={219}
                 beatPulse={scalePulse}
@@ -588,8 +589,9 @@ export const SkillIntroShowreelContent: React.FC = () => {
 
               {/* Newtonian Attractor Swarm orbiting SVG Morph Core */}
               <NewtonianAttractorSwarm
-                attractorX={1800 - 320}
+                attractorX={-320}
                 attractorY={30}
+                particleCount={20}
                 theme="STOP_MOTION_PAPER"
                 beatPulse={scalePulse}
               />
@@ -603,8 +605,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
             <div
               style={{
                 position: 'absolute',
-                width: 1360,
-                height: 680,
+                width: 1540,
+                height: 740,
                 opacity: act3Entrance * act3DistanceOpacity,
                 transform: `translate3d(${act3X}px, 0px, 60px) scale(${saasDockScale})`,
                 direction: 'rtl',
@@ -631,8 +633,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 }}
               >
                 <span>|◀ 0.00 mm</span>
-                <span>◀────────────── CAD DIMENSION: 1360.00 mm (ISOMETRIC PROJECTION) ──────────────▶</span>
-                <span>1360.00 mm ▶|</span>
+                <span>◀────────────── CAD DIMENSION: 1540.00 mm (ISOMETRIC PROJECTION) ──────────────▶</span>
+                <span>1540.00 mm ▶|</span>
               </div>
 
               {/* Blueprint Window Container */}
@@ -677,9 +679,9 @@ export const SkillIntroShowreelContent: React.FC = () => {
                     <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ef4444' }} />
                     <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#f59e0b' }} />
                     <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#06b6d4' }} />
-                    <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#38bdf8', marginRight: 12 }}>[CAD_DRAWING: REV 5.5]</span>
+                    <span style={{ fontSize: 13, fontFamily: 'monospace', color: '#38bdf8', marginRight: 12 }}>[CAD_DRAWING: REV 5.5]</span>
                   </div>
-                  <div style={{ fontSize: 16, fontWeight: 800, color: '#f0fdfa', letterSpacing: '0.02em' }}>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: '#f0fdfa', letterSpacing: '0.02em' }}>
                     {sanitizeForDisplay('کنسول تله‌متری و تحلیل فضایی (نقشه فنی بلوپرینت)')}
                   </div>
                   <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 10px #06b6d4' }} />
@@ -691,7 +693,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   <div style={{ flex: 1.15, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div
                       style={{
-                        height: 290,
+                        height: 305,
                         background: 'rgba(2, 14, 26, 0.85)',
                         borderRadius: 6,
                         border: '1px solid rgba(6, 182, 212, 0.35)',
@@ -703,7 +705,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                       }}
                     >
                       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                        <span style={{ fontSize: 13, color: '#38bdf8', fontFamily: 'monospace' }}>+ CAD BENCHMARK TELEMETRY</span>
+                        <span style={{ fontSize: 14, color: '#38bdf8', fontFamily: 'monospace' }}>+ CAD BENCHMARK TELEMETRY</span>
                         <KineticMetricCounter
                           value={99.8}
                           decimals={1}
@@ -711,7 +713,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                           suffix="٪"
                           startFrame={750}
                           durationFrames={40}
-                          fontSize={20}
+                          fontSize={24}
                           color="#38bdf8"
                           artStyle="TECHNICAL_BLUEPRINT"
                         />
@@ -726,7 +728,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                         ]}
                         startFrame={750}
                         staggerFrames={5}
-                        height={170}
+                        height={180}
                         artStyle="TECHNICAL_BLUEPRINT"
                         direction="rtl"
                       />
@@ -744,10 +746,10 @@ export const SkillIntroShowreelContent: React.FC = () => {
                         alignItems: 'center',
                       }}
                     >
-                      <span style={{ fontSize: 16, color: '#cbd5e1', fontWeight: 600 }}>
+                      <span style={{ fontSize: 17, color: '#cbd5e1', fontWeight: 600 }}>
                         {sanitizeForDisplay('وضعیت سیستم: آماده‌باش تولید سینمایی')}
                       </span>
-                      <span style={{ fontSize: 15, color: '#06b6d4', fontWeight: 800 }}>
+                      <span style={{ fontSize: 16, color: '#06b6d4', fontWeight: 800 }}>
                         ● پایدار
                       </span>
                     </div>
@@ -763,11 +765,11 @@ export const SkillIntroShowreelContent: React.FC = () => {
                         border: '1px solid rgba(6, 182, 212, 0.3)',
                       }}
                     >
-                      <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>موتور صوتی استودیویی</div>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
+                      <div style={{ fontSize: 14, color: '#38bdf8', fontWeight: 600 }}>موتور صوتی استودیویی</div>
+                      <div style={{ fontSize: 20, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
                         {sanitizeForDisplay('قفل ضرب‌آهنگ (Beat-Grid)')}
                       </div>
-                      <div style={{ fontSize: 15, color: '#f59e0b', marginTop: 6, fontWeight: 700 }}>
+                      <div style={{ fontSize: 16, color: '#f59e0b', marginTop: 6, fontWeight: 700 }}>
                         تمپو: ۱۲۴ BPM
                       </div>
                     </div>
@@ -780,11 +782,11 @@ export const SkillIntroShowreelContent: React.FC = () => {
                         border: '1px solid rgba(6, 182, 212, 0.3)',
                       }}
                     >
-                      <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>فونت رسمی فارسی</div>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
+                      <div style={{ fontSize: 14, color: '#38bdf8', fontWeight: 600 }}>فونت رسمی فارسی</div>
+                      <div style={{ fontSize: 20, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
                         {sanitizeForDisplay('یکان بخ نسخه طلایی')}
                       </div>
-                      <div style={{ fontSize: 15, color: '#06b6d4', marginTop: 6, fontWeight: 700 }}>
+                      <div style={{ fontSize: 16, color: '#06b6d4', marginTop: 6, fontWeight: 700 }}>
                         تایپوگرافی اصیل و بدون پرش
                       </div>
                     </div>
@@ -797,11 +799,11 @@ export const SkillIntroShowreelContent: React.FC = () => {
                         border: '1px solid rgba(6, 182, 212, 0.3)',
                       }}
                     >
-                      <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>پیوستگی جهان سینمایی</div>
-                      <div style={{ fontSize: 18, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
+                      <div style={{ fontSize: 14, color: '#38bdf8', fontWeight: 600 }}>پیوستگی جهان سینمایی</div>
+                      <div style={{ fontSize: 20, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
                         {sanitizeForDisplay('تک‌پلان بدون کات (One-Take)')}
                       </div>
-                      <div style={{ fontSize: 15, color: '#38bdf8', marginTop: 6, fontWeight: 700 }}>
+                      <div style={{ fontSize: 16, color: '#38bdf8', marginTop: 6, fontWeight: 700 }}>
                         جریان ممتد فوکوس
                       </div>
                     </div>
@@ -821,16 +823,25 @@ export const SkillIntroShowreelContent: React.FC = () => {
                     opacity: 0.85,
                   }}
                 >
-                  <svg width="100%" height="32" viewBox="0 0 1300 32">
-                    <ParametricWaveformStream x={0} y={16} width={1300} amplitude={10} color="#06b6d4" />
+                  <svg width="100%" height="32" viewBox="0 0 1480 32">
+                    <ParametricWaveformStream x={0} y={16} width={1480} amplitude={10} color="#06b6d4" />
                   </svg>
                 </div>
               </div>
+
+              {/* Newtonian Attractor Swarm in Technical Blueprint Cyan/Azure */}
+              <NewtonianAttractorSwarm
+                attractorX={-280}
+                attractorY={-20}
+                particleCount={20}
+                theme="TECHNICAL_BLUEPRINT"
+                beatPulse={scalePulse}
+              />
             </div>
           )}
 
           {/* ================================================================= */}
-          {/* ACT 4: NEO-BRUTALIST GRAPHIC POSTER & CALIBRATION (X = 4480)      */}
+          {/* ACT 4: NEO-BRUTALIST GRAPHIC POSTER & CALIBRATION (X = 4754)      */}
           {/* ================================================================= */}
           {act4Visible && (
             <div
@@ -839,7 +850,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 width: 520,
                 height: 640,
                 opacity: act4Spring,
-                transform: `translate3d(4480px, 0px, 60px) scale(${act4Spring * 0.85})`,
+                transform: `translate3d(4754px, 0px, 60px) scale(${act4Spring * 0.85})`,
                 background: '#ffffff',
                 borderRadius: 14,
                 border: '4px solid #000000',
@@ -955,8 +966,9 @@ export const SkillIntroShowreelContent: React.FC = () => {
 
               {/* Newtonian Attractor Swarm in Neo-Brutalist High Voltage */}
               <NewtonianAttractorSwarm
-                attractorX={4480}
-                attractorY={-50}
+                attractorX={0}
+                attractorY={-40}
+                particleCount={18}
                 theme="NEO_BRUTALIST"
                 beatPulse={scalePulse}
               />

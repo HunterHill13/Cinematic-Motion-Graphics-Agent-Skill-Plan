@@ -128,12 +128,14 @@ export const KineticBarChart: React.FC<KineticBarChartProps> = ({
             {/* Value Label on Top */}
             <span
               style={{
-                fontSize: 12,
+                fontSize: 13,
                 fontWeight: 800,
                 color: '#ecfdf5',
                 marginBottom: 6,
                 fontFamily: 'monospace',
                 opacity: s > 0.1 ? 1 : 0,
+                direction: 'ltr',
+                unicodeBidi: 'embed',
               }}
             >
               {rollingValue}{item.unit || ''}
@@ -170,9 +172,9 @@ export const KineticBarChart: React.FC<KineticBarChartProps> = ({
             {/* Category Label */}
             <span
               style={{
-                fontSize: 11,
-                fontWeight: 700,
-                color: '#94a3b8',
+                fontSize: 13,
+                fontWeight: 800,
+                color: '#cbd5e1',
                 marginTop: 8,
                 textAlign: 'center',
                 whiteSpace: 'nowrap',
@@ -371,6 +373,8 @@ export const KineticMetricCounter: React.FC<KineticMetricCounterProps> = ({
           fontFamily: 'monospace',
           letterSpacing: '-0.02em',
           lineHeight: 1.1,
+          direction: 'ltr',
+          unicodeBidi: 'embed',
         }}
       >
         {prefix}{currentValue}{suffix}

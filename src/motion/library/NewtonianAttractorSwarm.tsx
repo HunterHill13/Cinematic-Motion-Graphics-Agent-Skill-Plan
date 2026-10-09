@@ -44,7 +44,7 @@ export const NewtonianAttractorSwarm: React.FC<NewtonianAttractorSwarmProps> = (
   attractorX,
   attractorY,
   attractorZ = 0,
-  particleCount = 70,
+  particleCount = 24,
   theme = 'MODERN_GLASSMORPHIC',
   clickFrame = 219,
   beatPulse = 1.0,
@@ -52,7 +52,7 @@ export const NewtonianAttractorSwarm: React.FC<NewtonianAttractorSwarmProps> = (
 }) => {
   const frame = useCurrentFrame();
 
-  // Deterministic seed generation
+  // Deterministic seed generation for airy, sparse particle distribution
   const particles: AttractorParticle[] = useMemo(() => {
     const list: AttractorParticle[] = [];
     for (let i = 0; i < particleCount; i++) {
@@ -66,13 +66,13 @@ export const NewtonianAttractorSwarm: React.FC<NewtonianAttractorSwarmProps> = (
 
       list.push({
         id: i,
-        initialRadius: 80 + rand1 * 260,
+        initialRadius: 120 + rand1 * 340,
         initialAngle: rand2 * Math.PI * 2,
-        angularVelocity: (0.015 + rand3 * 0.035) * (i % 2 === 0 ? 1 : -1),
-        size: 2.5 + rand1 * 3.5,
+        angularVelocity: (0.012 + rand3 * 0.025) * (i % 2 === 0 ? 1 : -1),
+        size: 1.8 + rand1 * 2.2,
         zOffset: (rand2 - 0.5) * 80,
         colorIndex: Math.floor(rand3 * 4),
-        eccentricity: 0.8 + rand2 * 0.4,
+        eccentricity: 0.85 + rand2 * 0.35,
       });
     }
     return list;
@@ -84,7 +84,7 @@ export const NewtonianAttractorSwarm: React.FC<NewtonianAttractorSwarmProps> = (
   let clickRepulsion = 0;
   if (clickFrame > 0 && frame >= clickFrame && frame <= clickFrame + 30) {
     const clickRel = frame - clickFrame;
-    clickRepulsion = interpolate(clickRel, [0, 8, 30], [0, 180, 0], {
+    clickRepulsion = interpolate(clickRel, [0, 8, 30], [0, 160, 0], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
@@ -110,13 +110,13 @@ export const NewtonianAttractorSwarm: React.FC<NewtonianAttractorSwarmProps> = (
       }}
     >
       <svg
-        width={800}
-        height={800}
-        viewBox="-400 -400 800 800"
+        width={900}
+        height={900}
+        viewBox="-450 -450 900 900"
         style={{
           position: 'absolute',
-          left: -400,
-          top: -400,
+          left: -450,
+          top: -450,
           overflow: 'visible',
         }}
       >
@@ -125,27 +125,27 @@ export const NewtonianAttractorSwarm: React.FC<NewtonianAttractorSwarmProps> = (
           const currentAngle = p.initialAngle + p.angularVelocity * frame;
           
           // Radius modulation with beat breathing and click shockwave
-          const currentRadius = (p.initialRadius * (0.95 + beatPulse * 0.08) + clickRepulsion) * p.eccentricity;
+          const currentRadius = (p.initialRadius * (0.97 + beatPulse * 0.05) + clickRepulsion) * p.eccentricity;
           
           const x = Math.cos(currentAngle) * currentRadius;
           const y = Math.sin(currentAngle) * currentRadius * 0.65; // Elliptical inclination
           const color = palette[p.colorIndex % palette.length];
-          const opacity = interpolate(currentRadius, [40, 200, 380], [0.9, 0.7, 0.1], {
+          const opacity = interpolate(currentRadius, [80, 220, 440], [0.8, 0.55, 0.0], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
           });
 
           return (
             <g key={p.id}>
-              {/* Particle glow ring */}
+              {/* Soft subtle glow ring */}
               <circle
                 cx={x}
                 cy={y}
-                r={p.size * 1.8}
+                r={p.size * 2.2}
                 fill={color}
-                opacity={opacity * 0.25}
+                opacity={opacity * 0.18}
               />
-              {/* Core particle */}
+              {/* Delicate particle core */}
               <circle
                 cx={x}
                 cy={y}
