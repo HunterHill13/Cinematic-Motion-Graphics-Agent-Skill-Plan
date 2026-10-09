@@ -34,6 +34,7 @@ import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer'
 import { KineticBarChart, KineticMetricCounter } from '../library/KineticDataViz';
 import { LiquidButtonSquash } from '../library/OrganicLiquidGooey';
 import { NewtonianAttractorSwarm } from '../library/NewtonianAttractorSwarm';
+import { UniversalCameraRig } from '../camera/UniversalCameraRig';
 import { VideoManifest, ZeroToVideoCompiler } from '../../compiler/ZeroToVideoCompiler';
 
 if (typeof window !== 'undefined') {
@@ -71,67 +72,23 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
   // Beat Quantization & Pacing
   const beatPulse = calculateBeatPulse(frame, 124, fps);
 
-  // 6-DOF Spline Camera Motion
-  const camX = interpolate(
-    frame,
-    [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-    [
-      manifest.cameraKeyframes.act1X,
-      manifest.cameraKeyframes.act1X,
-      manifest.cameraKeyframes.act2X,
-      manifest.cameraKeyframes.act2X,
-      manifest.cameraKeyframes.act3X,
-      manifest.cameraKeyframes.act3X,
-      manifest.cameraKeyframes.act4X,
-      manifest.cameraKeyframes.dockX,
-      manifest.cameraKeyframes.dockX,
-    ],
-    {
-      extrapolateLeft: 'clamp',
-      extrapolateRight: 'clamp',
-      easing: Easing.bezier(0.25, 0.1, 0.25, 1),
-    }
-  );
+  // 6-DOF Multi-Trajectory Camera System (Universal Camera Rig)
+  const trajectoryDef = UniversalCameraRig.getTrajectory(manifest.cameraTrajectory || 'PANORAMIC_HORIZONTAL');
+  const cam = trajectoryDef.computeCamera(frame, manifest.meta.durationInFrames);
+  const { camX, camY, camZ, camPitch, camYaw, camRoll } = cam;
 
-  const camZ = interpolate(
-    frame,
-    [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-    [0, 0, 50, 50, 80, 80, 120, -180, -180],
-    {
-      extrapolateLeft: 'clamp',
-      extrapolateRight: 'clamp',
-      easing: Easing.bezier(0.4, 0, 0.2, 1),
-    }
-  );
+  const stages = manifest.stages3D || trajectoryDef.stages;
 
-  const camRoll = interpolate(
-    frame,
-    [270, 305, 340, 680, 715, 750, 1180, 1215, 1250],
-    [0, -2.5, 0, 0, 3.0, 0, 0, -2.0, 0],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-  );
+  // Dynamic Multi-Axis Stage Visibility & Depth Scale
+  const act1Vis = trajectoryDef.getStageVisibility(1, cam);
+  const act2Vis = trajectoryDef.getStageVisibility(2, cam);
+  const act3Vis = trajectoryDef.getStageVisibility(3, cam);
+  const act4Vis = trajectoryDef.getStageVisibility(4, cam);
 
-  const camPitch = interpolate(
-    frame,
-    [0, 270, 340, 750, 1250, 1800],
-    [1.5, 1.5, -1.0, 2.0, 0, 0],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-  );
-
-  const camYaw = interpolate(
-    frame,
-    [270, 340, 680, 750, 1180, 1250],
-    [0, 3.5, 0, -3.0, 0, 2.0],
-    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
-  );
-
-  const camY = Math.sin(frame * 0.05) * 4;
-
-  // Act Visibility
-  const act1Visible = camX < 800;
-  const act2Visible = camX > 600 && camX < 2400;
-  const act3Visible = camX > 2100 && camX < 3900;
-  const act4Visible = camX > 3200;
+  const act1Visible = act1Vis.visible;
+  const act2Visible = act2Vis.visible;
+  const act3Visible = act3Vis.visible;
+  const act4Visible = act4Vis.visible;
 
   // Spring entrances
   const act1HeroSpring = spring({ frame, fps, config: { damping: 14, stiffness: 90, mass: 1 } });
@@ -198,8 +155,8 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
             <div
               style={{
                 position: 'absolute',
-                transform: 'translate3d(0px, 0px, 0px)',
-                opacity: act1HeroSpring,
+                transform: `translate3d(${stages.act1.x}px, ${stages.act1.y}px, ${stages.act1.z}px) scale(${act1Vis.depthScale})`,
+                opacity: act1HeroSpring * act1Vis.opacity,
                 width: 1380,
                 height: 580,
                 borderRadius: 24,
@@ -305,7 +262,8 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
             <div
               style={{
                 position: 'absolute',
-                transform: `translate3d(1500px, 0px, 50px) rotate(${Math.sin(stopMotionFrame * 0.15) * 0.7}deg)`,
+                transform: `translate3d(${stages.act2.x}px, ${stages.act2.y}px, ${stages.act2.z}px) scale(${act2Vis.depthScale}) rotate(${Math.sin(stopMotionFrame * 0.15) * 0.7}deg)`,
+                opacity: act2Vis.opacity,
                 pointerEvents: 'none',
               }}
             >
@@ -367,7 +325,7 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
           )}
 
           {/* ================================================================= */}
-          {/* ACT 3: TECHNICAL BLUEPRINT CONSOLE (X = 3000)                     */}
+          {/* ACT 3: TECHNICAL BLUEPRINT CONSOLE */}
           {/* ================================================================= */}
           {act3Visible && (
             <div
@@ -375,8 +333,8 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
                 position: 'absolute',
                 width: 1360,
                 height: 680,
-                opacity: act3Entrance,
-                transform: `translate3d(3000px, 0px, 60px) scale(${saasDockScale})`,
+                opacity: act3Entrance * act3Vis.opacity,
+                transform: `translate3d(${stages.act3.x}px, ${stages.act3.y}px, ${stages.act3.z || 60}px) scale(${saasDockScale * act3Vis.depthScale})`,
                 direction: 'rtl',
               }}
             >
@@ -471,7 +429,7 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
           )}
 
           {/* ================================================================= */}
-          {/* ACT 4: NEO-BRUTALIST GRAPHIC POSTER & CALIBRATION (X = 4300)      */}
+          {/* ACT 4: NEO-BRUTALIST GRAPHIC POSTER & CALIBRATION */}
           {/* ================================================================= */}
           {act4Visible && (
             <div
@@ -479,8 +437,8 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
                 position: 'absolute',
                 width: 520,
                 height: 640,
-                opacity: act4Spring,
-                transform: `translate3d(4300px, 0px, 60px) scale(${act4Spring})`,
+                opacity: act4Spring * act4Vis.opacity,
+                transform: `translate3d(${stages.act4.x}px, ${stages.act4.y}px, ${stages.act4.z || 60}px) scale(${act4Spring * act4Vis.depthScale})`,
                 background: '#ffffff',
                 borderRadius: 14,
                 border: '4px solid #000000',

@@ -19,6 +19,8 @@
  */
 
 import { VectorShapeBlueprint, resolveVectorProgression, DYNAMIC_VECTOR_CATALOG } from '../motion/library/DynamicVectorCatalog';
+import { TemplateId, recommendTemplateForTopic, TEMPLATE_CATALOG } from '../motion/templates/TemplateCatalog';
+import { CameraTrajectoryMode, Stage3DPosition, UniversalCameraRig } from '../motion/camera/UniversalCameraRig';
 
 export interface KineticBarData {
   label: string;
@@ -57,6 +59,15 @@ export interface VideoManifest {
     bpm: number;
     canvasWidth: number;
     canvasHeight: number;
+  };
+  templateId: TemplateId;
+  cameraTrajectory: CameraTrajectoryMode;
+  stages3D: {
+    act1: Stage3DPosition;
+    act2: Stage3DPosition;
+    act3: Stage3DPosition;
+    act4: Stage3DPosition;
+    dock: Stage3DPosition;
   };
   audio: AudioManifest;
   act1: {
@@ -109,6 +120,8 @@ export interface CompilerInput {
   topic: string;
   customScript?: string;
   durationInSeconds?: number;
+  templateId?: TemplateId;
+  cameraTrajectory?: CameraTrajectoryMode;
 }
 
 export class ZeroToVideoCompiler {
@@ -204,9 +217,19 @@ export class ZeroToVideoCompiler {
     }
 
     // ------------------------------------------------------------------------
+    // Template & 6-DOF Multi-Trajectory Camera Resolution
+    // ------------------------------------------------------------------------
+    const recommended = recommendTemplateForTopic(topic);
+    const templateId = input.templateId || recommended.template.id;
+    const selectedTemplate = TEMPLATE_CATALOG[templateId] || recommended.template;
+    const cameraTrajectory = input.cameraTrajectory || selectedTemplate.recommendedCamera;
+
+    const trajectoryDef = UniversalCameraRig.getTrajectory(cameraTrajectory);
+
+    // ------------------------------------------------------------------------
     // Domain-Matched BGM Selection & Frame-Accurate Scenario SFX Matrix
     // ------------------------------------------------------------------------
-    let bgmFile = 'music/Tech_Live.mp3';
+    let bgmFile = selectedTemplate.defaultBgm;
     let bgmVolume = 0.75;
 
     if (isBiomedical) {
@@ -254,6 +277,9 @@ export class ZeroToVideoCompiler {
         canvasWidth: 1920,
         canvasHeight: 1080,
       },
+      templateId,
+      cameraTrajectory,
+      stages3D: trajectoryDef.stages,
       audio: {
         bgmFile,
         bgmVolume,
@@ -302,11 +328,11 @@ export class ZeroToVideoCompiler {
         verifiedPillText: 'تأییدیه استاندارد طلایی استودیو',
       },
       cameraKeyframes: {
-        act1X: 0,
-        act2X: 1500,
-        act3X: 3000,
-        act4X: 4300,
-        dockX: 3650,
+        act1X: trajectoryDef.stages.act1.x,
+        act2X: trajectoryDef.stages.act2.x,
+        act3X: trajectoryDef.stages.act3.x,
+        act4X: trajectoryDef.stages.act4.x,
+        dockX: trajectoryDef.stages.dock.x,
       },
     };
   }
