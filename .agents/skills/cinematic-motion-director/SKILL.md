@@ -1,6 +1,6 @@
 ---
 name: cinematic-motion-director
-description: "AI Cinematic Video Production Pipeline: Universal Semantic Beat Mapping, VisualStateGraph Transformation Planning, Anti-Slideshow Enforcement, Element Budgeting, Mandatory User Voice Selection, ElevenLabs Persian TTS Synthesis (Kaveh/Roya), Motivated Camera Grammar, Zero-Subpixel-Jitter Typography, and Blind Adversarial Quality Review for Remotion/React."
+description: "AI Cinematic Video Production Pipeline: Universal Semantic Beat Mapping, VisualStateGraph Transformation Planning, Anti-Slideshow Enforcement, Element Budgeting, Mandatory User Voice Selection, Two-Stage Persian TTS (Microsoft Edge-TTS Preview + Quota-Aware Google Gemini Audio Final with Priority Fallback), Motivated Camera Grammar, Zero-Subpixel-Jitter Typography, and Blind Adversarial Quality Review for Remotion/React."
 ---
 
 # cinematic-motion-director
@@ -27,7 +27,7 @@ Every visual and motion decision follows this strict priority:
 - **Decorative motion must NEVER compensate for an absence of visual transformation.** A camera zoom on a static card is NOT cinematic motion.
 - **A text-only event is NOT a cinematic event.** Fading in text or springing words into a card is forbidden as a primary visual event.
 - **Persistent World by Default:** Narratives unfold within one continuous, persistent physical or architectural world canvas rather than clearing the stage every 4 seconds.
-- **Voice Selection is a Mandatory User Decision:** No narration, timing, or visual production may begin until the user explicitly selects one of the 2 approved ElevenLabs voices (`Kaveh` or `Roya`).
+- **Voice Selection & Two-Stage Audio Doctrine:** Narration uses a zero-quota **Microsoft Edge-TTS** preview (`fa-IR-FaridNeural` / `fa-IR-DilaraNeural`) for initial motion and timing validation. Upon explicit user approval, final audio is generated via **Google Gemini Multimodal Audio** with strict model priority fallback (`gemini-3.8-flash-tts` -> `gemini-3.8-flash-lite-tts` -> `gemini-3.1-flash-tts-preview`) using approved voices (`Puck` or `Callirrhoe`).
 
 ---
 
@@ -35,10 +35,10 @@ Every visual and motion decision follows this strict priority:
 
 ```text
 [DIRECTOR: PLANNING & VISUAL STATE GRAPH]
-1. [MANDATORY GATE 0: VOICE SELECTION]: Ask user to select from ElevenLabs voices (Kaveh / Roya). DO NOT proceed until answered!
-2. Synthesize short 10-15s preflight sample via ElevenLabs (`eleven_v3`). User approves before full production.
-3. Ingest script and synthesize full audio via ElevenLabs (`voice-doctrine.md`, `voice-selection.md`).
-4. Run `AUDIO_QA_GATE`: Verify natural delivery (115–190 WPM), continuity, and decodability.
+1. [MANDATORY GATE 0: VOICE SELECTION]: Ask user to select from approved Gemini voices (Puck / Callirrhoe). DO NOT proceed until answered!
+2. Stage 1: Synthesize motion-validation preview sample via Microsoft Edge-TTS (fa-IR-FaridNeural / DilaraNeural). ZERO Gemini quota consumed.
+3. Render Edge-TTS preview video for user approval of motion, pacing, camera flight, and typography.
+4. Upon explicit user approval ("تأیید"): Transition to Stage 2: Monolithic Gemini TTS synthesis with strict quota fallback (gemini-3.8-flash-tts -> gemini-3.8-flash-lite-tts -> gemini-3.1-flash-tts-preview). Recalibrate exact video frame boundaries to measured Gemini audio duration.
 5. Map script to semantic beats; assign exactly ONE primary visual job per beat.
 6. [MANDATORY VISUAL WORLD HARD-GATE]: Plan `VisualWorld` and `ArtDirectionContract` via `VisualWorldPlanner` (`schemas/visual-world.schema.json`). Establish Hero Identity, Visual Hierarchy (PRIMARY, SECONDARY, TERTIARY, ENVIRONMENT), Depth Model, Composition Contract, and concrete Art Direction. Validate with `VisualWorldValidator.validate`. Reject vague buzzwords via `ArtDirectionAmbiguityGate`.
    * **Cinematic Pipeline Enforcement:** The cinematic compilation pipeline (`MotionGraphCompiler.compileCinematicGraph` and `MotionPlanner.planCinematicScene`) strictly requires `visualWorld`. Compilation without a validated VisualWorld is rejected with `VISUAL_WORLD_REQUIRED`.
