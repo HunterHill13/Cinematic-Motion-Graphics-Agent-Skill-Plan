@@ -52,12 +52,17 @@ Every visual and motion decision follows this strict priority:
 11. Run `REMOVAL_TEST_GATE`: Purge all unmotivated decorative elements. (Rule: MORE ELEMENTS ≠ BETTER CINEMATIC QUALITY).
 12. [GATE 1 PAUSE]: Present SHOTBOOK and Visual World to user for explicit approval before coding.
         ↓
-[BUILDER: REMOTION IMPLEMENTATION]
-13. Construct persistent 3D world canvas using `<PersistentWorld>`. DO NOT invent raw JSX motion; compile through `MotionGraphCompiler.compileCinematicGraph` from `MotionSceneGraph`.
-14. Implement physical transformations using certified VerbTemplates (`SPLIT`, `EXPAND`, `TRAVEL`, `COLLAPSE`, `MORPH`, `MERGE`, `DEFORM`, `REASSEMBLE`).
-15. Enforce Mass Conservation: Shape A physically morphs, unlatches, or unfolds into B.
-16. Apply Motivated Camera Grammar: Camera moves ONLY to track consequence or absorb seismic impact.
-17. Apply Dual-Script Persian Typography: `displayText` strictly sanitized via `persianSanitizer.ts`. Mandated font is **Yekan Bakh** (`assets/fonts/YekanBakh-*.woff2`).
+[BUILDER: FULL-FIDELITY STUDIO IMPLEMENTATION (UNIVERSAL STUDIO PIPELINE)]
+13. [PRE-FLIGHT ASSET VERIFICATION]: Ensure `public/fonts/YekanBakh/`, `public/music/` (`Tech_Live.mp3` or `Brain_Dance.mp3`), and `public/sfx/` are present in the target project. If absent, copy them immediately from the skill's `template/public/`.
+14. [STUDIO COMPONENT CONSTRUCTION]: Build the cinematic composition directly based on the certified master architecture of `UniversalStudioShowreel.tsx` / `SkillIntroShowreel.tsx`:
+    - PERSISTENT 2.5D WORLD (`PersistentWorld`): Single unbroken coordinate stage (`perspective: 1200`) hosting all narrative acts across discrete coordinates ($X_1=0, X_2=1800, X_3=3600, X_4=4754$).
+    - 6-DOF VIRTUAL CAMERA RIG: Continuous multi-axis tracking (`camX`, `camY`, `camZ`), isometric tilts (`camPitch: -1.8°`, `camYaw: 2.2°`), dynamic banking rolls (`camRoll: ±3.5°`), and velocity blur/skew during transitions.
+    - NEWTONIAN ATTRACTOR SWARMS: Deploy `<NewtonianAttractorSwarm>` across all acts (18–20 particles per act, style-matched palette) orbiting active vector cores with beat-breathing physics.
+    - ATMOSPHERE & LIGHTING: Layer `<AtmosphericBackdrop>` and `<StyleAwareAtmosphereLayer>` behind the scene.
+    - STUDIO AUDIO & BEAT-GRID: Include `<Audio src={staticFile('music/Tech_Live.mp3')} />` with `calculateBeatPulse` (softened amplitude 0.002 to 0.0045) and dynamic voice ducking.
+    - TOPOLOGICAL VECTOR MORPHING: Utilize `DynamicVectorCatalog`, structured `VerbTemplates` motion primitives, and `<UniversalVectorMorphCard>` / `PersianVectorMorphCard` driven by `@remotion/paths`'s `interpolatePath`.
+    - DUAL-SCRIPT PERSIAN TYPOGRAPHY: All Persian text sanitized via `persianSanitizer.ts`, rendered with official `Yekan Bakh` font weights.
+15. DO NOT fall back to low-level abstract SVG wireframe generators (`MotionGraphCompiler`, raw `PersistentWorld` fallback AST, or bare `VerbTemplates`) for production videos; wireframe compilers are strictly reserved for internal engine unit tests. Production videos must always be rich, component-driven, and cinematic.
         ↓
 [INDEPENDENT BLIND REVIEW]
 18. Render video master (`.mp4`) with stem-mixed audio.

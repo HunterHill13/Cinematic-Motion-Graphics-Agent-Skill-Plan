@@ -80,7 +80,6 @@ export const MaskedKineticHeadline: React.FC<MaskedKineticHeadlineProps> = ({
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               textShadow: 'none',
-              filter: `drop-shadow(0 0 18px ${gradientColors[0]}44)`,
             }
           : {
               color,

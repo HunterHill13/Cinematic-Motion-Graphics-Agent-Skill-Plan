@@ -19,6 +19,7 @@ import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig, spring, Easing } from 'remotion';
 import { interpolatePath, evolvePath } from '@remotion/paths';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
+import { LiquidMitosisCore } from '../library/OrganicLiquidGooey';
 
 // 200x200 Coordinate Space SVG Paths
 export const PATH_OCTAGRAM = 'M 100 15 L 122 68 L 180 50 L 152 100 L 180 150 L 122 132 L 100 185 L 78 132 L 20 150 L 48 100 L 20 50 L 78 68 Z';
@@ -29,6 +30,7 @@ export const PATH_CHECKMARK = 'M 72 102 L 92 122 L 134 78';
 
 export interface PersianVectorMorphProps {
   startFrame?: number;
+  durationInFrames?: number;
   width?: number;
   height?: number;
   glowColor?: string;
@@ -36,6 +38,7 @@ export interface PersianVectorMorphProps {
 
 export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   startFrame = 0,
+  durationInFrames = 360,
   width = 620,
   height = 340,
   glowColor = '#38bdf8',
@@ -43,11 +46,13 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   const currentFrame = useCurrentFrame();
   const relFrame = Math.max(0, currentFrame - startFrame);
 
-  // 4 Stages across 150 frames (approx 5.0 seconds @ 30 FPS):
-  // Stage 0 (0..35): Octagram (نشان علمی)
-  // Stage 1 (35..75): Morphing -> Neural Core (مغز عصبی)
-  // Stage 2 (75..115): Morphing -> Quantum Wave (تحلیل موج)
-  // Stage 3 (115..150): Morphing -> Sovereign Shield (سپر کالیبراسیون)
+  // Dynamic stage boundaries across durationInFrames
+  const s1Start = durationInFrames * 0.22;
+  const s1End = durationInFrames * 0.32;
+  const s2Start = durationInFrames * 0.48;
+  const s2End = durationInFrames * 0.58;
+  const s3Start = durationInFrames * 0.72;
+  const s3End = durationInFrames * 0.82;
   
   let currentD = PATH_OCTAGRAM;
   let activeStageIndex = 0;
@@ -56,15 +61,15 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   let stageDetail = 'هندسه برداری کالیبره شده با تقارن هشت‌گانه';
   let activeColor = '#06b6d4';
 
-  if (relFrame < 35) {
+  if (relFrame < s1Start) {
     currentD = PATH_OCTAGRAM;
     activeStageIndex = 0;
-    stageTitle = 'نشان علمی و هندسی کمیته';
+    stageTitle = 'نشان علمی و هندسی استودیو';
     stageBadge = 'مرحله ۱: نشان سازمانی';
     stageDetail = 'هندسه برداری کالیبره شده با تقارن هشت‌گانه';
     activeColor = '#06b6d4';
-  } else if (relFrame < 75) {
-    const t = interpolate(relFrame, [35, 65], [0, 1], {
+  } else if (relFrame < s2Start) {
+    const t = interpolate(relFrame, [s1Start, s1End], [0, 1], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
       easing: Easing.inOut(Easing.cubic),
@@ -75,8 +80,8 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
     stageBadge = 'مرحله ۲: موتور تانسوری';
     stageDetail = 'تبدیل پیوسته بردارها به ماتریس سیناپسی هوش مصنوعی';
     activeColor = '#8b5cf6';
-  } else if (relFrame < 115) {
-    const t = interpolate(relFrame, [75, 105], [0, 1], {
+  } else if (relFrame < s3Start) {
+    const t = interpolate(relFrame, [s2Start, s2End], [0, 1], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
       easing: Easing.inOut(Easing.cubic),
@@ -88,7 +93,7 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
     stageDetail = 'پایش بلادرنگ نرخ فریم، دقت محاسبات و همگرایی داده‌ها';
     activeColor = '#3b82f6';
   } else {
-    const t = interpolate(relFrame, [115, 140], [0, 1], {
+    const t = interpolate(relFrame, [s3Start, s3End], [0, 1], {
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
       easing: Easing.inOut(Easing.cubic),
@@ -102,7 +107,7 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   }
 
   // Checkmark evolve for Stage 3
-  const checkProgress = interpolate(relFrame, [125, 148], [0, 1], {
+  const checkProgress = interpolate(relFrame, [s3End - 10, s3End + 15], [0, 1], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
     easing: Easing.out(Easing.cubic),
@@ -110,8 +115,14 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   const checkEvolve = evolvePath(checkProgress, PATH_CHECKMARK);
 
   // Neural pulse rotation & glow
-  const rotation = interpolate(relFrame, [0, 150], [0, 360]);
-  const pulseScale = 1 + Math.sin(relFrame / 6) * 0.04;
+  const rotation = interpolate(relFrame, [0, durationInFrames], [0, 360]);
+  const pulseScale = 1 + Math.sin(relFrame / 8) * 0.04;
+
+  // Liquid Mitosis Split Factor (Peaks during morphological transitions)
+  const t1 = Math.sin(interpolate(relFrame, [s1Start, s1End], [0, Math.PI], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+  const t2 = Math.sin(interpolate(relFrame, [s2Start, s2End], [0, Math.PI], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+  const t3 = Math.sin(interpolate(relFrame, [s3Start, s3End], [0, Math.PI], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+  const mitosisSplit = Math.max(t1, t2, t3);
 
   return (
     <div
@@ -148,24 +159,86 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         }}
       />
 
+      {/* 4-STAGE TOPOLOGY MILESTONE STEPPER */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 18,
+          left: 36,
+          right: 36,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          direction: 'rtl',
+          zIndex: 5,
+        }}
+      >
+        {[
+          { label: '۱. ستاره علمی', index: 0, color: '#38bdf8' },
+          { label: '۲. مغز سیناپسی', index: 1, color: '#8b5cf6' },
+          { label: '۳. امواج کوانتومی', index: 2, color: '#3b82f6' },
+          { label: '۴. سپر کالیبراسیون', index: 3, color: '#10b981' },
+        ].map((step) => {
+          const isActive = activeStageIndex === step.index;
+          const isPassed = activeStageIndex > step.index;
+          return (
+            <div
+              key={step.index}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+                padding: '6px 18px',
+                borderRadius: 24,
+                background: isActive ? `${step.color}28` : 'rgba(255, 255, 255, 0.04)',
+                border: `1.5px solid ${isActive ? step.color : 'rgba(255, 255, 255, 0.12)'}`,
+                boxShadow: isActive ? `0 0 20px ${step.color}55` : 'none',
+                transform: isActive ? 'scale(1.06)' : 'scale(1)',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
+              <div
+                style={{
+                  width: 9,
+                  height: 9,
+                  borderRadius: '50%',
+                  background: isPassed ? '#10b981' : isActive ? step.color : '#64748b',
+                  boxShadow: isActive ? `0 0 10px ${step.color}` : 'none',
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 14,
+                  fontWeight: isActive ? 800 : 600,
+                  color: isActive ? '#f8fafc' : '#94a3b8',
+                }}
+              >
+                {sanitizeForDisplay(step.label)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
       {/* LEFT (in RTL): SVG MORPHING CANVAS */}
       <div
         style={{
-          width: 210,
-          height: 210,
+          width: 320,
+          height: 320,
           flexShrink: 0,
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          marginTop: 28,
         }}
       >
         {/* Ambient Radial Backlight */}
         <div
           style={{
             position: 'absolute',
-            width: 170,
-            height: 170,
+            width: 260,
+            height: 260,
             borderRadius: '50%',
             background: `radial-gradient(circle, ${activeColor}44 0%, transparent 70%)`,
             transform: `scale(${pulseScale})`,
@@ -173,10 +246,25 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           }}
         />
 
+        {/* Transition Radial Shockwave Ring */}
+        {mitosisSplit > 0.15 && (
+          <div
+            style={{
+              position: 'absolute',
+              width: 180 + mitosisSplit * 120,
+              height: 180 + mitosisSplit * 120,
+              borderRadius: '50%',
+              border: `2px solid ${activeColor}`,
+              opacity: (1 - mitosisSplit) * 0.8,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
+
         {/* Concentric Decorative Rings */}
         <svg
-          width="210"
-          height="210"
+          width="320"
+          height="320"
           viewBox="0 0 210 210"
           style={{
             position: 'absolute',
@@ -204,15 +292,37 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           />
         </svg>
 
-        {/* MAIN MORPHING SVG PATH */}
+        {/* Dynamic Organic Liquid Mitosis Core (Metaball Fluid Division) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1,
+            opacity: 0.7,
+            pointerEvents: 'none',
+          }}
+        >
+          <LiquidMitosisCore
+            size={270}
+            splitProgress={mitosisSplit}
+            primaryColor={activeColor}
+            accentColor="#38bdf8"
+            artStyle="MODERN_GLASSMORPHIC"
+          />
+        </div>
+
+        {/* MAIN MORPHING SVG PATH (ENLARGED) */}
         <svg
-          width="180"
-          height="180"
+          width="270"
+          height="270"
           viewBox="0 0 200 200"
           style={{
             position: 'relative',
             zIndex: 2,
-            filter: `drop-shadow(0 0 16px ${activeColor}88)`,
+            filter: `drop-shadow(0 0 24px ${activeColor}aa)`,
           }}
         >
           <defs>
@@ -279,19 +389,20 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           flexDirection: 'column',
           justifyContent: 'center',
           textAlign: 'right',
+          marginTop: 20,
         }}
       >
         {/* Stage Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
           <div
             style={{
-              padding: '4px 14px',
+              padding: '6px 18px',
               borderRadius: 20,
               background: `${activeColor}22`,
-              border: `1px solid ${activeColor}66`,
+              border: `1.5px solid ${activeColor}66`,
               color: activeColor,
-              fontSize: 13,
-              fontWeight: 700,
+              fontSize: 16,
+              fontWeight: 800,
               letterSpacing: 0.3,
             }}
           >
@@ -299,11 +410,11 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           </div>
           <div
             style={{
-              width: 8,
-              height: 8,
+              width: 10,
+              height: 10,
               borderRadius: '50%',
               background: activeColor,
-              boxShadow: `0 0 10px ${activeColor}`,
+              boxShadow: `0 0 12px ${activeColor}`,
             }}
           />
         </div>
@@ -311,10 +422,10 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         {/* Title */}
         <div
           style={{
-            fontSize: 22,
-            fontWeight: 800,
+            fontSize: 34,
+            fontWeight: 900,
             color: '#f8fafc',
-            marginBottom: 8,
+            marginBottom: 12,
             lineHeight: 1.3,
           }}
         >
@@ -324,10 +435,10 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         {/* Detail */}
         <div
           style={{
-            fontSize: 14,
-            fontWeight: 400,
-            color: '#94a3b8',
-            marginBottom: 18,
+            fontSize: 20,
+            fontWeight: 500,
+            color: '#cbd5e1',
+            marginBottom: 24,
             lineHeight: 1.6,
           }}
         >
@@ -338,24 +449,24 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         <div
           style={{
             display: 'flex',
-            gap: 16,
-            paddingTop: 14,
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            gap: 24,
+            paddingTop: 18,
+            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
           }}
         >
           <div>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600 }}>نرخ فریم برداری</div>
-            <div style={{ fontSize: 15, color: '#e2e8f0', fontWeight: 700 }}>۶۰ fps روان</div>
+            <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 600 }}>نرخ فریم برداری</div>
+            <div style={{ fontSize: 20, color: '#f8fafc', fontWeight: 800 }}>۶۰ fps روان</div>
           </div>
-          <div style={{ width: 1, height: 32, background: 'rgba(255, 255, 255, 0.1)' }} />
+          <div style={{ width: 1, height: 40, background: 'rgba(255, 255, 255, 0.15)' }} />
           <div>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600 }}>خطای برداری</div>
-            <div style={{ fontSize: 15, color: '#10b981', fontWeight: 700 }}>۰.۰۰ (بی‌نقص)</div>
+            <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 600 }}>خطای برداری</div>
+            <div style={{ fontSize: 20, color: '#10b981', fontWeight: 800 }}>۰.۰۰ (بی‌نقص)</div>
           </div>
-          <div style={{ width: 1, height: 32, background: 'rgba(255, 255, 255, 0.1)' }} />
+          <div style={{ width: 1, height: 40, background: 'rgba(255, 255, 255, 0.15)' }} />
           <div>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600 }}>پیوستگی مسیر</div>
-            <div style={{ fontSize: 15, color: activeColor, fontWeight: 700 }}>۱۰۰٪ مداوم</div>
+            <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 600 }}>پیوستگی مسیر</div>
+            <div style={{ fontSize: 20, color: activeColor, fontWeight: 800 }}>۱۰۰٪ مداوم</div>
           </div>
         </div>
       </div>
