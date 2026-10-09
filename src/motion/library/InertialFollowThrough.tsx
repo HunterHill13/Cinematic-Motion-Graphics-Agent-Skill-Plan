@@ -26,6 +26,8 @@ export interface InertialChildProps {
   axis?: 'x' | 'y' | 'both';
   /** Sensitivity multiplier for the lag effect (default: 1.0) */
   intensity?: number;
+  /** Disable angular tilt to keep typography strictly horizontal */
+  disableTilt?: boolean;
   style?: React.CSSProperties;
 }
 
@@ -36,31 +38,39 @@ export const InertialChild: React.FC<InertialChildProps> = ({
   parentVelocity = 0,
   axis = 'x',
   intensity = 1.0,
+  disableTilt = true,
   style = {},
 }) => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
   // Child-specific staggered spring
-  const lagFrames = childIndex * 2.5;
+  const lagFrames = childIndex * 2.0;
   const childSpring = spring({
     frame: Math.max(0, frame - lagFrames),
     fps,
     config: {
-      damping: 14 - Math.min(childIndex * 0.8, 6),
-      mass: 0.5 + childIndex * 0.18,
-      stiffness: 140 - Math.min(childIndex * 8, 50),
+      damping: 15,
+      mass: 0.6 + childIndex * 0.1,
+      stiffness: 150,
     },
   });
 
-  // Calculate inertial offset based on delta between parent progress and child delayed progress
-  const progressLag = (parentProgress - childSpring) * 35 * intensity;
-  const velocityLag = parentVelocity * (childIndex + 1) * -0.6 * intensity;
+  // Inertial offset: strictly clamped to prevent breaking container layouts
+  // Also decays cleanly to 0 as animation settles (within 45 frames)
+  const settleEnvelope = Math.max(0, 1 - Math.max(0, frame - 50) / 25);
+  const progressLag = (parentProgress - childSpring) * 16 * intensity * settleEnvelope;
+  const velocityLag = parentVelocity * (childIndex + 1) * -0.3 * intensity * settleEnvelope;
   const totalOffset = progressLag + velocityLag;
 
-  const dragX = axis === 'x' || axis === 'both' ? totalOffset : 0;
-  const dragY = axis === 'y' || axis === 'both' ? totalOffset : 0;
-  const dragTilt = totalOffset * -0.06; // Counter-tilt in degrees
+  // Clamped translation within safe [-8px, 8px] window
+  const clampedX = Math.max(-8, Math.min(8, totalOffset));
+  const clampedY = Math.max(-8, Math.min(8, totalOffset));
+
+  const dragX = axis === 'x' || axis === 'both' ? clampedX : 0;
+  const dragY = axis === 'y' || axis === 'both' ? clampedY : 0;
+  // Angular tilt is strictly 0 when disableTilt=true, or clamped to [-1.2deg, 1.2deg]
+  const dragTilt = disableTilt ? 0 : Math.max(-1.2, Math.min(1.2, totalOffset * -0.04));
 
   return (
     <div

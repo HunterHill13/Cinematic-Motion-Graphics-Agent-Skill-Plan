@@ -276,7 +276,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
               <div
                 style={{
                   position: 'relative',
-                  padding: '48px 60px',
+                  padding: '44px 50px',
                   borderRadius: 24,
                   background: 'rgba(6, 28, 20, 0.65)',
                   border: '1.5px solid rgba(16, 185, 129, 0.35)',
@@ -285,10 +285,16 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  maxWidth: 960,
+                  width: 1040,
+                  maxWidth: '92vw',
+                  boxSizing: 'border-box',
                 }}
               >
-                <InertialRig parentProgress={act1Entrance} parentVelocity={(act1Entrance - interpolate(frame, [0, 60], [0, 1])) * 20}>
+                <InertialRig
+                  parentProgress={act1Entrance}
+                  parentVelocity={(act1Entrance - interpolate(frame, [0, 60], [0, 1])) * 20}
+                  style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%' }}
+                >
                 {/* Badge Pill */}
                 <div
                   style={{
@@ -324,10 +330,10 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   highlightWords={['سینمایی', 'اوپوس', '۵.۵']}
                   gradientColors={['#ffffff', '#6ee7b7', '#10b981']}
                   delayFrames={15}
-                  fontSize={56}
+                  fontSize={44}
                   fontWeight={950}
                   direction="rtl"
-                  style={{ marginBottom: 18, justifyContent: 'center' }}
+                  style={{ marginBottom: 18, justifyContent: 'center', width: '100%' }}
                 />
 
                 {/* Subtitle with Masked Stagger Reveal */}
@@ -839,7 +845,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
         clickFrame={220}
         endFrame={290}
         targetX={960}
-        targetY={440}
+        targetY={668}
       />
 
       {/* 5. FOREGROUND SHALLOW DEPTH-OF-FIELD OPTICAL BOKEH */}
