@@ -320,8 +320,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'center',
-                  width: 1040,
-                  maxWidth: '92vw',
+                  width: 1380,
+                  maxWidth: '94vw',
                   boxSizing: 'border-box',
                   overflow: 'hidden',
                 }}
@@ -346,11 +346,11 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   style={{
                     display: 'inline-flex',
                     alignItems: 'center',
-                    gap: 10,
-                    padding: '8px 24px',
+                    gap: 12,
+                    padding: '10px 28px',
                     borderRadius: 999,
                     background: 'rgba(2, 44, 34, 0.75)',
-                    border: '1px solid rgba(16, 185, 129, 0.35)',
+                    border: '1.5px solid rgba(16, 185, 129, 0.4)',
                     backdropFilter: 'blur(16px)',
                     boxShadow: '0 0 24px rgba(16, 185, 129, 0.25)',
                     marginBottom: 24,
@@ -358,14 +358,14 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 >
                   <div
                     style={{
-                      width: 10,
-                      height: 10,
+                      width: 11,
+                      height: 11,
                       borderRadius: '50%',
                       background: '#10b981',
                       boxShadow: '0 0 12px #10b981',
                     }}
                   />
-                  <span style={{ fontSize: 16, fontWeight: 700, color: '#ecfdf5' }}>
+                  <span style={{ fontSize: 18, fontWeight: 700, color: '#ecfdf5' }}>
                     {sanitizeForDisplay('هوش مصنوعی پیشرفته · اسکیل موشن‌گرافیک سینمایی')}
                   </span>
                 </div>
@@ -376,10 +376,10 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   highlightWords={['سینمایی', 'اوپوس', '۵.۵']}
                   gradientColors={['#ffffff', '#6ee7b7', '#10b981']}
                   delayFrames={15}
-                  fontSize={44}
+                  fontSize={54}
                   fontWeight={950}
                   direction="rtl"
-                  style={{ marginBottom: 18, justifyContent: 'center', width: '100%' }}
+                  style={{ marginBottom: 20, justifyContent: 'center', width: '100%' }}
                 />
 
                 {/* Subtitle with Masked Stagger Reveal */}
@@ -387,18 +387,18 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   text="پایان اسلایدهای بی‌روح · انیمیشن پیوسته تک‌پلان با فیزیک اسپرینگ و طراحی صدای استودیویی"
                   highlightWords={['اسلایدهای']}
                   delayFrames={35}
-                  fontSize={22}
+                  fontSize={26}
                   fontWeight={500}
                   color="#94a3b8"
                   direction="rtl"
-                  style={{ marginBottom: 40, maxWidth: 840, justifyContent: 'center' }}
+                  style={{ marginBottom: 44, maxWidth: 1120, justifyContent: 'center' }}
                 />
 
                 {/* Interactive Target Button with Viscous Liquid Squash & Satellite Droplets */}
                 <LiquidButtonSquash
                   clickFrame={219}
-                  width={250}
-                  height={60}
+                  width={280}
+                  height={66}
                   primaryColor="#10b981"
                   accentColor="#f59e0b"
                   artStyle="MODERN_GLASSMORPHIC"
@@ -407,11 +407,11 @@ export const SkillIntroShowreelContent: React.FC = () => {
                     style={{
                       display: 'inline-flex',
                       alignItems: 'center',
-                      gap: 14,
-                      padding: '16px 36px',
-                      borderRadius: 16,
-                      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(245, 158, 11, 0.15))',
-                      border: '1.5px solid rgba(16, 185, 129, 0.45)',
+                      gap: 16,
+                      padding: '18px 44px',
+                      borderRadius: 18,
+                      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.28), rgba(245, 158, 11, 0.18))',
+                      border: '1.5px solid rgba(16, 185, 129, 0.5)',
                       backdropFilter: 'blur(20px)',
                       boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.3)',
                       transform: `scale(${buttonScale})`,
@@ -419,14 +419,14 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   >
                     <div
                       style={{
-                        width: 12,
-                        height: 12,
+                        width: 14,
+                        height: 14,
                         borderRadius: '50%',
                         background: '#f59e0b',
                         boxShadow: '0 0 14px #f59e0b',
                       }}
                     />
-                    <span style={{ fontSize: 18, fontWeight: 800, color: '#f0fdf4' }}>
+                    <span style={{ fontSize: 20, fontWeight: 800, color: '#f0fdf4' }}>
                       {sanitizeForDisplay('ورود به استودیو سینمایی')}
                     </span>
                   </div>
@@ -447,16 +447,16 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 pointerEvents: 'none',
               }}
             >
-              {/* Physical Paper Cutout Card Container */}
+              {/* Physical Paper Cutout Card Container (Scaled to 1420x660) */}
               <div
                 style={{
                   position: 'relative',
-                  width: 760,
-                  height: 410,
+                  width: 1420,
+                  height: 660,
                   background: '#fefdfa',
-                  borderRadius: '4px',
-                  border: '2px solid rgba(80, 60, 40, 0.25)',
-                  boxShadow: '8px 12px 0px rgba(60, 50, 40, 0.28), 16px 24px 0px rgba(60, 50, 40, 0.12)',
+                  borderRadius: '6px',
+                  border: '3px solid rgba(80, 60, 40, 0.25)',
+                  boxShadow: '10px 16px 0px rgba(60, 50, 40, 0.28), 20px 32px 0px rgba(60, 50, 40, 0.12)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -467,14 +467,14 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 <div
                   style={{
                     position: 'absolute',
-                    top: -12,
-                    right: 40,
-                    width: 75,
-                    height: 26,
+                    top: -14,
+                    right: 70,
+                    width: 95,
+                    height: 32,
                     background: 'rgba(255, 238, 185, 0.85)',
                     border: '1px solid rgba(220, 200, 140, 0.6)',
                     transform: 'rotate(14deg)',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                    boxShadow: '0 3px 6px rgba(0,0,0,0.15)',
                     zIndex: 10,
                   }}
                 />
@@ -482,14 +482,14 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 <div
                   style={{
                     position: 'absolute',
-                    top: -12,
-                    left: 40,
-                    width: 75,
-                    height: 26,
+                    top: -14,
+                    left: 70,
+                    width: 95,
+                    height: 32,
                     background: 'rgba(255, 238, 185, 0.85)',
                     border: '1px solid rgba(220, 200, 140, 0.6)',
                     transform: 'rotate(-10deg)',
-                    boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                    boxShadow: '0 3px 6px rgba(0,0,0,0.15)',
                     zIndex: 10,
                   }}
                 />
@@ -498,13 +498,13 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 <div
                   style={{
                     position: 'absolute',
-                    top: 18,
-                    right: 28,
+                    top: 22,
+                    right: 36,
                     background: '#1b4332',
-                    padding: '6px 20px',
-                    borderRadius: 4,
-                    boxShadow: '2px 3px 0px rgba(0,0,0,0.2)',
-                    fontSize: 13,
+                    padding: '8px 26px',
+                    borderRadius: 6,
+                    boxShadow: '2px 4px 0px rgba(0,0,0,0.2)',
+                    fontSize: 16,
                     fontWeight: 800,
                     color: '#f0fdf4',
                     zIndex: 5,
@@ -517,10 +517,10 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 <div
                   style={{
                     position: 'absolute',
-                    top: 22,
-                    left: 28,
-                    fontSize: 12,
-                    fontWeight: 600,
+                    top: 26,
+                    left: 36,
+                    fontSize: 16,
+                    fontWeight: 700,
                     color: '#4b5563',
                     zIndex: 5,
                   }}
@@ -530,27 +530,27 @@ export const SkillIntroShowreelContent: React.FC = () => {
 
                 {/* Trigonometric Lissajous Gold Wire Orbit */}
                 <svg
-                  width={740}
-                  height={340}
+                  width={1400}
+                  height={600}
                   style={{
                     position: 'absolute',
-                    top: 35,
+                    top: 30,
                     left: 10,
                     overflow: 'visible',
                     pointerEvents: 'none',
                     zIndex: 2,
                   }}
                 >
-                  <LissajousOrbit cx={370} cy={170} size={300} color="#d97706" glowColor="rgba(217, 119, 6, 0.35)" />
+                  <LissajousOrbit cx={700} cy={300} size={520} color="#d97706" glowColor="rgba(217, 119, 6, 0.35)" />
                 </svg>
 
                 {/* Vector Morph Card in Forest Green & Amber */}
-                <div style={{ position: 'relative', zIndex: 3, marginTop: 30 }}>
+                <div style={{ position: 'relative', zIndex: 3, marginTop: 36 }}>
                   <PersianVectorMorphCard
                     startFrame={340}
                     durationInFrames={370}
-                    width={700}
-                    height={320}
+                    width={1360}
+                    height={560}
                     glowColor="#2d6a4f"
                   />
                 </div>
@@ -565,8 +565,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
             <div
               style={{
                 position: 'absolute',
-                width: 820,
-                height: 520,
+                width: 1360,
+                height: 680,
                 opacity: act3Entrance,
                 transform: `translate3d(3000px, 0px, 60px) scale(${saasDockScale})`,
                 direction: 'rtl',
@@ -576,25 +576,25 @@ export const SkillIntroShowreelContent: React.FC = () => {
               <div
                 style={{
                   position: 'absolute',
-                  top: -28,
+                  top: -32,
                   left: 0,
                   right: 0,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'space-between',
                   fontFamily: 'monospace',
-                  fontSize: 11,
+                  fontSize: 13,
                   color: '#38bdf8',
                   letterSpacing: '0.05em',
                   background: 'rgba(6, 182, 212, 0.12)',
-                  padding: '3px 12px',
+                  padding: '4px 16px',
                   border: '1px dashed rgba(6, 182, 212, 0.5)',
-                  borderRadius: 2,
+                  borderRadius: 3,
                 }}
               >
                 <span>|◀ 0.00 mm</span>
-                <span>◀────────────── CAD DIMENSION: 820.00 mm (ISOMETRIC PROJECTION) ──────────────▶</span>
-                <span>820.00 mm ▶|</span>
+                <span>◀────────────── CAD DIMENSION: 1360.00 mm (ISOMETRIC PROJECTION) ──────────────▶</span>
+                <span>1360.00 mm ▶|</span>
               </div>
 
               {/* Blueprint Window Container */}
@@ -605,9 +605,9 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   background: 'rgba(4, 20, 36, 0.94)',
                   backdropFilter: 'blur(24px)',
                   WebkitBackdropFilter: 'blur(24px)',
-                  borderRadius: 4,
+                  borderRadius: 6,
                   border: '2px solid #06b6d4',
-                  boxShadow: '0 30px 80px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.35)',
+                  boxShadow: '0 35px 90px -15px rgba(0, 0, 0, 0.9), 0 0 45px rgba(6, 182, 212, 0.35)',
                   display: 'flex',
                   flexDirection: 'column',
                   overflow: 'hidden',
@@ -618,7 +618,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   camYaw={camYaw}
                   camRoll={camRoll}
                   camPitch={camPitch}
-                  borderRadius={4}
+                  borderRadius={6}
                   highlightColor="rgba(56, 189, 248, 0.35)"
                   maxIntensity={0.35}
                 />
@@ -626,43 +626,46 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 {/* CAD Blueprint Header */}
                 <div
                   style={{
-                    height: 50,
+                    height: 56,
                     borderBottom: '1.5px solid rgba(6, 182, 212, 0.4)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'space-between',
-                    padding: '0 24px',
+                    padding: '0 28px',
                     background: 'rgba(6, 32, 54, 0.8)',
                   }}
                 >
-                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
-                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} />
-                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#f59e0b' }} />
-                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#06b6d4' }} />
-                    <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#38bdf8', marginRight: 10 }}>[CAD_DRAWING: REV 5.5]</span>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
+                    <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#ef4444' }} />
+                    <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#f59e0b' }} />
+                    <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#06b6d4' }} />
+                    <span style={{ fontSize: 12, fontFamily: 'monospace', color: '#38bdf8', marginRight: 12 }}>[CAD_DRAWING: REV 5.5]</span>
                   </div>
-                  <div style={{ fontSize: 13, fontWeight: 700, color: '#f0fdfa', letterSpacing: '0.02em' }}>
+                  <div style={{ fontSize: 16, fontWeight: 800, color: '#f0fdfa', letterSpacing: '0.02em' }}>
                     {sanitizeForDisplay('کنسول تله‌متری و تحلیل فضایی (نقشه فنی بلوپرینت)')}
                   </div>
-                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 8px #06b6d4' }} />
+                  <div style={{ width: 12, height: 12, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 10px #06b6d4' }} />
                 </div>
 
                 {/* Console Body */}
-                <div style={{ flex: 1, padding: 24, display: 'flex', gap: 20 }}>
+                <div style={{ flex: 1, padding: 30, display: 'flex', gap: 28 }}>
                   {/* Metric Visualizer Area */}
-                  <div style={{ flex: 1.1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                  <div style={{ flex: 1.15, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
                     <div
                       style={{
-                        height: 200,
+                        height: 290,
                         background: 'rgba(2, 14, 26, 0.85)',
-                        borderRadius: 4,
+                        borderRadius: 6,
                         border: '1px solid rgba(6, 182, 212, 0.35)',
-                        padding: 16,
+                        padding: 22,
                         position: 'relative',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'space-between',
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-                        <span style={{ fontSize: 11, color: '#38bdf8', fontFamily: 'monospace' }}>+ CAD BENCHMARK TELEMETRY</span>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+                        <span style={{ fontSize: 13, color: '#38bdf8', fontFamily: 'monospace' }}>+ CAD BENCHMARK TELEMETRY</span>
                         <KineticMetricCounter
                           value={99.8}
                           decimals={1}
@@ -670,7 +673,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                           suffix="٪"
                           startFrame={750}
                           durationFrames={40}
-                          fontSize={15}
+                          fontSize={20}
                           color="#38bdf8"
                           artStyle="TECHNICAL_BLUEPRINT"
                         />
@@ -685,7 +688,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                         ]}
                         startFrame={750}
                         staggerFrames={5}
-                        height={115}
+                        height={170}
                         artStyle="TECHNICAL_BLUEPRINT"
                         direction="rtl"
                       />
@@ -694,73 +697,73 @@ export const SkillIntroShowreelContent: React.FC = () => {
                     {/* Status Bar */}
                     <div
                       style={{
-                        padding: '12px 18px',
+                        padding: '16px 24px',
                         background: 'rgba(6, 32, 54, 0.7)',
-                        borderRadius: 4,
+                        borderRadius: 6,
                         border: '1px solid rgba(6, 182, 212, 0.3)',
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center',
                       }}
                     >
-                      <span style={{ fontSize: 13, color: '#cbd5e1' }}>
+                      <span style={{ fontSize: 16, color: '#cbd5e1', fontWeight: 600 }}>
                         {sanitizeForDisplay('وضعیت سیستم: آماده‌باش تولید سینمایی')}
                       </span>
-                      <span style={{ fontSize: 12, color: '#06b6d4', fontWeight: 700 }}>
+                      <span style={{ fontSize: 15, color: '#06b6d4', fontWeight: 800 }}>
                         ● پایدار
                       </span>
                     </div>
                   </div>
 
                   {/* Right Agent Status Cards */}
-                  <div style={{ flex: 0.9, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                  <div style={{ flex: 0.85, display: 'flex', flexDirection: 'column', gap: 16 }}>
                     <div
                       style={{
-                        padding: '14px 16px',
+                        padding: '18px 22px',
                         background: 'rgba(2, 14, 26, 0.85)',
-                        borderRadius: 4,
+                        borderRadius: 6,
                         border: '1px solid rgba(6, 182, 212, 0.3)',
                       }}
                     >
-                      <div style={{ fontSize: 11, color: '#38bdf8' }}>موتور صوتی استودیویی</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
+                      <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>موتور صوتی استودیویی</div>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
                         {sanitizeForDisplay('قفل ضرب‌آهنگ (Beat-Grid)')}
                       </div>
-                      <div style={{ fontSize: 12, color: '#f59e0b', marginTop: 4, fontWeight: 600 }}>
+                      <div style={{ fontSize: 15, color: '#f59e0b', marginTop: 6, fontWeight: 700 }}>
                         تمپو: ۱۲۴ BPM
                       </div>
                     </div>
 
                     <div
                       style={{
-                        padding: '14px 16px',
+                        padding: '18px 22px',
                         background: 'rgba(2, 14, 26, 0.85)',
-                        borderRadius: 4,
+                        borderRadius: 6,
                         border: '1px solid rgba(6, 182, 212, 0.3)',
                       }}
                     >
-                      <div style={{ fontSize: 11, color: '#38bdf8' }}>فونت رسمی فارسی</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
+                      <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>فونت رسمی فارسی</div>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
                         {sanitizeForDisplay('یکان بخ نسخه طلایی')}
                       </div>
-                      <div style={{ fontSize: 12, color: '#06b6d4', marginTop: 4, fontWeight: 600 }}>
+                      <div style={{ fontSize: 15, color: '#06b6d4', marginTop: 6, fontWeight: 700 }}>
                         تایپوگرافی اصیل و بدون پرش
                       </div>
                     </div>
 
                     <div
                       style={{
-                        padding: '14px 16px',
+                        padding: '18px 22px',
                         background: 'rgba(2, 14, 26, 0.85)',
-                        borderRadius: 4,
+                        borderRadius: 6,
                         border: '1px solid rgba(6, 182, 212, 0.3)',
                       }}
                     >
-                      <div style={{ fontSize: 11, color: '#38bdf8' }}>پیوستگی جهان سینمایی</div>
-                      <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
+                      <div style={{ fontSize: 13, color: '#38bdf8', fontWeight: 600 }}>پیوستگی جهان سینمایی</div>
+                      <div style={{ fontSize: 18, fontWeight: 800, color: '#f8fafc', marginTop: 6 }}>
                         {sanitizeForDisplay('تک‌پلان بدون کات (One-Take)')}
                       </div>
-                      <div style={{ fontSize: 12, color: '#38bdf8', marginTop: 4, fontWeight: 600 }}>
+                      <div style={{ fontSize: 15, color: '#38bdf8', marginTop: 6, fontWeight: 700 }}>
                         جریان ممتد فوکوس
                       </div>
                     </div>
@@ -772,16 +775,16 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   style={{
                     position: 'absolute',
                     bottom: 8,
-                    left: 24,
-                    right: 24,
-                    height: 28,
+                    left: 28,
+                    right: 28,
+                    height: 32,
                     overflow: 'hidden',
                     pointerEvents: 'none',
                     opacity: 0.85,
                   }}
                 >
-                  <svg width="100%" height="28" viewBox="0 0 770 28">
-                    <ParametricWaveformStream x={0} y={14} width={770} amplitude={8} color="#06b6d4" />
+                  <svg width="100%" height="32" viewBox="0 0 1300 32">
+                    <ParametricWaveformStream x={0} y={16} width={1300} amplitude={10} color="#06b6d4" />
                   </svg>
                 </div>
               </div>
@@ -795,19 +798,19 @@ export const SkillIntroShowreelContent: React.FC = () => {
             <div
               style={{
                 position: 'absolute',
-                width: 460,
-                height: 520,
+                width: 520,
+                height: 640,
                 opacity: act4Spring,
                 transform: `translate3d(4300px, 0px, 60px) scale(${act4Spring})`,
                 background: '#ffffff',
-                borderRadius: 12,
+                borderRadius: 14,
                 border: '4px solid #000000',
-                boxShadow: '12px 12px 0px #000000',
+                boxShadow: '14px 14px 0px #000000',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                padding: 32,
+                padding: 36,
                 direction: 'rtl',
                 textAlign: 'center',
               }}
@@ -818,12 +821,12 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   background: '#fef08a',
                   border: '3px solid #000000',
                   boxShadow: '4px 4px 0px #000000',
-                  padding: '6px 18px',
-                  borderRadius: 4,
+                  padding: '8px 22px',
+                  borderRadius: 6,
                   color: '#000000',
-                  fontSize: 13,
+                  fontSize: 16,
                   fontWeight: 900,
-                  marginBottom: 20,
+                  marginBottom: 24,
                   transform: 'rotate(-3deg)',
                 }}
               >
@@ -831,23 +834,23 @@ export const SkillIntroShowreelContent: React.FC = () => {
               </div>
 
               {/* Neo-Brutalist Circular Gauge */}
-              <div style={{ position: 'relative', width: 170, height: 170, marginBottom: 24 }}>
-                <svg width={170} height={170} style={{ transform: 'rotate(-90deg)' }}>
-                  <circle cx={85} cy={85} r={70} fill="none" stroke="#e5e7eb" strokeWidth={16} />
+              <div style={{ position: 'relative', width: 200, height: 200, marginBottom: 26 }}>
+                <svg width={200} height={200} style={{ transform: 'rotate(-90deg)' }}>
+                  <circle cx={100} cy={100} r={82} fill="none" stroke="#e5e7eb" strokeWidth={18} />
                   <circle
-                    cx={85}
-                    cy={85}
-                    r={70}
+                    cx={100}
+                    cy={100}
+                    r={82}
                     fill="none"
                     stroke="#f59e0b"
-                    strokeWidth={16}
-                    strokeDasharray={440}
-                    strokeDashoffset={440 - (440 * gaugeValue) / 100}
+                    strokeWidth={18}
+                    strokeDasharray={515}
+                    strokeDashoffset={515 - (515 * gaugeValue) / 100}
                     strokeLinecap="square"
                   />
                   {/* Heavy Black Outline Circle */}
-                  <circle cx={85} cy={85} r={79} fill="none" stroke="#000000" strokeWidth={3} />
-                  <circle cx={85} cy={85} r={61} fill="none" stroke="#000000" strokeWidth={3} />
+                  <circle cx={100} cy={100} r={92} fill="none" stroke="#000000" strokeWidth={3.5} />
+                  <circle cx={100} cy={100} r={72} fill="none" stroke="#000000" strokeWidth={3.5} />
                 </svg>
                 <div
                   style={{
@@ -859,10 +862,10 @@ export const SkillIntroShowreelContent: React.FC = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  <span style={{ fontSize: 46, fontWeight: 950, color: '#000000', letterSpacing: '-0.02em' }}>
+                  <span style={{ fontSize: 54, fontWeight: 950, color: '#000000', letterSpacing: '-0.02em' }}>
                     {gaugeValue}٪
                   </span>
-                  <span style={{ fontSize: 13, color: '#b45309', fontWeight: 800 }}>
+                  <span style={{ fontSize: 16, color: '#b45309', fontWeight: 800 }}>
                     {sanitizeForDisplay('کالیبراسیون')}
                   </span>
                 </div>
@@ -874,21 +877,21 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 highlightWords={['طلایی']}
                 gradientColors={['#000000', '#b45309', '#f59e0b']}
                 delayFrames={1240}
-                fontSize={28}
+                fontSize={34}
                 fontWeight={950}
                 color="#000000"
                 direction="rtl"
-                style={{ marginBottom: 8, justifyContent: 'center' }}
+                style={{ marginBottom: 12, justifyContent: 'center' }}
               />
               <MaskedKineticHeadline
                 text="انطباق ۱۰۰٪ با زبان طراحی موشن‌گرافیک کلاد اوپوس ۵.۵"
                 highlightWords={['اوپوس']}
                 delayFrames={1255}
-                fontSize={14}
+                fontSize={16}
                 fontWeight={700}
                 color="#374151"
                 direction="rtl"
-                style={{ marginBottom: 20, maxWidth: 360, justifyContent: 'center' }}
+                style={{ marginBottom: 24, maxWidth: 440, justifyContent: 'center' }}
               />
 
               {/* Verified Sticker Pill */}
@@ -896,14 +899,14 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: 8,
-                  padding: '10px 22px',
-                  borderRadius: 6,
+                  gap: 10,
+                  padding: '12px 26px',
+                  borderRadius: 8,
                   background: '#10b981',
                   border: '3px solid #000000',
                   boxShadow: '4px 4px 0px #000000',
                   color: '#ffffff',
-                  fontSize: 14,
+                  fontSize: 16,
                   fontWeight: 900,
                   transform: 'rotate(2deg)',
                 }}

@@ -163,9 +163,9 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
       <div
         style={{
           position: 'absolute',
-          top: 14,
-          left: 28,
-          right: 28,
+          top: 18,
+          left: 36,
+          right: 36,
           display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
@@ -187,29 +187,29 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 6,
-                padding: '4px 12px',
-                borderRadius: 20,
+                gap: 8,
+                padding: '6px 18px',
+                borderRadius: 24,
                 background: isActive ? `${step.color}28` : 'rgba(255, 255, 255, 0.04)',
-                border: `1px solid ${isActive ? step.color : 'rgba(255, 255, 255, 0.1)'}`,
-                boxShadow: isActive ? `0 0 16px ${step.color}44` : 'none',
-                transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                border: `1.5px solid ${isActive ? step.color : 'rgba(255, 255, 255, 0.12)'}`,
+                boxShadow: isActive ? `0 0 20px ${step.color}55` : 'none',
+                transform: isActive ? 'scale(1.06)' : 'scale(1)',
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
               }}
             >
               <div
                 style={{
-                  width: 7,
-                  height: 7,
+                  width: 9,
+                  height: 9,
                   borderRadius: '50%',
                   background: isPassed ? '#10b981' : isActive ? step.color : '#64748b',
-                  boxShadow: isActive ? `0 0 8px ${step.color}` : 'none',
+                  boxShadow: isActive ? `0 0 10px ${step.color}` : 'none',
                 }}
               />
               <span
                 style={{
-                  fontSize: 11,
-                  fontWeight: isActive ? 800 : 500,
+                  fontSize: 14,
+                  fontWeight: isActive ? 800 : 600,
                   color: isActive ? '#f8fafc' : '#94a3b8',
                 }}
               >
@@ -223,22 +223,22 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
       {/* LEFT (in RTL): SVG MORPHING CANVAS */}
       <div
         style={{
-          width: 240,
-          height: 240,
+          width: 320,
+          height: 320,
           flexShrink: 0,
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          marginTop: 20,
+          marginTop: 28,
         }}
       >
         {/* Ambient Radial Backlight */}
         <div
           style={{
             position: 'absolute',
-            width: 190,
-            height: 190,
+            width: 260,
+            height: 260,
             borderRadius: '50%',
             background: `radial-gradient(circle, ${activeColor}44 0%, transparent 70%)`,
             transform: `scale(${pulseScale})`,
@@ -251,11 +251,11 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           <div
             style={{
               position: 'absolute',
-              width: 150 + mitosisSplit * 90,
-              height: 150 + mitosisSplit * 90,
+              width: 180 + mitosisSplit * 120,
+              height: 180 + mitosisSplit * 120,
               borderRadius: '50%',
               border: `2px solid ${activeColor}`,
-              opacity: (1 - mitosisSplit) * 0.75,
+              opacity: (1 - mitosisSplit) * 0.8,
               pointerEvents: 'none',
             }}
           />
@@ -263,8 +263,8 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
 
         {/* Concentric Decorative Rings */}
         <svg
-          width="240"
-          height="240"
+          width="320"
+          height="320"
           viewBox="0 0 210 210"
           style={{
             position: 'absolute',
@@ -301,12 +301,12 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
             alignItems: 'center',
             justifyContent: 'center',
             zIndex: 1,
-            opacity: 0.65,
+            opacity: 0.7,
             pointerEvents: 'none',
           }}
         >
           <LiquidMitosisCore
-            size={210}
+            size={270}
             splitProgress={mitosisSplit}
             primaryColor={activeColor}
             accentColor="#38bdf8"
@@ -316,13 +316,13 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
 
         {/* MAIN MORPHING SVG PATH (ENLARGED) */}
         <svg
-          width="210"
-          height="210"
+          width="270"
+          height="270"
           viewBox="0 0 200 200"
           style={{
             position: 'relative',
             zIndex: 2,
-            filter: `drop-shadow(0 0 20px ${activeColor}99)`,
+            filter: `drop-shadow(0 0 24px ${activeColor}aa)`,
           }}
         >
           <defs>
@@ -389,19 +389,20 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           flexDirection: 'column',
           justifyContent: 'center',
           textAlign: 'right',
+          marginTop: 20,
         }}
       >
         {/* Stage Badge */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
           <div
             style={{
-              padding: '4px 14px',
+              padding: '6px 18px',
               borderRadius: 20,
               background: `${activeColor}22`,
-              border: `1px solid ${activeColor}66`,
+              border: `1.5px solid ${activeColor}66`,
               color: activeColor,
-              fontSize: 13,
-              fontWeight: 700,
+              fontSize: 16,
+              fontWeight: 800,
               letterSpacing: 0.3,
             }}
           >
@@ -409,11 +410,11 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           </div>
           <div
             style={{
-              width: 8,
-              height: 8,
+              width: 10,
+              height: 10,
               borderRadius: '50%',
               background: activeColor,
-              boxShadow: `0 0 10px ${activeColor}`,
+              boxShadow: `0 0 12px ${activeColor}`,
             }}
           />
         </div>
@@ -421,10 +422,10 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         {/* Title */}
         <div
           style={{
-            fontSize: 22,
-            fontWeight: 800,
+            fontSize: 34,
+            fontWeight: 900,
             color: '#f8fafc',
-            marginBottom: 8,
+            marginBottom: 12,
             lineHeight: 1.3,
           }}
         >
@@ -434,10 +435,10 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         {/* Detail */}
         <div
           style={{
-            fontSize: 14,
-            fontWeight: 400,
-            color: '#94a3b8',
-            marginBottom: 18,
+            fontSize: 20,
+            fontWeight: 500,
+            color: '#cbd5e1',
+            marginBottom: 24,
             lineHeight: 1.6,
           }}
         >
@@ -448,24 +449,24 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         <div
           style={{
             display: 'flex',
-            gap: 16,
-            paddingTop: 14,
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            gap: 24,
+            paddingTop: 18,
+            borderTop: '1px solid rgba(255, 255, 255, 0.12)',
           }}
         >
           <div>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600 }}>نرخ فریم برداری</div>
-            <div style={{ fontSize: 15, color: '#e2e8f0', fontWeight: 700 }}>۶۰ fps روان</div>
+            <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 600 }}>نرخ فریم برداری</div>
+            <div style={{ fontSize: 20, color: '#f8fafc', fontWeight: 800 }}>۶۰ fps روان</div>
           </div>
-          <div style={{ width: 1, height: 32, background: 'rgba(255, 255, 255, 0.1)' }} />
+          <div style={{ width: 1, height: 40, background: 'rgba(255, 255, 255, 0.15)' }} />
           <div>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600 }}>خطای برداری</div>
-            <div style={{ fontSize: 15, color: '#10b981', fontWeight: 700 }}>۰.۰۰ (بی‌نقص)</div>
+            <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 600 }}>خطای برداری</div>
+            <div style={{ fontSize: 20, color: '#10b981', fontWeight: 800 }}>۰.۰۰ (بی‌نقص)</div>
           </div>
-          <div style={{ width: 1, height: 32, background: 'rgba(255, 255, 255, 0.1)' }} />
+          <div style={{ width: 1, height: 40, background: 'rgba(255, 255, 255, 0.15)' }} />
           <div>
-            <div style={{ fontSize: 11, color: '#64748b', fontWeight: 600 }}>پیوستگی مسیر</div>
-            <div style={{ fontSize: 15, color: activeColor, fontWeight: 700 }}>۱۰۰٪ مداوم</div>
+            <div style={{ fontSize: 14, color: '#94a3b8', fontWeight: 600 }}>پیوستگی مسیر</div>
+            <div style={{ fontSize: 20, color: activeColor, fontWeight: 800 }}>۱۰۰٪ مداوم</div>
           </div>
         </div>
       </div>
