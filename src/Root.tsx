@@ -35,6 +35,13 @@ import {
   CLAUDE_OPUS_SHOWREEL_WIDTH,
   CLAUDE_OPUS_SHOWREEL_HEIGHT,
 } from './motion/claude/ClaudeOpusShowreel';
+import {
+  ClaudeFluidShowreelContent,
+  CLAUDE_FLUID_DURATION,
+  CLAUDE_FLUID_FPS,
+  CLAUDE_FLUID_WIDTH,
+  CLAUDE_FLUID_HEIGHT,
+} from './motion/claude/ClaudeFluidShowreel';
 
 /**
  * ============================================================================
@@ -372,6 +379,16 @@ export const Root: React.FC = () => {
         fps={CLAUDE_OPUS_SHOWREEL_FPS}
         width={CLAUDE_OPUS_SHOWREEL_WIDTH}
         height={CLAUDE_OPUS_SHOWREEL_HEIGHT}
+      />
+
+      {/* 18. CLAUDE FLUID CONTINUITY MASTERPIECE (450 Frames @ 30 FPS / 15.0s) */}
+      <Composition
+        id="ClaudeFluidShowreel"
+        component={ClaudeFluidShowreelContent}
+        durationInFrames={CLAUDE_FLUID_DURATION}
+        fps={CLAUDE_FLUID_FPS}
+        width={CLAUDE_FLUID_WIDTH}
+        height={CLAUDE_FLUID_HEIGHT}
       />
     </>
   );
