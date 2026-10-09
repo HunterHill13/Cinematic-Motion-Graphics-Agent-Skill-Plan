@@ -32,6 +32,7 @@ import { DynamicFresnelSweep } from '../library/DynamicFresnelSweep';
 import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer';
 import { KineticBarChart, KineticMetricCounter } from '../library/KineticDataViz';
 import { LiquidButtonSquash } from '../library/OrganicLiquidGooey';
+import { NewtonianAttractorSwarm } from '../library/NewtonianAttractorSwarm';
 
 if (typeof window !== 'undefined') {
   loadYekanBakhFonts().catch((e) => console.warn('Font load warning:', e));
@@ -71,36 +72,36 @@ export const SkillIntroShowreelContent: React.FC = () => {
   // 1. CONTINUOUS 6-DOF VIRTUAL CAMERA TRACKING (INFINITE SPATIAL CANVAS)
   // =========================================================================
   // Act 1 Center: X = 0 (Sovereign Glassmorphic Monolith)
-  // Act 2 Center: X = 1500 (Artisanal Stop-Motion Paper & Morphing Core)
-  // Act 3 Center: X = 3000 (Technical Blueprint CAD Console)
-  // Act 4 & Docked Center: X = 3650 (Frames Act 3 at 3000 and Act 4 at 4300 side-by-side)
+  // Act 2 Center: X = 1800 (Artisanal Stop-Motion Paper & Morphing Core)
+  // Act 3 Center: X = 3600 (Technical Blueprint CAD Console)
+  // Act 4 & Docked Center: X = 4200 (Symmetrically frames Act 3 at 3720 and Act 4 at 4480)
   let camX = 0;
   if (frame < 280) {
     camX = 0;
   } else if (frame < 370) {
-    camX = interpolate(frame, [280, 370], [0, 1500], {
+    camX = interpolate(frame, [280, 370], [0, 1800], {
       easing: Easing.inOut(Easing.cubic),
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
   } else if (frame < 690) {
-    camX = 1500;
+    camX = 1800;
   } else if (frame < 780) {
-    camX = interpolate(frame, [690, 780], [1500, 3000], {
+    camX = interpolate(frame, [690, 780], [1800, 3600], {
       easing: Easing.inOut(Easing.cubic),
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
   } else if (frame < 1190) {
-    camX = 3000;
+    camX = 3600;
   } else if (frame < 1280) {
-    camX = interpolate(frame, [1190, 1280], [3000, 3650], {
+    camX = interpolate(frame, [1190, 1280], [3600, 4200], {
       easing: Easing.inOut(Easing.cubic),
       extrapolateLeft: 'clamp',
       extrapolateRight: 'clamp',
     });
   } else {
-    camX = 3650;
+    camX = 4200;
   }
 
   const camY = interpolate(
@@ -113,7 +114,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
   const camZ = interpolate(
     frame,
     [0, 280, 370, 690, 780, 1190, 1280, 1800],
-    [0, 40, 60, 60, 40, 40, -120, -120],
+    [0, 40, 60, 60, 40, 40, -80, -80],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
@@ -208,11 +209,24 @@ export const SkillIntroShowreelContent: React.FC = () => {
     config: { damping: 14, mass: 0.8, stiffness: 120 },
   });
 
-  // Spatial Frustum Horizons: Entities stay rendered while within or passing through the camera viewport
-  const act1Visible = frame < 450;
-  const act2Visible = frame >= 260 && frame <= 850;
-  const act3Visible = frame >= 670 && frame <= 1800;
-  const act4Visible = frame >= 1190 && frame <= 1800;
+  // Distance-weighted continuous opacity falloff (eliminates abrupt pop-outs at Sec 12 & Sec 26!)
+  const act1DistanceOpacity = interpolate(camX, [0, 800, 1400], [1, 1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const act2DistanceOpacity = interpolate(camX, [600, 1400, 2200, 3100], [0, 1, 1, 0], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+  const act3DistanceOpacity = interpolate(camX, [2400, 3200, 4200], [0, 1, 1], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+  });
+
+  const act1Visible = camX < 1450;
+  const act2Visible = camX > 550 && camX < 3150;
+  const act3Visible = camX > 2300;
+  const act4Visible = camX > 3500;
 
   const act3Entrance = spring({
     fps,
@@ -220,8 +234,13 @@ export const SkillIntroShowreelContent: React.FC = () => {
     config: { damping: 14, mass: 0.9, stiffness: 110 },
   });
 
-  // Act 3 scales gently to 0.88 when Act 4 docks side-by-side (frames 1190..1280)
-  const saasDockScale = interpolate(frame, [1190, 1280], [1.0, 0.88], {
+  // In Act 4 docked pavilion, Act 3 slides smoothly from X=3600 to X=3720 and scales to 0.70
+  const act3X = interpolate(frame, [1190, 1280], [3600, 3720], {
+    extrapolateLeft: 'clamp',
+    extrapolateRight: 'clamp',
+    easing: Easing.inOut(Easing.cubic),
+  });
+  const saasDockScale = interpolate(frame, [1190, 1280], [1.0, 0.70], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
   });
@@ -305,6 +324,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 flexDirection: 'column',
                 alignItems: 'center',
                 textAlign: 'center',
+                opacity: act1Entrance * act1DistanceOpacity,
                 transform: `translate3d(0px, 0px, 40px) scale(${0.92 + act1Entrance * 0.08})`,
               }}
             >
@@ -433,17 +453,27 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 </LiquidButtonSquash>
               </InertialRig>
               </div>
+
+              {/* Newtonian Attractor Swarm (Gravitational Attraction to CTA) */}
+              <NewtonianAttractorSwarm
+                attractorX={0}
+                attractorY={180}
+                theme="MODERN_GLASSMORPHIC"
+                clickFrame={219}
+                beatPulse={scalePulse}
+              />
             </div>
           )}
 
           {/* ================================================================= */}
-          {/* ACT 2: STOP-MOTION PAPER CUTOUT & LISSAJOUS ORBIT (X = 1500)      */}
+          {/* ACT 2: STOP-MOTION PAPER CUTOUT & LISSAJOUS ORBIT (X = 1800)      */}
           {/* ================================================================= */}
           {act2Visible && (
             <div
               style={{
                 position: 'absolute',
-                transform: `translate3d(1500px, 0px, 50px) rotate(${Math.sin(stopMotionFrame * 0.15) * 0.7}deg)`,
+                opacity: act2DistanceOpacity,
+                transform: `translate3d(1800px, 0px, 50px) rotate(${Math.sin(stopMotionFrame * 0.15) * 0.7}deg)`,
                 pointerEvents: 'none',
               }}
             >
@@ -555,11 +585,19 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   />
                 </div>
               </div>
+
+              {/* Newtonian Attractor Swarm orbiting SVG Morph Core */}
+              <NewtonianAttractorSwarm
+                attractorX={1800 - 320}
+                attractorY={30}
+                theme="STOP_MOTION_PAPER"
+                beatPulse={scalePulse}
+              />
             </div>
           )}
 
           {/* ================================================================= */}
-          {/* ACT 3: TECHNICAL BLUEPRINT 2.5D ISOMETRIC CONSOLE (X = 3000)      */}
+          {/* ACT 3: TECHNICAL BLUEPRINT 2.5D ISOMETRIC CONSOLE (X = 3600)      */}
           {/* ================================================================= */}
           {act3Visible && (
             <div
@@ -567,8 +605,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 position: 'absolute',
                 width: 1360,
                 height: 680,
-                opacity: act3Entrance,
-                transform: `translate3d(3000px, 0px, 60px) scale(${saasDockScale})`,
+                opacity: act3Entrance * act3DistanceOpacity,
+                transform: `translate3d(${act3X}px, 0px, 60px) scale(${saasDockScale})`,
                 direction: 'rtl',
               }}
             >
@@ -792,7 +830,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
           )}
 
           {/* ================================================================= */}
-          {/* ACT 4: NEO-BRUTALIST GRAPHIC POSTER & CALIBRATION (X = 4300)      */}
+          {/* ACT 4: NEO-BRUTALIST GRAPHIC POSTER & CALIBRATION (X = 4480)      */}
           {/* ================================================================= */}
           {act4Visible && (
             <div
@@ -801,7 +839,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 width: 520,
                 height: 640,
                 opacity: act4Spring,
-                transform: `translate3d(4300px, 0px, 60px) scale(${act4Spring})`,
+                transform: `translate3d(4480px, 0px, 60px) scale(${act4Spring * 0.85})`,
                 background: '#ffffff',
                 borderRadius: 14,
                 border: '4px solid #000000',
@@ -914,6 +952,14 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 <span>✔</span>
                 <span>{sanitizeForDisplay('تأییدیه کمیته تحقیقاتی و فناوری')}</span>
               </div>
+
+              {/* Newtonian Attractor Swarm in Neo-Brutalist High Voltage */}
+              <NewtonianAttractorSwarm
+                attractorX={4480}
+                attractorY={-50}
+                theme="NEO_BRUTALIST"
+                beatPulse={scalePulse}
+              />
             </div>
           )}
         </div>
