@@ -19,6 +19,8 @@ import { PersianVectorMorphCard } from '../recipes/PersianVectorMorphRecipe';
 import { AudioDesignLayer } from '../library/AudioDesignLayer';
 import { InteractiveCursor } from '../library/InteractiveCursor';
 import { ForegroundBokehLayer } from '../library/ForegroundBokehLayer';
+import { LissajousOrbit, ParametricWaveformStream, KineticGridMatrix } from '../library/ProceduralGenerativeMotifs';
+import { quantizeToBeat } from '../audio/SemanticMusicDirector';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { loadYekanBakhFonts } from '../../fonts/yekanBakh';
 
@@ -384,6 +386,19 @@ export const ClaudePersianShowreelContent: React.FC = () => {
                 pointerEvents: 'none',
               }}
             >
+              <svg
+                width={700}
+                height={350}
+                style={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  overflow: 'visible',
+                  pointerEvents: 'none',
+                }}
+              >
+                <LissajousOrbit cx={350} cy={175} size={310} color="#38bdf8" />
+              </svg>
               <PersianVectorMorphCard
                 startFrame={95}
                 width={700}
@@ -567,6 +582,24 @@ export const ClaudePersianShowreelContent: React.FC = () => {
                       انرژی ممتد فوکوس
                     </div>
                   </div>
+                </div>
+
+                {/* Living Procedural Telemetry Stream */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 12,
+                    left: 24,
+                    right: 24,
+                    height: 28,
+                    overflow: 'hidden',
+                    pointerEvents: 'none',
+                    opacity: 0.65,
+                  }}
+                >
+                  <svg width="100%" height="28" viewBox="0 0 730 28">
+                    <ParametricWaveformStream x={0} y={14} width={730} amplitude={8} color="#38bdf8" />
+                  </svg>
                 </div>
               </div>
             </div>

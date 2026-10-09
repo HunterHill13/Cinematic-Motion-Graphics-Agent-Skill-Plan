@@ -108,6 +108,18 @@ The skill provides plug-and-play recipes modeled directly after viral Claude Opu
 - **The Core Flaw:** Nesting independent cards inside isolated `<Sequence>` tags creates a "slideshow presentation" feel because each sequence unmounts and wipes the stage.
 - **The Claude Opus Standard:** Maintain one continuous spatial world. When moving between narrative acts, move the **Virtual Camera** or translate elements across the continuous stage. Connect every transition with a physical momentum vector or living energy conduit.
 
+### E. Semantic Music & Beat-Grid Synchronization Doctrine (`src/motion/audio/SemanticMusicDirector.ts`)
+- **Content-Aware Music Matching:** Never use arbitrary or synthetic sine-wave tones. The audio engine classifies script keywords via `detectMusicDomain()` to select from studio-mastered tracks (`ai_future_tech` / `Brain_Dance.mp3` @ 124 BPM, `fintech_saas` / `Tech_Live.mp3` @ 124 BPM, `academic_research` / `Cipher2.mp3` @ 150/75 BPM, `medical_biotech` @ 92 BPM).
+- **Quantized Beat-Snapping (`quantizeToBeat`):** Major visual events, camera whip-pans, cursor clicks, and vector morphs MUST snap to musical quarter-note or 8th-note grid points ($t = \frac{60}{\text{BPM}} \times \text{FPS}$).
+- **Dynamic Sidechain Ducking:** BGM ducks automatically by 35%–45% during transients, cursor clicks, and narration to keep sound effects crisp without mud.
+- **Pristine Studio SFX:** All transitional whooshes, clicks, and chimes must use standardized, -3dB normalized WAV assets (`@remotion/sfx` + `Kenney UI Audio`). Pre-roll whooshes 3–5 frames before visual climax so the sonic apex lands directly on the cut.
+
+### F. Procedural Generative Mathematics Doctrine (`src/motion/library/ProceduralGenerativeMotifs.tsx`)
+- In addition to standard cards and text, focal actors must feature living mathematical vector geometry:
+  1. `LissajousOrbit`: Real-time trigonometric multi-frequency orbiting knot ($x = A\sin(a\theta + \delta), y = B\sin(b\theta)$) with glowing beacon trails.
+  2. `ParametricWaveformStream`: Living harmonic wave superposition ($\sum A_i \sin(\omega_i t + \phi_i)$) for data telemetry and vital signs.
+  3. `KineticGridMatrix`: Perspective-warped coordinate grid with pulsing crosshair intersections.
+
 ---
 
 ## 3. Hard Fail Conditions (Disqualifications)
