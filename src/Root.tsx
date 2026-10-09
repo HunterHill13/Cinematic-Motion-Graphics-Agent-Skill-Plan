@@ -57,6 +57,27 @@ import {
   SKILL_INTRO_HEIGHT,
 } from './motion/claude/SkillIntroShowreel';
 import { UniversalStudioShowreelContent } from './motion/claude/UniversalStudioShowreel';
+import {
+  DarkGraphiteTechMaster,
+  DARK_GRAPHITE_DURATION,
+  DARK_GRAPHITE_FPS,
+  DARK_GRAPHITE_WIDTH,
+  DARK_GRAPHITE_HEIGHT,
+} from './motion/templates/DarkGraphiteTechMaster';
+import {
+  ContinuousUiMorphMaster,
+  CONTINUOUS_UI_DURATION,
+  CONTINUOUS_UI_FPS,
+  CONTINUOUS_UI_WIDTH,
+  CONTINUOUS_UI_HEIGHT,
+} from './motion/templates/ContinuousUiMorphMaster';
+import {
+  QuantumBioDeepZMaster,
+  QUANTUM_BIO_DURATION,
+  QUANTUM_BIO_FPS,
+  QUANTUM_BIO_WIDTH,
+  QUANTUM_BIO_HEIGHT,
+} from './motion/templates/QuantumBioDeepZMaster';
 
 /**
  * ============================================================================
@@ -434,6 +455,36 @@ export const Root: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* 22. TEMPLATE ARCHETYPE 2: DARK GRAPHITE TECH MASTER (KEYNOTE LAUNCH FILM) */}
+      <Composition
+        id="DarkGraphiteTechMaster"
+        component={DarkGraphiteTechMaster}
+        durationInFrames={DARK_GRAPHITE_DURATION}
+        fps={DARK_GRAPHITE_FPS}
+        width={DARK_GRAPHITE_WIDTH}
+        height={DARK_GRAPHITE_HEIGHT}
+      />
+
+      {/* 23. TEMPLATE ARCHETYPE 3: CONTINUOUS UI MORPH MASTER (SINGLE-ELEMENT DRIBBBLE POLISH) */}
+      <Composition
+        id="ContinuousUiMorphMaster"
+        component={ContinuousUiMorphMaster}
+        durationInFrames={CONTINUOUS_UI_DURATION}
+        fps={CONTINUOUS_UI_FPS}
+        width={CONTINUOUS_UI_WIDTH}
+        height={CONTINUOUS_UI_HEIGHT}
+      />
+
+      {/* 24. TEMPLATE ARCHETYPE 4: QUANTUM & BIO DEEP-Z MASTER (TRUE 3D PUSH-IN DIVE) */}
+      <Composition
+        id="QuantumBioDeepZMaster"
+        component={QuantumBioDeepZMaster}
+        durationInFrames={QUANTUM_BIO_DURATION}
+        fps={QUANTUM_BIO_FPS}
+        width={QUANTUM_BIO_WIDTH}
+        height={QUANTUM_BIO_HEIGHT}
       />
     </>
   );

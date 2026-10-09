@@ -175,3 +175,29 @@ export function getBeatTimeline(
   }
   return beats;
 }
+
+/**
+ * Calculates an organic audio-reactive kick pulse envelope synchronized with musical beats.
+ * Produces a microscopic camera/element pump that decays exponentially within 3-4 frames.
+ * 
+ * @param frame - Current frame number
+ * @param bpm - Music tempo in beats per minute (e.g. 124 BPM)
+ * @param fps - Framerate (default 30)
+ * @param intensity - Peak scale pump percentage (e.g. 0.02 = +2.0% scale jolt)
+ * @returns { scalePulse, lightPulse }
+ */
+export function calculateBeatPulse(
+  frame: number,
+  bpm: number = 124,
+  fps: number = 30,
+  intensity: number = 0.02
+): { scalePulse: number; lightPulse: number } {
+  const framesPerBeat = (60 / bpm) * fps;
+  const beatProgress = (frame % framesPerBeat) / framesPerBeat;
+  // Steep exponential decay so the impulse hits instantly on beat and settles smoothly
+  const impulse = Math.exp(-beatProgress * 7.5);
+  return {
+    scalePulse: 1.0 + impulse * intensity,
+    lightPulse: impulse,
+  };
+}

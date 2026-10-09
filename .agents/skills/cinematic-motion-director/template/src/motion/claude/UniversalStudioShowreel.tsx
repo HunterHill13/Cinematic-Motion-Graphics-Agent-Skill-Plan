@@ -23,7 +23,7 @@ import { ForegroundBokehLayer } from '../library/ForegroundBokehLayer';
 import { LissajousOrbit, ParametricWaveformStream } from '../library/ProceduralGenerativeMotifs';
 import { quantizeToBeat, calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
-import { loadYekanBakhFonts } from '../../fonts/yekanBakh';
+import { loadYekanBakhFonts, YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
 import { CURATED_COLOR_PALETTES } from '../visual_world/colorPaletteGate';
 import { APPROVED_ART_STYLES, ArtStyleDefinition, quantizeFrameForStopMotion } from '../visual_world/artStyleGate';
 import { deriveAtmosphere } from '../visual_world/AtmosphereThemeDeriver';
@@ -105,7 +105,7 @@ export const UniversalStudioShowreelContent: React.FC<UniversalStudioShowreelPro
         position: 'relative',
         overflow: 'hidden',
         background: '#040d1a',
-        fontFamily: 'Yekan Bakh, -apple-system, sans-serif',
+        fontFamily: YEKAN_BAKH_FONT,
       }}
     >
       {/* 1. ATMOSPHERIC BACKDROP & LIGHTING */}

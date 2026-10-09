@@ -98,40 +98,41 @@ export class UniversalCameraRig {
       label: 'افقی پانوراما (Horizontal Panoramic)',
       description: 'ردیابی ممتد در طول محور افقی با کادربندی‌های دقیق و حرکت پیوسته بدون کات',
       stages,
-      computeCamera: (frame: number) => {
+      computeCamera: (frame: number, totalFrames: number = 1800) => {
+        const f = totalFrames === 1800 ? frame : (frame / totalFrames) * 1800;
         const camX = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 1500, 1500, 3000, 3000, 4300, 3650, 3650],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camY = 0;
         const camZ = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 50, 50, 80, 80, 120, -180, -180],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.4, 0, 0.2, 1) }
         );
         const camRoll = interpolate(
-          frame,
+          f,
           [270, 305, 340, 680, 715, 750, 1180, 1215, 1250],
           [0, -2.5, 0, 0, 3.0, 0, 0, -2.0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camPitch = interpolate(
-          frame,
+          f,
           [0, 270, 340, 750, 1250, 1800],
           [1.5, 1.5, -1.0, 2.0, 0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camYaw = interpolate(
-          frame,
+          f,
           [0, 270, 340, 750, 1250, 1800],
           [-2.0, -2.0, 1.5, -2.5, 0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
-        const velocity = Math.abs(interpolate(frame + 1, [0, 1800], [0, 4300]) - interpolate(frame, [0, 1800], [0, 4300]));
+        const velocity = Math.abs(interpolate(f + 1, [0, 1800], [0, 4300]) - interpolate(f, [0, 1800], [0, 4300]));
         return { camX, camY, camZ, camPitch, camYaw, camRoll, camZoom: 1.0, motionBlur: velocity * 0.1 };
       },
       getStageVisibility: (stageIndex, cam) => {
@@ -172,29 +173,30 @@ export class UniversalCameraRig {
       label: 'عمودی کرین/آسانسوری (Vertical Elevator)',
       description: 'حرکت باشکوه دوربین از بالا به پایین شبیه نمای کرین سینمایی با شیب‌های ملایم پیتچ',
       stages,
-      computeCamera: (frame: number) => {
+      computeCamera: (frame: number, totalFrames: number = 1800) => {
+        const f = totalFrames === 1800 ? frame : (frame / totalFrames) * 1800;
         const camX = 0;
         const camY = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 1100, 1100, 2200, 2200, 3300, 2750, 2750],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camZ = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 40, 40, 80, 80, 100, -160, -160],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.4, 0, 0.2, 1) }
         );
         const camPitch = interpolate(
-          frame,
+          f,
           [270, 305, 340, 680, 715, 750, 1180, 1215, 1250],
           [0, 3.5, 0, 0, -3.0, 0, 0, 2.5, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camYaw = 0;
         const camRoll = interpolate(
-          frame,
+          f,
           [270, 340, 680, 750],
           [0, -1.5, 0, 1.5],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
@@ -240,39 +242,40 @@ export class UniversalCameraRig {
       label: 'آبشاری اریب (Diagonal Cascade)',
       description: 'حرکت همزمان در محورهای افقی و عمودی با زاویه ۴۵ درجه و چرخش بانکینگ پویا',
       stages,
-      computeCamera: (frame: number) => {
+      computeCamera: (frame: number, totalFrames: number = 1800) => {
+        const f = totalFrames === 1800 ? frame : (frame / totalFrames) * 1800;
         const camX = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 1400, 1400, 2800, 2800, 4000, 3400, 3400],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camY = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 750, 750, 1500, 1500, 2200, 1850, 1850],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camZ = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 50, 50, 100, 100, 140, -180, -180],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.4, 0, 0.2, 1) }
         );
         const camRoll = interpolate(
-          frame,
+          f,
           [270, 305, 340, 680, 715, 750, 1180, 1215, 1250],
           [0, -4.0, 0, 0, 4.5, 0, 0, -3.0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camPitch = interpolate(
-          frame,
+          f,
           [0, 340, 750, 1250, 1800],
           [1.0, -1.5, 1.5, -1.0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camYaw = interpolate(
-          frame,
+          f,
           [0, 340, 750, 1250, 1800],
           [-2.0, 2.0, -2.5, 1.5, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
@@ -319,33 +322,34 @@ export class UniversalCameraRig {
       label: 'نفوذ در عمق سه‌بعدی (Deep-Z Push-In Tunnel)',
       description: 'پرواز مستقیم دوربین به عمق فضا (Z-axis)؛ پرده‌های بعدی در پشت پرده فعلی ظاهر شده و دوربین از مرکز آنها عبور می‌کند',
       stages,
-      computeCamera: (frame: number) => {
+      computeCamera: (frame: number, totalFrames: number = 1800) => {
+        const f = totalFrames === 1800 ? frame : (frame / totalFrames) * 1800;
         const camX = 0;
         const camY = 0;
         // Camera moves forward continuously into Z
         const camZ = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-          [0, 0, 1600, 1600, 3200, 3200, 4800, 4200, 4200],
+          [0, 0, 1600, 1600, 3200, 3200, 4800, 4800, 4800],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         // Subtle banking and rotation as we dive through portals
         const camRoll = interpolate(
-          frame,
+          f,
           [270, 305, 340, 680, 715, 750, 1180, 1215, 1250],
           [0, 6.0, 0, 0, -6.5, 0, 0, 4.0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camPitch = interpolate(
-          frame,
-          [270, 340, 680, 750, 1180, 1250],
-          [0, -2.5, 0, 2.5, 0, -1.5],
+          f,
+          [270, 340, 680, 750, 1180, 1250, 1400, 1800],
+          [0, -2.5, 0, 2.5, 0, -1.5, 0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camYaw = interpolate(
-          frame,
-          [270, 340, 680, 750, 1180, 1250],
-          [0, 3.0, 0, -3.0, 0, 2.0],
+          f,
+          [270, 340, 680, 750, 1180, 1250, 1400, 1800],
+          [0, 3.0, 0, -3.0, 0, 2.0, 0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
@@ -400,39 +404,40 @@ export class UniversalCameraRig {
       label: 'ترکیبی پویا (Dynamic Composite)',
       description: 'حرکت هیبریدی هوشمند: گذار اریب در پرده اول، نفوذ در عمق سه‌بعدی به داخل کنسول پرده دو، و زوم‌بک نهایی',
       stages,
-      computeCamera: (frame: number) => {
+      computeCamera: (frame: number, totalFrames: number = 1800) => {
+        const f = totalFrames === 1800 ? frame : (frame / totalFrames) * 1800;
         const camX = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 1200, 1200, 1200, 1200, 2600, 2200, 2200],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camY = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 600, 600, 600, 600, 0, 200, 200],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camZ = interpolate(
-          frame,
+          f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
           [0, 0, 200, 200, 1800, 1800, 1900, 1600, 1600],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.4, 0, 0.2, 1) }
         );
         const camRoll = interpolate(
-          frame,
+          f,
           [270, 305, 340, 680, 715, 750, 1180, 1215, 1250],
           [0, -3.5, 0, 0, 5.0, 0, 0, -2.5, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camPitch = interpolate(
-          frame,
+          f,
           [0, 340, 750, 1250, 1800],
           [1.0, -1.0, 2.0, -1.0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camYaw = interpolate(
-          frame,
+          f,
           [0, 340, 750, 1250, 1800],
           [-2.0, 1.5, -2.0, 2.0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }

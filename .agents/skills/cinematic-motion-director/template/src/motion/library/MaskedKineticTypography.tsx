@@ -14,6 +14,7 @@
 import React from 'react';
 import { useCurrentFrame, useVideoConfig, spring, interpolate } from 'remotion';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
+import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
 
 export interface MaskedKineticHeadlineProps {
   text: string;
@@ -58,6 +59,7 @@ export const MaskedKineticHeadline: React.FC<MaskedKineticHeadlineProps> = ({
         direction,
         justifyContent: direction === 'rtl' ? 'flex-start' : 'flex-start',
         lineHeight,
+        fontFamily: YEKAN_BAKH_FONT,
         margin: 0,
         ...style,
       }}

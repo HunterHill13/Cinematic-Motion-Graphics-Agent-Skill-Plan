@@ -16,6 +16,7 @@ import { interpolatePath, evolvePath } from '@remotion/paths';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { LiquidMitosisCore } from '../library/OrganicLiquidGooey';
 import { VectorShapeBlueprint, DYNAMIC_VECTOR_CATALOG } from '../library/DynamicVectorCatalog';
+import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
 
 export type CardTheme = 
   | 'MODERN_GLASSMORPHIC'
@@ -138,7 +139,7 @@ export const UniversalVectorMorphCard: React.FC<UniversalVectorMorphCardProps> =
         justifyContent: 'space-between',
         padding: '28px 44px',
         direction: 'rtl',
-        fontFamily: 'Yekan Bakh, -apple-system, sans-serif',
+        fontFamily: YEKAN_BAKH_FONT,
         overflow: 'hidden',
       }}
     >

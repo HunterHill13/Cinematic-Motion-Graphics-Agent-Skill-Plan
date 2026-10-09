@@ -9,6 +9,7 @@ _research/
 audio/cache/
 .remotion/
 .cache/
+.scratch/
 out/
 
 # Proprietary / Licensed Fonts (Keep on local machine & global skill; never commit to GitHub)

@@ -17,6 +17,7 @@
 import React from 'react';
 import { useCurrentFrame, useVideoConfig, spring, interpolate, Easing } from 'remotion';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
+import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
 
 export type DataVizArtStyle = 
   | 'MODERN_GLASSMORPHIC'
@@ -70,6 +71,7 @@ export const KineticBarChart: React.FC<KineticBarChartProps> = ({
         gap: 16,
         padding: '12px 16px',
         direction,
+        fontFamily: YEKAN_BAKH_FONT,
         ...style,
       }}
     >
@@ -300,6 +302,7 @@ export const KineticRadialProgress: React.FC<KineticRadialProgressProps> = ({
               fontWeight: 700,
               color: '#94a3b8',
               marginTop: 2,
+              fontFamily: YEKAN_BAKH_FONT,
             }}
           >
             {sanitizeForDisplay(label)}
@@ -386,6 +389,7 @@ export const KineticMetricCounter: React.FC<KineticMetricCounterProps> = ({
             fontWeight: 700,
             color: '#94a3b8',
             marginTop: 4,
+            fontFamily: YEKAN_BAKH_FONT,
           }}
         >
           {sanitizeForDisplay(label)}
