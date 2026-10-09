@@ -36,6 +36,7 @@ Every visual and motion decision follows this strict priority:
 ```text
 [DIRECTOR: PLANNING & VISUAL STATE GRAPH]
 1. [MANDATORY GATE 0: VOICE SELECTION]: Ask user to select from approved Gemini voices (Puck / Callirrhoe). DO NOT proceed until answered!
+1.5 [MANDATORY GATE 0.5: COLOR PALETTE SELECTION]: Propose 3 topic-tailored color palettes (e.g. Bio-Emerald, Neon Obsidian, Cyber Amber) plus custom write-in via ask_question. The Visual World, Lighting, Materials, Conduits, and HUD strictly inherit this chromatic DNA across all acts.
 2. Stage 1: Synthesize motion-validation preview sample via Microsoft Edge-TTS (fa-IR-FaridNeural / DilaraNeural). ZERO Gemini quota consumed.
 3. Render Edge-TTS preview video for user approval of motion, pacing, camera flight, and typography.
 4. Upon explicit user approval ("تأیید"): Transition to Stage 2: Monolithic Gemini TTS synthesis with strict quota fallback (gemini-3.8-flash-tts -> gemini-3.8-flash-lite-tts -> gemini-3.1-flash-tts-preview). Recalibrate exact video frame boundaries to measured Gemini audio duration.

@@ -49,6 +49,13 @@ import {
   CLAUDE_PERSIAN_WIDTH,
   CLAUDE_PERSIAN_HEIGHT,
 } from './motion/claude/ClaudePersianShowreel';
+import {
+  SkillIntroShowreelContent,
+  SKILL_INTRO_DURATION,
+  SKILL_INTRO_FPS,
+  SKILL_INTRO_WIDTH,
+  SKILL_INTRO_HEIGHT,
+} from './motion/claude/SkillIntroShowreel';
 
 /**
  * ============================================================================
@@ -406,6 +413,16 @@ export const Root: React.FC = () => {
         fps={CLAUDE_PERSIAN_FPS}
         width={CLAUDE_PERSIAN_WIDTH}
         height={CLAUDE_PERSIAN_HEIGHT}
+      />
+
+      {/* 20. SKILL INTRO 60-SECOND CINEMATIC MASTERPIECE (1800 Frames @ 30 FPS / 60.0s) */}
+      <Composition
+        id="SkillIntroShowreel"
+        component={SkillIntroShowreelContent}
+        durationInFrames={SKILL_INTRO_DURATION}
+        fps={SKILL_INTRO_FPS}
+        width={SKILL_INTRO_WIDTH}
+        height={SKILL_INTRO_HEIGHT}
       />
     </>
   );

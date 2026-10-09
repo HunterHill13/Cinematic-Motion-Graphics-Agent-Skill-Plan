@@ -67,20 +67,44 @@ Final Broadcast Master Video (.mp4 @ 60/30 FPS)
 
 ## 🏆 Master Benchmark Showcases
 
-### Flagship Persian Showreel: `ClaudePersianShowreel` (450 Frames / 15.0s @ 30 FPS)
+### 1. Official 60-Second Skill Showcase: `SkillIntroShowreel` (1800 Frames / 60.0s @ 30 FPS)
 
-A master video authored entirely in Persian, featuring real SVG path morphing, continuous camera flight, live telemetry charting, and dual-wing calibration climax.
+An epic 1-minute production trailer introducing the autonomous motion directing pipeline, rendered in the **Deep Emerald & Cyber Gold** color palette with high-energy 124 BPM rhythmic music (`Brain_Dance.mp3`), Persian voiceover narration, 6-DOF camera maneuvers, living telemetry, and mechanical gauge calibration.
+
+![Skill Intro Contact Sheet](renders/claude/SKILL_INTRO_CONTACT_SHEET.png)
+
+| Act 1 (0..12s / Frame 180): Sovereign Monolith | Act 2 (12..25s / Frame 520): Lissajous Orbit & SVG Morph |
+|:---:|:---:|
+| **کارگردانی سینمایی ویدیو در تراز کلاد اوپوس ۵.۵**<br>Interactive cursor click triggering continuous 6-DOF flight | **سپهر کالیبراسیون و اعتبار نهایی**<br>Parametric Gold Lissajous curve with topology morphing |
+| **Act 3 (25..42s / Frame 950): 2.5D Isometric SaaS Console** | **Act 4 (42..60s / Frame 1450): 100% Sovereign Climax** |
+| **کنسول تله‌متری و تحلیل فضایی اسکیل**<br>3D tilted glass console with real-time parametric waveform stream | **استاندارد کیفی طلایی (۱۰۰٪)**<br>Receding dual-card spatial perspective with luminous circular gauge |
+
+* **Video Master:** `renders/claude/SKILL_INTRO_SHOWREEL.mp4` (60.0s, 1080p, 30 FPS)
+* **Visual Contact Sheet:** `renders/claude/SKILL_INTRO_CONTACT_SHEET.png`
+* **Audio Architecture:** 124 BPM syncopated beat grid + 4-act Persian voiceover + 6 beat-aligned SFX (`whoosh`, `sub_drop`, `laser`, `lock`).
+
+---
+
+### 2. Flagship Persian Showreel: `ClaudePersianShowreel` (450 Frames / 15.0s @ 30 FPS)
+
+A master 15-second benchmark authored in Persian, featuring real SVG path morphing, continuous camera flight, live telemetry charting, and dual-wing calibration climax.
 
 ![Claude Persian Contact Sheet](renders/claude/CLAUDE_PERSIAN_CONTACT_SHEET.png)
 
-| Act 1 (Frame 50): Central Hero Monolith | Act 2 (Frame 140): SVG Vector Morphing Lab |
-|:---:|:---:|
-| **معماری موشن‌گرافیک سینمایی**<br>Yekan Bakh ExtraBold Display with Living Conduit | **شبکه عصبی پردازش هوشمند**<br>Octagram $\to$ Neural Synaptic Matrix Morphing |
-| **Act 3 (Frame 270): 2.5D Isometric SaaS Console** | **Act 4 (Frame 410): Grand Dual-Wing Climax** |
-| **سامانه پایش هوشمند کمیته تحقیقات**<br>Live Telemetry Sparkline painted in real-time | **استاندارد کیفی طلایی (۱۰۰٪)**<br>Circular Precision Gauge & Sovereign Verification Seal |
-
 * **Video Output:** `renders/claude/CLAUDE_PERSIAN_SHOWREEL.mp4` (6.2 MB)
 * **Contact Sheet:** `renders/claude/CLAUDE_PERSIAN_CONTACT_SHEET.png`
+
+---
+
+## 🎨 Mandatory Gate 0.5: Color Palette Selection Doctrine
+
+To eliminate arbitrary aesthetic drift, the skill strictly enforces **Gate 0.5** immediately following voice persona selection:
+1. **Curated Recommendations:** Proposes exactly **3 tailored 5-color palettes** harmonized with the video's subject matter:
+   - *Palette 1:* Domain-Specific Primary (e.g. Deep Emerald & Cyber Gold for sovereign tech/scientific excellence).
+   - *Palette 2:* High-Contrast Modern Minimalist / Neo-Tokyo Cyberpunk.
+   - *Palette 3:* Warm Cinematic Heritage / Organic Editorial.
+2. **Custom Write-In Option:** Provides an explicit custom option for custom client brand colors.
+3. **Execution Freeze:** The agent is strictly prohibited from writing or scaffolding Remotion visual components until the user confirms the palette.
 
 ---
 
@@ -109,15 +133,19 @@ A master video authored entirely in Persian, featuring real SVG path morphing, c
 │   │   ├── recipes/
 │   │   │   └── PersianVectorMorphRecipe.tsx   # Continuous SVG Path Morphing Engine
 │   │   ├── claude/
+│   │   │   ├── SkillIntroShowreel.tsx         # 60s Official Skill Intro Showreel (1800 frames)
 │   │   │   ├── ClaudePersianShowreel.tsx      # Master Persian One-Take Composition
 │   │   │   ├── ClaudeFluidShowreel.tsx        # 6-DOF Virtual Camera Masterpiece
 │   │   │   └── ClaudeOpusShowreel.tsx         # Dribbble Morph & SaaS Climax
 │   │   ├── compiler/                          # MotionSceneGraph & AST Compilers
 │   │   ├── visual_world/                      # Material, Lighting & Depth Adapters
+│   │   │   └── colorPaletteGate.ts            # Mandatory Gate 0.5 Color Palette Selector
 │   │   └── validation/                        # Automated Anti-Bypass Validators
 │   └── Root.tsx                               # Remotion Composition Registry
 │
 ├── renders/claude/                            # RENDERED BENCHMARK OUTPUTS
+│   ├── SKILL_INTRO_SHOWREEL.mp4               # Official 60s Skill Intro Master (1080p)
+│   ├── SKILL_INTRO_CONTACT_SHEET.png          # 4-Act Contact Sheet for 60s Intro
 │   ├── CLAUDE_PERSIAN_SHOWREEL.mp4            # Flagship Persian Master Video (6.2 MB)
 │   ├── CLAUDE_PERSIAN_CONTACT_SHEET.png       # 4-Panel Contact Sheet
 │   └── persian_act{1..4}_f*.png               # Diagnostic Stills
@@ -136,7 +164,12 @@ npm start
 # Opens Remotion Studio at http://localhost:3000
 ```
 
-### 2. Render Persian Showreel Master Video (450 Frames / 15.0s @ 30 FPS)
+### 2. Render Official 60-Second Skill Intro Showreel (1800 Frames / 60.0s @ 30 FPS)
+```bash
+npx remotion render src/index.ts SkillIntroShowreel renders/claude/SKILL_INTRO_SHOWREEL.mp4
+```
+
+### 3. Render Persian Showreel Master Video (450 Frames / 15.0s @ 30 FPS)
 ```bash
 npx remotion render src/index.ts ClaudePersianShowreel renders/claude/CLAUDE_PERSIAN_SHOWREEL.mp4
 ```
