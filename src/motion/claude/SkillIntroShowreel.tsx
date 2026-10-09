@@ -31,6 +31,7 @@ import { InertialRig } from '../library/InertialFollowThrough';
 import { DynamicFresnelSweep } from '../library/DynamicFresnelSweep';
 import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer';
 import { KineticBarChart, KineticMetricCounter } from '../library/KineticDataViz';
+import { LiquidButtonSquash } from '../library/OrganicLiquidGooey';
 
 if (typeof window !== 'undefined') {
   loadYekanBakhFonts().catch((e) => console.warn('Font load warning:', e));
@@ -365,34 +366,43 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   style={{ marginBottom: 40, maxWidth: 840, justifyContent: 'center' }}
                 />
 
-                {/* Interactive Target Button */}
-                <div
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    gap: 14,
-                    padding: '16px 36px',
-                    borderRadius: 16,
-                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(245, 158, 11, 0.15))',
-                    border: '1.5px solid rgba(16, 185, 129, 0.45)',
-                    backdropFilter: 'blur(20px)',
-                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.3)',
-                    transform: `scale(${buttonScale})`,
-                  }}
+                {/* Interactive Target Button with Viscous Liquid Squash & Satellite Droplets */}
+                <LiquidButtonSquash
+                  clickFrame={219}
+                  width={250}
+                  height={60}
+                  primaryColor="#10b981"
+                  accentColor="#f59e0b"
+                  artStyle="MODERN_GLASSMORPHIC"
                 >
                   <div
                     style={{
-                      width: 12,
-                      height: 12,
-                      borderRadius: '50%',
-                      background: '#f59e0b',
-                      boxShadow: '0 0 14px #f59e0b',
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 14,
+                      padding: '16px 36px',
+                      borderRadius: 16,
+                      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(245, 158, 11, 0.15))',
+                      border: '1.5px solid rgba(16, 185, 129, 0.45)',
+                      backdropFilter: 'blur(20px)',
+                      boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.3)',
+                      transform: `scale(${buttonScale})`,
                     }}
-                  />
-                  <span style={{ fontSize: 18, fontWeight: 800, color: '#f0fdf4' }}>
-                    {sanitizeForDisplay('ورود به استودیو سینمایی')}
-                  </span>
-                </div>
+                  >
+                    <div
+                      style={{
+                        width: 12,
+                        height: 12,
+                        borderRadius: '50%',
+                        background: '#f59e0b',
+                        boxShadow: '0 0 14px #f59e0b',
+                      }}
+                    />
+                    <span style={{ fontSize: 18, fontWeight: 800, color: '#f0fdf4' }}>
+                      {sanitizeForDisplay('ورود به استودیو سینمایی')}
+                    </span>
+                  </div>
+                </LiquidButtonSquash>
               </InertialRig>
               </div>
             </div>

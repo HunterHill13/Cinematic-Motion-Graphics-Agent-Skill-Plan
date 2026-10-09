@@ -4,17 +4,17 @@ $claudeDir = Join-Path $PSScriptRoot "..\renders\claude"
 $claudeDir = [System.IO.Path]::GetFullPath($claudeDir)
 
 $stills = @(
-  "intro_act1_f180.png",
+  "intro_act1_f220.png",
   "intro_act2_f520.png",
   "intro_act3_f950.png",
   "intro_act4_f1450.png"
 )
 
 $labels = @(
-  "ACT 1: SOVEREIGN MONOLITH & INTERACTIVE CURSOR (0..12s / f180)",
-  "ACT 2: LISSAJOUS PARAMETRIC ORBIT & SVG MORPH (12..25s / f520)",
-  "ACT 3: 2.5D ISOMETRIC SAAS CONSOLE & TELEMETRY (25..42s / f950)",
-  "ACT 4: 100% SOVEREIGN CALIBRATION & GOLDEN MILESTONE (42..60s / f1450)"
+  "ACT 1: GLASSMORPHIC MONOLITH & LIQUID SQUASH CLICK (0..12s / f220)",
+  "ACT 2: STOP-MOTION PAPER & LIQUID MITOSIS MORPH (12..25s / f520)",
+  "ACT 3: TECHNICAL BLUEPRINT CONSOLE & DATA VIZ (25..42s / f950)",
+  "ACT 4: NEO-BRUTALIST GOLD CALIBRATION GAUGE (42..60s / f1450)"
 )
 
 $cellWidth = 960

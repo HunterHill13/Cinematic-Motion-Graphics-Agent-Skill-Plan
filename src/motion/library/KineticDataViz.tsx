@@ -27,7 +27,7 @@ export type DataVizArtStyle =
 // ============================================================================
 // 1. KINETIC BAR CHART
 // ============================================================================
-export interface BarItem {
+export interface KineticBarItem {
   label: string;
   value: number;
   color?: string;
@@ -35,7 +35,7 @@ export interface BarItem {
 }
 
 export interface KineticBarChartProps {
-  items: BarItem[];
+  items: KineticBarItem[];
   maxValue?: number;
   startFrame: number;
   staggerFrames?: number;

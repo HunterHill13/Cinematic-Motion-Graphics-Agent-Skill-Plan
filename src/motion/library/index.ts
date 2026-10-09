@@ -16,3 +16,8 @@ export * from './AudioDesignLayer';
 export * from './MaskedKineticTypography';
 export * from './InertialFollowThrough';
 export * from './SpeedRampCamera';
+export * from './DynamicFresnelSweep';
+export * from './StyleAwareAtmosphereLayer';
+export * from './KineticDataViz';
+export * from './UniversalPathMorph';
+export * from './OrganicLiquidGooey';

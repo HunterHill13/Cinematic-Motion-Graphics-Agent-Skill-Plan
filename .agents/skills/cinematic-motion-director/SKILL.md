@@ -84,6 +84,7 @@ To match and exceed the visual fidelity of Anthropic's **Claude Motion** (Octobe
   3. `KineticTypography`: Staggered word-by-word spring reveals (`KineticHeadline`), radiant gradient spans (Cyan/Indigo/Purple), glowing status badge pills (`BadgePill`), and clean subtitles (`SubtitleCallout`).
   4. `MetricCard` & Visualizers: Real-time numeric count-up animations (`0` to target with easing curves), circular animated gauges (`CircularGauge`), and spring-loaded horizontal comparison bars (`BarChartVisualizer`).
   5. `FlowDiagram`: Declarative architecture nodes, high-contrast SVG cubic bezier conduits, and traveling luminous energy pulses (comet core + radiant diffuse aura).
+  6. `OrganicLiquidGooey`: SVG threshold filtering (`feGaussianBlur` + `feColorMatrix`) enabling visceral button press squash-and-stretch with dynamic satellite micro-droplets and cellular mitotic division/fusion.
 
 ### B. High-Fidelity Claude Motion Recipes (`src/motion/recipes/` & `src/motion/claude/`)
 The skill provides plug-and-play recipes modeled directly after viral Claude Opus 5.5 and Dribbble showcase interactions:
@@ -249,6 +250,11 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
 4. **Persian RTL Layout Discipline:**
    - Layouts must enforce `direction: 'rtl'` with correct reverse flex alignment (`row-reverse` where appropriate).
    - All text strings must pass through `sanitizeForDisplay(text)` from `src/typography/persianSanitizer.ts`.
+
+5. **Organic Liquid Elasticity & Metaball Surface Tension (`OrganicLiquidGooey`):**
+   - Interactive components and morphing nuclei must utilize SVG threshold filtering (`feGaussianBlur` + `feColorMatrix`).
+   - Clicks must trigger elastic squash-and-stretch with dynamic satellite micro-droplets that re-merge via surface tension (`LiquidButtonSquash`).
+   - Topological state morphs must feature mitotic division and viscous fusion (`LiquidMitosisCore`), adapting shader traits across all 5 active Art Styles.
 
 ---
 

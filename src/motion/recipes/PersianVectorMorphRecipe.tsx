@@ -19,6 +19,7 @@ import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig, spring, Easing } from 'remotion';
 import { interpolatePath, evolvePath } from '@remotion/paths';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
+import { LiquidMitosisCore } from '../library/OrganicLiquidGooey';
 
 // 200x200 Coordinate Space SVG Paths
 export const PATH_OCTAGRAM = 'M 100 15 L 122 68 L 180 50 L 152 100 L 180 150 L 122 132 L 100 185 L 78 132 L 20 150 L 48 100 L 20 50 L 78 68 Z';
@@ -117,6 +118,12 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
   const rotation = interpolate(relFrame, [0, durationInFrames], [0, 360]);
   const pulseScale = 1 + Math.sin(relFrame / 8) * 0.04;
 
+  // Liquid Mitosis Split Factor (Peaks during morphological transitions)
+  const t1 = Math.sin(interpolate(relFrame, [s1Start, s1End], [0, Math.PI], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+  const t2 = Math.sin(interpolate(relFrame, [s2Start, s2End], [0, Math.PI], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+  const t3 = Math.sin(interpolate(relFrame, [s3Start, s3End], [0, Math.PI], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }));
+  const mitosisSplit = Math.max(t1, t2, t3);
+
   return (
     <div
       style={{
@@ -207,6 +214,28 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
             strokeOpacity="0.3"
           />
         </svg>
+
+        {/* Dynamic Organic Liquid Mitosis Core (Metaball Fluid Division) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 1,
+            opacity: 0.65,
+            pointerEvents: 'none',
+          }}
+        >
+          <LiquidMitosisCore
+            size={180}
+            splitProgress={mitosisSplit}
+            primaryColor={activeColor}
+            accentColor="#38bdf8"
+            artStyle="MODERN_GLASSMORPHIC"
+          />
+        </div>
 
         {/* MAIN MORPHING SVG PATH */}
         <svg
