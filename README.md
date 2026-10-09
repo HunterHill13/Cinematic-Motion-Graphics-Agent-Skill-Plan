@@ -1,192 +1,156 @@
-# 🎬 Cinematic Motion Director — Production Architecture & AI Skill
+# 🎬 Cinematic Motion Director — Claude Opus 5.5 Production Architecture
 
-[![Status](https://img.shields.io/badge/Production%20Status-VERIFIED%20READY-00E5FF.svg?style=for-the-badge&logo=checkmarx)](docs/SKILL_REPAIR_REPORT.md)
+[![Status](https://img.shields.io/badge/Production%20Status-CLAUDE%20OPUS%205.5%20VERIFIED-00E5FF.svg?style=for-the-badge&logo=checkmarx)](docs/CLAUDE_FLUID_CONTINUITY_RESEARCH.md)
 [![Skill](https://img.shields.io/badge/Agent%20Skill-cinematic--motion--director-FF6600.svg?style=for-the-badge&logo=probot)](.agents/skills/cinematic-motion-director/SKILL.md)
-[![Engine](https://img.shields.io/badge/Render%20Engine-Remotion%20%2B%20React%2018-61dafb.svg?style=for-the-badge&logo=react)](https://remotion.dev)
-[![Voice](https://img.shields.io/badge/Voice%20Engine-Google%20Gemini%20TTS%20(Puck)-4285F4.svg?style=for-the-badge&logo=google)](https://ai.google.dev)
-[![Anti-Slideshow](https://img.shields.io/badge/Anti--Slideshow-S1--S8%20Hard%20Gated-10B981.svg?style=for-the-badge)](.agents/skills/cinematic-motion-director/references/anti-slideshow.md)
+[![Engine](https://img.shields.io/badge/Render%20Engine-Remotion%20%2B%20React%2019-61dafb.svg?style=for-the-badge&logo=react)](https://remotion.dev)
+[![Typography](https://img.shields.io/badge/Typography-Yekan%20Bakh%20(8%20Weights)-10B981.svg?style=for-the-badge)](public/fonts/YekanBakh/)
+[![Morphing](https://img.shields.io/badge/Morphing%20Engine-SVG%20Path%20Interpolation-8B5CF6.svg?style=for-the-badge)](src/motion/recipes/PersianVectorMorphRecipe.tsx)
+[![Camera](https://img.shields.io/badge/Camera-6--DOF%20One--Take%20Flight-F59E0B.svg?style=for-the-badge)](src/motion/claude/ClaudePersianShowreel.tsx)
 
-An enterprise-grade, motion-first autonomous video directing system and production codebase engineered for **Google Antigravity & Gemini**. Transforms complex Persian and bilingual scientific/educational scripts into broadcast-quality cinematic motion graphics by replacing static slideshow cards and robotic narration with **continuous topological metamorphosis**, **motivated camera grammar**, and **natural conversational voiceover**.
+An enterprise-grade autonomous cinematic video directing system and motion-design codebase engineered for **Google Antigravity & Remotion**. Designed to replicate and surpass the viral visual fluid continuity, SVG vector morphing, and cinematic art direction of **Claude Opus 5.5**, fully optimized for **Persian (فارسی)** typography with **Yekan Bakh** and broadcast-level RTL aesthetics.
 
 ---
 
-## 🌟 Overview & Mission
+## 🌟 The Claude Opus 5.5 Motion Quality Breakthrough
 
-Most generative video pipelines suffer from the **Slideshow Trap**:
-* Static UI card layouts swapping text per sentence.
-* Camera drift (continuous 1.05 zoom) used as a fake substitute for animation.
-* Slow, ceremonial Persian narration (~90 WPM) with unnatural dead pauses.
-* Excessive decorative clutter (floating dots, random icons, meaningless borders).
+Traditional generative motion pipelines suffer from the **Slideshow Trap** (static cards swapping text, 1.05x linear zooms pretending to be motion, and box resizing mimicking morphs).
 
-**Cinematic Motion Director** fundamentally eliminates these anti-patterns through a mathematically enforced, causal directing methodology backed by automated regression tests and real executable code.
+This system completely resolves those defects through four foundational pillars reverse-engineered from primary-source viral Claude Opus 5.5 motion graphics:
 
 ```text
-Narrative Script + Spoken Transients
-                 ↓
-[VOICE GATE] Google Gemini Audio API (Puck) → 130–165 WPM Conversational Cadence
-                 ↓
-[BEAT MAPPING] Semantic Beats & Unified Visual State Graph (VSG)
-                 ↓
-[PLANNING GATE] Strict Element Budget (≤ 5 Active Components) & No Orphan Elements
-                 ↓
-[SINGLE CANVAS] Persistent 3D World Canvas & Mass Conservation (No Scene Swapping)
-                 ↓
-[PHYSICAL KINETICS] AuthoredKeyframeEngine (Hydraulic / Pneumatic / Seismic Recoil)
-                 ↓
-[BLIND QC GATE] Independent Adversarial 14-Point Review & Automated Regression Tests
-                 ↓
-Rendered Cinematic Master (.mp4) with EBU R128 Master Mix (-16 LUFS, -14 dB Ducking)
+Persistent 3D/2.5D World Stage (No Scene Cuts / Anti-Slideshow)
+                      ↓
+Continuous 6-DOF Virtual Camera Flight (Pan, Tilt, Dolly, Pitch, Roll)
+                      ↓
+Living Energy Conduit ("The Red Thread" Guiding Focus Across Acts)
+                      ↓
+Genuine SVG Vector Path Morphing (@remotion/paths: interpolatePath & evolvePath)
+                      ↓
+Persian RTL Typography (Yekan Bakh 8-Weight Suite + Diacritic Sanitizer)
+                      ↓
+Final Broadcast Master Video (.mp4 @ 60/30 FPS)
 ```
 
 ---
 
-## 💎 The 6 Hardened Production Pillars
+## 💎 The 5 Hardened Production Pillars
 
-### 1. Authoritative Motion Doctrine (`references/motion-doctrine.md`)
-* **Single Persistent World Canvas:** Scene-replacement cross-fades and cuts are banned. All visual events occur within an unbroken spatial environment.
-* **Meaningful Visual Transformation:** Motion must alter physical object identity, topology, or geometry. Position translation alone is not transformation.
-* **Mass Conservation in Morphing:** When elements expand, extrude, or bifurcate, dimensional scale balances ($s_x \cdot s_y = 1$) to preserve physical plausibility.
+### 1. Genuine SVG Vector Path Morphing (`@remotion/paths`)
+* **Banning Box Resizing:** Simple `div` width/height interpolation is banned as a standalone morph.
+* **Cubic Bezier Path Interpolation:** Using native `@remotion/paths`'s `interpolatePath(progress, pathA, pathB)`, intricate 200×200 vector coordinates morph continuously without tearing or unmounting:
+  $$\text{Iranian Scientific Octagram} \xrightarrow{\text{Morph}} \text{Neural AI Synaptic Core} \xrightarrow{\text{Morph}} \text{Quantum Telemetry Wave} \xrightarrow{\text{Morph}} \text{Sovereign Calibration Shield}$$
+* **Mechanical Vector Stroke Evolution:** Sovereign checkmarks and telemetry lines are dynamically rendered via `evolvePath(progress, path)` to ensure exact physics.
+* **Reusable Recipe:** [`src/motion/recipes/PersianVectorMorphRecipe.tsx`](src/motion/recipes/PersianVectorMorphRecipe.tsx).
 
-### 2. Anti-Slideshow Enforcement (`references/anti-slideshow.md`)
-Hard fail conditions actively detect and reject the **8 Slideshow Signatures (S1–S8)**:
-* `S1`: Unmotivated scene replacement without momentum handoff.
-* `S2`: Template reuse with text swapping.
-* `S3`: Opacity fade on text blocks as sole primary motion.
-* `S4`: Continuous camera zoom as a substitute for subject animation.
-* `S5`: Sequential card grids and dashboard wrappers.
-* `S6`: Elements vanishing without physical mechanical exit.
-* `S7`: Lack of persistent spatial datum/anchor.
-* `S8`: Scene reset timed to sentence punctuation.
+### 2. One-Take 6-DOF Virtual Camera Continuity
+* **Unbroken Spatial Canvas:** Hard scene cuts and sequence wiping are eliminated. All narrative acts unfold within a continuous 2.5D/3D coordinate space (`perspective: 1200`).
+* **Motivated Flight:** Camera moves dynamically to follow physical consequences, banking into 2.5D isometric tilts (`Pitch: 12°`, `Yaw: -8°`) and pulling back into grand dual-wing symmetrical finales.
 
-### 3. Natural Conversational Persian TTS (`references/voice-doctrine.md`)
-* **Exclusive Engine:** Google Gemini Audio API (`gemini-3.1-flash-tts-preview`, voice `Puck`). Falling back to robotic Edge-TTS is strictly disqualified.
-* **Strict Speed Gate:** Persian narration is required to hit **130–165 WPM** (Fail threshold $< 125$ WPM). All ceremonial, slow, or unhurried instructions are permanently banned.
-* **Dual-Clock Audio Synchronization:** Spoken phonetic transients align within $\pm 2$ frames of kinetic impact events.
-* **Mastering:** Automated EBU R128 loudness normalization (-16 LUFS, -1.0 dBTP) with -14 dB dynamic sidechain music ducking.
+### 3. The Living Energy Conduit ("The Red Thread")
+* A persistent luminous focal particle with a high-energy white core and trailing comet glow that never leaves the viewport:
+  - **Act 1:** Orbits the hero emblem.
+  - **Act 2:** Dives into the vector core to initiate topological morphing.
+  - **Act 3:** Enters the SaaS console to dynamically paint the live sparkline graph.
+  - **Act 4:** Vaults across 3D space to orbit the 360° rim of the circular gauge and lock the 100% calibration milestone.
 
-### 4. Element Budget & Zero-Clutter Discipline
-* **Budget Cap:** No more than **3 to 5 active physical elements** simultaneously on screen.
-* **No Orphan Elements:** Every visual entity must have a declared causal parent; secondary trusses or indicators must fold back into the bedrock once their narrative utility ends.
-* **Zero Decorative Clutter:** Banned floating confetti, random glowing orbs, and meaningless decorative badges.
+### 4. Official Persian Typography System (Yekan Bakh)
+* **Standard Typeface:** Official **Yekan Bakh** loaded in full 8-weight palette from [`public/fonts/YekanBakh/`](public/fonts/YekanBakh/):
+  - `Thin` (100), `Light` (300), `Regular` (400 - Body), `SemiBold` (600 - Badges), `Bold` (700 - Titles), `ExtraBold` (800 - Hero Headlines), `Black` (900), `ExtraBlack` (950).
+* **Dual-Representation Diacritic Sanitizer:** [`src/typography/persianSanitizer.ts`](src/typography/persianSanitizer.ts) automatically strips Arabic/Persian diacritical marks (harakat/tashdid) for clean visual typography while preserving phonetics for TTS.
+* **Zero-Subpixel Jitter:** Text coordinates are locked to integer pixels (`Math.round()`) with hardware acceleration (`translate3d`).
 
-### 5. Motivated Camera Grammar & Intentional Stillness
-* **Subordinate Camera:** The camera moves **only** to track physical momentum, reveal 3D mechanical perspective, or absorb seismic shock.
-* **Seismic Recoil:** High-inertia strikes trigger a sharp, decaying 3-frame vertical kick (+8px, -4px, +1px, 0px).
-* **Intentional Stillness:** Major narrative resolutions mandate **1.5 to 2.5 seconds of absolute coordinate stillness** for cognitive processing, banning nervous idle drifting.
-
-### 6. Zero-Subpixel Jitter Persian Typography
-* **Integer Pixel Lock:** All text renders strictly on rounded integer coordinates (`Math.round()`) with hardware acceleration (`translate3d`, `backface-visibility: hidden`).
-* **Diacritic Sanitization:** Dual-pipeline workflow where diacritics are preserved exclusively for TTS audio synthesis and cleanly stripped via `sanitizeForDisplay()` for crisp visual typography.
-* **Clip-Path Reveals:** Text reveals utilize geometric `clipPath: inset(...)` to prevent letterform distortion.
+### 5. Multi-Layer Visual World & Physical Causality
+* **Materials & Lighting Contracts:** Explicit material shaders (`GLASS`, `METAL`, `ENERGY`, `PLASMA`) interacting with normalized directional key, fill, and rim lights (`UPPER_LEFT`, `UPPER_RIGHT`).
+* **Secondary Motion & Anticipation:** Pre-rupture compression, causal lag, and momentum-carry across event boundaries.
 
 ---
 
-## 🏆 Verified Golden Test: Quantum Resonator Core
+## 🏆 Master Benchmark Showcases
 
-A complete 15-second generic scientific master was authored, synthesized, and rendered to verify the pipeline end-to-end:
+### Flagship Persian Showreel: `ClaudePersianShowreel` (450 Frames / 15.0s @ 30 FPS)
 
-| Metric | Measured Value | Standard | Gate Result |
-| :--- | :--- | :--- | :--- |
-| **Duration** | 450 Frames / 15.00s | Exact Timeline Match | **PASS** |
-| **Voice Cadence** | **137.2 WPM** (24 words / 10.49s) | 125 – 185 WPM | **PASS** |
-| **Audio Mix** | -16 LUFS Voice, -14 dB Ducked Music | EBU R128 Broadcast | **PASS** |
-| **Slideshow Signatures** | **0 Signatures** detected | 0 Allowed | **PASS** |
-| **Keyframe Engine** | `evaluateAuthoredKeyframeTrack` | Executable Runtime | **PASS** |
-| **TypeScript Compilation**| Zero errors (`code 0`) | Strict Type-Safety | **PASS** |
-| **Blind Review Rating** | **10 / 10** across all 14 criteria | Category A (Cinematic) | **PASS** |
+A master video authored entirely in Persian, featuring real SVG path morphing, continuous camera flight, live telemetry charting, and dual-wing calibration climax.
 
-* **Master Render Location:** `projects/golden_test/renders/GOLDEN_QUANTUM_CORE_MASTER.mp4`
-* **Audio Master:** `public/audio/golden_master_mix.mp3`
-* **Shotbook Plan:** `projects/golden_test/SHOTBOOK.md`
-* **Composition Source:** `src/projects/golden_test/GoldenQuantumCoreComposition.tsx`
+![Claude Persian Contact Sheet](renders/claude/CLAUDE_PERSIAN_CONTACT_SHEET.png)
+
+| Act 1 (Frame 50): Central Hero Monolith | Act 2 (Frame 140): SVG Vector Morphing Lab |
+|:---:|:---:|
+| **معماری موشن‌گرافیک سینمایی**<br>Yekan Bakh ExtraBold Display with Living Conduit | **شبکه عصبی پردازش هوشمند**<br>Octagram $\to$ Neural Synaptic Matrix Morphing |
+| **Act 3 (Frame 270): 2.5D Isometric SaaS Console** | **Act 4 (Frame 410): Grand Dual-Wing Climax** |
+| **سامانه پایش هوشمند کمیته تحقیقات**<br>Live Telemetry Sparkline painted in real-time | **استاندارد کیفی طلایی (۱۰۰٪)**<br>Circular Precision Gauge & Sovereign Verification Seal |
+
+* **Video Output:** `renders/claude/CLAUDE_PERSIAN_SHOWREEL.mp4` (6.2 MB)
+* **Contact Sheet:** `renders/claude/CLAUDE_PERSIAN_CONTACT_SHEET.png`
 
 ---
 
-## 🧪 Automated Regression Test Suite
-
-The skill includes automated regression test scripts to prevent quality backsliding:
-
-```bash
-# 1. Verify Persian voice speech rate and natural fluency (WPM gate)
-python tests/skill-regression/test_voice_speed.py <path_to_wav> "<transcript_text>"
-
-# 2. Inspect composition source code for the 8 slideshow signatures
-python tests/skill-regression/test_slideshow_signatures.py src/projects/golden_test/GoldenQuantumCoreComposition.tsx
-```
-
----
-
-## 📂 Repository Layout
+## 📁 Repository & Architecture Structure
 
 ```text
-.
-├── .agents/skills/cinematic-motion-director/  # REUSABLE AGENT SKILL DIRECTORY
-│   ├── SKILL.md                              # Master Directing Protocol & Release Gates
-│   ├── references/                           # Authoritative Doctrines & Specifications
-│   │   ├── motion-doctrine.md                # 6-Tier Hierarchy & Meaningful Transformation
-│   │   ├── voice-doctrine.md                 # 130-165 WPM Persian TTS & Gemini Audio API
-│   │   ├── anti-slideshow.md                 # Signatures S1-S8 & Mechanical Detection
-│   │   ├── causal-planning.md                # Causal Event Graphs & Budgeting
-│   │   ├── cinematography.md                 # Motivated Camera Grammar & Seismic Recoil
-│   │   ├── living-motion.md                  # Authored Curves & Organic Dynamics
-│   │   ├── sound-design.md                   # EBU R128 Mastering & Ducking
-│   │   ├── visual-critique.md                # 14-Point Blind Review Rubric
-│   │   └── anti-patterns.md                  # Historical Failure Modes Catalog
-│   └── template/                             # Production scaffolding & clean rigs
+├── .agents/skills/cinematic-motion-director/  # WORKSPACE AGENT SKILL SPECIFICATION
+│   ├── SKILL.md                               # Authoritative Production Doctrine
+│   ├── references/                            # Deep Architectural Guides & Rules
+│   │   ├── claude-fluid-continuity.md         # Claude Opus 5.5 Reverse-Engineering Secret
+│   │   ├── claude-opus-prompt-catalog.md      # Primary Prompt Analysis & Catalog
+│   │   ├── motion-doctrine.md                 # Physical Causality & Mass Conservation
+│   │   ├── anti-slideshow.md                  # S1-S8 Anti-Slideshow Hard Gates
+│   │   └── voice-doctrine.md                  # Persian Voiceover & TTS Discipline
+│   └── template/                              # Scaffold Templates for New Projects
 │
-├── src/                                      # PRODUCTION CODEBASE
-│   ├── motion/                               # Motion Engines
-│   │   ├── curves/AuthoredKeyframeEngine.ts  # Bezier & physical keyframe tracks
-│   │   ├── physics/PhysicalBounceRecipe.ts   # Dynamic gravity & coefficient of restitution
-│   │   └── fidelity/MotionFidelityEngine.ts  # 8 Authored motion profiles
-│   ├── camera/CameraRig.tsx                  # Camera grammar & shockwave recoil
-│   ├── typography/persianSanitizer.ts        # Zero-jitter text sanitization
-│   ├── projects/golden_test/                 # Golden Master Composition
-│   │   └── GoldenQuantumCoreComposition.tsx  # Fully audited 15s reference implementation
-│   ├── Root.tsx                              # Remotion Composition Registry
-│   └── index.ts                              # Remotion Entrypoint
+├── public/                                    # STATIC ASSETS
+│   ├── fonts/YekanBakh/                       # 8 Official Yekan Bakh WOFF2 Weights
+│   ├── audio/                                 # Broadcast Audio Masters & Stems
+│   └── music/                                 # Cinematic Ambient Backing Tracks
 │
-├── projects/                                 # ACTIVE PRODUCTION PROJECTS
-│   ├── golden_test/                          # Golden Test Master Artifacts
-│   │   ├── audio/                            # Raw, normalized, and mixed audio tracks
-│   │   ├── renders/                          # Master MP4 and audit stills
-│   │   └── SHOTBOOK.md                       # Complete Causal Shotbook Specification
-│   └── band-kaf/                             # Band Kaf Production Artifacts
+├── src/                                       # SOURCE IMPLEMENTATION
+│   ├── fonts/yekanBakh.ts                     # Remotion Font Loader for Yekan Bakh
+│   ├── typography/persianSanitizer.ts         # Dual-Representation Text Sanitizer
+│   ├── motion/
+│   │   ├── recipes/
+│   │   │   └── PersianVectorMorphRecipe.tsx   # Continuous SVG Path Morphing Engine
+│   │   ├── claude/
+│   │   │   ├── ClaudePersianShowreel.tsx      # Master Persian One-Take Composition
+│   │   │   ├── ClaudeFluidShowreel.tsx        # 6-DOF Virtual Camera Masterpiece
+│   │   │   └── ClaudeOpusShowreel.tsx         # Dribbble Morph & SaaS Climax
+│   │   ├── compiler/                          # MotionSceneGraph & AST Compilers
+│   │   ├── visual_world/                      # Material, Lighting & Depth Adapters
+│   │   └── validation/                        # Automated Anti-Bypass Validators
+│   └── Root.tsx                               # Remotion Composition Registry
 │
-├── tests/                                    # AUTOMATED REGRESSION SUITE
-│   └── skill-regression/
-│       ├── test_voice_speed.py               # Voice duration, word count & WPM gate
-│       └── test_slideshow_signatures.py      # AST/regex anti-slideshow detector
+├── renders/claude/                            # RENDERED BENCHMARK OUTPUTS
+│   ├── CLAUDE_PERSIAN_SHOWREEL.mp4            # Flagship Persian Master Video (6.2 MB)
+│   ├── CLAUDE_PERSIAN_CONTACT_SHEET.png       # 4-Panel Contact Sheet
+│   └── persian_act{1..4}_f*.png               # Diagnostic Stills
 │
-├── docs/                                     # AUDIT TRAIL & SYSTEM DOCUMENTATION
-│   ├── SKILL_REPAIR_REPORT.md                # Closed-Loop Behavioral Repair Report
-│   ├── SKILL_REFERENCE_INTEGRITY_AUDIT.md    # Reference & import integrity audit
-│   ├── SKILL_BEHAVIORAL_FAILURE_AUDIT.md     # Failure analysis & root cause baseline
-│   ├── SKILL_ENFORCEMENT_MATRIX.md           # Rule enforcement classification matrix
-│   ├── ARCHITECTURE.md                       # System Architecture & Single Source of Truth
-│   └── PRODUCTION_CONTRACT.md                # Non-negotiable quality contract
-│
-└── archive/                                  # HISTORICAL RESEARCH (V1 → V39)
+└── tests/                                     # AUTOMATED REGRESSION SUITE
+    └── test_cinematic_benchmark.ts            # Full System Audit & Anti-Bypass Tests
 ```
 
 ---
 
-## 🚀 Quickstart & Commands
+## 🚀 Quickstart & Rendering Commands
 
-### 1. Launch Remotion Studio
+### 1. Launch Interactive Studio
 ```bash
 npm start
-# Opens interactive composition player at http://localhost:3000
+# Opens Remotion Studio at http://localhost:3000
 ```
 
-### 2. Render Golden Master Video (15s @ 1080p, 30fps)
+### 2. Render Persian Showreel Master Video (450 Frames / 15.0s @ 30 FPS)
 ```bash
-npx remotion render src/index.ts GoldenQuantumCore projects/golden_test/renders/GOLDEN_QUANTUM_CORE_MASTER.mp4
+npx remotion render src/index.ts ClaudePersianShowreel renders/claude/CLAUDE_PERSIAN_SHOWREEL.mp4
 ```
 
-### 3. Synthesize Voice with Gemini Audio API
+### 3. Render Diagnostic Stills
 ```bash
-python projects/golden_test/audio/synthesize_golden_voice.py
+# Render Act 1 Hero Still
+npx remotion still src/index.ts ClaudePersianShowreel renders/claude/persian_act1_f50.png --frame=50
+
+# Render Act 2 Vector Morph Still
+npx remotion still src/index.ts ClaudePersianShowreel renders/claude/persian_act2_f140.png --frame=140
+
+# Render Act 4 Dual-Wing Climax Still
+npx remotion still src/index.ts ClaudePersianShowreel renders/claude/persian_act4_f410.png --frame=410
 ```
 
 ### 4. Run TypeScript Check
@@ -194,22 +158,29 @@ python projects/golden_test/audio/synthesize_golden_voice.py
 npx tsc --noEmit
 ```
 
+### 5. Run Full Cinematic Benchmark & Global Skill Verification
+```bash
+# Verify cinematic motion causality and anti-bypass gates
+npx tsx tests/test_cinematic_benchmark.ts
+
+# Verify global skill synchronization with Antigravity
+npx tsx scripts/verify_global_skill.ts
+```
+
 ---
 
 ## 🛡 Mandatory Pre-Flight Checklist
 
-Before any production composition is submitted, it must verify:
-- [x] Persian narration spoken at $\ge 125\text{ WPM}$ (Target $130 - 165\text{ WPM}$).
-- [x] Speech generated exclusively via Google Gemini TTS (`Puck`).
-- [x] Single persistent world canvas with zero unmotivated scene resets.
-- [x] Active physical screen elements strictly $\le 5$.
-- [x] Visual transformations governed by `AuthoredKeyframeEngine`.
-- [x] Camera movement strictly motivated by physical forces or recoil.
-- [x] Minimum 1.5s intentional stillness at climax resolution.
-- [x] Persian text stripped of diacritics and locked to whole integer coordinates.
-- [x] `test_voice_speed.py` and `test_slideshow_signatures.py` both report **PASS**.
+Before any production composition is submitted, the pipeline enforces:
+- [x] Unbroken 3D/2.5D coordinate world with zero slideshow wipes or cuts.
+- [x] Primary morphing driven by `@remotion/paths`'s `interpolatePath` between genuine vector topologies.
+- [x] Continuous 6-DOF camera maneuvers with motivated translation and banking rolls.
+- [x] Persistent living energy conduit guiding narrative focus across all transitions.
+- [x] Persian typography locked to official **Yekan Bakh** with diacritic sanitization.
+- [x] All 8 narrative audit tests and 6 negative anti-bypass gates report **PASS**.
+- [x] Global skill at `~/.gemini/config/skills/cinematic-motion-director` 100% verified.
 
 ---
 
 ## 📄 License
-Internal Production Skill — Medical Research Committee. All rights reserved.
+Internal Production Skill — Medical Research Committee & Autonomous Cinematic Systems. All rights reserved.

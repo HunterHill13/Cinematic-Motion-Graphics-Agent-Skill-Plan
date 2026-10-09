@@ -213,8 +213,36 @@ If `TRANSFORMATION` is `NONE`, the director must provide written justification u
 
 ---
 
-## 7. Reference Library
+## 7. Claude Opus 5.5 Fluid Motion & Vector Morphing Mandate
 
+To match the visual fluidity and art-direction quality of viral **Claude Opus 5.5** motion pictures, the following architectural rules are mandatory:
+
+1. **Genuine SVG Path Morphing (`@remotion/paths`):**
+   - Box resizing (`div` width/height interpolation) is **strictly banned** as a standalone morphing technique.
+   - All primary shape morphs must use `@remotion/paths`'s `interpolatePath(progress, pathA, pathB)` to perform smooth cubic bezier interpolation between distinct vector topologies (e.g. Geometric Insignia $\to$ Neural Synaptic Core $\to$ Telemetry Wave $\to$ Calibration Shield).
+   - Vector strokes and checkmarks must be drawn using `evolvePath(progress, path)`.
+   - Reusable recipe: `src/motion/recipes/PersianVectorMorphRecipe.tsx`.
+
+2. **One-Take 6-DOF Virtual Camera Continuity:**
+   - Discrete scene unmounting or slideshow-style sequence wiping is strictly prohibited.
+   - All narrative acts must unfold within a persistent 2.5D/3D coordinate stage (`perspective: 1200`).
+   - The virtual camera executes continuous multi-axis translation (`camX`, `camY`, `camZ`) and rotation (`camPitch`, `camYaw`, `camRoll`) across all acts.
+
+3. **The Living Energy Conduit ("The Red Thread"):**
+   - A high-energy luminous focal particle with trailing glow must remain visible across transitions.
+   - It acts as the causal trigger: orbiting hero badges, diving into vector morphing cores, tracing real-time sparklines, and executing 360° orbital locks around precision calibration gauges.
+
+4. **Persian RTL Layout Discipline:**
+   - Layouts must enforce `direction: 'rtl'` with correct reverse flex alignment (`row-reverse` where appropriate).
+   - All text strings must pass through `sanitizeForDisplay(text)` from `src/typography/persianSanitizer.ts`.
+
+---
+
+## 8. Reference Library
+
+- [Claude Opus 5.5 Fluid Continuity & One-Take Camera](references/claude-fluid-continuity.md)
+- [Claude Opus 5.5 Viral Prompt Catalog](references/claude-opus-prompt-catalog.md)
+- [Official Remotion Agent Skills & Code Standards](references/remotion-agent-skills.md)
 - [Mandatory Voice Selection & ElevenLabs TTS Protocol](references/voice-selection.md)
 - [Single Authoritative Voice Doctrine](references/voice-doctrine.md)
 - [Single Authoritative Motion Doctrine](references/motion-doctrine.md)
@@ -223,5 +251,4 @@ If `TRANSFORMATION` is `NONE`, the director must provide written justification u
 - [Anti-Patterns Catalog](references/anti-patterns.md)
 - [Cinematography & Motivated Camera Grammar](references/cinematography.md)
 - [Voice Director & Persian TTS Authority](references/voice-director-and-persian-tts.md)
-- [Official Remotion Agent Skills & Code Standards](references/remotion-agent-skills.md)
-- [Claude Opus 5.5 Viral Prompt Catalog](references/claude-opus-prompt-catalog.md)
+
