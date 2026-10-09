@@ -197,8 +197,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
-  // Audio-Reactive Beat Kick Impulse (124 BPM Future Beats)
-  const { scalePulse } = calculateBeatPulse(frame, 124, fps, isSpeaking ? 0.006 : 0.016);
+  // Audio-Reactive Beat Kick Impulse (124 BPM Future Beats) - Softened for silky, subtle pulse
+  const { scalePulse } = calculateBeatPulse(frame, 124, fps, isSpeaking ? 0.002 : 0.0045);
 
   // =========================================================================
   // 3. INFINITE SPATIAL CANVAS VISIBILITY & SPRINGS
