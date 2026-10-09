@@ -28,6 +28,8 @@ import { APPROVED_ART_STYLES, ArtStyleDefinition, quantizeFrameForStopMotion } f
 import { deriveAtmosphere } from '../visual_world/AtmosphereThemeDeriver';
 import { MaskedKineticHeadline } from '../library/MaskedKineticTypography';
 import { InertialRig } from '../library/InertialFollowThrough';
+import { DynamicFresnelSweep } from '../library/DynamicFresnelSweep';
+import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer';
 
 if (typeof window !== 'undefined') {
   loadYekanBakhFonts().catch((e) => console.warn('Font load warning:', e));
@@ -291,8 +293,19 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   width: 1040,
                   maxWidth: '92vw',
                   boxSizing: 'border-box',
+                  overflow: 'hidden',
                 }}
               >
+                {/* Dynamic Angle-Driven Specular Sweep Rig */}
+                <DynamicFresnelSweep
+                  camYaw={camYaw}
+                  camRoll={camRoll}
+                  camPitch={camPitch}
+                  borderRadius={24}
+                  highlightColor="rgba(110, 231, 183, 0.35)"
+                  maxIntensity={0.4}
+                />
+
                 <InertialRig
                   parentProgress={act1Entrance}
                   parentVelocity={(act1Entrance - interpolate(frame, [0, 60], [0, 1])) * 20}
@@ -561,6 +574,16 @@ export const SkillIntroShowreelContent: React.FC = () => {
                   overflow: 'hidden',
                 }}
               >
+                {/* Dynamic Specular Sweep Rig on Blueprint Console */}
+                <DynamicFresnelSweep
+                  camYaw={camYaw}
+                  camRoll={camRoll}
+                  camPitch={camPitch}
+                  borderRadius={4}
+                  highlightColor="rgba(56, 189, 248, 0.35)"
+                  maxIntensity={0.35}
+                />
+
                 {/* CAD Blueprint Header */}
                 <div
                   style={{
@@ -851,7 +874,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
         targetY={668}
       />
 
-      {/* 5. FOREGROUND SHALLOW DEPTH-OF-FIELD OPTICAL BOKEH */}
+      {/* 5. STYLE-AWARE ATMOSPHERIC TEXTURE & DEPTH PARTICLES */}
+      <StyleAwareAtmosphereLayer camX={camX} camY={camY} />
       <ForegroundBokehLayer camX={camX} camY={camY} />
 
       {/* ===================================================================== */}
@@ -878,9 +902,15 @@ export const SkillIntroShowreelContent: React.FC = () => {
       </Sequence>
 
       {/* C) Frame-Accurate Beat-Aligned Studio Sound Effects */}
-      {/* SFX 1: Cursor Click (Frame 219) */}
+      {/* SFX 1: Cursor Click Tri-Layer Impact (Anticipation + Mechanical Click + Resonance) */}
+      <Sequence from={215} durationInFrames={15}>
+        <Audio src={staticFile('sfx/remotion_whip.wav')} volume={0.25} />
+      </Sequence>
       <Sequence from={219} durationInFrames={30}>
-        <Audio src={staticFile('sfx/kenney_mouseclick.wav')} volume={0.9} />
+        <Audio src={staticFile('sfx/kenney_mouseclick.wav')} volume={0.95} />
+      </Sequence>
+      <Sequence from={220} durationInFrames={25}>
+        <Audio src={staticFile('sfx/remotion_shutter.wav')} volume={0.35} />
       </Sequence>
 
       {/* SFX 2: Act 1 -> Act 2 Camera Whip Pre-roll (Frame 335) */}
