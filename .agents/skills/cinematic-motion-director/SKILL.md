@@ -265,6 +265,28 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
    - Multi-phase vector morphology must feature a visual stage milestone stepper (`MultiStageVectorStepper`) illuminating active nodes so viewers clearly comprehend the transformation roadmap.
    - Vector cores must feature minimum 220–240px sizing with radial transition shockwaves.
 
+8. **Zero-to-Video Semantic Motion Compiler (`ZeroToVideoCompiler` & `create-motion-video` CLI):**
+   - Instant compilation from high-level topics to broadcast-ready Remotion manifests.
+   - Automatically maps subject matter to 124 BPM rhythm grids, selects harmonious 5-color palettes, assigns topological vector glyphs, and structures 4 narrative acts.
+   - CLI execution: `npx ts-node --project tsconfig.json cli/create-motion-video.ts --topic "Your Topic"`.
+
+9. **Dynamic Vector Catalog (`DynamicVectorCatalog`):**
+   - High-precision parametric SVG path coordinates across 7 specialized scientific/technology domains:
+     - `NEURAL_SYNAPSE` (AI, Machine Learning, Brain Computing)
+     - `DNA_HELIX_ORBIT` (Genetics, Medicine, Biotechnology)
+     - `QUANTUM_ORBITALS` (Physics, Nanotechnology, Deep Science)
+     - `EXPONENTIAL_CHART` (Fintech, SaaS Metrics, Economic Growth)
+     - `SECURITY_SHIELD` (Cybersecurity, Verification, Protocol Safety)
+     - `STELLAR_OCTAGRAM` (Architectural Symmetry, Core Foundations)
+     - `CIRCUIT_CHIP` (Semiconductors, Hardware, Robotics)
+
+10. **Newtonian Vector Attractor Swarm Physics (`NewtonianAttractorSwarm`):**
+    - Deterministic, zero-garbage gravitational orbital engine around active vector cores.
+    - Features airy, delicate density (18–20 particles per act), harmonic beat-breathing expansion, and radial click-shockwave dispersion.
+
+11. **Kinetic Data Visualization Suite (`KineticDataViz`):**
+    - Style-aware data charting components with peak caps, live decimal rolling (`KineticMetricCounter`), and circular radial progress gauges (`KineticRadialProgress`).
+
 ---
 
 ## 8. Reference Library
@@ -280,4 +302,5 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
 - [Anti-Patterns Catalog](references/anti-patterns.md)
 - [Cinematography & Motivated Camera Grammar](references/cinematography.md)
 - [Voice Director & Persian TTS Authority](references/voice-director-and-persian-tts.md)
+
 
