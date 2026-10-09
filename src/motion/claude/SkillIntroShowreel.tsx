@@ -30,6 +30,7 @@ import { MaskedKineticHeadline } from '../library/MaskedKineticTypography';
 import { InertialRig } from '../library/InertialFollowThrough';
 import { DynamicFresnelSweep } from '../library/DynamicFresnelSweep';
 import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer';
+import { KineticBarChart, KineticMetricCounter } from '../library/KineticDataViz';
 
 if (typeof window !== 'undefined') {
   loadYekanBakhFonts().catch((e) => console.warn('Font load warning:', e));
@@ -622,22 +623,34 @@ export const SkillIntroShowreelContent: React.FC = () => {
                         position: 'relative',
                       }}
                     >
-                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                        <span style={{ fontSize: 11, color: '#38bdf8', fontFamily: 'monospace' }}>+ CAD STABILITY TELEMETRY</span>
-                        <span style={{ fontSize: 14, fontWeight: 800, color: '#06b6d4' }}>+۹۹.۸٪ پایداری</span>
+                      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
+                        <span style={{ fontSize: 11, color: '#38bdf8', fontFamily: 'monospace' }}>+ CAD BENCHMARK TELEMETRY</span>
+                        <KineticMetricCounter
+                          value={99.8}
+                          decimals={1}
+                          prefix="+"
+                          suffix="٪"
+                          startFrame={750}
+                          durationFrames={40}
+                          fontSize={15}
+                          color="#38bdf8"
+                          artStyle="TECHNICAL_BLUEPRINT"
+                        />
                       </div>
 
-                      {/* Animated Sparkline */}
-                      <svg width="100%" height="120" style={{ marginTop: 10 }}>
-                        <path
-                          d="M 10 90 Q 90 20 180 60 T 360 30"
-                          fill="none"
-                          stroke="#06b6d4"
-                          strokeWidth={3}
-                          style={{ filter: 'drop-shadow(0 0 10px #06b6d4)' }}
-                        />
-                        <circle cx={180 + Math.sin(frame * 0.08) * 40} cy={50} r={6} fill="#f59e0b" style={{ filter: 'drop-shadow(0 0 8px #f59e0b)' }} />
-                      </svg>
+                      {/* Studio Kinetic Bar Chart */}
+                      <KineticBarChart
+                        items={[
+                          { label: 'کلاد اوپوس', value: 99.4, color: '#38bdf8', unit: '٪' },
+                          { label: 'سرعت فریم', value: 96.0, color: '#06b6d4', unit: '٪' },
+                          { label: 'موتور سنتی', value: 64.2, color: '#d97706', unit: '٪' },
+                        ]}
+                        startFrame={750}
+                        staggerFrames={5}
+                        height={115}
+                        artStyle="TECHNICAL_BLUEPRINT"
+                        direction="rtl"
+                      />
                     </div>
 
                     {/* Status Bar */}
