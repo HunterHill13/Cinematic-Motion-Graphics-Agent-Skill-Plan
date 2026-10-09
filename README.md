@@ -1,13 +1,13 @@
-# 🎬 Cinematic Motion Director — Claude Opus 5.5 Production Architecture
+# 🎬 اسکیل موشن گرافیک برای آنتی گرویتی | Motion Graphics Skill for Antigravity
 
-[![Status](https://img.shields.io/badge/Production%20Status-CLAUDE%20OPUS%205.5%20VERIFIED-00E5FF.svg?style=for-the-badge&logo=checkmarx)](docs/CLAUDE_FLUID_CONTINUITY_RESEARCH.md)
+[![Status](https://img.shields.io/badge/Production%20Status-ANTIGRAVITY%20VERIFIED-00E5FF.svg?style=for-the-badge&logo=checkmarx)](docs/CLAUDE_FLUID_CONTINUITY_RESEARCH.md)
 [![Skill](https://img.shields.io/badge/Agent%20Skill-cinematic--motion--director-FF6600.svg?style=for-the-badge&logo=probot)](.agents/skills/cinematic-motion-director/SKILL.md)
 [![Engine](https://img.shields.io/badge/Render%20Engine-Remotion%20%2B%20React%2019-61dafb.svg?style=for-the-badge&logo=react)](https://remotion.dev)
 [![Typography](https://img.shields.io/badge/Typography-Yekan%20Bakh%20(8%20Weights)-10B981.svg?style=for-the-badge)](public/fonts/YekanBakh/)
 [![Morphing](https://img.shields.io/badge/Morphing%20Engine-SVG%20Path%20Interpolation-8B5CF6.svg?style=for-the-badge)](src/motion/recipes/PersianVectorMorphRecipe.tsx)
 [![Camera](https://img.shields.io/badge/Camera-6--DOF%20One--Take%20Flight-F59E0B.svg?style=for-the-badge)](src/motion/claude/SkillIntroShowreel.tsx)
 
-[English](#-english) • [فارسی](#-فارسی)
+[English](#-english) • [فارسی](#-اسکیل-موشن-گرافیک-برای-آنتی-گرویتی-فارسی)
 
 ---
 
@@ -139,11 +139,11 @@ npx tsc --noEmit
 
 ---
 
-# 🇮🇷 فارسی
+# 🇮🇷 اسکیل موشن گرافیک برای آنتی گرویتی (فارسی)
 
 ## 🌟 معرفی پروژه
 
-**اسکیل موشن‌گرافیک سینمایی (Cinematic Motion Director)** یک سیستم پیشرفته و خودکار برای کارگردانی و تولید ویدیوهای موشن‌گرافیک سینمایی است که بر پایه فریم‌ورک **Remotion** و هوش مصنوعی **Google Antigravity** توسعه یافته است.
+**اسکیل موشن‌گرافیک برای آنتی‌گرویتی (Motion Graphics Skill for Antigravity)** یک سیستم پیشرفته و خودکار برای کارگردانی و تولید ویدیوهای موشن‌گرافیک سینمایی است که بر پایه فریم‌ورک **Remotion** و هوش مصنوعی **Google Antigravity** توسعه یافته است.
 
 این سامانه با هدف بازتولید و ارتقای کیفیت موشن‌گرافیک‌های مشهور **Claude Opus 5.5** طراحی شده است تا پویایی بصری فوق‌العاده، مورفینگ پیوسته برداری، و پرواز پیوسته دوربین سه‌بعدی را با پشتیبانی کامل از **تایپوگرافی اصیل فارسی (یکان بخ)** و استانداردهای راست‌به‌چپ (RTL) ارائه دهد.
 
