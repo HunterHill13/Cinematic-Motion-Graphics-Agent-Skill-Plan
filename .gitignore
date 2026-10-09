@@ -10,7 +10,20 @@ audio/cache/
 .remotion/
 .cache/
 out/
-renders/
+
+# Proprietary / Licensed Fonts (Keep on local machine & global skill; never commit to GitHub)
+*.woff2
+*.woff
+*.ttf
+*.otf
+public/fonts/YekanBakh/
+.agents/skills/cinematic-motion-director/assets/fonts/
+assets/fonts/
+
+# Renders: ignore old renders; keep only renders/claude/
+renders/*
+!renders/claude/
+!renders/claude/**
 
 # OS / Editor
 .DS_Store
