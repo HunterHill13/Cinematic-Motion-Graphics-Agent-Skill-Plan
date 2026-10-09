@@ -256,6 +256,15 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
    - Clicks must trigger elastic squash-and-stretch with dynamic satellite micro-droplets that re-merge via surface tension (`LiquidButtonSquash`).
    - Topological state morphs must feature mitotic division and viscous fusion (`LiquidMitosisCore`), adapting shader traits across all 5 active Art Styles.
 
+6. **Universal Infinite Spatial Canvas Architecture (`InfiniteSpatialCanvas`):**
+   - Stacking scenes at $(0, 0)$ and relying on opacity cross-fades is **strictly prohibited**.
+   - All narrative acts must occupy discrete 3D world coordinates ($X_1 = 0, X_2 = 1500, X_3 = 3000, X_4 = 4300$) on an infinite spatial stage.
+   - The virtual camera executes continuous spline dolly glides with dynamic banking roll ($\pm 3.5^\circ$), maintaining physical co-presence of adjacent scenes during transitions.
+
+7. **Multi-Stage Topology Stepper & Vector Prominence:**
+   - Multi-phase vector morphology must feature a visual stage milestone stepper (`MultiStageVectorStepper`) illuminating active nodes so viewers clearly comprehend the transformation roadmap.
+   - Vector cores must feature minimum 220–240px sizing with radial transition shockwaves.
+
 ---
 
 ## 8. Reference Library

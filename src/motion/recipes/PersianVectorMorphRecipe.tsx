@@ -159,24 +159,86 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
         }}
       />
 
+      {/* 4-STAGE TOPOLOGY MILESTONE STEPPER */}
+      <div
+        style={{
+          position: 'absolute',
+          top: 14,
+          left: 28,
+          right: 28,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          direction: 'rtl',
+          zIndex: 5,
+        }}
+      >
+        {[
+          { label: '۱. ستاره علمی', index: 0, color: '#38bdf8' },
+          { label: '۲. مغز سیناپسی', index: 1, color: '#8b5cf6' },
+          { label: '۳. امواج کوانتومی', index: 2, color: '#3b82f6' },
+          { label: '۴. سپر کالیبراسیون', index: 3, color: '#10b981' },
+        ].map((step) => {
+          const isActive = activeStageIndex === step.index;
+          const isPassed = activeStageIndex > step.index;
+          return (
+            <div
+              key={step.index}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '4px 12px',
+                borderRadius: 20,
+                background: isActive ? `${step.color}28` : 'rgba(255, 255, 255, 0.04)',
+                border: `1px solid ${isActive ? step.color : 'rgba(255, 255, 255, 0.1)'}`,
+                boxShadow: isActive ? `0 0 16px ${step.color}44` : 'none',
+                transform: isActive ? 'scale(1.05)' : 'scale(1)',
+                transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+              }}
+            >
+              <div
+                style={{
+                  width: 7,
+                  height: 7,
+                  borderRadius: '50%',
+                  background: isPassed ? '#10b981' : isActive ? step.color : '#64748b',
+                  boxShadow: isActive ? `0 0 8px ${step.color}` : 'none',
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 11,
+                  fontWeight: isActive ? 800 : 500,
+                  color: isActive ? '#f8fafc' : '#94a3b8',
+                }}
+              >
+                {sanitizeForDisplay(step.label)}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
       {/* LEFT (in RTL): SVG MORPHING CANVAS */}
       <div
         style={{
-          width: 210,
-          height: 210,
+          width: 240,
+          height: 240,
           flexShrink: 0,
           position: 'relative',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
+          marginTop: 20,
         }}
       >
         {/* Ambient Radial Backlight */}
         <div
           style={{
             position: 'absolute',
-            width: 170,
-            height: 170,
+            width: 190,
+            height: 190,
             borderRadius: '50%',
             background: `radial-gradient(circle, ${activeColor}44 0%, transparent 70%)`,
             transform: `scale(${pulseScale})`,
@@ -184,10 +246,25 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           }}
         />
 
+        {/* Transition Radial Shockwave Ring */}
+        {mitosisSplit > 0.15 && (
+          <div
+            style={{
+              position: 'absolute',
+              width: 150 + mitosisSplit * 90,
+              height: 150 + mitosisSplit * 90,
+              borderRadius: '50%',
+              border: `2px solid ${activeColor}`,
+              opacity: (1 - mitosisSplit) * 0.75,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
+
         {/* Concentric Decorative Rings */}
         <svg
-          width="210"
-          height="210"
+          width="240"
+          height="240"
           viewBox="0 0 210 210"
           style={{
             position: 'absolute',
@@ -229,7 +306,7 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           }}
         >
           <LiquidMitosisCore
-            size={180}
+            size={210}
             splitProgress={mitosisSplit}
             primaryColor={activeColor}
             accentColor="#38bdf8"
@@ -237,15 +314,15 @@ export const PersianVectorMorphCard: React.FC<PersianVectorMorphProps> = ({
           />
         </div>
 
-        {/* MAIN MORPHING SVG PATH */}
+        {/* MAIN MORPHING SVG PATH (ENLARGED) */}
         <svg
-          width="180"
-          height="180"
+          width="210"
+          height="210"
           viewBox="0 0 200 200"
           style={{
             position: 'relative',
             zIndex: 2,
-            filter: `drop-shadow(0 0 16px ${activeColor}88)`,
+            filter: `drop-shadow(0 0 20px ${activeColor}99)`,
           }}
         >
           <defs>

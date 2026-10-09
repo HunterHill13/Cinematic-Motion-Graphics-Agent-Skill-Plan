@@ -5,16 +5,16 @@ $claudeDir = [System.IO.Path]::GetFullPath($claudeDir)
 
 $stills = @(
   "intro_act1_f220.png",
-  "intro_act2_f520.png",
+  "intro_act2_f480.png",
   "intro_act3_f950.png",
   "intro_act4_f1450.png"
 )
 
 $labels = @(
-  "ACT 1: GLASSMORPHIC MONOLITH & LIQUID SQUASH CLICK (0..12s / f220)",
-  "ACT 2: STOP-MOTION PAPER & LIQUID MITOSIS MORPH (12..25s / f520)",
-  "ACT 3: TECHNICAL BLUEPRINT CONSOLE & DATA VIZ (25..42s / f950)",
-  "ACT 4: NEO-BRUTALIST GOLD CALIBRATION GAUGE (42..60s / f1450)"
+  "ACT 1 (X=0): GLASSMORPHIC MONOLITH & LIQUID SQUASH CLICK (f220)",
+  "ACT 2 (X=1500): STOP-MOTION 4-STAGE STEPPER & ENLARGED MORPH (f480)",
+  "ACT 3 (X=3000): BLUEPRINT CONSOLE WITH KINETIC BAR CHARTS (f950)",
+  "ACT 4 (X=4300): GRAND DOCKED PAVILION & 100% GOLD CALIBRATION (f1450)"
 )
 
 $cellWidth = 960
