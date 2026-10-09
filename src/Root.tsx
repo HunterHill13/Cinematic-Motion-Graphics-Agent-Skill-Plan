@@ -42,6 +42,13 @@ import {
   CLAUDE_FLUID_WIDTH,
   CLAUDE_FLUID_HEIGHT,
 } from './motion/claude/ClaudeFluidShowreel';
+import {
+  ClaudePersianShowreelContent,
+  CLAUDE_PERSIAN_DURATION,
+  CLAUDE_PERSIAN_FPS,
+  CLAUDE_PERSIAN_WIDTH,
+  CLAUDE_PERSIAN_HEIGHT,
+} from './motion/claude/ClaudePersianShowreel';
 
 /**
  * ============================================================================
@@ -389,6 +396,16 @@ export const Root: React.FC = () => {
         fps={CLAUDE_FLUID_FPS}
         width={CLAUDE_FLUID_WIDTH}
         height={CLAUDE_FLUID_HEIGHT}
+      />
+
+      {/* 19. CLAUDE PERSIAN SHOWREEL MASTERPIECE (450 Frames @ 30 FPS / 15.0s) */}
+      <Composition
+        id="ClaudePersianShowreel"
+        component={ClaudePersianShowreelContent}
+        durationInFrames={CLAUDE_PERSIAN_DURATION}
+        fps={CLAUDE_PERSIAN_FPS}
+        width={CLAUDE_PERSIAN_WIDTH}
+        height={CLAUDE_PERSIAN_HEIGHT}
       />
     </>
   );
