@@ -20,7 +20,7 @@ import { PersianVectorMorphCard } from '../recipes/PersianVectorMorphRecipe';
 import { InteractiveCursor } from '../library/InteractiveCursor';
 import { ForegroundBokehLayer } from '../library/ForegroundBokehLayer';
 import { LissajousOrbit, ParametricWaveformStream } from '../library/ProceduralGenerativeMotifs';
-import { quantizeToBeat } from '../audio/SemanticMusicDirector';
+import { quantizeToBeat, calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { loadYekanBakhFonts } from '../../fonts/yekanBakh';
 import { CURATED_COLOR_PALETTES } from '../visual_world/colorPaletteGate';
@@ -152,6 +152,9 @@ export const SkillIntroShowreelContent: React.FC = () => {
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
+  // Audio-Reactive Beat Kick Impulse (124 BPM Future Beats)
+  const { scalePulse } = calculateBeatPulse(frame, 124, fps, isSpeaking ? 0.006 : 0.016);
+
   // =========================================================================
   // 3. ACT-SPECIFIC VISIBILITY & TRANSITION SPRINGS
   // =========================================================================
@@ -251,7 +254,7 @@ export const SkillIntroShowreelContent: React.FC = () => {
             width: 1920,
             height: 1080,
             transformStyle: 'preserve-3d',
-            transform: `translate3d(${-camX}px, ${-camY}px, ${camZ}px) rotateX(${camPitch}deg) rotateY(${camYaw}deg) rotateZ(${camRoll}deg) skewX(${speedRampSkew}deg)`,
+            transform: `translate3d(${-camX}px, ${-camY}px, ${camZ}px) rotateX(${camPitch}deg) rotateY(${camYaw}deg) rotateZ(${camRoll}deg) skewX(${speedRampSkew}deg) scale(${scalePulse.toFixed(4)})`,
             filter: speedRampBlur > 0.5 ? `blur(${speedRampBlur.toFixed(1)}px)` : undefined,
             display: 'flex',
             alignItems: 'center',
