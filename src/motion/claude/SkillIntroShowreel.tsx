@@ -26,6 +26,8 @@ import { loadYekanBakhFonts } from '../../fonts/yekanBakh';
 import { CURATED_COLOR_PALETTES } from '../visual_world/colorPaletteGate';
 import { APPROVED_ART_STYLES, ArtStyleDefinition, quantizeFrameForStopMotion } from '../visual_world/artStyleGate';
 import { deriveAtmosphere } from '../visual_world/AtmosphereThemeDeriver';
+import { MaskedKineticHeadline } from '../library/MaskedKineticTypography';
+import { InertialRig } from '../library/InertialFollowThrough';
 
 if (typeof window !== 'undefined') {
   loadYekanBakhFonts().catch((e) => console.warn('Font load warning:', e));
@@ -107,6 +109,27 @@ export const SkillIntroShowreelContent: React.FC = () => {
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
   );
 
+  // Kinetic Speed Ramp Peak Velocity Blur & Coordinate Skew
+  const isWhip1 = frame >= 325 && frame <= 355;
+  const isWhip2 = frame >= 715 && frame <= 745;
+  const isWhip3 = frame >= 1215 && frame <= 1245;
+  let speedRampBlur = 0;
+  let speedRampSkew = 0;
+
+  if (isWhip1) {
+    const p = interpolate(frame, [325, 340, 355], [0, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    speedRampBlur = p * 6.5;
+    speedRampSkew = p * -1.8;
+  } else if (isWhip2) {
+    const p = interpolate(frame, [715, 730, 745], [0, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    speedRampBlur = p * 7.5;
+    speedRampSkew = p * 2.2;
+  } else if (isWhip3) {
+    const p = interpolate(frame, [1215, 1230, 1245], [0, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+    speedRampBlur = p * 8.0;
+    speedRampSkew = p * -1.9;
+  }
+
   // =========================================================================
   // 2. DYNAMIC AUDIO & DUCKING ENVELOPE (124 BPM Future Beats + Gemini Voice)
   // =========================================================================
@@ -132,6 +155,12 @@ export const SkillIntroShowreelContent: React.FC = () => {
   // =========================================================================
   // 3. ACT-SPECIFIC VISIBILITY & TRANSITION SPRINGS
   // =========================================================================
+  const act1Entrance = spring({
+    fps,
+    frame,
+    config: { damping: 14, mass: 0.8, stiffness: 120 },
+  });
+
   const act1Opacity = interpolate(frame, [0, 30, 320, 360], [0, 1, 1, 0], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
@@ -222,7 +251,8 @@ export const SkillIntroShowreelContent: React.FC = () => {
             width: 1920,
             height: 1080,
             transformStyle: 'preserve-3d',
-            transform: `translate3d(${-camX}px, ${-camY}px, ${camZ}px) rotateX(${camPitch}deg) rotateY(${camYaw}deg) rotateZ(${camRoll}deg)`,
+            transform: `translate3d(${-camX}px, ${-camY}px, ${camZ}px) rotateX(${camPitch}deg) rotateY(${camYaw}deg) rotateZ(${camRoll}deg) skewX(${speedRampSkew}deg)`,
+            filter: speedRampBlur > 0.5 ? `blur(${speedRampBlur.toFixed(1)}px)` : undefined,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -240,98 +270,107 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 alignItems: 'center',
                 textAlign: 'center',
                 opacity: act1Opacity,
-                transform: 'translateZ(40px)',
+                transform: `translateZ(40px) scale(${0.92 + act1Entrance * 0.08})`,
               }}
             >
-              {/* Badge Pill */}
               <div
                 style={{
-                  display: 'inline-flex',
+                  position: 'relative',
+                  padding: '48px 60px',
+                  borderRadius: 24,
+                  background: 'rgba(6, 28, 20, 0.65)',
+                  border: '1.5px solid rgba(16, 185, 129, 0.35)',
+                  boxShadow: '0 30px 70px rgba(0, 0, 0, 0.75), 0 0 45px rgba(16, 185, 129, 0.2)',
+                  backdropFilter: 'blur(24px)',
+                  display: 'flex',
+                  flexDirection: 'column',
                   alignItems: 'center',
-                  gap: 10,
-                  padding: '8px 24px',
-                  borderRadius: 999,
-                  background: 'rgba(2, 44, 34, 0.75)',
-                  border: '1px solid rgba(16, 185, 129, 0.35)',
-                  backdropFilter: 'blur(16px)',
-                  boxShadow: '0 0 24px rgba(16, 185, 129, 0.25)',
-                  marginBottom: 24,
+                  maxWidth: 960,
                 }}
               >
+                <InertialRig parentProgress={act1Entrance} parentVelocity={(act1Entrance - interpolate(frame, [0, 60], [0, 1])) * 20}>
+                {/* Badge Pill */}
                 <div
                   style={{
-                    width: 10,
-                    height: 10,
-                    borderRadius: '50%',
-                    background: '#10b981',
-                    boxShadow: '0 0 12px #10b981',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 10,
+                    padding: '8px 24px',
+                    borderRadius: 999,
+                    background: 'rgba(2, 44, 34, 0.75)',
+                    border: '1px solid rgba(16, 185, 129, 0.35)',
+                    backdropFilter: 'blur(16px)',
+                    boxShadow: '0 0 24px rgba(16, 185, 129, 0.25)',
+                    marginBottom: 24,
                   }}
+                >
+                  <div
+                    style={{
+                      width: 10,
+                      height: 10,
+                      borderRadius: '50%',
+                      background: '#10b981',
+                      boxShadow: '0 0 12px #10b981',
+                    }}
+                  />
+                  <span style={{ fontSize: 16, fontWeight: 700, color: '#ecfdf5' }}>
+                    {sanitizeForDisplay('هوش مصنوعی پیشرفته · اسکیل موشن‌گرافیک سینمایی')}
+                  </span>
+                </div>
+
+                {/* Title with Masked Overflow Stencil Reveal */}
+                <MaskedKineticHeadline
+                  text="کارگردانی سینمایی ویدیو در تراز کلاد اوپوس ۵.۵"
+                  highlightWords={['سینمایی', 'اوپوس', '۵.۵']}
+                  gradientColors={['#ffffff', '#6ee7b7', '#10b981']}
+                  delayFrames={15}
+                  fontSize={56}
+                  fontWeight={950}
+                  direction="rtl"
+                  style={{ marginBottom: 18, justifyContent: 'center' }}
                 />
-                <span style={{ fontSize: 16, fontWeight: 700, color: '#ecfdf5' }}>
-                  {sanitizeForDisplay('هوش مصنوعی پیشرفته · اسکیل موشن‌گرافیک سینمایی')}
-                </span>
-              </div>
 
-              {/* Title */}
-              <h1
-                style={{
-                  fontSize: 58,
-                  fontWeight: 900,
-                  color: '#ffffff',
-                  margin: 0,
-                  marginBottom: 16,
-                  lineHeight: 1.25,
-                  textShadow: '0 4px 25px rgba(0, 0, 0, 0.9)',
-                  background: 'linear-gradient(135deg, #ffffff 40%, #6ee7b7 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                }}
-              >
-                {sanitizeForDisplay('کارگردانی سینمایی ویدیو در تراز کلاد اوپوس ۵.۵')}
-              </h1>
+                {/* Subtitle with Masked Stagger Reveal */}
+                <MaskedKineticHeadline
+                  text="پایان اسلایدهای بی‌روح · انیمیشن پیوسته تک‌پلان با فیزیک اسپرینگ و طراحی صدای استودیویی"
+                  highlightWords={['اسلایدهای']}
+                  delayFrames={35}
+                  fontSize={22}
+                  fontWeight={500}
+                  color="#94a3b8"
+                  direction="rtl"
+                  style={{ marginBottom: 40, maxWidth: 840, justifyContent: 'center' }}
+                />
 
-              {/* Subtitle */}
-              <p
-                style={{
-                  fontSize: 22,
-                  fontWeight: 400,
-                  color: '#94a3b8',
-                  maxWidth: 820,
-                  margin: 0,
-                  marginBottom: 40,
-                  lineHeight: 1.6,
-                }}
-              >
-                {sanitizeForDisplay('پایان اسلایدهای بی‌روح · انیمیشن پیوسته تک‌پلان با فیزیک اسپرینگ و طراحی صدای استودیویی')}
-              </p>
-
-              {/* Interactive Target Button */}
-              <div
-                style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 14,
-                  padding: '16px 36px',
-                  borderRadius: 16,
-                  background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(245, 158, 11, 0.15))',
-                  border: '1.5px solid rgba(16, 185, 129, 0.45)',
-                  backdropFilter: 'blur(20px)',
-                  boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.3)',
-                  transform: `scale(${buttonScale})`,
-                }}
-              >
+                {/* Interactive Target Button */}
                 <div
                   style={{
-                    width: 12,
-                    height: 12,
-                    borderRadius: '50%',
-                    background: '#f59e0b',
-                    boxShadow: '0 0 14px #f59e0b',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 14,
+                    padding: '16px 36px',
+                    borderRadius: 16,
+                    background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.25), rgba(245, 158, 11, 0.15))',
+                    border: '1.5px solid rgba(16, 185, 129, 0.45)',
+                    backdropFilter: 'blur(20px)',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.6), 0 0 25px rgba(16, 185, 129, 0.3)',
+                    transform: `scale(${buttonScale})`,
                   }}
-                />
-                <span style={{ fontSize: 18, fontWeight: 800, color: '#f0fdf4' }}>
-                  {sanitizeForDisplay('ورود به استودیو سینمایی')}
-                </span>
+                >
+                  <div
+                    style={{
+                      width: 12,
+                      height: 12,
+                      borderRadius: '50%',
+                      background: '#f59e0b',
+                      boxShadow: '0 0 14px #f59e0b',
+                    }}
+                  />
+                  <span style={{ fontSize: 18, fontWeight: 800, color: '#f0fdf4' }}>
+                    {sanitizeForDisplay('ورود به استودیو سینمایی')}
+                  </span>
+                </div>
+              </InertialRig>
               </div>
             </div>
           )}
@@ -746,13 +785,28 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 </div>
               </div>
 
-              {/* Title in Heavy Black */}
-              <h3 style={{ fontSize: 26, fontWeight: 950, color: '#000000', margin: '0 0 8px 0', letterSpacing: '-0.01em' }}>
-                {sanitizeForDisplay('استاندارد کیفی طلایی')}
-              </h3>
-              <p style={{ fontSize: 14, color: '#374151', margin: '0 0 20px 0', lineHeight: 1.5, fontWeight: 700 }}>
-                {sanitizeForDisplay('انطباق ۱۰۰٪ با زبان طراحی موشن‌گرافیک کلاد اوپوس ۵.۵')}
-              </p>
+              {/* Title in Heavy Black with Masked Overflow Reveal */}
+              <MaskedKineticHeadline
+                text="استاندارد کیفی طلایی"
+                highlightWords={['طلایی']}
+                gradientColors={['#000000', '#b45309', '#f59e0b']}
+                delayFrames={1240}
+                fontSize={28}
+                fontWeight={950}
+                color="#000000"
+                direction="rtl"
+                style={{ marginBottom: 8, justifyContent: 'center' }}
+              />
+              <MaskedKineticHeadline
+                text="انطباق ۱۰۰٪ با زبان طراحی موشن‌گرافیک کلاد اوپوس ۵.۵"
+                highlightWords={['اوپوس']}
+                delayFrames={1255}
+                fontSize={14}
+                fontWeight={700}
+                color="#374151"
+                direction="rtl"
+                style={{ marginBottom: 20, maxWidth: 360, justifyContent: 'center' }}
+              />
 
               {/* Verified Sticker Pill */}
               <div
