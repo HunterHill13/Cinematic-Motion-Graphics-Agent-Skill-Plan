@@ -344,51 +344,117 @@ export const SkillIntroShowreelContent: React.FC = () => {
               style={{
                 position: 'absolute',
                 opacity: act2Opacity,
-                transform: `translateZ(50px) rotate(${Math.sin(stopMotionFrame * 0.15) * 0.6}deg)`,
+                transform: `translateZ(50px) rotate(${Math.sin(stopMotionFrame * 0.15) * 0.7}deg)`,
                 pointerEvents: 'none',
-                filter: 'drop-shadow(6px 10px 0px rgba(2, 26, 20, 0.45)) drop-shadow(12px 18px 0px rgba(2, 26, 20, 0.2))',
               }}
             >
-              {/* Paper Header Badge Pill */}
+              {/* Physical Paper Cutout Card Container */}
               <div
                 style={{
-                  position: 'absolute',
-                  top: -46,
-                  right: 20,
-                  background: '#f8faf5',
-                  padding: '6px 18px',
-                  borderRadius: 4,
-                  border: '1.5px solid rgba(2, 26, 20, 0.6)',
-                  boxShadow: '3px 3px 0px rgba(2, 26, 20, 0.6)',
-                  fontSize: 13,
-                  fontWeight: 800,
-                  color: '#021a14',
-                  zIndex: 2,
+                  position: 'relative',
+                  width: 760,
+                  height: 410,
+                  background: '#fefdfa',
+                  borderRadius: '4px',
+                  border: '2px solid rgba(80, 60, 40, 0.25)',
+                  boxShadow: '8px 12px 0px rgba(60, 50, 40, 0.28), 16px 24px 0px rgba(60, 50, 40, 0.12)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  direction: 'rtl',
                 }}
               >
-                {sanitizeForDisplay('✂️ استاپ‌موشن برش کاغذ و کلاژ برداری (۱۲ FPS)')}
-              </div>
+                {/* Physical Kraft Tape on Top Right Corner */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: -12,
+                    right: 40,
+                    width: 75,
+                    height: 26,
+                    background: 'rgba(255, 238, 185, 0.85)',
+                    border: '1px solid rgba(220, 200, 140, 0.6)',
+                    transform: 'rotate(14deg)',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                    zIndex: 10,
+                  }}
+                />
+                {/* Physical Kraft Tape on Top Left Corner */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: -12,
+                    left: 40,
+                    width: 75,
+                    height: 26,
+                    background: 'rgba(255, 238, 185, 0.85)',
+                    border: '1px solid rgba(220, 200, 140, 0.6)',
+                    transform: 'rotate(-10deg)',
+                    boxShadow: '0 2px 4px rgba(0,0,0,0.15)',
+                    zIndex: 10,
+                  }}
+                />
 
-              {/* Trigonometric Lissajous Orbit in Cyber Gold */}
-              <svg
-                width={740}
-                height={380}
-                style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  overflow: 'visible',
-                  pointerEvents: 'none',
-                }}
-              >
-                <LissajousOrbit cx={370} cy={190} size={330} color="#f59e0b" glowColor="rgba(245, 158, 11, 0.45)" />
-              </svg>
-              <PersianVectorMorphCard
-                startFrame={340}
-                width={740}
-                height={380}
-                glowColor="#10b981"
-              />
+                {/* Tactile Paper Header Pill */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 18,
+                    right: 28,
+                    background: '#1b4332',
+                    padding: '6px 20px',
+                    borderRadius: 4,
+                    boxShadow: '2px 3px 0px rgba(0,0,0,0.2)',
+                    fontSize: 13,
+                    fontWeight: 800,
+                    color: '#f0fdf4',
+                    zIndex: 5,
+                  }}
+                >
+                  {sanitizeForDisplay('✂️ استاپ‌موشن برش کاغذ دستی (۱۲ FPS)')}
+                </div>
+
+                {/* Paper Subtitle */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: 22,
+                    left: 28,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: '#4b5563',
+                    zIndex: 5,
+                  }}
+                >
+                  {sanitizeForDisplay('مورفینگ پیوسته برداری روی کلاژ')}
+                </div>
+
+                {/* Trigonometric Lissajous Gold Wire Orbit */}
+                <svg
+                  width={740}
+                  height={340}
+                  style={{
+                    position: 'absolute',
+                    top: 35,
+                    left: 10,
+                    overflow: 'visible',
+                    pointerEvents: 'none',
+                    zIndex: 2,
+                  }}
+                >
+                  <LissajousOrbit cx={370} cy={170} size={300} color="#d97706" glowColor="rgba(217, 119, 6, 0.35)" />
+                </svg>
+
+                {/* Vector Morph Card in Forest Green & Amber */}
+                <div style={{ position: 'relative', zIndex: 3, marginTop: 30 }}>
+                  <PersianVectorMorphCard
+                    startFrame={340}
+                    width={700}
+                    height={320}
+                    glowColor="#2d6a4f"
+                  />
+                </div>
+              </div>
             </div>
           )}
 
@@ -399,188 +465,222 @@ export const SkillIntroShowreelContent: React.FC = () => {
             <div
               style={{
                 position: 'absolute',
-                width: 780,
-                height: 490,
+                width: 820,
+                height: 520,
                 opacity: act3Entrance,
                 transform: `translate3d(${saasDockX}px, 0px, 60px) scale(${saasDockScale})`,
-                background: 'rgba(2, 22, 36, 0.92)',
-                backdropFilter: 'blur(28px)',
-                WebkitBackdropFilter: 'blur(28px)',
-                borderRadius: 8,
-                border: '1.5px solid rgba(6, 182, 212, 0.8)',
-                boxShadow: '0 30px 70px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.3)',
-                display: 'flex',
-                flexDirection: 'column',
-                overflow: 'hidden',
                 direction: 'rtl',
               }}
             >
-              {/* CAD Blueprint Header */}
-              <div
-                style={{
-                  height: 52,
-                  borderBottom: '1px solid rgba(6, 182, 212, 0.25)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '0 24px',
-                  background: 'rgba(3, 30, 48, 0.65)',
-                }}
-              >
-                <div style={{ display: 'flex', gap: 8 }}>
-                  <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#ef4444' }} />
-                  <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#f59e0b' }} />
-                  <div style={{ width: 11, height: 11, borderRadius: '50%', background: '#06b6d4' }} />
-                </div>
-                <div style={{ fontSize: 13, fontWeight: 700, color: '#f0fdfa', letterSpacing: '0.02em' }}>
-                  {sanitizeForDisplay('کنسول تله‌متری و تحلیل فضایی (نقشه فنی بلوپرینت)')}
-                </div>
-                <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 8px #06b6d4' }} />
-              </div>
-
-              {/* Console Body */}
-              <div style={{ flex: 1, padding: 24, display: 'flex', gap: 20 }}>
-                {/* Metric Visualizer Area */}
-                <div style={{ flex: 1.1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                  <div
-                    style={{
-                      height: 190,
-                      background: 'rgba(1, 16, 28, 0.7)',
-                      borderRadius: 6,
-                      border: '1px solid rgba(6, 182, 212, 0.25)',
-                      padding: 16,
-                      position: 'relative',
-                    }}
-                  >
-                    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                      <span style={{ fontSize: 12, color: '#94a3b8', fontFamily: 'monospace' }}>+ CAD STABILITY METRIC</span>
-                      <span style={{ fontSize: 14, fontWeight: 800, color: '#06b6d4' }}>+۹۹.۸٪ پایداری</span>
-                    </div>
-
-                    {/* Animated Sparkline */}
-                    <svg width="100%" height="110" style={{ marginTop: 14 }}>
-                      <path
-                        d="M 10 90 Q 90 20 180 60 T 360 30"
-                        fill="none"
-                        stroke="#06b6d4"
-                        strokeWidth={3}
-                        style={{ filter: 'drop-shadow(0 0 10px #06b6d4)' }}
-                      />
-                      <circle cx={180 + Math.sin(frame * 0.08) * 40} cy={50} r={6} fill="#f59e0b" style={{ filter: 'drop-shadow(0 0 8px #f59e0b)' }} />
-                    </svg>
-                  </div>
-
-                  {/* Status Bar */}
-                  <div
-                    style={{
-                      padding: '12px 18px',
-                      background: 'rgba(3, 30, 48, 0.6)',
-                      borderRadius: 6,
-                      border: '1px solid rgba(6, 182, 212, 0.2)',
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                    }}
-                  >
-                    <span style={{ fontSize: 13, color: '#cbd5e1' }}>
-                      {sanitizeForDisplay('وضعیت سیستم: آماده‌باش تولید سینمایی')}
-                    </span>
-                    <span style={{ fontSize: 12, color: '#06b6d4', fontWeight: 700 }}>
-                      ● پایدار
-                    </span>
-                  </div>
-                </div>
-
-                {/* Right Agent Status Cards */}
-                <div style={{ flex: 0.9, display: 'flex', flexDirection: 'column', gap: 12 }}>
-                  <div
-                    style={{
-                      padding: '14px 16px',
-                      background: 'rgba(1, 16, 28, 0.75)',
-                      borderRadius: 6,
-                      border: '1px solid rgba(6, 182, 212, 0.2)',
-                    }}
-                  >
-                    <div style={{ fontSize: 11, color: '#38bdf8' }}>موتور صوتی استودیویی</div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
-                      {sanitizeForDisplay('قفل ضرب‌آهنگ (Beat-Grid)')}
-                    </div>
-                    <div style={{ fontSize: 12, color: '#f59e0b', marginTop: 4, fontWeight: 600 }}>
-                      تمپو: ۱۲۴ BPM
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      padding: '14px 16px',
-                      background: 'rgba(1, 16, 28, 0.75)',
-                      borderRadius: 6,
-                      border: '1px solid rgba(6, 182, 212, 0.2)',
-                    }}
-                  >
-                    <div style={{ fontSize: 11, color: '#38bdf8' }}>فونت رسمی فارسی</div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
-                      {sanitizeForDisplay('یکان بخ نسخه طلایی')}
-                    </div>
-                    <div style={{ fontSize: 12, color: '#06b6d4', marginTop: 4, fontWeight: 600 }}>
-                      تایپوگرافی اصیل و بدون پرش
-                    </div>
-                  </div>
-
-                  <div
-                    style={{
-                      padding: '14px 16px',
-                      background: 'rgba(1, 16, 28, 0.75)',
-                      borderRadius: 6,
-                      border: '1px solid rgba(6, 182, 212, 0.2)',
-                    }}
-                  >
-                    <div style={{ fontSize: 11, color: '#38bdf8' }}>پیوستگی جهان سینمایی</div>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
-                      {sanitizeForDisplay('تک‌پلان بدون کات (One-Take)')}
-                    </div>
-                    <div style={{ fontSize: 12, color: '#38bdf8', marginTop: 4, fontWeight: 600 }}>
-                      جریان ممتد فوکوس
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Living Procedural Telemetry Stream */}
+              {/* CAD Dimension Top Ruler Guide */}
               <div
                 style={{
                   position: 'absolute',
-                  bottom: 10,
-                  left: 24,
-                  right: 24,
-                  height: 28,
-                  overflow: 'hidden',
-                  pointerEvents: 'none',
-                  opacity: 0.8,
+                  top: -28,
+                  left: 0,
+                  right: 0,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  fontFamily: 'monospace',
+                  fontSize: 11,
+                  color: '#38bdf8',
+                  letterSpacing: '0.05em',
+                  background: 'rgba(6, 182, 212, 0.12)',
+                  padding: '3px 12px',
+                  border: '1px dashed rgba(6, 182, 212, 0.5)',
+                  borderRadius: 2,
                 }}
               >
-                <svg width="100%" height="28" viewBox="0 0 730 28">
-                  <ParametricWaveformStream x={0} y={14} width={730} amplitude={8} color="#06b6d4" />
-                </svg>
+                <span>|◀ 0.00 mm</span>
+                <span>◀────────────── CAD DIMENSION: 820.00 mm (ISOMETRIC PROJECTION) ──────────────▶</span>
+                <span>820.00 mm ▶|</span>
+              </div>
+
+              {/* Blueprint Window Container */}
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  background: 'rgba(4, 20, 36, 0.94)',
+                  backdropFilter: 'blur(24px)',
+                  WebkitBackdropFilter: 'blur(24px)',
+                  borderRadius: 4,
+                  border: '2px solid #06b6d4',
+                  boxShadow: '0 30px 80px -15px rgba(0, 0, 0, 0.9), 0 0 35px rgba(6, 182, 212, 0.35)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
+                }}
+              >
+                {/* CAD Blueprint Header */}
+                <div
+                  style={{
+                    height: 50,
+                    borderBottom: '1.5px solid rgba(6, 182, 212, 0.4)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0 24px',
+                    background: 'rgba(6, 32, 54, 0.8)',
+                  }}
+                >
+                  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#ef4444' }} />
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#f59e0b' }} />
+                    <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#06b6d4' }} />
+                    <span style={{ fontSize: 10, fontFamily: 'monospace', color: '#38bdf8', marginRight: 10 }}>[CAD_DRAWING: REV 5.5]</span>
+                  </div>
+                  <div style={{ fontSize: 13, fontWeight: 700, color: '#f0fdfa', letterSpacing: '0.02em' }}>
+                    {sanitizeForDisplay('کنسول تله‌متری و تحلیل فضایی (نقشه فنی بلوپرینت)')}
+                  </div>
+                  <div style={{ width: 10, height: 10, borderRadius: '50%', background: '#06b6d4', boxShadow: '0 0 8px #06b6d4' }} />
+                </div>
+
+                {/* Console Body */}
+                <div style={{ flex: 1, padding: 24, display: 'flex', gap: 20 }}>
+                  {/* Metric Visualizer Area */}
+                  <div style={{ flex: 1.1, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <div
+                      style={{
+                        height: 200,
+                        background: 'rgba(2, 14, 26, 0.85)',
+                        borderRadius: 4,
+                        border: '1px solid rgba(6, 182, 212, 0.35)',
+                        padding: 16,
+                        position: 'relative',
+                      }}
+                    >
+                      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                        <span style={{ fontSize: 11, color: '#38bdf8', fontFamily: 'monospace' }}>+ CAD STABILITY TELEMETRY</span>
+                        <span style={{ fontSize: 14, fontWeight: 800, color: '#06b6d4' }}>+۹۹.۸٪ پایداری</span>
+                      </div>
+
+                      {/* Animated Sparkline */}
+                      <svg width="100%" height="120" style={{ marginTop: 10 }}>
+                        <path
+                          d="M 10 90 Q 90 20 180 60 T 360 30"
+                          fill="none"
+                          stroke="#06b6d4"
+                          strokeWidth={3}
+                          style={{ filter: 'drop-shadow(0 0 10px #06b6d4)' }}
+                        />
+                        <circle cx={180 + Math.sin(frame * 0.08) * 40} cy={50} r={6} fill="#f59e0b" style={{ filter: 'drop-shadow(0 0 8px #f59e0b)' }} />
+                      </svg>
+                    </div>
+
+                    {/* Status Bar */}
+                    <div
+                      style={{
+                        padding: '12px 18px',
+                        background: 'rgba(6, 32, 54, 0.7)',
+                        borderRadius: 4,
+                        border: '1px solid rgba(6, 182, 212, 0.3)',
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <span style={{ fontSize: 13, color: '#cbd5e1' }}>
+                        {sanitizeForDisplay('وضعیت سیستم: آماده‌باش تولید سینمایی')}
+                      </span>
+                      <span style={{ fontSize: 12, color: '#06b6d4', fontWeight: 700 }}>
+                        ● پایدار
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Right Agent Status Cards */}
+                  <div style={{ flex: 0.9, display: 'flex', flexDirection: 'column', gap: 12 }}>
+                    <div
+                      style={{
+                        padding: '14px 16px',
+                        background: 'rgba(2, 14, 26, 0.85)',
+                        borderRadius: 4,
+                        border: '1px solid rgba(6, 182, 212, 0.3)',
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: '#38bdf8' }}>موتور صوتی استودیویی</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
+                        {sanitizeForDisplay('قفل ضرب‌آهنگ (Beat-Grid)')}
+                      </div>
+                      <div style={{ fontSize: 12, color: '#f59e0b', marginTop: 4, fontWeight: 600 }}>
+                        تمپو: ۱۲۴ BPM
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        padding: '14px 16px',
+                        background: 'rgba(2, 14, 26, 0.85)',
+                        borderRadius: 4,
+                        border: '1px solid rgba(6, 182, 212, 0.3)',
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: '#38bdf8' }}>فونت رسمی فارسی</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
+                        {sanitizeForDisplay('یکان بخ نسخه طلایی')}
+                      </div>
+                      <div style={{ fontSize: 12, color: '#06b6d4', marginTop: 4, fontWeight: 600 }}>
+                        تایپوگرافی اصیل و بدون پرش
+                      </div>
+                    </div>
+
+                    <div
+                      style={{
+                        padding: '14px 16px',
+                        background: 'rgba(2, 14, 26, 0.85)',
+                        borderRadius: 4,
+                        border: '1px solid rgba(6, 182, 212, 0.3)',
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: '#38bdf8' }}>پیوستگی جهان سینمایی</div>
+                      <div style={{ fontSize: 14, fontWeight: 700, color: '#f8fafc', marginTop: 4 }}>
+                        {sanitizeForDisplay('تک‌پلان بدون کات (One-Take)')}
+                      </div>
+                      <div style={{ fontSize: 12, color: '#38bdf8', marginTop: 4, fontWeight: 600 }}>
+                        جریان ممتد فوکوس
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Living Procedural Telemetry Stream */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    bottom: 8,
+                    left: 24,
+                    right: 24,
+                    height: 28,
+                    overflow: 'hidden',
+                    pointerEvents: 'none',
+                    opacity: 0.85,
+                  }}
+                >
+                  <svg width="100%" height="28" viewBox="0 0 770 28">
+                    <ParametricWaveformStream x={0} y={14} width={770} amplitude={8} color="#06b6d4" />
+                  </svg>
+                </div>
               </div>
             </div>
           )}
 
           {/* ================================================================= */}
-          {/* ACT 4: NEO-BRUTALIST CALIBRATION GAUGE & MILESTONE (1220..1800)   */}
+          {/* ACT 4: NEO-BRUTALIST GRAPHIC POSTER & CALIBRATION (1220..1800)    */}
           {/* ================================================================= */}
           {act4Visible && (
             <div
               style={{
                 position: 'absolute',
-                width: 440,
-                height: 490,
+                width: 460,
+                height: 520,
                 opacity: act4Spring,
                 transform: `translate3d(380px, 0px, 60px) scale(${act4Spring})`,
-                background: '#04281e',
-                borderRadius: 16,
-                border: '3.5px solid #021a14',
-                boxShadow: '8px 8px 0px #021a14, 0 0 40px rgba(245, 158, 11, 0.35)',
+                background: '#ffffff',
+                borderRadius: 12,
+                border: '4px solid #000000',
+                boxShadow: '12px 12px 0px #000000',
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
@@ -590,45 +690,42 @@ export const SkillIntroShowreelContent: React.FC = () => {
                 textAlign: 'center',
               }}
             >
-              {/* Neo-Brutalist Badge Header */}
+              {/* Neo-Brutalist Sticker Badge (Rotated) */}
               <div
                 style={{
                   background: '#fef08a',
-                  border: '2px solid #021a14',
-                  boxShadow: '3px 3px 0px #021a14',
-                  padding: '4px 14px',
-                  borderRadius: 6,
-                  color: '#021a14',
-                  fontSize: 12,
+                  border: '3px solid #000000',
+                  boxShadow: '4px 4px 0px #000000',
+                  padding: '6px 18px',
+                  borderRadius: 4,
+                  color: '#000000',
+                  fontSize: 13,
                   fontWeight: 900,
-                  marginBottom: 16,
+                  marginBottom: 20,
+                  transform: 'rotate(-3deg)',
                 }}
               >
-                {sanitizeForDisplay('⚡ نئوبروتالیسم · استاندارد طلایی')}
+                {sanitizeForDisplay('★ نئوبروتالیسم · استاندارد طلایی ★')}
               </div>
 
-              {/* Circular Gauge */}
+              {/* Neo-Brutalist Circular Gauge */}
               <div style={{ position: 'relative', width: 170, height: 170, marginBottom: 24 }}>
                 <svg width={170} height={170} style={{ transform: 'rotate(-90deg)' }}>
-                  <circle cx={85} cy={85} r={72} fill="none" stroke="rgba(255, 255, 255, 0.08)" strokeWidth={12} />
+                  <circle cx={85} cy={85} r={70} fill="none" stroke="#e5e7eb" strokeWidth={16} />
                   <circle
                     cx={85}
                     cy={85}
-                    r={72}
+                    r={70}
                     fill="none"
-                    stroke="url(#emeraldGoldGrad)"
-                    strokeWidth={12}
-                    strokeDasharray={452}
-                    strokeDashoffset={452 - (452 * gaugeValue) / 100}
-                    strokeLinecap="round"
-                    style={{ filter: 'drop-shadow(0 0 12px rgba(245, 158, 11, 0.6))' }}
+                    stroke="#f59e0b"
+                    strokeWidth={16}
+                    strokeDasharray={440}
+                    strokeDashoffset={440 - (440 * gaugeValue) / 100}
+                    strokeLinecap="square"
                   />
-                  <defs>
-                    <linearGradient id="emeraldGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#10b981" />
-                      <stop offset="100%" stopColor="#f59e0b" />
-                    </linearGradient>
-                  </defs>
+                  {/* Heavy Black Outline Circle */}
+                  <circle cx={85} cy={85} r={79} fill="none" stroke="#000000" strokeWidth={3} />
+                  <circle cx={85} cy={85} r={61} fill="none" stroke="#000000" strokeWidth={3} />
                 </svg>
                 <div
                   style={{
@@ -640,36 +737,38 @@ export const SkillIntroShowreelContent: React.FC = () => {
                     justifyContent: 'center',
                   }}
                 >
-                  <span style={{ fontSize: 44, fontWeight: 900, color: '#ffffff' }}>
+                  <span style={{ fontSize: 46, fontWeight: 950, color: '#000000', letterSpacing: '-0.02em' }}>
                     {gaugeValue}٪
                   </span>
-                  <span style={{ fontSize: 13, color: '#f59e0b', fontWeight: 700 }}>
+                  <span style={{ fontSize: 13, color: '#b45309', fontWeight: 800 }}>
                     {sanitizeForDisplay('کالیبراسیون')}
                   </span>
                 </div>
               </div>
 
-              {/* Title */}
-              <h3 style={{ fontSize: 24, fontWeight: 800, color: '#ffffff', margin: '0 0 8px 0' }}>
+              {/* Title in Heavy Black */}
+              <h3 style={{ fontSize: 26, fontWeight: 950, color: '#000000', margin: '0 0 8px 0', letterSpacing: '-0.01em' }}>
                 {sanitizeForDisplay('استاندارد کیفی طلایی')}
               </h3>
-              <p style={{ fontSize: 14, color: '#94a3b8', margin: '0 0 20px 0', lineHeight: 1.5 }}>
+              <p style={{ fontSize: 14, color: '#374151', margin: '0 0 20px 0', lineHeight: 1.5, fontWeight: 700 }}>
                 {sanitizeForDisplay('انطباق ۱۰۰٪ با زبان طراحی موشن‌گرافیک کلاد اوپوس ۵.۵')}
               </p>
 
-              {/* Verified Pill */}
+              {/* Verified Sticker Pill */}
               <div
                 style={{
                   display: 'inline-flex',
                   alignItems: 'center',
                   gap: 8,
-                  padding: '8px 18px',
-                  borderRadius: 999,
-                  background: 'rgba(16, 185, 129, 0.2)',
-                  border: '1px solid rgba(16, 185, 129, 0.4)',
-                  color: '#6ee7b7',
-                  fontSize: 13,
-                  fontWeight: 700,
+                  padding: '10px 22px',
+                  borderRadius: 6,
+                  background: '#10b981',
+                  border: '3px solid #000000',
+                  boxShadow: '4px 4px 0px #000000',
+                  color: '#ffffff',
+                  fontSize: 14,
+                  fontWeight: 900,
+                  transform: 'rotate(2deg)',
                 }}
               >
                 <span>✔</span>

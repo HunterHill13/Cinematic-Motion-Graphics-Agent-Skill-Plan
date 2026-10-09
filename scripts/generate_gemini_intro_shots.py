@@ -61,10 +61,14 @@ def main():
         wav_path = Path(res["output_path"])
         mp3_path = output_dir / f"{shot['id']}.mp3"
         
-        # Convert WAV to MP3 using ffmpeg
+        # Clean audio filter: 30ms fade-in, 80ms fade-out, 150ms silence padding to eliminate trailing click/noise
+        dur = float(res["audio_duration"])
+        fade_out_start = max(0.1, dur - 0.08)
+        audio_filter = f"afade=t=in:ss=0:d=0.03,afade=t=out:st={fade_out_start:.2f}:d=0.08,apad=pad_dur=0.15"
         cmd = [
             "ffmpeg", "-y",
             "-i", str(wav_path),
+            "-af", audio_filter,
             "-codec:a", "libmp3lame",
             "-qscale:a", "2",
             str(mp3_path)
