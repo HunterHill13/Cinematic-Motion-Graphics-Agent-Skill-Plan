@@ -28,6 +28,13 @@ import { Phase5FSecondaryMotionProof } from './motion/visual_world/Phase5FSecond
 import { CinematicBenchmarkScene } from './motion/benchmark/CinematicBenchmarkScene';
 import { Phase6VisualBenchmark } from './motion/director/Phase6VisualBenchmark';
 import { ClaudeMotionBenchmark, CLAUDE_BENCHMARK_FRAMES, CLAUDE_BENCHMARK_WIDTH, CLAUDE_BENCHMARK_HEIGHT } from './motion/claude/ClaudeMotionBenchmark';
+import {
+  ClaudeOpusShowreelContent,
+  CLAUDE_OPUS_SHOWREEL_DURATION,
+  CLAUDE_OPUS_SHOWREEL_FPS,
+  CLAUDE_OPUS_SHOWREEL_WIDTH,
+  CLAUDE_OPUS_SHOWREEL_HEIGHT,
+} from './motion/claude/ClaudeOpusShowreel';
 
 /**
  * ============================================================================
@@ -355,6 +362,16 @@ export const Root: React.FC = () => {
         fps={30}
         width={CLAUDE_BENCHMARK_WIDTH}
         height={CLAUDE_BENCHMARK_HEIGHT}
+      />
+
+      {/* 17. CLAUDE OPUS 5.5 SHOWREEL MASTERPIECE (450 Frames @ 30 FPS / 15.0s) */}
+      <Composition
+        id="ClaudeOpusShowreel"
+        component={ClaudeOpusShowreelContent}
+        durationInFrames={CLAUDE_OPUS_SHOWREEL_DURATION}
+        fps={CLAUDE_OPUS_SHOWREEL_FPS}
+        width={CLAUDE_OPUS_SHOWREEL_WIDTH}
+        height={CLAUDE_OPUS_SHOWREEL_HEIGHT}
       />
     </>
   );

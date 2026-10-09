@@ -83,13 +83,25 @@ To match and exceed the visual fidelity of Anthropic's **Claude Motion** (Octobe
   4. `MetricCard` & Visualizers: Real-time numeric count-up animations (`0` to target with easing curves), circular animated gauges (`CircularGauge`), and spring-loaded horizontal comparison bars (`BarChartVisualizer`).
   5. `FlowDiagram`: Declarative architecture nodes, high-contrast SVG cubic bezier conduits, and traveling luminous energy pulses (comet core + radiant diffuse aura).
 
-### B. Spring Physics & Motion Doctrine
+### B. High-Fidelity Claude Motion Recipes (`src/motion/recipes/`)
+The skill provides plug-and-play recipes modeled directly after viral Claude Opus 5.5 and Dribbble showcase interactions:
+1. **`MorphingUIRecipe` (Single Shape Morphing):**
+   - Continuously preserves topological identity across 4 states without stage clearing:
+     `Action Button (260x64) -> Spinner Ring (64x64) -> Success Seal (72x72) -> Expanded Telemetry Card (560x220)`
+   - Uses zero-jitter spring transitions and glowing reactive drop-shadows.
+2. **`SaaSMotionRecipe` (2.5D Perspective Product Launch):**
+   - Full 3D browser chrome window with perspective tilting (`perspective(1200px) rotateX(14deg) rotateY(-8deg)`).
+   - Animated SVG sparkline area chart, live numeric interpolation (`+418% vs Baseline`), and real-time swarm agent monitor.
+3. **`ClaudeOpusShowreel` (Master 15.0s Composition):**
+   - Full 4-scene seamless narrative flow (`Hook -> Morph -> SaaS Launch -> Quality Climax`) at 1920x1080 @ 30 FPS.
+
+### C. Spring Physics & Motion Doctrine
 - Always author motion with Remotion `spring()` rather than linear or stepped interpolation:
   `spring({ fps, frame, config: { damping: 14, mass: 0.8, stiffness: 120 } })`
 - **Continuous Sub-Motion:** Every active scene must maintain subtle life (floating bokeh drift, conduit energy traveling pulses, ambient gradient breathing).
 - **Staggered Delays:** Never pop elements simultaneously. Stagger by 3–6 frames to establish visual hierarchy.
 
-### C. Remotion Sequence Frame Context Rule
+### D. Remotion Sequence Frame Context Rule
 - When nesting components inside a `<Sequence from={startFrame} durationInFrames={N}>`, any child calling `useCurrentFrame()` receives the **sequence-local frame** ($0 \dots N$), **NOT** the global timeline frame.
 - **Rule:** Always supply sequence-local delays (`delayFrames={0..15}`), never global timeline timestamps, to ensure elements animate reliably within their sequence container.
 
@@ -208,3 +220,5 @@ If `TRANSFORMATION` is `NONE`, the director must provide written justification u
 - [Anti-Patterns Catalog](references/anti-patterns.md)
 - [Cinematography & Motivated Camera Grammar](references/cinematography.md)
 - [Voice Director & Persian TTS Authority](references/voice-director-and-persian-tts.md)
+- [Official Remotion Agent Skills & Code Standards](references/remotion-agent-skills.md)
+- [Claude Opus 5.5 Viral Prompt Catalog](references/claude-opus-prompt-catalog.md)
