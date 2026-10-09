@@ -210,14 +210,71 @@ def parse_audio_response(resp_body_bytes: bytes) -> Tuple[bytes, int]:
         raise GeminiTTSNonQuotaError(f"Failed to parse JSON response: {str(e)}")
 
 
+def strip_gemini_trailing_artifact(pcm_bytes: bytes, sample_rate: int) -> bytes:
+    """
+    Detects and surgically removes trailing Gemini TTS buffer overflow/pop artifacts.
+    Gemini Generative Language TTS terminates PCM streams with ~100-200ms of corrupted
+    buffer noise (clipping at amplitudes >25,000) after the actual speech has completed
+    and dropped to silence.
+    """
+    try:
+        import numpy as np
+    except ImportError:
+        return pcm_bytes
+
+    data = np.frombuffer(pcm_bytes, dtype=np.int16).copy()
+    if len(data) < int(sample_rate * 0.5):
+        return pcm_bytes
+
+    win_len = int(sample_rate * 0.005)  # 5ms windows
+    n_windows = len(data) // win_len
+    max_scan = min(n_windows, int(sample_rate * 0.6 / win_len))
+
+    # Check if there is an artifact in the tail
+    tail_chunk = data[-int(sample_rate * 0.05):].astype(float)
+    has_burst = (np.max(np.abs(tail_chunk)) > 400) or (np.sqrt(np.mean(tail_chunk**2)) > 100)
+
+    if not has_burst:
+        return pcm_bytes
+
+    silence_count = 0
+    cut_idx = len(data)
+    for w in range(n_windows - 1, n_windows - max_scan, -1):
+        idx = w * win_len
+        chunk = data[idx:idx + win_len].astype(float)
+        rms = np.sqrt(np.mean(chunk**2))
+        peak = np.max(np.abs(chunk))
+
+        if rms < 35 and peak < 120:
+            silence_count += 1
+            if silence_count >= 6:  # 30ms of clean silence confirmed!
+                cut_idx = idx + int(sample_rate * 0.02)  # Retain 20ms of silence
+                break
+        else:
+            silence_count = 0
+
+    clean_data = data[:cut_idx].copy()
+    # Smooth 40ms cosine fade-out
+    fade_len = min(len(clean_data), int(sample_rate * 0.04))
+    if fade_len > 0:
+        fade_curve = 0.5 * (1 + np.cos(np.linspace(0, np.pi, fade_len)))
+        clean_data[-fade_len:] = (clean_data[-fade_len:].astype(float) * fade_curve).astype(np.int16)
+
+    # Pad with 120ms of pure digital silence
+    pad = np.zeros(int(sample_rate * 0.12), dtype=np.int16)
+    sanitized = np.concatenate([clean_data, pad])
+    return sanitized.tobytes()
+
+
 def write_pcm_to_wav(pcm_bytes: bytes, sample_rate: int, output_wav_path: Path):
-    """Writes linear 16-bit PCM mono bytes to standard WAV format."""
+    """Writes linear 16-bit PCM mono bytes to standard WAV format, sanitized of Gemini tail pops."""
+    clean_pcm = strip_gemini_trailing_artifact(pcm_bytes, sample_rate)
     output_wav_path.parent.mkdir(parents=True, exist_ok=True)
     with wave.open(str(output_wav_path), "wb") as wf:
         wf.setnchannels(1)
         wf.setsampwidth(2)  # 16-bit
         wf.setframerate(sample_rate)
-        wf.writeframes(pcm_bytes)
+        wf.writeframes(clean_pcm)
 
 
 def measure_wav_duration(wav_path: Path) -> float:
@@ -238,9 +295,20 @@ def normalize_to_ebu_r128(input_wav: Path, output_wav: Path) -> bool:
     ]
     try:
         subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        # Ensure normalized output wav has zero trailing pop
+        try:
+            import numpy as np
+            with wave.open(str(output_wav), "rb") as wf:
+                params = wf.getparams()
+                data = np.frombuffer(wf.readframes(wf.getnframes()), dtype=np.int16).copy()
+            cleaned_bytes = strip_gemini_trailing_artifact(data.tobytes(), params.framerate)
+            with wave.open(str(output_wav), "wb") as wf:
+                wf.setparams(params)
+                wf.writeframes(cleaned_bytes)
+        except Exception:
+            pass
         return True
     except (subprocess.SubprocessError, FileNotFoundError):
-        # Fallback copy if ffmpeg is unavailable in test environment
         output_wav.write_bytes(input_wav.read_bytes())
         return False
 
