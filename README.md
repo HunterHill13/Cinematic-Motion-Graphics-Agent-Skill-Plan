@@ -28,6 +28,101 @@
 
 ---
 
+## 🎨 The 6 Master Production Archetypes / گالری ۶ تمپلیت مستر موشن‌گرافیک
+
+> **Autonomous Production Library:** When running the `cinematic-motion-director` skill, the agent prompts you to select one of these 6 production-grade archetypes based on your topic and narrative style.
+
+| Archetype / تمپلیت | Preview / پیش‌نمایش | Style & Camera / استایل و دوربین | Direct Video / ویدیو |
+| :--- | :---: | :--- | :---: |
+| **1. Dark Graphite Tech**<br>رونمایی تکنولوژی تیره | [![Dark Graphite](renders/claude/preview_dark_graphite.png)](renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4) | **Keynote Launch:** Anodized slate & violet neon.<br>**Camera:** Panoramic Horizon Pan & Micro-Tilt. | [▶ Watch MP4](renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4) |
+| **2. Continuous UI Morph**<br>مورف پیوسته و گلاسمورفیسم | [![Continuous UI](renders/claude/preview_continuous_ui.png)](renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4) | **Fluid Glassmorphism:** Liquid squash & frosted blur.<br>**Camera:** Diagonal Cascade ($XY$ Traversal). | [▶ Watch MP4](renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4) |
+| **3. Quantum Bio Deep-Z**<br>تونل فضایی و علوم ژرف | [![Quantum Bio](renders/claude/preview_quantum_bio.png)](renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4) | **Deep Space Tunnel:** Bioluminescent cyber rings.<br>**Camera:** Continuous Deep-Z Tunnel Zoom ($Z$). | [▶ Watch MP4](renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4) |
+| **4. Kinetic Architectural Typo**<br>تایپوگرافی معماری و مانیفست | [![Architectural Typo](renders/claude/preview_arch_typo.png)](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) | **Monolith Manifesto:** Stark contrast & brutalist type.<br>**Camera:** Kinetic Impact Jumps & Axial Shifts. | [▶ Watch MP4](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) |
+| **5. Bento Grid Modular SaaS**<br>بنتو گرید و کنسول ابری | [![Bento Grid](renders/claude/preview_bento_grid.png)](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) | **Modular Architecture:** Bento feature cells & sparklines.<br>**Camera:** Orbital Focus Panning & Tilt. | [▶ Watch MP4](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) |
+| **6. FinTech Trading Terminal**<br>ترمینال معاملاتی و تریدینگ | [![FinTech](renders/claude/preview_fintech.png)](renders/claude/FINTECH_TRADING_MASTER.mp4) | **High-Frequency Market:** Candlesticks & ticker tape.<br>**Camera:** Lateral Speed Tracking & Depth Skew. | [▶ Watch MP4](renders/claude/FINTECH_TRADING_MASTER.mp4) |
+
+---
+
+### 🎥 Detailed Archetype Showcases / بررسی تفصیلی ویدیوی هر تمپلیت
+
+#### 1. Dark Graphite Tech Master (`DARK_GRAPHITE_TECH_MASTER.mp4`)
+* **Theme:** High-end hardware keynote, AI infrastructure, Apple/Vercel style keynote launch.
+* **Palette:** Deep Carbon `#0A0A0F`, Slate `#13131A`, Electric Violet `#8B5CF6`, Neon Cyan `#06B6D4`.
+* **Camera Grammar:** Smooth Horizon Pan with 2.5D Isometric Tilt.
+* **Sound Design:** 120 BPM Keynote Electronic Beats (`Tech_Live.mp3`) with deep sub drops.
+
+<video src="renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Dark Graphite Video](renders/claude/preview_dark_graphite.png)](renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4)*
+
+---
+
+#### 2. Continuous UI Morph Master (`CONTINUOUS_UI_MORPH_MASTER.mp4`)
+* **Theme:** Fluid mobile apps, SaaS UX flows, consumer product interaction, interactive web apps.
+* **Palette:** Frosted Glass Blur (`28px`), Aurora Indigo `#6366F1`, Liquid Amber `#F59E0B`.
+* **Camera Grammar:** Diagonal Cascade (smooth upper-left to bottom-right stage travel).
+* **Sound Design:** 124 BPM Ambient House (`Ambient_Melodic.mp3`) with interactive button pop & click SFX.
+
+<video src="renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Continuous UI Video](renders/claude/preview_continuous_ui.png)](renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4)*
+
+---
+
+#### 3. Quantum Bio Deep-Z Master (`QUANTUM_BIO_DEEP_Z_MASTER.mp4`)
+* **Theme:** Biotechnology, molecular pathways, AI neural architectures, deep science research.
+* **Palette:** Midnight Navy `#030712`, Bio Emerald `#10B981`, Cyber Cyan `#06B6D4`, Concentric Depth Rings.
+* **Camera Grammar:** Deep-Z Tunnel Zoom ($Z: -800 \to +400$) penetrating through holographic layers.
+* **Sound Design:** 110 BPM Cinematic Pulse (`Cinematic_Arc.mp3`) with atmospheric space drones & whooshes.
+
+<video src="renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Quantum Bio Video](renders/claude/preview_quantum_bio.png)](renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4)*
+
+---
+
+#### 4. Kinetic Architectural Typo Master (`KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4`)
+* **Theme:** Brand manifestos, spoken-word declarations, monumental typography, energetic teasers.
+* **Palette:** Monochromatic Stark White `#FFFFFF` on Obsidian Black `#050508`, Warm Amber Accent `#F59E0B`.
+* **Camera Grammar:** Kinetic Snappy Impact Zooms & Syllable-Synced Micro-Jumps.
+* **Sound Design:** 128 BPM Spoken-Word Hip-Hop/Electronic Beat with heavy riser impacts.
+
+<video src="renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Kinetic Typo Video](renders/claude/preview_arch_typo.png)](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4)*
+
+---
+
+#### 5. Bento Grid Modular SaaS Master (`BENTO_GRID_SAAS_MASTER.mp4`)
+* **Theme:** Feature matrices, modern cloud consoles, analytics platforms, B2B SaaS solutions.
+* **Palette:** Bento Graphite `#0D1117`, Translucent Frosted Glass Borders, Emerald & Violet Badges.
+* **Camera Grammar:** Orbital Card Focus Panning with localized spotlight zooms.
+* **Sound Design:** 124 BPM Future Tech Synth (`Tech_Live.mp3`) with UI toggle and sparkline chimes.
+
+<video src="renders/claude/BENTO_GRID_SAAS_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Bento Grid Video](renders/claude/preview_bento_grid.png)](renders/claude/BENTO_GRID_SAAS_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/BENTO_GRID_SAAS_MASTER.mp4)*
+
+---
+
+#### 6. FinTech Trading Terminal Master (`FINTECH_TRADING_MASTER.mp4`)
+* **Theme:** Cryptocurrency, quantitative trading, finance, real-time analytics, blockchain.
+* **Palette:** Obsidian Terminal `#070B0E`, Bullish Emerald `#00E676`, Bearish Crimson `#FF1744`, Gold Ticker.
+* **Camera Grammar:** Lateral Ticker Tracking & Dynamic Depth Skew mimicking multi-monitor trading desks.
+* **Sound Design:** 130 BPM High-Velocity Pulse with real-time trading ticker clicks & order fill audio.
+
+<video src="renders/claude/FINTECH_TRADING_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch FinTech Video](renders/claude/preview_fintech.png)](renders/claude/FINTECH_TRADING_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/FINTECH_TRADING_MASTER.mp4)*
+
+---
+
 # 🇬🇧 English
 
 ## 🌟 Overview
@@ -185,6 +280,21 @@ npx tsc --noEmit
   - **استاپ‌موشن کاغذ:** بافت فیبر مقوا، پرش ریتمیک ۱۲ فریم بر ثانیه و چسب کرافت فیزیکی.
   - **بلوپرینت فنی:** خط‌کش‌های میلی‌متری CAD، خطوط شبکه‌ای فیروزه‌ای و پایش تله‌متری مهندسی.
   - **نئوبروتالیسم:** کادرهای ضخیم مشکی (`4px solid #000`)، سایه‌های سخت زاویه‌دار و نشان کالیبراسیون ۱۰۰٪ طلایی.
+
+---
+
+## 🎨 گالری تمپلیت‌های مستر (۶ آرکتایپ استاندارد استودیو)
+
+اسکیل خودکار `cinematic-motion-director` پیش از شروع هر سناریو و تدوین کد، ابتدا متناسب با موضوع ویدیو و لحن داستان، تمپلیت‌های زیر را همراه با پیش‌نمایش به شما پیشنهاد داده و از شما استعلام می‌کند:
+
+| نام تمپلیت | پیش‌نمایش بصری | ویژگی‌های استایل و حرکت دوربین | مشاهده ویدیو |
+| :--- | :---: | :--- | :---: |
+| **۱. Dark Graphite Tech**<br>رونمایی تکنولوژی و هوش مصنوعی | [![Dark Graphite](renders/claude/preview_dark_graphite.png)](renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4) | **رونمایی کینوت:** متریال اسلیت آندایز تیره با نئون بنفش و فیروزه‌ای.<br>**دوربین:** حرکت افقی نرم با شیب ایزومتریک ۲.۵ بعدی. | [▶ پخش ویدیو](renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4) |
+| **۲. Continuous UI Morph**<br>مورف پیوسته و گلاسمورفیسم | [![Continuous UI](renders/claude/preview_continuous_ui.png)](renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4) | **گلاسمورفیسم مایع:** شیشه مات ۲۸ پیکسلی و دکمه‌های ژله‌ای ارگانیک.<br>**دوربین:** آبشاری اوریب (پیمایش پیوسته از بالا-چپ به پایین-راست). | [▶ پخش ویدیو](renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4) |
+| **۳. Quantum Bio Deep-Z**<br>تونل فضایی و علوم ژرف | [![Quantum Bio](renders/claude/preview_quantum_bio.png)](renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4) | **تونل فضایی عمیق:** حلقه‌های نئونی هم‌مرکز و ذرات مداری بیولومینسانس.<br>**دوربین:** زوم پیوسته در عمق ($Z: -800 \to +400$) درون لایه‌ها. | [▶ پخش ویدیو](renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4) |
+| **۴. Kinetic Architectural Typo**<br>تایپوگرافی معماری و مانیفست | [![Architectural Typo](renders/claude/preview_arch_typo.png)](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) | **مانیفست غول‌آسا:** کنتراست حداکثری سیاه و سفید با استروک‌های معماری.<br>**دوربین:** جهش‌های ریتمیک ناگهانی منطبق بر سیلاب‌های گویندگی. | [▶ پخش ویدیو](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) |
+| **۵. Bento Grid Modular SaaS**<br>بنتو گرید و کنسول ابری | [![Bento Grid](renders/claude/preview_bento_grid.png)](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) | **معماری ماژولار:** کارت‌های مدرن بنتو با نمودارهای زنده و برچسب‌های متالیک.<br>**دوربین:** پن اوربیتال با زوم متمرکز روی کارت‌های فعال. | [▶ پخش ویدیو](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) |
+| **۶. FinTech Trading Terminal**<br>ترمینال معاملاتی و فین‌تک | [![FinTech](renders/claude/preview_fintech.png)](renders/claude/FINTECH_TRADING_MASTER.mp4) | **بازار مالی پرسرعت:** کندل‌استیک‌های نئونی، عمق سفارشات و تیکر زنده.<br>**دوربین:** تعقیب افقی تیکر با اسکیو عمق شبیه‌ساز مانیتورهای ترید. | [▶ پخش ویدیو](renders/claude/FINTECH_TRADING_MASTER.mp4) |
 
 ---
 
