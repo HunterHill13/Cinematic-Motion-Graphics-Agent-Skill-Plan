@@ -14,7 +14,7 @@
 
 import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig, spring, Easing, Audio, Sequence, staticFile } from 'remotion';
-import { AtmosphericBackdrop } from '../library/AtmosphericBackdrop';
+import { BioluminescentAbyssBackdrop } from '../library/BioluminescentAbyssBackdrop';
 import { MaskedKineticHeadline } from '../library/MaskedKineticTypography';
 import { DynamicFresnelSweep } from '../library/DynamicFresnelSweep';
 import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer';
@@ -70,10 +70,15 @@ export const QuantumBioDeepZMaster: React.FC = () => {
         fontFamily: YEKAN_BAKH_FONT,
       }}
     >
-      {/* 1. DEEP BIOLUMINESCENT ATMOSPHERE */}
-      <AtmosphericBackdrop
-        primaryGlowColor="#10b981"
-        secondaryGlowColor="#d97706"
+      {/* 1. DEDICATED BIOLUMINESCENT ABYSS BACKDROP WITH DEEP-Z TUNNEL CAMERA */}
+      <BioluminescentAbyssBackdrop
+        camX={camX}
+        camY={camY}
+        camZ={camZ}
+        camRoll={camRoll}
+        camPitch={camPitch}
+        glowColorPrimary="#10b981"
+        glowColorSecondary="#06b6d4"
       />
 
       {/* 2. PERSISTENT 3D TUNNEL WORLD */}

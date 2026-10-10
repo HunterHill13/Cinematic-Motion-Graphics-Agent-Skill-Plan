@@ -103,14 +103,14 @@ export class UniversalCameraRig {
         const camX = interpolate(
           f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-          [0, 0, 1500, 1500, 3000, 3000, 4300, 3650, 3650],
+          [0, 0, 1500, 1500, 3000, 3000, 4300, 4300, 4300],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camY = 0;
         const camZ = interpolate(
           f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-          [0, 0, 50, 50, 80, 80, 120, -180, -180],
+          [0, 0, 50, 50, 80, 80, 60, 60, 60],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.4, 0, 0.2, 1) }
         );
         const camRoll = interpolate(
@@ -247,37 +247,37 @@ export class UniversalCameraRig {
         const camX = interpolate(
           f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-          [0, 0, 1400, 1400, 2800, 2800, 4000, 3400, 3400],
+          [0, 0, 1400, 1400, 2800, 2800, 4000, 4000, 4000],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camY = interpolate(
           f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-          [0, 0, 750, 750, 1500, 1500, 2200, 1850, 1850],
+          [0, 0, 750, 750, 1500, 1500, 2200, 2200, 2200],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.25, 0.1, 0.25, 1) }
         );
         const camZ = interpolate(
           f,
           [0, 270, 340, 680, 750, 1180, 1250, 1400, 1800],
-          [0, 0, 50, 50, 100, 100, 140, -180, -180],
+          [0, 0, 50, 50, 100, 100, 140, 140, 140],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.4, 0, 0.2, 1) }
         );
         const camRoll = interpolate(
           f,
-          [270, 305, 340, 680, 715, 750, 1180, 1215, 1250],
-          [0, -4.0, 0, 0, 4.5, 0, 0, -3.0, 0],
+          [270, 305, 340, 680, 715, 750, 1180, 1215, 1250, 1400, 1800],
+          [0, -4.0, 0, 0, 4.5, 0, 0, -3.0, 0, 0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camPitch = interpolate(
           f,
-          [0, 340, 750, 1250, 1800],
-          [1.0, -1.5, 1.5, -1.0, 0],
+          [0, 340, 750, 1250, 1400, 1800],
+          [1.0, -1.5, 1.5, -1.0, 0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
         const camYaw = interpolate(
           f,
-          [0, 340, 750, 1250, 1800],
-          [-2.0, 2.0, -2.5, 1.5, 0],
+          [0, 340, 750, 1250, 1400, 1800],
+          [-2.0, 2.0, -2.5, 1.5, 0, 0],
           { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
         );
 
@@ -293,11 +293,11 @@ export class UniversalCameraRig {
           visible = cam.camX > 500 && cam.camX < 2700;
           opacity = interpolate(cam.camX, [500, 1400, 2100, 2700], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
         } else if (stageIndex === 3) {
-          visible = cam.camX > 2000;
-          opacity = interpolate(cam.camX, [2100, 2800, 3800], [0, 1, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+          visible = cam.camX > 2000 && cam.camX < 3600;
+          opacity = interpolate(cam.camX, [2100, 2800, 3200, 3600], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
         } else if (stageIndex === 4) {
           visible = cam.camX > 3200;
-          opacity = interpolate(cam.camX, [3200, 3900], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+          opacity = interpolate(cam.camX, [3200, 3800], [0, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
         }
         return { visible, opacity, depthScale: 1.0 };
       },

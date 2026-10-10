@@ -13,7 +13,7 @@
 
 import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig, spring, Easing, Audio, Sequence, staticFile } from 'remotion';
-import { AtmosphericBackdrop } from '../library/AtmosphericBackdrop';
+import { GraphiteCircuitBackdrop } from '../library/GraphiteCircuitBackdrop';
 import { MaskedKineticHeadline } from '../library/MaskedKineticTypography';
 import { DynamicFresnelSweep } from '../library/DynamicFresnelSweep';
 import { StyleAwareAtmosphereLayer } from '../library/StyleAwareAtmosphereLayer';
@@ -69,24 +69,15 @@ export const DarkGraphiteTechMaster: React.FC = () => {
         fontFamily: YEKAN_BAKH_FONT,
       }}
     >
-      {/* 1. ATMOSPHERIC GRAPHITE BACKDROP & TECHNICAL CAD GRID */}
-      <AtmosphericBackdrop
-        primaryGlowColor="#06b6d4"
-        secondaryGlowColor="#3b82f6"
-      />
-
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundImage: `
-            linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px)
-          `,
-          backgroundSize: '48px 48px',
-          opacity: 0.8,
-          pointerEvents: 'none',
-        }}
+      {/* 1. DEDICATED GRAPHITE CIRCUIT BACKDROP WITH 3D CAMERA PARALLAX */}
+      <GraphiteCircuitBackdrop
+        camX={camX}
+        camY={camY}
+        camZ={camZ}
+        camRoll={camRoll}
+        camPitch={camPitch}
+        accentColor="#06b6d4"
+        secondaryColor="#10b981"
       />
 
       {/* 2. 6-DOF CONTINUOUS STAGE WORLD */}

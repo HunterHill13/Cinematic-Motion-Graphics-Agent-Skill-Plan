@@ -17,7 +17,7 @@ import { InteractiveCursor } from '../library/InteractiveCursor';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { MaskedKineticHeadline } from '../library/MaskedKineticTypography';
-import { NewtonianAttractorSwarm } from '../library/NewtonianAttractorSwarm';
+import { StudioMeshGlassBackdrop } from '../library/StudioMeshGlassBackdrop';
 import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
 
 export const CONTINUOUS_UI_DURATION = 450; // 15.0s @ 30 FPS
@@ -79,12 +79,7 @@ export const ContinuousUiMorphMaster: React.FC = () => {
         position: 'relative',
         width: CONTINUOUS_UI_WIDTH,
         height: CONTINUOUS_UI_HEIGHT,
-        backgroundColor: '#f8fafc',
-        backgroundImage: `
-          radial-gradient(#e2e8f0 1.5px, transparent 1.5px),
-          radial-gradient(#e2e8f0 1.5px, #f8fafc 1.5px)
-        `,
-        backgroundSize: '36px 36px',
+        backgroundColor: '#090d1e',
         overflow: 'hidden',
         fontFamily: YEKAN_BAKH_FONT,
         display: 'flex',
@@ -92,18 +87,18 @@ export const ContinuousUiMorphMaster: React.FC = () => {
         justifyContent: 'center',
       }}
     >
-      {/* BACKGROUND FLOATING LIGHT PARTICLES */}
-      <NewtonianAttractorSwarm
-        attractorX={0}
-        attractorY={0}
-        particleCount={16}
-        theme="STOP_MOTION_PAPER"
-        beatPulse={beatPulse.scalePulse}
+      {/* 1. DEDICATED ARCHITECTURAL STUDIO MESH GLASS BACKDROP */}
+      <StudioMeshGlassBackdrop
+        camX={0}
+        camY={0}
+        camZ={camZ}
+        primaryLightColor="#6366f1"
+        accentGlowColor="#a855f7"
       />
 
       {/* TOP HEADER BRANDING */}
-      <div style={{ position: 'absolute', top: 50, textAlign: 'center', direction: 'rtl' }}>
-        <span style={{ fontSize: 16, fontWeight: 800, color: '#64748b', letterSpacing: 1 }}>
+      <div style={{ position: 'absolute', top: 50, textAlign: 'center', direction: 'rtl', zIndex: 10 }}>
+        <span style={{ fontSize: 16, fontWeight: 800, color: '#94a3b8', letterSpacing: 1 }}>
           {sanitizeForDisplay('سیستم طراحی تعاملی · مورفینگ پیوسته تک‌المان')}
         </span>
       </div>
