@@ -106,6 +106,24 @@ import {
  * CONSOLIDATED STUDIO ROOT COMPOSITION REGISTRY (CLEAN PRODUCTION ARCHITECTURE)
  * ============================================================================
  */
+// ============================================================================
+// 3. MOTION GRAMMAR & COMPILER HARNESS (TEST COMPOSITIONS)
+// ============================================================================
+import { CanonicalMotionScene } from './motion/grammar/CanonicalMotionScene';
+import { CanonicalCompilerScene } from './motion/compiler/CanonicalCompilerScene';
+import {
+  VerbTest_SPLIT,
+  VerbTest_EXPAND,
+  VerbTest_TRAVEL,
+  VerbTest_COLLAPSE,
+  VerbTest_MORPH,
+  VerbTest_MERGE,
+  VerbTest_DEFORM,
+  VerbTest_REASSEMBLE,
+  VerbTest_AntiBypass_FakeSplit,
+  VerbTest_DecorativeCamouflage,
+} from './motion/grammar/VerbTemplateTestCompositions';
+
 export const Root: React.FC = () => {
   return (
     <>
@@ -276,6 +294,21 @@ export const Root: React.FC = () => {
         width={CLAUDE_PERSIAN_WIDTH}
         height={CLAUDE_PERSIAN_HEIGHT}
       />
+      {/* ----------------------------------------------------------------- */}
+      {/* 12. GRAMMAR & COMPILER HARNESS COMPOSITIONS (TEST RUNNERS)        */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition id="CanonicalMotionScene" component={CanonicalMotionScene} durationInFrames={600} fps={30} width={1920} height={1080} />
+      <Composition id="CanonicalCompilerScene" component={CanonicalCompilerScene} durationInFrames={600} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-SPLIT" component={VerbTest_SPLIT} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-EXPAND" component={VerbTest_EXPAND} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-TRAVEL" component={VerbTest_TRAVEL} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-COLLAPSE" component={VerbTest_COLLAPSE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-MORPH" component={VerbTest_MORPH} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-MERGE" component={VerbTest_MERGE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-DEFORM" component={VerbTest_DEFORM} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-REASSEMBLE" component={VerbTest_REASSEMBLE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-AntiBypass-FakeSplit" component={VerbTest_AntiBypass_FakeSplit} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-DecorativeCamouflage" component={VerbTest_DecorativeCamouflage} durationInFrames={100} fps={30} width={1920} height={1080} />
     </>
   );
 };

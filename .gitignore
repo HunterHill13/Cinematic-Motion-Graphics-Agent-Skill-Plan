@@ -11,6 +11,7 @@ audio/cache/
 .cache/
 .scratch/
 out/
+tests/temp_real_render/
 
 # Proprietary / Licensed Fonts (Keep on local machine & global skill; never commit to GitHub)
 *.woff2

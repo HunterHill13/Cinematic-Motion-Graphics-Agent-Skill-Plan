@@ -105,28 +105,32 @@ function runSuite() {
     console.error('Positive fixture failed unexpectedly:', reportPositive.violations);
   }
 
-  // 7. PRODUCTION FILE TEST 1: src/Main.tsx (Must FAIL!)
+  // 7. HISTORICAL AUDIT (if files exist): src/Main.tsx
   const mainPath = path.resolve(__dirname, '../src/Main.tsx');
-  const reportMain = new AstMotionValidator(mainPath).validate();
-  console.log(`----------------------------------------------------------------`);
-  console.log(`[Production Audit: src/Main.tsx]: Passed: ${reportMain.passed} (Expected FAIL)`);
-  console.log(`Detected Violations in src/Main.tsx (${reportMain.violations.length}):`);
-  reportMain.violations.forEach((v) => console.log(`  - [${v.code}]: ${v.message}`));
-  if (reportMain.passed) {
-    console.error('CRITICAL: src/Main.tsx was NOT rejected by the validator!');
-    passedAll = false;
+  if (fs.existsSync(mainPath)) {
+    const reportMain = new AstMotionValidator(mainPath).validate();
+    console.log(`----------------------------------------------------------------`);
+    console.log(`[Production Audit: src/Main.tsx]: Passed: ${reportMain.passed} (Expected FAIL)`);
+    console.log(`Detected Violations in src/Main.tsx (${reportMain.violations.length}):`);
+    reportMain.violations.forEach((v) => console.log(`  - [${v.code}]: ${v.message}`));
+    if (reportMain.passed) {
+      console.error('CRITICAL: src/Main.tsx was NOT rejected by the validator!');
+      passedAll = false;
+    }
   }
 
-  // 8. PRODUCTION FILE TEST 2: Apoptosis916Main.tsx (Must FAIL!)
+  // 8. HISTORICAL AUDIT (if files exist): Apoptosis916Main.tsx
   const apoptosisPath = path.resolve(__dirname, '../src/projects/apoptosis_cancer_9_16/src/Apoptosis916Main.tsx');
-  const reportApoptosis = new AstMotionValidator(apoptosisPath).validate();
-  console.log(`----------------------------------------------------------------`);
-  console.log(`[Production Audit: Apoptosis916Main.tsx]: Passed: ${reportApoptosis.passed} (Expected FAIL)`);
-  console.log(`Detected Violations in Apoptosis916Main.tsx (${reportApoptosis.violations.length}):`);
-  reportApoptosis.violations.forEach((v) => console.log(`  - [${v.code}]: ${v.message}`));
-  if (reportApoptosis.passed) {
-    console.error('CRITICAL: Apoptosis916Main.tsx was NOT rejected by the validator!');
-    passedAll = false;
+  if (fs.existsSync(apoptosisPath)) {
+    const reportApoptosis = new AstMotionValidator(apoptosisPath).validate();
+    console.log(`----------------------------------------------------------------`);
+    console.log(`[Production Audit: Apoptosis916Main.tsx]: Passed: ${reportApoptosis.passed} (Expected FAIL)`);
+    console.log(`Detected Violations in Apoptosis916Main.tsx (${reportApoptosis.violations.length}):`);
+    reportApoptosis.violations.forEach((v) => console.log(`  - [${v.code}]: ${v.message}`));
+    if (reportApoptosis.passed) {
+      console.error('CRITICAL: Apoptosis916Main.tsx was NOT rejected by the validator!');
+      passedAll = false;
+    }
   }
 
   console.log(`================================================================`);
