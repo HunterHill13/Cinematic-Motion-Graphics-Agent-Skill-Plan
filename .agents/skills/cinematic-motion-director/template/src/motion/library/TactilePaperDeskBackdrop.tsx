@@ -533,24 +533,6 @@ export const TactilePaperDeskBackdrop: React.FC = () => {
 
       {/* Ambient Crumpled Creases on Desk */}
       <CrumpledPaperCreaseOverlay opacity={0.35} />
-
-      {/* =================================================================== */}
-      {/* DESK PHYSICAL CRAFT OBJECTS                                          */}
-      {/* =================================================================== */}
-      {/* 1. Wooden Drafting Pencil (Top Right) */}
-      <WoodenPencilSvg x={1640} y={110} rotation={-30} scale={1.05} />
-
-      {/* 2. Metal Sharpener with Wood Shavings (Bottom Right) */}
-      <MetalSharpenerSvg x={1710} y={870} rotation={14} scale={1.1} />
-
-      {/* 3. Crumpled Paper Ball (Bottom Left) */}
-      <CrumpledPaperBallSvg x={90} y={870} rotation={18} size={115} colorTheme="kraft" />
-
-      {/* 4. Steel Paperclip (Top Left) */}
-      <SteelPaperclipSvg x={190} y={90} rotation={32} scale={1.0} />
-
-      {/* 5. Pinned Torn Craft Note (Top Left) */}
-      <TornCraftScrapNote x={55} y={150} rotation={-9} label="PAPER_CRAFT // 30 FPS" />
     </div>
   );
 };

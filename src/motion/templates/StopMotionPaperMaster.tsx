@@ -33,12 +33,13 @@ export const StopMotionPaperMaster: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Natural physical beat pulse
-  const beatPulse = calculateBeatPulse(frame, 124, fps);
+  // Natural physical beat pulse: Exact 150 BPM tempo matching Cipher2.mp3
+  // 150 BPM @ 30 FPS = exactly 12 frames per quarter note, 24 frames per half-time snare/kick hit
+  const beatPulse = calculateBeatPulse(frame, 150, fps, 0.006);
 
-  // Smooth 30 FPS Organic Physics Springs
+  // Smooth 30 FPS Organic Physics Springs snapped to musical downbeats
   const card1Progress = spring({
-    frame: Math.max(0, frame - 10),
+    frame: Math.max(0, frame - 12),
     fps,
     config: { damping: 14, stiffness: 110 },
   });
@@ -46,19 +47,19 @@ export const StopMotionPaperMaster: React.FC = () => {
   const card1Rot = interpolate(card1Progress, [0, 1], [10, -1.2]);
 
   const badgeProgress = spring({
-    frame: Math.max(0, frame - 100),
+    frame: Math.max(0, frame - 108),
     fps,
     config: { damping: 14, stiffness: 120 },
   });
 
   const metricProgress = spring({
-    frame: Math.max(0, frame - 210),
+    frame: Math.max(0, frame - 216),
     fps,
     config: { damping: 15, stiffness: 115 },
   });
 
   const stampProgress = spring({
-    frame: Math.max(0, frame - 320),
+    frame: Math.max(0, frame - 324),
     fps,
     config: { damping: 11, stiffness: 150 },
   });
@@ -198,7 +199,7 @@ export const StopMotionPaperMaster: React.FC = () => {
               fontWeight: 700,
             }}
           >
-            {sanitizeForDisplay('بافت فیزیکی کاغذ کرافت • چین‌وچروک و ابزارهای استودیو')}
+            {sanitizeForDisplay('بافت فیزیکی کاغذ کرافت • چین‌وچروک و خطوط تای اوریگامی')}
           </div>
         </div>
 
@@ -244,7 +245,7 @@ export const StopMotionPaperMaster: React.FC = () => {
         >
           {[
             { num: '۰۱', title: 'بافت کاغذ فیبردار و چروک', desc: 'سایه‌اندازی طبیعی لایه‌ها و خطوط تای فیزیکی', color: '#FFFDF9' },
-            { num: '۰۲', title: 'میز کار و ابزارهای دستی', desc: 'مداد چوبی، تراش فلزی و جزئیات اصیل طراحی', color: '#F7F3EB' },
+            { num: '۰۲', title: 'خطوط تای هندسی و چروک', desc: 'برش‌های دقیق زوایا و تاشدگی‌های ظریف کاغذ', color: '#F7F3EB' },
             { num: '۰۳', title: 'کلاژ لایه‌لایه و نوارچسب', desc: 'ترکیب فیزیکی کاغذ کرافت و چسب‌های مات', color: '#FFFDF9' },
           ].map((item, idx) => (
             <div
@@ -314,7 +315,8 @@ export const StopMotionPaperMaster: React.FC = () => {
                 height: 12,
                 borderRadius: '50%',
                 backgroundColor: '#27AE60',
-                boxShadow: '0 0 0 3px rgba(39, 174, 96, 0.25)',
+                boxShadow: `0 0 0 ${3 + beatPulse.lightPulse * 4}px rgba(39, 174, 96, 0.25)`,
+                transition: 'box-shadow 0.1s ease',
               }}
             />
             <span
@@ -324,8 +326,28 @@ export const StopMotionPaperMaster: React.FC = () => {
                 color: '#4A3E2D',
               }}
             >
-              {sanitizeForDisplay('کالیبراسیون زاویه و فیزیک کاغذی: فعال')}
+              {sanitizeForDisplay('سینک موسیقیایی ۱۵۰ BPM • تپش هماهنگ با بیت')}
             </span>
+          </div>
+
+          {/* Dynamic Papercraft Audio Waveform Stream */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4, height: 26, padding: '0 16px' }}>
+            {Array.from({ length: 18 }).map((_, i) => {
+              const phase = (frame / 12) * Math.PI * 0.5 + i * 0.45;
+              const barHeight = Math.max(4, Math.sin(phase) * 9 + 11 + beatPulse.lightPulse * 8);
+              return (
+                <div
+                  key={i}
+                  style={{
+                    width: 3.5,
+                    height: barHeight,
+                    backgroundColor: i % 2 === 0 ? '#D9534F' : '#7A6B56',
+                    borderRadius: 2,
+                    opacity: 0.75 + (i % 3) * 0.08,
+                  }}
+                />
+              );
+            })}
           </div>
 
           <div
@@ -333,9 +355,10 @@ export const StopMotionPaperMaster: React.FC = () => {
               fontSize: clampFontSize(18, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
               fontWeight: 800,
               color: '#8C775D',
+              fontFamily: 'monospace',
             }}
           >
-            {sanitizeForDisplay('CADENCE: ۳۰ فریم بر ثانیه سینمایی')}
+            TEMPO: 150 BPM // 30 FPS
           </div>
         </div>
 
