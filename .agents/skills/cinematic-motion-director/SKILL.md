@@ -43,7 +43,7 @@ Every visual and motion decision follows this strict priority:
    4. KINETIC_ARCHITECTURAL_TYPO: Monumental spoken-word manifesto ("BUILD THE FLOOR"), architectural typography ([مشاهده پیش‌نمایش](file:///renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4))
    5. BENTO_GRID_SAAS: Modular Bento cells, live agent telemetry, interactive sliders & toggles ([مشاهده پیش‌نمایش](file:///renders/claude/BENTO_GRID_SAAS_MASTER.mp4))
    6. FINTECH_TRADING: Wall Street candlestick charts, order-book liquidity depth waves, high-frequency ticker tape ([مشاهده پیش‌نمایش](file:///renders/claude/FINTECH_TRADING_MASTER.mp4))
-   7. STOP_MOTION_PAPER: 12 FPS stepped stop-motion, torn paper edges, tactile textures, binder clips, sticky tape ([مشاهده پیش‌نمایش](file:///renders/claude/STOP_MOTION_PAPER_MASTER.mp4))
+   7. STOP_MOTION_PAPER: Tactile kraft papercraft, artisan drafting desk, smooth 30 FPS spring physics, origami fold creases, and paper audio waveform ([مشاهده پیش‌نمایش](file:///renders/claude/STOP_MOTION_PAPER_MASTER.mp4))
    8. TECHNICAL_BLUEPRINT: Technical CAD blueprint, millimeter crosshairs, caliper measuring tools, engineering grid ([مشاهده پیش‌نمایش](file:///renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4))
    9. NEO_BRUTALIST: High-contrast acid yellow, 4px solid borders, hard 12px drop-shadows, raw stark typography ([مشاهده پیش‌نمایش](file:///renders/claude/NEO_BRUTALIST_MASTER.mp4))
    The agent MUST recommend the best match based on the user's topic and WAIT for the user's choice.
@@ -94,6 +94,9 @@ Every visual and motion decision follows this strict priority:
     - ATMOSPHERE & LIGHTING: Layer `<AtmosphericBackdrop>` and `<StyleAwareAtmosphereLayer>` behind the scene.
     - STUDIO AUDIO & BEAT-GRID: Include `<Audio src={staticFile(manifest.audio.bgmFile)} />` with `calculateBeatPulse` (softened amplitude 0.002 to 0.0045) and frame-accurate scenario SFX sequences (`manifest.audio.sfxCues`).
     - TOPOLOGICAL VECTOR MORPHING: Utilize `DynamicVectorCatalog`, structured `VerbTemplates` motion primitives, and `<UniversalVectorMorphCard>` / `PersianVectorMorphCard` driven by `@remotion/paths`'s `interpolatePath`.
+    - KINETIC EMPHASIS TYPOGRAPHY: Deploy `<KineticEmphasisCallout>` via `extractEmphasisTokens` for selective, high-impact emphasis pops on climax keywords, percentages, and numerical milestones; quantized to musical BPM with template-reactive skins (Neon Cyber, Hard Brutalist, CAD Blueprint, Kraft Paper, or FinTech Ticker) without cluttering the video with full-time subtitles.
+    - OFFLINE LOTTIE VECTOR ASSETS: Integrate `<LottieGraphic>` (`@remotion/lottie`) with 5 curated offline presets (`tech_ai_core`, `bio_helix_pulse`, `fintech_growth_chart`, `ui_check_confirm`, `abstract_portal`) with template-reactive accent color tinting.
+    - CINEMATIC ACT TRANSITIONS: Utilize `<CinematicTransitionSeries>` (`@remotion/transitions`) for directional slides, wipes, or fades at narrative boundaries without breaking camera momentum continuity.
     - DUAL-SCRIPT PERSIAN TYPOGRAPHY: All Persian text sanitized via `persianSanitizer.ts`, rendered with official `Yekan Bakh` font weights.
 15. DO NOT fall back to low-level abstract SVG wireframe generators (`MotionGraphCompiler`, raw `PersistentWorld` fallback AST, or bare `VerbTemplates`) for production videos; wireframe compilers are strictly reserved for internal engine unit tests. Production videos must always be rich, component-driven, and cinematic.
         ↓

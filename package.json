@@ -13,9 +13,11 @@
     "@remotion/captions": "^4.0.218",
     "@remotion/fonts": "^4.0.532",
     "@remotion/google-fonts": "^4.0.218",
+    "@remotion/lottie": "^4.0.532",
     "@remotion/paths": "^4.0.218",
     "@remotion/sfx": "^4.0.534",
     "@remotion/transitions": "^4.0.532",
+    "lottie-web": "^5.13.0",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "remotion": "^4.0.218"
