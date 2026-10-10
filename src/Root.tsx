@@ -78,6 +78,27 @@ import {
   QUANTUM_BIO_WIDTH,
   QUANTUM_BIO_HEIGHT,
 } from './motion/templates/QuantumBioDeepZMaster';
+import {
+  KineticArchitecturalTypoMaster,
+  KINETIC_TYPO_DURATION,
+  KINETIC_TYPO_FPS,
+  KINETIC_TYPO_WIDTH,
+  KINETIC_TYPO_HEIGHT,
+} from './motion/templates/KineticArchitecturalTypoMaster';
+import {
+  BentoGridSaasMaster,
+  BENTO_GRID_DURATION,
+  BENTO_GRID_FPS,
+  BENTO_GRID_WIDTH,
+  BENTO_GRID_HEIGHT,
+} from './motion/templates/BentoGridSaasMaster';
+import {
+  FinTechTradingMaster,
+  FINTECH_DURATION,
+  FINTECH_FPS,
+  FINTECH_WIDTH,
+  FINTECH_HEIGHT,
+} from './motion/templates/FinTechTradingMaster';
 
 /**
  * ============================================================================
@@ -485,6 +506,36 @@ export const Root: React.FC = () => {
         fps={QUANTUM_BIO_FPS}
         width={QUANTUM_BIO_WIDTH}
         height={QUANTUM_BIO_HEIGHT}
+      />
+
+      {/* 25. TEMPLATE ARCHETYPE 5: KINETIC ARCHITECTURAL TYPOGRAPHY ("BUILD THE FLOOR") */}
+      <Composition
+        id="KineticArchitecturalTypoMaster"
+        component={KineticArchitecturalTypoMaster}
+        durationInFrames={KINETIC_TYPO_DURATION}
+        fps={KINETIC_TYPO_FPS}
+        width={KINETIC_TYPO_WIDTH}
+        height={KINETIC_TYPO_HEIGHT}
+      />
+
+      {/* 26. TEMPLATE ARCHETYPE 6: BENTO GRID SAAS FEATURE MATRIX */}
+      <Composition
+        id="BentoGridSaasMaster"
+        component={BentoGridSaasMaster}
+        durationInFrames={BENTO_GRID_DURATION}
+        fps={BENTO_GRID_FPS}
+        width={BENTO_GRID_WIDTH}
+        height={BENTO_GRID_HEIGHT}
+      />
+
+      {/* 27. TEMPLATE ARCHETYPE 7: FINTECH TRADING & MARKET INTELLIGENCE MASTER */}
+      <Composition
+        id="FinTechTradingMaster"
+        component={FinTechTradingMaster}
+        durationInFrames={FINTECH_DURATION}
+        fps={FINTECH_FPS}
+        width={FINTECH_WIDTH}
+        height={FINTECH_HEIGHT}
       />
     </>
   );

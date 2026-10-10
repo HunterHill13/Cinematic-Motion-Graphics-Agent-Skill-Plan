@@ -19,6 +19,7 @@ out/
 *.otf
 public/fonts/YekanBakh/
 .agents/skills/cinematic-motion-director/assets/fonts/
+.agents/skills/cinematic-motion-director/assets/previews/
 assets/fonts/
 
 # Renders: ignore old renders; keep only renders/claude/
