@@ -66,6 +66,23 @@ Every visual and motion decision follows this strict priority:
      - Always wrap custom font sizes in `clampFontSize(size, role, width, height)` or import from `src/typography/responsiveTypography.ts`.
      - Persian text must maintain generous line-height (`1.45 - 1.55`) to prevent ascender/descender collision.
      - If copy is lengthy, use smart line wrapping; reduce size by maximum 15-20% but NEVER below the Hard Legibility Floor.
+1.8 [MANDATORY GATE 0.8: CINEMATIC FEATURE WIRING & GENRE STORY ENGINE GATE (CINEMATIC_FEATURE_WIRING_GATE)]:
+   Prevents "Static Card Syndrome" and guarantees that every video actively deploys the full cinematic studio toolchain regardless of the chosen template or topic:
+   * A. Genre-Driven Narrative Story Engine (موتور سناریونویسی ژانرپایه):
+     Dynamically adapt the script into 2 to 6 narrative acts based on the topic's organic genre (NEVER force an identical rigid structure on every topic):
+     1. Keynote Launch (چالش داده‌ها -> موتور نوآوری -> جهش عملکردی -> اکوسیستم آینده)
+     2. Scientific Explainer (قلاب کنجکاوی -> تشریح عمیق مکانیسم -> اثبات تجربی -> تحول علمی)
+     3. Brand Manifesto (تضاد فلسفی -> ستون‌های ساختاری -> کینتیک انفجاری کلمات -> هدف غایی)
+     4. Tactile Narrative (مسئله ساده ملموس -> استعاره شهودی -> حل گام‌به‌گام -> جمع‌بندی الهام‌بخش)
+     Every act MUST define: Dramatic Goal, Hero Visual Entity, Discrete Spatial Coordinates, 1-2 Kinetic Emphasis Tokens, and Lottie/Vector Preset.
+   * B. Inviolable Cinematic Wiring Checklist:
+     Every custom composition MUST be built on the certified architecture of `src/motion/templates/UniversalCinematicStoryScene.tsx`:
+     1. `UniversalCameraRig` is MANDATORY (active camera translation across acts; static camera strictly FAILS review).
+     2. Multi-Act Spatial Distribution (acts placed at distinct spatial stations, e.g. x=0, 1400, 2800 or deep-z).
+     3. `KineticEmphasisCallout` is MANDATORY (at least 1-2 emphasis callouts popping with BPM quantization).
+     4. `LottieGraphic` Vector Assets (every act features an active animated vector core).
+     5. Cinematic Act Transitions (`CinematicTransitionSeries` or momentum handoff).
+   * C. Anti-Static Rejection Rule: Any code outputting flat <div> stacks without 3D camera travel is immediately rejected as an UNMOTIVATED SLIDESHOW DEFECT.
 2. Stage 1: Synthesize motion-validation preview sample via Microsoft Edge-TTS (fa-IR-FaridNeural / DilaraNeural). ZERO Gemini quota consumed.
 3. Render Edge-TTS preview video for user approval of motion, pacing, camera flight, and typography.
 4. Upon explicit user approval ("تأیید"): Transition to Stage 2: Monolithic Gemini TTS synthesis with strict quota fallback (gemini-3.8-flash-tts -> gemini-3.8-flash-lite-tts -> gemini-3.1-flash-tts-preview). Enforce Gate 0.4.2: Mandatory surgical stripping of Gemini tail buffer overrun via `strip_gemini_trailing_artifact` (backward scan for silence valley preceding the trailing 150ms 25,000-peak PCM burst, 40ms cosine fade-out, 120ms zero padding). Guarantee 100% mathematical zero tail amplitude (RMS=0.0) at waveform boundaries. Recalibrate exact video frame boundaries to measured Gemini audio duration.

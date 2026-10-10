@@ -12,7 +12,8 @@
  * ============================================================================
  */
 
-import { interpolate, Easing } from 'remotion';
+import React from 'react';
+import { interpolate, Easing, useCurrentFrame, useVideoConfig } from 'remotion';
 
 export type CameraTrajectoryMode =
   | 'PANORAMIC_HORIZONTAL'
@@ -61,7 +62,15 @@ export interface TrajectoryDefinition {
   };
 }
 
-export class UniversalCameraRig {
+
+export interface UniversalCameraRigProps {
+  mode?: CameraTrajectoryMode;
+  customTrackLength?: number;
+  children?: React.ReactNode;
+  style?: React.CSSProperties;
+}
+
+export class UniversalCameraRigEngine {
   /**
    * Resolves the trajectory layout and motion curves for any camera mode.
    */
@@ -473,3 +482,57 @@ export class UniversalCameraRig {
     };
   }
 }
+
+export interface UniversalCameraRigComponentType extends React.FC<UniversalCameraRigProps> {
+  getTrajectory: (mode?: CameraTrajectoryMode) => TrajectoryDefinition;
+}
+
+export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign(
+  ({ mode = 'PANORAMIC_HORIZONTAL', customTrackLength, children, style }: UniversalCameraRigProps) => {
+    const frame = useCurrentFrame();
+    const { durationInFrames } = useVideoConfig();
+    const trajectoryDef = UniversalCameraRigEngine.getTrajectory(mode);
+    const cam = trajectoryDef.computeCamera(frame, durationInFrames);
+    const { camX, camY, camZ, camPitch, camYaw, camRoll } = cam;
+
+    return React.createElement(
+      'div',
+      {
+        style: {
+          position: 'absolute',
+          inset: 0,
+          perspective: 1200,
+          perspectiveOrigin: '50% 50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          ...style,
+        },
+      },
+      React.createElement(
+        'div',
+        {
+          style: {
+            position: 'absolute',
+            width: 1920,
+            height: 1080,
+            transformStyle: 'preserve-3d',
+            transform: `
+              translate3d(${-camX}px, ${-camY}px, ${camZ}px)
+              rotateX(${camPitch}deg)
+              rotateY(${camYaw}deg)
+              rotateZ(${camRoll}deg)
+            `,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          },
+        },
+        children
+      )
+    );
+  },
+  {
+    getTrajectory: UniversalCameraRigEngine.getTrajectory.bind(UniversalCameraRigEngine),
+  }
+);

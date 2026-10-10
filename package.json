@@ -7,7 +7,7 @@
     "build": "remotion render src/index.ts out/video.mp4",
     "upgrade": "remotion upgrade",
     "test": "tsx tests/test_legibility_engine.ts",
-    "test:all": "tsx tests/test_legibility_engine.ts && tsx tests/test_ast_motion_validator.ts && tsx tests/test_render_visual_validator.ts && tsx tests/test_zero_to_video.ts"
+    "test:all": "tsx tests/test_legibility_engine.ts && tsx tests/test_ast_motion_validator.ts && tsx tests/test_render_visual_validator.ts && tsx tests/test_zero_to_video.ts && tsx tests/test_universal_story_scene.ts"
   },
   "dependencies": {
     "@remotion/captions": "^4.0.218",

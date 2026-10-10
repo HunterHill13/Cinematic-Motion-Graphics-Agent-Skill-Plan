@@ -1,40 +1,57 @@
 # WORKFLOW: MODE A — TOPIC TO VIDEO
 
 ## Overview
-Triggered when the user provides an open topic, idea, or concept (e.g. *"Create a 60-second video explaining CRISPR"*).
+Triggered when the user provides an open topic, idea, or concept (e.g. *"یک ویدیو در مورد CRISPR یا سیستم‌های توزیع‌شده بساز"*).
 
 ```text
 TOPIC & REQUIREMENTS
         ↓
-CREATIVE BRIEF & STYLE LOCK
-        ↓ (CHECKPOINT 1)
-FACTUAL RESEARCH & SOURCES LEDGER
+GATE 0.1: VOICE SELECTION (Puck / Callirrhoe)
         ↓
-NARRATION SCRIPTWRITING
+GATE 0.5: COLOR PALETTE SELECTION (3 Chromatic Options)
         ↓
-VOICE & TIMING SYNTHESIS (tts_build.py)
+GATE 0.8: GENRE-DRIVEN SCENARIO ADAPTATION (Keynote, Scientific, Manifesto, or Tactile)
         ↓
-CANONICAL BEAT SHEET (beat-sheet.yaml)
+STAGE 1 AUDIO: EDGE-TTS PREVIEW (Zero Gemini Quota)
         ↓
-STORYBOARD SPECIFICATION (storyboard.yaml)
-        ↓ (CHECKPOINT 2)
-PILOT PRODUCTION (First 20s)
-        ↓ (CHECKPOINT 3: Pilot Visual QC)
-PARALLEL SHOT IMPLEMENTATION
+PREVIEW VIDEO RENDER & USER APPROVAL (Pacing, Motion, Typography)
+        ↓ (USER APPROVAL)
+STAGE 2 AUDIO: GEMINI TTS + SURGICAL OVERRUN PURGE (cinematic_audio_pipeline.py)
         ↓
-QUANTITATIVE & VISUAL QC LOOP
-        ↓
-FINAL RENDER & DELIVERY (CHECKPOINT 4)
+CANONICAL STUDIO BUILD (UniversalCinematicStoryScene.tsx)
+        ↓ (UniversalCameraRig + Multi-Act 3D Stations + KineticEmphasisCallout + Lottie)
+TWO-TIER QC & FINAL DELIVERY
 ```
 
 ## Step-by-Step Instructions
-1. **Formulate Creative Brief**: Ask only essential clarifying questions if duration or platform is ambiguous. Auto-fill `production/creative-brief.yaml`.
-2. **Lock Visual Style**: Generate `production/style-lock.yaml` with chosen palette and typography tokens.
-3. **Conduct Grounded Research**: Gather verified facts, metrics, and mechanisms. Populate `research/sources.md`.
-4. **Draft Narration**: Apply the 13 spoken prose rules. Keep sentence density within comfortable limits (~2.3 to 2.8 words/second).
-5. **Generate Audio & Dual-Clock Timeline**: Run `python scripts/tts_build.py` to produce audio and exact word/sentence frame boundaries.
-6. **Produce Beat Sheet & Storyboard**: Assign hero elements, camera moves, and sound design cues.
-7. **Execute Pilot Production Gate**: Build and render only the first 10–30 seconds. Run `scripts/motion_check.py` on pilot frames. Obtain client approval.
-8. **Assemble Remaining Shots**: Build shot components in parallel, referencing shared `theme.ts` tokens.
-9. **Execute Two-Tier QC**: Automated CV analysis + visual frame audit. Fix any defects.
-10. **Final Render**: Deliver MP4 with `DELIVERY_NOTES.md` and complete attributions.
+
+1. **Gate 0.1 & Gate 0.5 - Voice & Chromatic DNA**:
+   - Ask user to select voice (Puck / Callirrhoe) via `ask_question`.
+   - Propose 3 topic-tailored palettes plus custom write-in.
+
+2. **Gate 0.8 - Dynamic Genre-Driven Scenario Writing**:
+   - Classify topic into one of 4 narrative genres (do NOT force a rigid cookie-cutter structure):
+     * *Keynote Launch*: Challenge -> Innovation Engine -> 10x Climax -> Future Ecosystem.
+     * *Scientific Explainer*: Curiosity Hook -> Deep Mechanism -> Empirical Proof -> Paradigm Shift.
+     * *Brand Manifesto*: Philosophical Contrast -> Structural Monolith -> Kinetic Words -> Vision.
+     * *Tactile Narrative*: Real-world Problem -> Intuitive Metaphor -> Step-by-step Resolve -> Takeaway.
+   - For every act (2 to 6 acts), define: Dramatic Goal, Hero Visual Entity, Discrete 3D Coordinates (e.g. x=0, 1400, 2800), 1-2 Kinetic Emphasis Tokens, and Lottie Preset.
+
+3. **Stage 1 Audio - Zero-Quota Motion Preview**:
+   - Synthesize preview narration via Edge-TTS (`fa-IR-FaridNeural` / `DilaraNeural`).
+   - Extract beat boundaries and render fast preview for user sign-off.
+
+4. **Stage 2 Audio - Master Gemini Narration**:
+   - Upon user approval, run `python scripts/cinematic_audio_pipeline.py` to synthesize master audio.
+   - Enforce trailing buffer overrun purge (`strip_gemini_trailing_artifact`) for zero-noise tail.
+   - Recalibrate composition frames to exact measured Gemini audio duration.
+
+5. **Canonical Composition Construction (MANDATORY)**:
+   - Base code strictly on `src/motion/templates/UniversalCinematicStoryScene.tsx`.
+   - Wire `PersistentWorld` and `UniversalCameraRig` across all acts. Static flat `<div>` containers are strictly rejected as **Unmotivated Slideshow Defects**.
+   - Enforce Gate 0.7 Hard Legibility Floors (`LEGIBILITY_FLOORS_16_9`) and safe zone occupation (65%-80% width in 16:9).
+   - Integrate `KineticEmphasisCallout` and `LottieGraphic` in every act.
+
+6. **QC & Verification**:
+   - Run `npx tsc --noEmit` and Remotion frame render checks.
+   - Deliver final MP4 with delivery notes.
