@@ -23,3 +23,4 @@ export * from './UniversalPathMorph';
 export * from './OrganicLiquidGooey';
 export * from './DynamicVectorCatalog';
 export * from './NewtonianAttractorSwarm';
+export * from './TactilePaperDeskBackdrop';
