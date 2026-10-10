@@ -54,10 +54,12 @@ Every visual and motion decision follows this strict priority:
    * Hard Legibility Floors (Minimum font sizes in pixels):
      - Micro-Telemetry / Badges / Pills: >= 24px (16:9), >= 28px (9:16 mobile)
      - Body Copy / Descriptions: >= 32px (16:9), >= 40px (9:16 mobile)
-     - Spoken Narration Subtitles: >= 44px (16:9), >= 52px (9:16 mobile)
-     - Card Headers / Feature Titles: >= 52px (16:9), >= 64px (9:16 mobile)
+          - Card Headers / Feature Titles: >= 52px (16:9), >= 64px (9:16 mobile)
      - Primary Hero Titles / Section Heads: >= 92px (16:9), >= 112px (9:16 mobile)
      - Monumental Kinetic Impact Words: >= 140px (16:9), >= 168px (9:16 mobile)
+    * ABSOLUTE BAN ON SUBTITLES (حذف کامل و ممنوعیت قطعی زیرنویس):
+      - Do NOT create, generate, or render spoken voiceover subtitles or speech transcripts (کپشن یا زیرنویس گفتار).
+      - Motion graphics are visual cinema, NOT subtitle videos. The audio channel delivers spoken narration. The visual stage exclusively renders structural titles, cards, architectural schematics, metrics, and rhythmic kinetic emphasis tokens (`KineticEmphasisCallout`). Full sentence transcripts on screen are strictly prohibited.
    * Screen-Estate Occupation Ratio:
      - The primary focal card/monolith MUST occupy between 65% to 80% of the safe-zone width in 16:9 landscape.
      - In 9:16 vertical reels, the focal container MUST occupy 85% to 92% of the safe-zone width so elements fill the smartphone screen with confident visual weight.
@@ -139,7 +141,7 @@ To match and exceed the visual fidelity of Anthropic's **Claude Motion** (Octobe
 - **The Modern Claude Workflow:** Combines narrative precision with pre-crafted, glassmorphic, physics-driven Remotion components (`src/motion/library/`):
   1. `AtmosphericBackdrop`: Multi-layer volumetric radial lighting, perspective grid with horizon vanishing point, and floating depth-bokeh constellations.
   2. `GlassContainer`: Frosted glass cards (`backdropFilter: blur(18px)`, specular top highlight, micro-borders) with smooth spring-based entry/hover physics.
-  3. `KineticTypography`: Staggered word-by-word spring reveals (`KineticHeadline`), radiant gradient spans (Cyan/Indigo/Purple), glowing status badge pills (`BadgePill`), and clean subtitles (`SubtitleCallout`).
+  3. `KineticTypography`: Staggered word-by-word spring reveals (`KineticHeadline`), radiant gradient spans (Cyan/Indigo/Purple), and glowing status badge pills (`BadgePill`). Full-time subtitles are completely excluded.
   4. `MetricCard` & Visualizers: Real-time numeric count-up animations (`0` to target with easing curves), circular animated gauges (`CircularGauge`), and spring-loaded horizontal comparison bars (`BarChartVisualizer`).
   5. `FlowDiagram`: Declarative architecture nodes, high-contrast SVG cubic bezier conduits, and traveling luminous energy pulses (comet core + radiant diffuse aura).
   6. `OrganicLiquidGooey`: SVG threshold filtering (`feGaussianBlur` + `feColorMatrix`) enabling visceral button press squash-and-stretch with dynamic satellite micro-droplets and cellular mitotic division/fusion.

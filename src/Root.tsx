@@ -40,6 +40,13 @@ import {
   BENTO_GRID_HEIGHT,
 } from './motion/templates/BentoGridSaasMaster';
 import {
+  BaqiyatallahResearchAwardsScene,
+  BAQIYATALLAH_AWARDS_DURATION,
+  BAQIYATALLAH_AWARDS_FPS,
+  BAQIYATALLAH_AWARDS_WIDTH,
+  BAQIYATALLAH_AWARDS_HEIGHT,
+} from './motion/compositions/BaqiyatallahResearchAwardsScene';
+import {
   FinTechTradingMaster,
   FINTECH_DURATION,
   FINTECH_FPS,
@@ -312,6 +319,18 @@ export const Root: React.FC = () => {
       <Composition id="VerbTest-AntiBypass-FakeSplit" component={VerbTest_AntiBypass_FakeSplit} durationInFrames={100} fps={30} width={1920} height={1080} />
       <Composition id="VerbTest-DecorativeCamouflage" component={VerbTest_DecorativeCamouflage} durationInFrames={100} fps={30} width={1920} height={1080} />
       <Composition id="UniversalCinematicStoryScene" component={UniversalCinematicStoryScene} durationInFrames={600} fps={30} width={1920} height={1080} />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 13. BAQIYATALLAH RESEARCH AWARDS (STUDENT RESEARCHER MASTER)       */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahResearchAwards"
+        component={BaqiyatallahResearchAwardsScene}
+        durationInFrames={BAQIYATALLAH_AWARDS_DURATION}
+        fps={BAQIYATALLAH_AWARDS_FPS}
+        width={BAQIYATALLAH_AWARDS_WIDTH}
+        height={BAQIYATALLAH_AWARDS_HEIGHT}
+      />
     </>
   );
 };
