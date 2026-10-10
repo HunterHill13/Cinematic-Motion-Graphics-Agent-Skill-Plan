@@ -47,6 +47,23 @@ Every visual and motion decision follows this strict priority:
 1. [MANDATORY GATE 0.1: VOICE SELECTION]: Ask user to select from approved Gemini voices (Puck / Callirrhoe). DO NOT proceed until answered!
 1.5 [MANDATORY GATE 0.5: COLOR PALETTE SELECTION]: Propose 3 topic-tailored color palettes (e.g. Bio-Emerald, Neon Obsidian, Cyber Amber) plus custom write-in via ask_question. The Visual World, Lighting, Materials, Conduits, and HUD strictly inherit this chromatic DNA across all acts.
 1.6 [MANDATORY GATE 0.6: ART DIRECTION & MULTI-STYLE SELECTION]: Propose 5 curated art style paradigms (Modern Glassmorphic, Stop-Motion Paper Cutout, Painterly Watercolor, Technical Blueprint, Neo-Brutalist) via ask_question with multi-select support. Users can select a single unified style or map distinct styles across narrative acts. Enforces full-atmosphere background derivation, frame-rate quantization (12 FPS for stop-motion), tactile edges, paper drop-shadows, and blueprint CAD grids via AtmosphereThemeDeriver.
+1.7 [MANDATORY GATE 0.7: HARD LEGIBILITY FLOOR & SCREEN-ESTATE OCCUPATION GATE (LEGIBILITY_FLOOR_GATE)]:
+   Prevents "Small Floating Box Syndrome" and unreadable micro-text across all sessions and aspect ratios.
+   * Hard Legibility Floors (Minimum font sizes in pixels):
+     - Micro-Telemetry / Badges / Pills: >= 24px (16:9), >= 28px (9:16 mobile)
+     - Body Copy / Descriptions: >= 32px (16:9), >= 40px (9:16 mobile)
+     - Spoken Narration Subtitles: >= 44px (16:9), >= 52px (9:16 mobile)
+     - Card Headers / Feature Titles: >= 52px (16:9), >= 64px (9:16 mobile)
+     - Primary Hero Titles / Section Heads: >= 92px (16:9), >= 112px (9:16 mobile)
+     - Monumental Kinetic Impact Words: >= 140px (16:9), >= 168px (9:16 mobile)
+   * Screen-Estate Occupation Ratio:
+     - The primary focal card/monolith MUST occupy between 65% to 80% of the safe-zone width in 16:9 landscape.
+     - In 9:16 vertical reels, the focal container MUST occupy 85% to 92% of the safe-zone width so elements fill the smartphone screen with confident visual weight.
+     - Ban tiny isolated boxes (<400px width in 1080p) floating in empty voids.
+   * Runtime Auto-Clamp & Safe Leading:
+     - Always wrap custom font sizes in `clampFontSize(size, role, width, height)` or import from `src/typography/responsiveTypography.ts`.
+     - Persian text must maintain generous line-height (`1.45 - 1.55`) to prevent ascender/descender collision.
+     - If copy is lengthy, use smart line wrapping; reduce size by maximum 15-20% but NEVER below the Hard Legibility Floor.
 2. Stage 1: Synthesize motion-validation preview sample via Microsoft Edge-TTS (fa-IR-FaridNeural / DilaraNeural). ZERO Gemini quota consumed.
 3. Render Edge-TTS preview video for user approval of motion, pacing, camera flight, and typography.
 4. Upon explicit user approval ("تأیید"): Transition to Stage 2: Monolithic Gemini TTS synthesis with strict quota fallback (gemini-3.8-flash-tts -> gemini-3.8-flash-lite-tts -> gemini-3.1-flash-tts-preview). Enforce Gate 0.4.2: Mandatory surgical stripping of Gemini tail buffer overrun via `strip_gemini_trailing_artifact` (backward scan for silence valley preceding the trailing 150ms 25,000-peak PCM burst, 40ms cosine fade-out, 120ms zero padding). Guarantee 100% mathematical zero tail amplitude (RMS=0.0) at waveform boundaries. Recalibrate exact video frame boundaries to measured Gemini audio duration.

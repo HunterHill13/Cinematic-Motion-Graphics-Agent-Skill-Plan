@@ -90,12 +90,21 @@ export const theme = {
 
   typography: {
     heroSize: 100, // px for landscape 1920x1080
-    sectionTitleSize: 52,
-    bodySize: 28,
-    captionSize: 42,
-    hudSize: 20,
+    sectionTitleSize: 56,
+    bodySize: 34,
+    captionSize: 44,
+    hudSize: 26,
     trackingTight: '-0.03em',
     trackingWide: '0.08em',
+    // Hard legibility absolute floors
+    floors: {
+      microTelemetry: 24,
+      body: 32,
+      subtitle: 44,
+      cardHeader: 52,
+      heroTitle: 92,
+      kineticWord: 140,
+    },
   },
 
   spring: {
