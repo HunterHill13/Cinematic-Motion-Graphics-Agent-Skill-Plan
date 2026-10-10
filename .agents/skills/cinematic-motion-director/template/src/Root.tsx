@@ -46,6 +46,27 @@ import {
   FINTECH_WIDTH,
   FINTECH_HEIGHT,
 } from './motion/templates/FinTechTradingMaster';
+import {
+  StopMotionPaperMaster,
+  STOP_MOTION_DURATION,
+  STOP_MOTION_FPS,
+  STOP_MOTION_WIDTH,
+  STOP_MOTION_HEIGHT,
+} from './motion/templates/StopMotionPaperMaster';
+import {
+  TechnicalBlueprintMaster,
+  BLUEPRINT_DURATION,
+  BLUEPRINT_FPS,
+  BLUEPRINT_WIDTH,
+  BLUEPRINT_HEIGHT,
+} from './motion/templates/TechnicalBlueprintMaster';
+import {
+  NeoBrutalistMaster,
+  NEO_BRUTALIST_DURATION,
+  NEO_BRUTALIST_FPS,
+  NEO_BRUTALIST_WIDTH,
+  NEO_BRUTALIST_HEIGHT,
+} from './motion/templates/NeoBrutalistMaster';
 
 // ============================================================================
 // 2. FLAGSHIP SHOWREELS & BENCHMARKS
@@ -158,6 +179,42 @@ export const Root: React.FC = () => {
         fps={FINTECH_FPS}
         width={FINTECH_WIDTH}
         height={FINTECH_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 7. MASTER ARCHETYPE 7: STOP-MOTION TACTILE PAPER CUTOUT           */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="StopMotionPaperMaster"
+        component={StopMotionPaperMaster}
+        durationInFrames={STOP_MOTION_DURATION}
+        fps={STOP_MOTION_FPS}
+        width={STOP_MOTION_WIDTH}
+        height={STOP_MOTION_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 8. MASTER ARCHETYPE 8: TECHNICAL CAD BLUEPRINT                     */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="TechnicalBlueprintMaster"
+        component={TechnicalBlueprintMaster}
+        durationInFrames={BLUEPRINT_DURATION}
+        fps={BLUEPRINT_FPS}
+        width={BLUEPRINT_WIDTH}
+        height={BLUEPRINT_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 9. MASTER ARCHETYPE 9: NEO-BRUTALIST HIGH-VOLTAGE                 */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="NeoBrutalistMaster"
+        component={NeoBrutalistMaster}
+        durationInFrames={NEO_BRUTALIST_DURATION}
+        fps={NEO_BRUTALIST_FPS}
+        width={NEO_BRUTALIST_WIDTH}
+        height={NEO_BRUTALIST_HEIGHT}
       />
 
       {/* ----------------------------------------------------------------- */}

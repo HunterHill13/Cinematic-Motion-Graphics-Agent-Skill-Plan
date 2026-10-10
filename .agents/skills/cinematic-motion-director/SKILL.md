@@ -36,17 +36,19 @@ Every visual and motion decision follows this strict priority:
 ```text
 [DIRECTOR: PLANNING & VISUAL STATE GRAPH]
 0. [MANDATORY GATE 0: TEMPLATE ARCHETYPE & SHOWREEL PREVIEW SELECTION GATE]:
-   BEFORE writing any code, script breakdown, or voice synthesis, the agent MUST inspect the user's brief, determine the optimal template archetype, and prompt the user via `ask_question`. The prompt MUST present all 6 production template archetypes along with clickable links to their preview showreel videos in `assets/previews/` and `renders/claude/`:
+   BEFORE writing any code, script breakdown, or voice synthesis, the agent MUST inspect the user's brief, determine the optimal template archetype, and prompt the user via `ask_question`. The prompt MUST present all 9 production template archetypes along with clickable links to their preview showreel videos in `assets/previews/` and `renders/claude/`:
    1. DARK_GRAPHITE_TECH: Keynote launch, PCB circuit traces, 45° diagonal cascade camera with banking rolls ([مشاهده پیش‌نمایش](file:///renders/claude/DARK_GRAPHITE_TECH_MASTER.mp4))
    2. CONTINUOUS_UI_MORPH: Single-element morphing canvas, luxury studio mesh glass, interactive cursor ([مشاهده پیش‌نمایش](file:///renders/claude/CONTINUOUS_UI_MORPH_MASTER.mp4))
    3. QUANTUM_BIO_DEEP_Z: Deep-Z 3D forward push-in tunnel, oceanic emerald abyss, cellular membranes ([مشاهده پیش‌نمایش](file:///renders/claude/QUANTUM_BIO_DEEP_Z_MASTER.mp4))
    4. KINETIC_ARCHITECTURAL_TYPO: Monumental spoken-word manifesto ("BUILD THE FLOOR"), architectural typography ([مشاهده پیش‌نمایش](file:///renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4))
    5. BENTO_GRID_SAAS: Modular Bento cells, live agent telemetry, interactive sliders & toggles ([مشاهده پیش‌نمایش](file:///renders/claude/BENTO_GRID_SAAS_MASTER.mp4))
    6. FINTECH_TRADING: Wall Street candlestick charts, order-book liquidity depth waves, high-frequency ticker tape ([مشاهده پیش‌نمایش](file:///renders/claude/FINTECH_TRADING_MASTER.mp4))
+   7. STOP_MOTION_PAPER: 12 FPS stepped stop-motion, torn paper edges, tactile textures, binder clips, sticky tape ([مشاهده پیش‌نمایش](file:///renders/claude/STOP_MOTION_PAPER_MASTER.mp4))
+   8. TECHNICAL_BLUEPRINT: Technical CAD blueprint, millimeter crosshairs, caliper measuring tools, engineering grid ([مشاهده پیش‌نمایش](file:///renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4))
+   9. NEO_BRUTALIST: High-contrast acid yellow, 4px solid borders, hard 12px drop-shadows, raw stark typography ([مشاهده پیش‌نمایش](file:///renders/claude/NEO_BRUTALIST_MASTER.mp4))
    The agent MUST recommend the best match based on the user's topic and WAIT for the user's choice.
 1. [MANDATORY GATE 0.1: VOICE SELECTION]: Ask user to select from approved Gemini voices (Puck / Callirrhoe). DO NOT proceed until answered!
 1.5 [MANDATORY GATE 0.5: COLOR PALETTE SELECTION]: Propose 3 topic-tailored color palettes (e.g. Bio-Emerald, Neon Obsidian, Cyber Amber) plus custom write-in via ask_question. The Visual World, Lighting, Materials, Conduits, and HUD strictly inherit this chromatic DNA across all acts.
-1.6 [MANDATORY GATE 0.6: ART DIRECTION & MULTI-STYLE SELECTION]: Propose 5 curated art style paradigms (Modern Glassmorphic, Stop-Motion Paper Cutout, Painterly Watercolor, Technical Blueprint, Neo-Brutalist) via ask_question with multi-select support. Users can select a single unified style or map distinct styles across narrative acts. Enforces full-atmosphere background derivation, frame-rate quantization (12 FPS for stop-motion), tactile edges, paper drop-shadows, and blueprint CAD grids via AtmosphereThemeDeriver.
 1.7 [MANDATORY GATE 0.7: HARD LEGIBILITY FLOOR & SCREEN-ESTATE OCCUPATION GATE (LEGIBILITY_FLOOR_GATE)]:
    Prevents "Small Floating Box Syndrome" and unreadable micro-text across all sessions and aspect ratios.
    * Hard Legibility Floors (Minimum font sizes in pixels):

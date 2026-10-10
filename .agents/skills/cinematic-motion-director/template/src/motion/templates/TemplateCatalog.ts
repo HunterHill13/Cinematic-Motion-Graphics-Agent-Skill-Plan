@@ -1,20 +1,27 @@
 /**
  * ============================================================================
- * CLAUDE OPUS 5.5: CINEMATIC TEMPLATE CATALOG
+ * CLAUDE OPUS 5.5: CINEMATIC MASTER TEMPLATE CATALOG (9 PRODUCTION ARCHETYPES)
  * ============================================================================
  * 
- * Master registry of curated, production-grade video template archetypes
- * extracted from top-performing GitHub motion architectures (yihui-dev/awesome-opus5-5-videos).
+ * Master registry of curated, production-grade video template archetypes.
+ * Every template provides an end-to-end homogeneous visual world (consistent background,
+ * camera grammar, sound design, and color DNA) eliminating the need for disjointed sub-style selection.
  * ============================================================================
  */
 
 import { CameraTrajectoryMode } from '../camera/UniversalCameraRig';
 
 export type TemplateId =
-  | 'STUDIO_SHOWREEL'
   | 'DARK_GRAPHITE_TECH'
   | 'CONTINUOUS_UI_MORPH'
-  | 'QUANTUM_BIO_DEEP_Z';
+  | 'QUANTUM_BIO_DEEP_Z'
+  | 'KINETIC_ARCHITECTURAL_TYPO'
+  | 'BENTO_GRID_SAAS'
+  | 'FINTECH_TRADING'
+  | 'STOP_MOTION_PAPER'
+  | 'TECHNICAL_BLUEPRINT'
+  | 'NEO_BRUTALIST'
+  | 'STUDIO_SHOWREEL';
 
 export interface TemplateDefinition {
   id: TemplateId;
@@ -29,17 +36,6 @@ export interface TemplateDefinition {
 }
 
 export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
-  STUDIO_SHOWREEL: {
-    id: 'STUDIO_SHOWREEL',
-    titleFa: 'شوکیس استودیویی ۴ پرده‌ای چندسبکی',
-    titleEn: 'Universal Multi-Act Studio Showreel',
-    descriptionFa: 'روایت ممتد در ۴ پرده‌ی متمایز بصری (گلس‌مورفیک مدرن -> استاپ‌موشن برش کاغذ دستی -> کنسول فنی مهندسی بلوپرینت -> پوستر زرین نئوبروتالیسم) با حرکت پیوسته دوربین ۳بعدی و ذرات نوری نیوتنی.',
-    bestForDomains: ['هوش مصنوعی', 'محصولات پرچمدار', 'پلتفرم‌های جامع', 'ارائه‌های استارتاپی', 'سرویس‌های ابری'],
-    recommendedCamera: 'PANORAMIC_HORIZONTAL',
-    defaultBgm: 'music/Tech_Live.mp3',
-    themeStyle: 'MULTI_ACT_STUDIO',
-    accentColors: ['#10b981', '#f59e0b', '#38bdf8', '#6366f1'],
-  },
   DARK_GRAPHITE_TECH: {
     id: 'DARK_GRAPHITE_TECH',
     titleFa: 'پرچمدار تکنولوژی و کد دارک-گرافیت',
@@ -53,7 +49,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
   },
   CONTINUOUS_UI_MORPH: {
     id: 'CONTINUOUS_UI_MORPH',
-    titleFa: 'مورفینگ پیوسته تک‌المان رابط‌کاربری',
+    titleFa: 'مورفینگ پیوسته تک‌المان رابط‌کاربری و گلاسمورفیسم',
     titleEn: 'Continuous UI Morph & Component Stream',
     descriptionFa: 'الهام‌گرفته از استانداردهای دریبل و برترین انیمیشن‌های تعاملی: یک شکل مرکزی پایدار که بدون هیچ برشی به مؤلفه‌های گوناگون UI (کلیک، بارگذار دایره‌ای، اسلایدر کشسانی، چارت و نوتیفیکیشن) تبدیل می‌شود.',
     bestForDomains: ['طراحی رابط کاربری UI/UX', 'اپلیکیشن‌های موبایل', 'امکانات تعاملی', 'داشبوردهای ساده و روان'],
@@ -64,7 +60,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
   },
   QUANTUM_BIO_DEEP_Z: {
     id: 'QUANTUM_BIO_DEEP_Z',
-    titleFa: 'سفر در عمق سلولی و کوانتومی',
+    titleFa: 'سفر در عمق سلولی و کوانتومی (Deep-Z)',
     titleEn: 'Quantum & Bio Deep-Z Dive',
     descriptionFa: 'غوطه‌وری کامل در عمق فضا (Z-axis): عبور دوربین از درون غشاهای زیستی، ساختارهای هلیکس DNA و ابرهای ذرات کوانتومی به همراه تله‌متری بیوفیزیکی و انکسار نور روی بافت‌های ارگانیک.',
     bestForDomains: ['ژنتیک و بیوتکنولوژی', 'داروسازی و پزشکی', 'فیزیک کوانتوم', 'شبیه‌سازی‌های آکادمیک', 'نانوفناوری'],
@@ -72,6 +68,83 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Brain_Dance.mp3',
     themeStyle: 'BIO_QUANTUM_DEEP_Z',
     accentColors: ['#10b981', '#d97706', '#06b6d4', '#8b5cf6'],
+  },
+  KINETIC_ARCHITECTURAL_TYPO: {
+    id: 'KINETIC_ARCHITECTURAL_TYPO',
+    titleFa: 'تایپوگرافی معماری و مانیفست کینتیک',
+    titleEn: 'Kinetic Architectural Manifesto',
+    descriptionFa: 'مانیفست‌های کلامی غول‌آسا ("BUILD THE FLOOR"): تبدیل کلمات به ستون‌ها، تیرها و پلتفرم‌های ساختاری؛ کنتراست حداکثری سیاه و سفید با پرش‌های ریتمیک ناگهانی.',
+    bestForDomains: ['مانیفست برند', 'معرفی شعارهای سازمانی', 'تیزرهای انگیزشی و پرانرژی', 'افتتاحیه کنفرانس‌ها'],
+    recommendedCamera: 'PANORAMIC_HORIZONTAL',
+    defaultBgm: 'music/Cipher2.mp3',
+    themeStyle: 'ARCHITECTURAL_TYPO',
+    accentColors: ['#f59e0b', '#ffffff', '#10b981', '#64748b'],
+  },
+  BENTO_GRID_SAAS: {
+    id: 'BENTO_GRID_SAAS',
+    titleFa: 'بنتو گرید ماژولار و کنسول ابری (Bento Grid SaaS)',
+    titleEn: 'Bento Grid Modular SaaS Feature Matrix',
+    descriptionFa: 'چیدمان مدرن سلول‌های بنتو: نمایش ماتریس قابلیت‌های محصول ابری، اسپارک‌لاین‌های زنده، نشان‌های تله‌متری متالیک و پن متمرکز روی کارت‌ها.',
+    bestForDomains: ['محصولات نرم‌افزاری SaaS', 'داشبوردهای آماری و تحلیلی', 'معرفی فیچرهای چندگانه', 'B2B پلتفرم‌ها'],
+    recommendedCamera: 'DIAGONAL_CASCADE',
+    defaultBgm: 'music/Tech_Live.mp3',
+    themeStyle: 'BENTO_GRID_SAAS',
+    accentColors: ['#10b981', '#8b5cf6', '#06b6d4', '#f59e0b'],
+  },
+  FINTECH_TRADING: {
+    id: 'FINTECH_TRADING',
+    titleFa: 'ترمینال معاملاتی و فین‌تک (FinTech Trading)',
+    titleEn: 'FinTech Trading Terminal & Market Depth',
+    descriptionFa: 'نمایشگر وال‌استریت: کندل‌استیک‌های نئونی، امواج عمق نقدینگی دفترچه سفارشات، تیکر زنده قیمت‌ها و اسکیو عمق شبیه‌ساز مانیتورهای تریدینگ.',
+    bestForDomains: ['صرافی و کریپتو', 'معاملات الگوریتمی', 'بانکداری و فین‌تک', 'سیستم‌های آنالیز مالی و بازار سرمایه'],
+    recommendedCamera: 'PANORAMIC_HORIZONTAL',
+    defaultBgm: 'music/Brain_Dance.mp3',
+    themeStyle: 'FINTECH_TRADING',
+    accentColors: ['#00e676', '#ff1744', '#ffd600', '#00e5ff'],
+  },
+  STOP_MOTION_PAPER: {
+    id: 'STOP_MOTION_PAPER',
+    titleFa: 'استاپ‌موشن کلاژ و برش دستی کاغذ (Stop-Motion Paper)',
+    titleEn: 'Tactile Stop-Motion Paper Craft & Collage',
+    descriptionFa: 'حس نوستالژیک و ارگانیک کاردستی: بافت فیبر مقوا و کاغذ کرافت، انیمیشن پلکانی ۱۲ فریم بر ثانیه ("on twos")، نوارهای چسب نیمه‌شفاف و مهرهای فیزیکی استامپ‌شده.',
+    bestForDomains: ['محتوای آموزشی صمیمی', 'استوری‌تلینگ برندهای خلاق', 'پادکست‌ها و معرفی کتاب', 'توضیحات مفاهیم پیچیده به زبان ساده'],
+    recommendedCamera: 'PANORAMIC_HORIZONTAL',
+    defaultBgm: 'music/Cipher2.mp3',
+    themeStyle: 'STOP_MOTION_PAPER',
+    accentColors: ['#d9534f', '#27ae60', '#d4b27e', '#4a3e2d'],
+  },
+  TECHNICAL_BLUEPRINT: {
+    id: 'TECHNICAL_BLUEPRINT',
+    titleFa: 'نقشه فنی و بلوپرینت مهندسی (Technical Blueprint)',
+    titleEn: 'Engineering CAD Blueprint & Isometric Schematics',
+    descriptionFa: 'دقت مطلق ریاضی و رسم‌فنی: بوم تیره سورمه‌ای با شبکه خط‌کش میلی‌متری فیروزه‌ای، خطوط ابعادی کولیس، مختصات مهندسی و تله‌متری مونواسپیس.',
+    bestForDomains: ['مهندسی مکانیک و عمران', 'زیرساخت شبکه و سخت‌افزار', 'استانداردها و ایزوها', 'شبیه‌سازی‌های دقیق فنی'],
+    recommendedCamera: 'DIAGONAL_CASCADE',
+    defaultBgm: 'music/Brain_Dance.mp3',
+    themeStyle: 'TECHNICAL_BLUEPRINT',
+    accentColors: ['#00e5ff', '#00ffcc', '#38bdf8', '#0ea5e9'],
+  },
+  NEO_BRUTALIST: {
+    id: 'NEO_BRUTALIST',
+    titleFa: 'نئوبروتالیسم پرقدرت و پرانرژی (Neo-Brutalist Punch)',
+    titleEn: 'High-Voltage Neo-Brutalist Poster & Motion',
+    descriptionFa: 'طراحی جسور و میخکوب‌کننده: زرد پرولتاژ اسیدی با مشکی غلیظ، خطوط دورگیری ضخیم ۴ پیکسلی، سایه‌های سخت ۱۲ پیکسلی، برچسب‌های استیکری و جهش‌های ارتجاعی تند.',
+    bestForDomains: ['کمپین‌های تبلیغاتی و پروموشن', 'استارتاپ‌های ساختارشکن', 'رویدادهای فناوری و هکاتون‌ها', 'محتوای وایرال شبکه‌های اجتماعی'],
+    recommendedCamera: 'PANORAMIC_HORIZONTAL',
+    defaultBgm: 'music/Tech_Live.mp3',
+    themeStyle: 'NEO_BRUTALIST',
+    accentColors: ['#ffe600', '#000000', '#00e5ff', '#ff3366'],
+  },
+  STUDIO_SHOWREEL: {
+    id: 'STUDIO_SHOWREEL',
+    titleFa: 'شوکیس پرچمدار استودیو (Universal Studio Showreel)',
+    titleEn: 'Universal Multi-Act Studio Showreel',
+    descriptionFa: 'روایت ممتد در ۴ پرده‌ی پیوسته با حرکت پیوسته دوربین ۳بعدی، ذرات نوری نیوتنی، و ترنزیشن‌های دینامیک.',
+    bestForDomains: ['ارائه‌های کلان', 'شوکیس قابلیت‌های چندگانه استودیو'],
+    recommendedCamera: 'PANORAMIC_HORIZONTAL',
+    defaultBgm: 'music/Tech_Live.mp3',
+    themeStyle: 'MULTI_ACT_STUDIO',
+    accentColors: ['#10b981', '#f59e0b', '#38bdf8', '#6366f1'],
   },
 };
 
@@ -84,59 +157,71 @@ export function recommendTemplateForTopic(topic: string): {
 } {
   const lower = topic.toLowerCase();
 
-  if (
-    lower.includes('پزشک') ||
-    lower.includes('دارو') ||
-    lower.includes('ژن') ||
-    lower.includes('سلول') ||
-    lower.includes('dna') ||
-    lower.includes('بیو') ||
-    lower.includes('کوانتوم') ||
-    lower.includes('اتم') ||
-    lower.includes('زیست')
-  ) {
+  if (lower.includes('کاغذ') || lower.includes('کلاژ') || lower.includes('آموزش') || lower.includes('ساده') || lower.includes('کاردستی') || lower.includes('کودک')) {
+    return {
+      template: TEMPLATE_CATALOG.STOP_MOTION_PAPER,
+      reasonFa: 'موضوع ماهیت آموزشی، داستانی یا صمیمی دارد؛ تمپلیت استاپ‌موشن کاغذی با بافت کرافت و فریم‌ریت ۱۲ بیشترین گرما و پذیرش مخاطب را ایجاد می‌کند.',
+    };
+  }
+
+  if (lower.includes('نقشه') || lower.includes('مهندس') || lower.includes('معمار') || lower.includes('زیرساخت') || lower.includes('cad') || lower.includes('سخت‌افزار')) {
+    return {
+      template: TEMPLATE_CATALOG.TECHNICAL_BLUEPRINT,
+      reasonFa: 'موضوع فنی، مهندسی و ساختاری است؛ تمپلیت بلوپرینت CAD با خطوط میلی‌متری و ابعاد دقیق، حس اقتدار علمی و مهندسی بالایی دارد.',
+    };
+  }
+
+  if (lower.includes('تبلیغ') || lower.includes('کمپین') || lower.includes('تخفیف') || lower.includes('انرژی') || lower.includes('فروش') || lower.includes('وایرال')) {
+    return {
+      template: TEMPLATE_CATALOG.NEO_BRUTALIST,
+      reasonFa: 'موضوع نیازمند شوک بصری، انرژی انفجاری و جذب آنی نگاه است؛ تمپلیت نئوبروتالیسم با رنگ اسیدی و سایه‌های سخت ۱۲ پیکسلی بیشترین درگیری را ایجاد می‌کند.',
+    };
+  }
+
+  if (lower.includes('مالی') || lower.includes('ترید') || lower.includes('ارز') || lower.includes('بورس') || lower.includes('قیمت') || lower.includes('معامل') || lower.includes('کریپتو')) {
+    return {
+      template: TEMPLATE_CATALOG.FINTECH_TRADING,
+      reasonFa: 'موضوع مالی و سرمایه‌گذاری است؛ تمپلیت فین‌تک با نمودارهای شمعی، تیکر زنده و عمق سفارشات اختصاصاً برای این حوزه خلق شده است.',
+    };
+  }
+
+  if (lower.includes('پزشک') || lower.includes('دارو') || lower.includes('ژن') || lower.includes('سلول') || lower.includes('dna') || lower.includes('بیو') || lower.includes('کوانتوم')) {
     return {
       template: TEMPLATE_CATALOG.QUANTUM_BIO_DEEP_Z,
       reasonFa: 'موضوع شامل مفاهیم علمی، سلولی یا کوانتومی است که با سفر در عمق محور Z و شبیه‌سازی ذرات زیستی بیشترین تأثیر بصری را دارد.',
     };
   }
 
-  if (
-    lower.includes('برنامه') ||
-    lower.includes('کد') ||
-    lower.includes('توسعه') ||
-    lower.includes('api') ||
-    lower.includes('agent') ||
-    lower.includes('mcp') ||
-    lower.includes('سرور') ||
-    lower.includes('کلاود') ||
-    lower.includes('داده') ||
-    lower.includes('امنیت')
-  ) {
+  if (lower.includes('برنامه') || lower.includes('کد') || lower.includes('توسعه') || lower.includes('api') || lower.includes('agent') || lower.includes('mcp')) {
     return {
       template: TEMPLATE_CATALOG.DARK_GRAPHITE_TECH,
-      reasonFa: 'موضوع فنی و نرم‌افزاری است؛ تم دارک-گرافیت با استریم داده و نمودارهای شاخه‌ای نودها مناسب‌ترین لحن و فضای بصری را خلق می‌کند.',
+      reasonFa: 'موضوع توسعه نرم‌افزار و ابزارهای هوش مصنوعی است؛ تمپلیت دارک-گرافیت با استریم داده و نمودارهای شاخه‌ای مناسب‌ترین لحن و فضای بصری را دارد.',
     };
   }
 
-  if (
-    lower.includes('اپ') ||
-    lower.includes('رابط') ||
-    lower.includes('ui') ||
-    lower.includes('ux') ||
-    lower.includes('کاربر') ||
-    lower.includes('طراحی') ||
-    lower.includes('کامپوننت')
-  ) {
+  if (lower.includes('saas') || lower.includes('داشبورد') || lower.includes('مدیریت') || lower.includes('پنل') || lower.includes('ویژگی') || lower.includes('امکانات')) {
+    return {
+      template: TEMPLATE_CATALOG.BENTO_GRID_SAAS,
+      reasonFa: 'موضوع نیازمند معرفی شفاف مجموعه‌ای از قابلیت‌هاست؛ تمپلیت بنتو گرید مدرن هر قابلیت را در یک سلول شیک و متحرک قاب‌بندی می‌کند.',
+    };
+  }
+
+  if (lower.includes('اپ') || lower.includes('رابط') || lower.includes('ui') || lower.includes('ux') || lower.includes('موبایل')) {
     return {
       template: TEMPLATE_CATALOG.CONTINUOUS_UI_MORPH,
-      reasonFa: 'موضوع بر طراحی و قابلیت‌های محصولی تمرکز دارد؛ مورفینگ تک‌المان ممتد رابط‌کاربری بهترین نمایش جریان نرم‌افزاری را ارائه می‌دهد.',
+      reasonFa: 'موضوع بر طراحی و قابلیت‌های تعاملی تمرکز دارد؛ مورفینگ تک‌المان ممتد رابط‌کاربری بهترین نمایش جریان نرم‌افزاری را ارائه می‌دهد.',
     };
   }
 
-  // Default flagship
+  if (lower.includes('مانیفست') || lower.includes('شعار') || lower.includes('انگیز') || lower.includes('بیانیه') || lower.includes('هدف')) {
+    return {
+      template: TEMPLATE_CATALOG.KINETIC_ARCHITECTURAL_TYPO,
+      reasonFa: 'موضوع بیانیه‌ای قدرتمند و ماندگار است؛ تایپوگرافی معماری با حرکات کوبنده روی ساختار کلمات، پیام را به اوج نفوذ می‌رساند.',
+    };
+  }
+
   return {
-    template: TEMPLATE_CATALOG.STUDIO_SHOWREEL,
-    reasonFa: 'این موضوع یک معرفی پرچمدار و چندوجهی است که شوکیس ۴ پرده‌ای استودیویی با ترکیب استایل‌های مدرن و نئوبروتالیسم به آن غنای بصری کاملی می‌بخشد.',
+    template: TEMPLATE_CATALOG.DARK_GRAPHITE_TECH,
+    reasonFa: 'تمپلیت لوکس دارک-گرافیت یک استاندارد طلایی و همه کاره است که بیشترین هماهنگی را با موضوعات مدرن دارد.',
   };
 }

@@ -28,9 +28,9 @@
 
 ---
 
-## 🎨 The 6 Master Production Archetypes / گالری ۶ تمپلیت مستر موشن‌گرافیک
+## 🎨 The 9 Master Production Archetypes / گالری ۹ تمپلیت مستر موشن‌گرافیک
 
-> **Autonomous Production Library:** When running the `cinematic-motion-director` skill, the agent prompts you to select one of these 6 production-grade archetypes based on your topic and narrative style.
+> **Autonomous Production Library:** When running the `cinematic-motion-director` skill, the agent prompts you to select one of these 9 production-grade archetypes based on your topic and narrative style.
 
 | Archetype / تمپلیت | Preview / پیش‌نمایش | Style & Camera / استایل و دوربین | Direct Video / ویدیو |
 | :--- | :---: | :--- | :---: |
@@ -40,6 +40,9 @@
 | **4. Kinetic Architectural Typo**<br>تایپوگرافی معماری و مانیفست | [![Architectural Typo](renders/claude/preview_arch_typo.png)](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) | **Monolith Manifesto:** Stark contrast & brutalist type.<br>**Camera:** Kinetic Impact Jumps & Axial Shifts. | [▶ Watch MP4](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) |
 | **5. Bento Grid Modular SaaS**<br>بنتو گرید و کنسول ابری | [![Bento Grid](renders/claude/preview_bento_grid.png)](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) | **Modular Architecture:** Bento feature cells & sparklines.<br>**Camera:** Orbital Focus Panning & Tilt. | [▶ Watch MP4](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) |
 | **6. FinTech Trading Terminal**<br>ترمینال معاملاتی و تریدینگ | [![FinTech](renders/claude/preview_fintech.png)](renders/claude/FINTECH_TRADING_MASTER.mp4) | **High-Frequency Market:** Candlesticks & ticker tape.<br>**Camera:** Lateral Speed Tracking & Depth Skew. | [▶ Watch MP4](renders/claude/FINTECH_TRADING_MASTER.mp4) |
+| **7. Stop-Motion Paper Cutout**<br>استاپ‌موشن کلاژ و برش کاغذی | [![Stop Motion Paper](renders/claude/preview_stop_motion.png)](renders/claude/STOP_MOTION_PAPER_MASTER.mp4) | **Tactile Collage:** 12 FPS stepped cadence, kraft paper, binder clips.<br>**Camera:** Organic Handheld Jitter & Stepped Snap Cuts. | [▶ Watch MP4](renders/claude/STOP_MOTION_PAPER_MASTER.mp4) |
+| **8. Technical CAD Blueprint**<br>بلوپرینت فنی و شماتیک مهندسی | [![Technical Blueprint](renders/claude/preview_blueprint.png)](renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4) | **Engineering CAD:** Millimeter grid, caliper rulers, crosshairs.<br>**Camera:** Isometric Drafting Slide & Coordinate Focus. | [▶ Watch MP4](renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4) |
+| **9. Neo-Brutalist High-Contrast**<br>نئوبروتالیسم پرکنتراست | [![Neo-Brutalist](renders/claude/preview_brutalist.png)](renders/claude/NEO_BRUTALIST_MASTER.mp4) | **Stark Postmodern:** Acid yellow `#FFE600`, 4px solid borders, hard 12px shadows.<br>**Camera:** Aggressive 90° Kinetic Whip-Pans & Hard Snaps. | [▶ Watch MP4](renders/claude/NEO_BRUTALIST_MASTER.mp4) |
 
 ---
 
@@ -120,6 +123,45 @@
 
 > [![Watch FinTech Video](renders/claude/preview_fintech.png)](renders/claude/FINTECH_TRADING_MASTER.mp4)  
 > *[▶ Download / Watch 1080p MP4](renders/claude/FINTECH_TRADING_MASTER.mp4)*
+
+---
+
+#### 7. Stop-Motion Paper Cutout Master (`STOP_MOTION_PAPER_MASTER.mp4`)
+* **Theme:** Educational explainers, creative storytelling, history, literature, handcrafted organic tutorials.
+* **Palette:** Warm Kraft Paper `#F4ECE1`, Notebook Card `#FFFDF9`, Vintage Vermilion `#E63946`, Charcoal Ink `#1D1E2C`.
+* **Camera Grammar:** Organic Handheld Jitter & 12 FPS Stepped Snap Cuts.
+* **Sound Design:** 75/150 BPM Acoustic/Trip-Hop Beats (`Cipher2.mp3`) with tactile paper rustle, tape snaps, and shutter clicks.
+
+<video src="renders/claude/STOP_MOTION_PAPER_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Stop Motion Video](renders/claude/preview_stop_motion.png)](renders/claude/STOP_MOTION_PAPER_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/STOP_MOTION_PAPER_MASTER.mp4)*
+
+---
+
+#### 8. Technical CAD Blueprint Master (`TECHNICAL_BLUEPRINT_MASTER.mp4`)
+* **Theme:** Deep engineering, mechanical architecture, precision hardware, scientific schematics, patents.
+* **Palette:** Cyan Drafting Grid `#0A2540`, High-Contrast Blueprint Cyan `#00F0FF`, Pure White `#FFFFFF`, Millimeter Rulers.
+* **Camera Grammar:** Isometric Orthogonal Slide & Precision Coordinate Telemetry Focus.
+* **Sound Design:** 124 BPM Brain Dance Cyber Beats (`Brain_Dance.mp3`) with mechanical servo hums, radar sweeps, and digital calibrator clicks.
+
+<video src="renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Technical Blueprint Video](renders/claude/preview_blueprint.png)](renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4)*
+
+---
+
+#### 9. Neo-Brutalist High-Contrast Master (`NEO_BRUTALIST_MASTER.mp4`)
+* **Theme:** Viral product drops, Gen-Z culture, modern tech teasers, bold startup launches, hackathons.
+* **Palette:** Hyper Acid Yellow `#FFE600`, Pitch Black `#000000`, Bright Cyan `#00E5FF`, Hard 12px Offset Box Shadows.
+* **Camera Grammar:** Aggressive 90° Kinetic Whip-Pans & Hard Physical Snap Impacts.
+* **Sound Design:** 124 BPM Heavy Tech Pulse (`Tech_Live.mp3`) with sticker slaps, hard sub thuds, and metallic latch clicks.
+
+<video src="renders/claude/NEO_BRUTALIST_MASTER.mp4" controls width="100%"></video>
+
+> [![Watch Neo-Brutalist Video](renders/claude/preview_brutalist.png)](renders/claude/NEO_BRUTALIST_MASTER.mp4)  
+> *[▶ Download / Watch 1080p MP4](renders/claude/NEO_BRUTALIST_MASTER.mp4)*
 
 ---
 
@@ -283,7 +325,7 @@ npx tsc --noEmit
 
 ---
 
-## 🎨 گالری تمپلیت‌های مستر (۶ آرکتایپ استاندارد استودیو)
+## 🎨 گالری تمپلیت‌های مستر (۹ آرکتایپ استاندارد استودیو)
 
 اسکیل خودکار `cinematic-motion-director` پیش از شروع هر سناریو و تدوین کد، ابتدا متناسب با موضوع ویدیو و لحن داستان، تمپلیت‌های زیر را همراه با پیش‌نمایش به شما پیشنهاد داده و از شما استعلام می‌کند:
 
@@ -295,6 +337,9 @@ npx tsc --noEmit
 | **۴. Kinetic Architectural Typo**<br>تایپوگرافی معماری و مانیفست | [![Architectural Typo](renders/claude/preview_arch_typo.png)](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) | **مانیفست غول‌آسا:** کنتراست حداکثری سیاه و سفید با استروک‌های معماری.<br>**دوربین:** جهش‌های ریتمیک ناگهانی منطبق بر سیلاب‌های گویندگی. | [▶ پخش ویدیو](renders/claude/KINETIC_ARCHITECTURAL_TYPO_MASTER.mp4) |
 | **۵. Bento Grid Modular SaaS**<br>بنتو گرید و کنسول ابری | [![Bento Grid](renders/claude/preview_bento_grid.png)](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) | **معماری ماژولار:** کارت‌های مدرن بنتو با نمودارهای زنده و برچسب‌های متالیک.<br>**دوربین:** پن اوربیتال با زوم متمرکز روی کارت‌های فعال. | [▶ پخش ویدیو](renders/claude/BENTO_GRID_SAAS_MASTER.mp4) |
 | **۶. FinTech Trading Terminal**<br>ترمینال معاملاتی و فین‌تک | [![FinTech](renders/claude/preview_fintech.png)](renders/claude/FINTECH_TRADING_MASTER.mp4) | **بازار مالی پرسرعت:** کندل‌استیک‌های نئونی، عمق سفارشات و تیکر زنده.<br>**دوربین:** تعقیب افقی تیکر با اسکیو عمق شبیه‌ساز مانیتورهای ترید. | [▶ پخش ویدیو](renders/claude/FINTECH_TRADING_MASTER.mp4) |
+| **۷. Stop-Motion Paper Cutout**<br>استاپ‌موشن کلاژ و برش کاغذی | [![Stop Motion Paper](renders/claude/preview_stop_motion.png)](renders/claude/STOP_MOTION_PAPER_MASTER.mp4) | **کلاژ ملموس و دستی:** ریتم پله‌ای ۱۲ فریم، بافت کاغذ کرافت، گیره و چسب نواری.<br>**دوربین:** لرزش دستی ارگانیک و برش‌های کادر ضرب‌آهنگی. | [▶ پخش ویدیو](renders/claude/STOP_MOTION_PAPER_MASTER.mp4) |
+| **۸. Technical CAD Blueprint**<br>بلوپرینت فنی و شماتیک مهندسی | [![Technical Blueprint](renders/claude/preview_blueprint.png)](renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4) | **نقشه‌کشی دقیق CAD:** شبکه میلی‌متری، کولیس، نشانه‌های متقاطع و تله‌متری.<br>**دوربین:** اسلاید ایزومتریک و تغییرات مقیاس اورتوگونال. | [▶ پخش ویدیو](renders/claude/TECHNICAL_BLUEPRINT_MASTER.mp4) |
+| **۹. Neo-Brutalist High-Contrast**<br>نئوبروتالیسم پرکنتراست | [![Neo-Brutalist](renders/claude/preview_brutalist.png)](renders/claude/NEO_BRUTALIST_MASTER.mp4) | **پست‌مدرن استارتاپی:** زرد اسیدی، کادرهای ضخیم ۴ پیکسلی، سایه ۱۲ پیکسل مشکی.<br>**دوربین:** ویپ‌پن‌های تند ۹۰ درجه و ضربه‌های محکم حرکتی. | [▶ پخش ویدیو](renders/claude/NEO_BRUTALIST_MASTER.mp4) |
 
 ---
 
