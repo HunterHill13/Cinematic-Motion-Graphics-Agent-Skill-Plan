@@ -454,7 +454,7 @@ export const ClaudePersianShowreelContent: React.FC = () => {
                     }}
                   />
                   <span style={{ fontSize: 15, fontWeight: 700, color: '#f8fafc' }}>
-                    {sanitizeForDisplay('سامانه پایش هوشمند کمیته تحقیقات و فناوری')}
+                    {sanitizeForDisplay('سامانه پایش هوشمند آنتی‌گرویتی و هوش مصنوعی')}
                   </span>
                 </div>
                 {/* Window Window Controls */}
@@ -729,7 +729,7 @@ export const ClaudePersianShowreelContent: React.FC = () => {
                   fontWeight: 700,
                 }}
               >
-                {sanitizeForDisplay('✓ تأییدیه رسمی کمیته تحقیقات')}
+                {sanitizeForDisplay('✓ تأییدیه رسمی کُدنویسی زنده موشن‌گرافیک')}
               </div>
             </div>
           )}

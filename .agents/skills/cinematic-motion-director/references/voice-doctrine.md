@@ -63,7 +63,7 @@ The production prompt for Gemini Persian narration is:
 ## 5. Preflight Sample Protocol
 
 1. Synthesize exactly ONE 10–15s sample using canonical preflight text:
-   `«کمیته تحقیقات دانشگاه علوم پزشکی بقیه‌الله، این ویدیو را برای معرفی مسیر جدید پژوهش و نوآوری تقدیم می‌کند.»`
+   `«این ویدیو برای معرفی نسل نوین سامانه‌های هوش مصنوعی و ساخت موشن‌گرافیک پیشرفته تقدیم می‌شود.»`
 2. Present sample to user for approval.
 3. Upon approval, synthesize the final full-video narration in ONE single request.
 
