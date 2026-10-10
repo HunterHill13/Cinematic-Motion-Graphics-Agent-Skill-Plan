@@ -94,14 +94,14 @@ export const TechnicalBlueprintMaster: React.FC = () => {
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: 1360,
-          minHeight: 660,
+          width: 1400,
+          height: 700,
           transform: `translate(-50%, -50%) scale(${unrollProgress * beatPulse.scalePulse})`,
           opacity: unrollProgress,
           backgroundColor: 'rgba(6, 21, 40, 0.92)',
           border: '2px solid rgba(0, 229, 255, 0.65)',
-          boxShadow: '0 0 50px rgba(0, 229, 255, 0.15), inset 0 0 40px rgba(0, 229, 255, 0.06)',
-          padding: 50,
+          boxShadow: '0 0 60px rgba(0, 229, 255, 0.18), inset 0 0 40px rgba(0, 229, 255, 0.08)',
+          padding: '34px 44px',
           boxSizing: 'border-box',
           display: 'flex',
           flexDirection: 'column',
@@ -109,19 +109,19 @@ export const TechnicalBlueprintMaster: React.FC = () => {
         }}
       >
         {/* Top Technical Drafting Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(0, 229, 255, 0.25)', paddingBottom: 18 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: '1px solid rgba(0, 229, 255, 0.25)', paddingBottom: 12 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div
               style={{
-                width: 12,
-                height: 12,
+                width: 10,
+                height: 10,
                 backgroundColor: '#00E5FF',
-                boxShadow: '0 0 10px #00E5FF',
+                boxShadow: '0 0 8px #00E5FF',
               }}
             />
             <span
               style={{
-                fontSize: clampFontSize(24, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                fontSize: clampFontSize(18, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                 fontWeight: 800,
                 color: '#00E5FF',
                 letterSpacing: 1,
@@ -134,7 +134,7 @@ export const TechnicalBlueprintMaster: React.FC = () => {
           <div
             style={{
               fontFamily: 'monospace',
-              fontSize: clampFontSize(22, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+              fontSize: clampFontSize(16, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
               color: 'rgba(0, 229, 255, 0.8)',
               direction: 'ltr',
             }}
@@ -144,20 +144,20 @@ export const TechnicalBlueprintMaster: React.FC = () => {
         </div>
 
         {/* Blueprint Title Area */}
-        <div style={{ marginTop: 24 }}>
+        <div style={{ marginTop: 12 }}>
           <div
             style={{
-              fontSize: clampFontSize(26, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+              fontSize: clampFontSize(18, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
               fontWeight: 700,
               color: 'rgba(0, 229, 255, 0.75)',
-              marginBottom: 10,
+              marginBottom: 6,
             }}
           >
             {sanitizeForDisplay('بخش اول: معماری مقیاس‌پذیر سیستم‌های توزیع‌شده')}
           </div>
           <h1
             style={{
-              fontSize: clampFontSize(74, 'heroTitle', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+              fontSize: clampFontSize(50, 'heroTitle', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
               fontWeight: 950,
               color: '#F0FDFA',
               margin: 0,
@@ -169,11 +169,11 @@ export const TechnicalBlueprintMaster: React.FC = () => {
           </h1>
           <p
             style={{
-              fontSize: clampFontSize(32, 'body', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+              fontSize: clampFontSize(22, 'body', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
               fontWeight: 600,
               color: '#94A3B8',
-              margin: '16px 0 0 0',
-              lineHeight: 1.5,
+              margin: '8px 0 0 0',
+              lineHeight: 1.4,
               maxWidth: 1020,
             }}
           >
@@ -186,10 +186,10 @@ export const TechnicalBlueprintMaster: React.FC = () => {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 24,
-            marginTop: 36,
+            gap: 20,
+            marginTop: 18,
             opacity: caliperProgress,
-            transform: `translateY(${(1 - caliperProgress) * 30}px)`,
+            transform: `translateY(${(1 - caliperProgress) * 20}px)`,
           }}
         >
           {[
@@ -202,15 +202,15 @@ export const TechnicalBlueprintMaster: React.FC = () => {
               style={{
                 backgroundColor: 'rgba(4, 28, 54, 0.75)',
                 border: '1px solid rgba(0, 229, 255, 0.35)',
-                padding: 22,
+                padding: '16px 22px',
                 position: 'relative',
               }}
             >
               {/* Corner tick */}
-              <div style={{ position: 'absolute', top: -1, right: -1, width: 8, height: 8, backgroundColor: '#00E5FF' }} />
+              <div style={{ position: 'absolute', top: -1, right: -1, width: 6, height: 6, backgroundColor: '#00E5FF' }} />
               <div
                 style={{
-                  fontSize: clampFontSize(20, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                  fontSize: clampFontSize(16, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                   fontFamily: 'monospace',
                   color: 'rgba(0, 229, 255, 0.65)',
                 }}
@@ -219,20 +219,20 @@ export const TechnicalBlueprintMaster: React.FC = () => {
               </div>
               <div
                 style={{
-                  fontSize: clampFontSize(32, 'cardHeader', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                  fontSize: clampFontSize(22, 'cardHeader', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                   fontWeight: 800,
                   color: '#FFFFFF',
-                  marginTop: 6,
+                  marginTop: 4,
                 }}
               >
                 {sanitizeForDisplay(item.title)}
               </div>
               <div
                 style={{
-                  fontSize: clampFontSize(36, 'heroTitle', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                  fontSize: clampFontSize(26, 'heroTitle', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                   fontWeight: 900,
                   color: '#00E5FF',
-                  marginTop: 8,
+                  marginTop: 6,
                   direction: 'ltr',
                   textAlign: 'right',
                 }}
@@ -241,9 +241,9 @@ export const TechnicalBlueprintMaster: React.FC = () => {
               </div>
               <div
                 style={{
-                  fontSize: clampFontSize(22, 'body', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                  fontSize: clampFontSize(18, 'body', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                   color: '#94A3B8',
-                  marginTop: 6,
+                  marginTop: 4,
                   fontWeight: 600,
                 }}
               >
@@ -256,8 +256,8 @@ export const TechnicalBlueprintMaster: React.FC = () => {
         {/* Dimension Callout Baseline */}
         <div
           style={{
-            marginTop: 32,
-            paddingTop: 18,
+            marginTop: 14,
+            paddingTop: 12,
             borderTop: '1px dashed rgba(0, 229, 255, 0.3)',
             display: 'flex',
             justifyContent: 'space-between',
@@ -265,23 +265,23 @@ export const TechnicalBlueprintMaster: React.FC = () => {
             opacity: schematicProgress,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ color: '#00E5FF', fontSize: 18 }}>◀---------</span>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <span style={{ color: '#00E5FF', fontSize: 16 }}>◀---------</span>
             <span
               style={{
-                fontSize: clampFontSize(24, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                fontSize: clampFontSize(18, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                 fontWeight: 700,
                 color: '#E2E8F0',
               }}
             >
-              {sanitizeForDisplay('پهنای زون امن: ۱۳۶۰ میلیمتر دیجیتال')}
+              {sanitizeForDisplay('پهنای زون امن: ۱۲۲۰ میلیمتر دیجیتال')}
             </span>
-            <span style={{ color: '#00E5FF', fontSize: 18 }}>---------▶</span>
+            <span style={{ color: '#00E5FF', fontSize: 16 }}>---------▶</span>
           </div>
 
           <div
             style={{
-              fontSize: clampFontSize(24, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+              fontSize: clampFontSize(18, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
               fontWeight: 800,
               color: '#38BDF8',
             }}
@@ -295,23 +295,24 @@ export const TechnicalBlueprintMaster: React.FC = () => {
           <div
             style={{
               position: 'absolute',
-              bottom: 45,
-              left: 50,
+              bottom: 24,
+              left: 36,
               transform: `scale(${lockProgress})`,
               border: '2px solid #00E5FF',
-              padding: '12px 28px',
+              padding: '10px 22px',
               backgroundColor: 'rgba(4, 25, 48, 0.95)',
-              boxShadow: '0 0 25px rgba(0, 229, 255, 0.4)',
+              boxShadow: '0 0 20px rgba(0, 229, 255, 0.4)',
               display: 'flex',
               alignItems: 'center',
-              gap: 14,
+              gap: 12,
+              zIndex: 10,
             }}
           >
-            <div style={{ width: 14, height: 14, backgroundColor: '#00E5FF', transform: 'rotate(45deg)' }} />
+            <div style={{ width: 12, height: 12, backgroundColor: '#00E5FF', transform: 'rotate(45deg)' }} />
             <div>
               <div
                 style={{
-                  fontSize: clampFontSize(26, 'cardHeader', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                  fontSize: clampFontSize(22, 'cardHeader', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                   fontWeight: 900,
                   color: '#FFFFFF',
                 }}
@@ -320,7 +321,7 @@ export const TechnicalBlueprintMaster: React.FC = () => {
               </div>
               <div
                 style={{
-                  fontSize: clampFontSize(20, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                  fontSize: clampFontSize(16, 'microTelemetry', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                   fontFamily: 'monospace',
                   color: '#00E5FF',
                   direction: 'ltr',

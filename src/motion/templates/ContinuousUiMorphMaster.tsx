@@ -41,14 +41,14 @@ export const ContinuousUiMorphMaster: React.FC = () => {
   const containerWidth = interpolate(
     frame,
     [0, 80, 110, 170, 200, 260, 290, 360, 390, 440],
-    [320, 320, 180, 180, 800, 800, 960, 960, 380, 320],
+    [320, 320, 180, 180, 980, 980, 1260, 1260, 380, 320],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.2, 0, 0, 1) }
   );
 
   const containerHeight = interpolate(
     frame,
     [0, 80, 110, 170, 200, 260, 290, 360, 390, 440],
-    [80, 80, 180, 180, 480, 480, 560, 560, 80, 80],
+    [80, 80, 180, 180, 520, 520, 600, 600, 80, 80],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.2, 0, 0, 1) }
   );
 
@@ -186,25 +186,25 @@ export const ContinuousUiMorphMaster: React.FC = () => {
               {sanitizeForDisplay('تحلیل ترافیک و بازدهی سامانه')}
             </span>
 
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', height: 260, paddingBottom: 20 }}>
+            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', height: 280, paddingBottom: 16 }}>
               {[
                 { label: 'هفته ۱', val: 65, col: '#94a3b8' },
                 { label: 'هفته ۲', val: 78, col: '#38bdf8' },
                 { label: 'هفته ۳', val: 92, col: '#3b82f6' },
                 { label: 'هفته جاری', val: 99, col: '#10b981' },
               ].map((bar, i) => (
-                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, width: 80 }}>
+                <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 10, width: 88 }}>
                   <span style={{ fontSize: 16, fontWeight: 900, color: bar.col }}>{bar.val}٪</span>
                   <div
                     style={{
                       width: '100%',
-                      height: (bar.val / 100) * 180,
+                      height: (bar.val / 100) * 190,
                       background: bar.col,
                       borderRadius: 10,
                       boxShadow: '0 8px 16px rgba(0,0,0,0.06)',
                     }}
                   />
-                  <span style={{ fontSize: 14, fontWeight: 700, color: '#64748b' }}>{sanitizeForDisplay(bar.label)}</span>
+                  <span style={{ fontSize: 15, fontWeight: 700, color: '#64748b' }}>{sanitizeForDisplay(bar.label)}</span>
                 </div>
               ))}
             </div>

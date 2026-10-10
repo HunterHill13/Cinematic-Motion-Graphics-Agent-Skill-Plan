@@ -103,14 +103,14 @@ export const StopMotionPaperMaster: React.FC = () => {
           position: 'absolute',
           left: '50%',
           top: '50%',
-          width: 1280,
-          minHeight: 640,
-          transform: `translate(-50%, calc(-50% + ${card1Y}px)) rotate(${card1Rot}deg) scale(${beatPulse.scalePulse})`,
+          width: 1380,
+          height: 690,
+          transform: `translate(-50%, calc(-50% + ${card1Y * 0.4}px)) rotate(${card1Rot * 0.7}deg) scale(${beatPulse.scalePulse})`,
           backgroundColor: '#FAF7F2',
-          borderRadius: 8,
+          borderRadius: 10,
           border: '2px solid rgba(80, 65, 45, 0.25)',
-          boxShadow: '0 24px 48px rgba(60, 45, 30, 0.16), 0 6px 12px rgba(60, 45, 30, 0.08)',
-          padding: 56,
+          boxShadow: '0 25px 50px rgba(60, 45, 30, 0.16), 0 6px 12px rgba(60, 45, 30, 0.08)',
+          padding: '34px 44px',
           boxSizing: 'border-box',
           display: 'flex',
           flexDirection: 'column',
@@ -121,13 +121,13 @@ export const StopMotionPaperMaster: React.FC = () => {
         <div
           style={{
             position: 'absolute',
-            top: -22,
+            top: -12,
             right: 48,
-            width: 150,
-            height: 42,
+            width: 130,
+            height: 32,
             backgroundColor: 'rgba(212, 178, 126, 0.88)',
-            transform: 'rotate(-4deg)',
-            boxShadow: '0 2px 6px rgba(50, 35, 20, 0.2)',
+            transform: 'rotate(-3deg)',
+            boxShadow: '0 2px 4px rgba(50, 35, 20, 0.2)',
             borderLeft: '2px dashed rgba(160, 130, 85, 0.5)',
             borderRight: '2px dashed rgba(160, 130, 85, 0.5)',
           }}
@@ -137,37 +137,37 @@ export const StopMotionPaperMaster: React.FC = () => {
         <div
           style={{
             position: 'absolute',
-            top: -20,
+            top: -10,
             left: 54,
-            width: 140,
-            height: 40,
+            width: 120,
+            height: 30,
             backgroundColor: 'rgba(212, 178, 126, 0.85)',
-            transform: 'rotate(5deg)',
-            boxShadow: '0 2px 6px rgba(50, 35, 20, 0.2)',
+            transform: 'rotate(4deg)',
+            boxShadow: '0 2px 4px rgba(50, 35, 20, 0.2)',
             borderLeft: '2px dashed rgba(160, 130, 85, 0.5)',
             borderRight: '2px dashed rgba(160, 130, 85, 0.5)',
           }}
         />
 
         {/* Header Tag */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
           <div
             style={{
-              padding: '8px 24px',
+              padding: '6px 18px',
               backgroundColor: '#D9534F',
               color: '#FFFFFF',
               borderRadius: 4,
-              fontSize: clampFontSize(24, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+              fontSize: clampFontSize(18, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
               fontWeight: 800,
-              boxShadow: '2px 3px 0px rgba(0,0,0,0.15)',
-              transform: 'rotate(-1.5deg)',
+              boxShadow: '2px 2px 0px rgba(0,0,0,0.15)',
+              transform: 'rotate(-1deg)',
             }}
           >
             {sanitizeForDisplay('روایت استاپ‌موشن دستی')}
           </div>
           <div
             style={{
-              fontSize: clampFontSize(24, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+              fontSize: clampFontSize(18, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
               color: '#7A6B56',
               fontWeight: 700,
             }}
@@ -177,10 +177,10 @@ export const StopMotionPaperMaster: React.FC = () => {
         </div>
 
         {/* Hero Title */}
-        <div style={{ marginTop: 24 }}>
+        <div style={{ marginTop: 12 }}>
           <h1
             style={{
-              fontSize: clampFontSize(76, 'heroTitle', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+              fontSize: clampFontSize(50, 'heroTitle', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
               fontWeight: 950,
               color: '#2B231A',
               margin: 0,
@@ -191,11 +191,11 @@ export const StopMotionPaperMaster: React.FC = () => {
           </h1>
           <p
             style={{
-              fontSize: clampFontSize(32, 'body', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+              fontSize: clampFontSize(22, 'body', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
               fontWeight: 600,
               color: '#5C4E3D',
-              margin: '18px 0 0 0',
-              lineHeight: 1.5,
+              margin: '8px 0 0 0',
+              lineHeight: 1.4,
               maxWidth: 980,
             }}
           >
@@ -208,10 +208,10 @@ export const StopMotionPaperMaster: React.FC = () => {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: 28,
-            marginTop: 40,
+            gap: 20,
+            marginTop: 18,
             opacity: badgeProgress,
-            transform: `translateY(${(1 - badgeProgress) * 40}px)`,
+            transform: `translateY(${(1 - badgeProgress) * 20}px)`,
           }}
         >
           {[
@@ -224,15 +224,15 @@ export const StopMotionPaperMaster: React.FC = () => {
               style={{
                 backgroundColor: item.color,
                 borderRadius: 6,
-                padding: 24,
+                padding: '16px 22px',
                 border: '1.5px dashed rgba(100, 80, 55, 0.35)',
-                boxShadow: '0 8px 18px rgba(70, 50, 30, 0.1)',
-                transform: `rotate(${idx === 1 ? '1.2deg' : idx === 2 ? '-1.8deg' : '0.8deg'})`,
+                boxShadow: '0 6px 14px rgba(70, 50, 30, 0.08)',
+                transform: `rotate(${idx === 1 ? '1deg' : idx === 2 ? '-1.2deg' : '0.6deg'})`,
               }}
             >
               <div
                 style={{
-                  fontSize: clampFontSize(28, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+                  fontSize: clampFontSize(20, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
                   fontWeight: 900,
                   color: '#D9534F',
                 }}
@@ -241,21 +241,21 @@ export const StopMotionPaperMaster: React.FC = () => {
               </div>
               <div
                 style={{
-                  fontSize: clampFontSize(34, 'cardHeader', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+                  fontSize: clampFontSize(24, 'cardHeader', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
                   fontWeight: 800,
                   color: '#2B231A',
-                  marginTop: 8,
+                  marginTop: 4,
                 }}
               >
                 {sanitizeForDisplay(item.title)}
               </div>
               <div
                 style={{
-                  fontSize: clampFontSize(24, 'body', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+                  fontSize: clampFontSize(18, 'body', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
                   fontWeight: 600,
                   color: '#6B5A46',
-                  marginTop: 6,
-                  lineHeight: 1.4,
+                  marginTop: 4,
+                  lineHeight: 1.35,
                 }}
               >
                 {sanitizeForDisplay(item.desc)}
@@ -267,8 +267,8 @@ export const StopMotionPaperMaster: React.FC = () => {
         {/* Paper Ruler Progress Metric */}
         <div
           style={{
-            marginTop: 36,
-            paddingTop: 20,
+            marginTop: 14,
+            paddingTop: 12,
             borderTop: '2px solid rgba(100, 80, 55, 0.15)',
             display: 'flex',
             alignItems: 'center',
@@ -276,11 +276,11 @@ export const StopMotionPaperMaster: React.FC = () => {
             opacity: metricProgress,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <div
               style={{
-                width: 14,
-                height: 14,
+                width: 12,
+                height: 12,
                 borderRadius: '50%',
                 backgroundColor: '#27AE60',
                 boxShadow: '0 0 0 3px rgba(39, 174, 96, 0.25)',
@@ -288,7 +288,7 @@ export const StopMotionPaperMaster: React.FC = () => {
             />
             <span
               style={{
-                fontSize: clampFontSize(24, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+                fontSize: clampFontSize(18, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
                 fontWeight: 700,
                 color: '#4A3E2D',
               }}
@@ -299,7 +299,7 @@ export const StopMotionPaperMaster: React.FC = () => {
 
           <div
             style={{
-              fontSize: clampFontSize(26, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+              fontSize: clampFontSize(18, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
               fontWeight: 800,
               color: '#8C775D',
             }}
@@ -313,24 +313,25 @@ export const StopMotionPaperMaster: React.FC = () => {
           <div
             style={{
               position: 'absolute',
-              bottom: 40,
-              left: 60,
-              transform: `scale(${stampScale}) rotate(-12deg)`,
+              bottom: 24,
+              left: 36,
+              transform: `scale(${stampScale}) rotate(-10deg)`,
               opacity: stampOpacity,
-              border: '6px double #C0392B',
-              borderRadius: 12,
-              padding: '16px 36px',
-              backgroundColor: 'rgba(255, 255, 255, 0.94)',
-              boxShadow: '0 8px 24px rgba(192, 57, 43, 0.3)',
+              border: '4px double #C0392B',
+              borderRadius: 10,
+              padding: '12px 28px',
+              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+              boxShadow: '0 6px 18px rgba(192, 57, 43, 0.25)',
               textAlign: 'center',
+              zIndex: 10,
             }}
           >
             <div
               style={{
                 color: '#C0392B',
-                fontSize: clampFontSize(42, 'cardHeader', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+                fontSize: clampFontSize(28, 'cardHeader', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
                 fontWeight: 950,
-                letterSpacing: 2,
+                letterSpacing: 1,
               }}
             >
               {sanitizeForDisplay('✓ تأیید اصالت ۱۰۰٪')}
@@ -338,9 +339,9 @@ export const StopMotionPaperMaster: React.FC = () => {
             <div
               style={{
                 color: '#962D22',
-                fontSize: clampFontSize(22, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
+                fontSize: clampFontSize(16, 'microTelemetry', STOP_MOTION_WIDTH, STOP_MOTION_HEIGHT),
                 fontWeight: 700,
-                marginTop: 4,
+                marginTop: 2,
               }}
             >
               {sanitizeForDisplay('AUTHENTIC TACTILE COLLAGE')}

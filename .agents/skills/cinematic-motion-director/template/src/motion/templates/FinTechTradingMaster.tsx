@@ -105,12 +105,13 @@ export const FinTechTradingMaster: React.FC = () => {
       <div
         style={{
           position: 'absolute',
-          top: 80,
-          left: 100,
-          right: 100,
-          bottom: 60,
+          left: '50%',
+          top: '52%',
+          transform: 'translate(-50%, -50%)',
+          width: 1400,
+          height: 690,
           display: 'grid',
-          gridTemplateColumns: '1fr 440px',
+          gridTemplateColumns: '1fr 430px',
           gap: 28,
         }}
       >
@@ -121,7 +122,7 @@ export const FinTechTradingMaster: React.FC = () => {
             borderRadius: 24,
             border: '1.5px solid rgba(16, 185, 129, 0.35)',
             boxShadow: '0 30px 80px rgba(0, 0, 0, 0.8), 0 0 50px rgba(16, 185, 129, 0.1)',
-            padding: 36,
+            padding: '28px 32px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'space-between',
@@ -130,21 +131,21 @@ export const FinTechTradingMaster: React.FC = () => {
           {/* Header */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <div>
-              <h2 style={{ margin: 0, fontSize: 26, fontWeight: 950, color: '#f8fafc' }}>
+              <h2 style={{ margin: 0, fontSize: 24, fontWeight: 950, color: '#f8fafc' }}>
                 {sanitizeForDisplay('داشبورد تریدینگ الگوریتمی و تحلیل آنی نقدینگی')}
               </h2>
               <span style={{ fontSize: 14, color: '#64748b', fontWeight: 700 }}>
                 {sanitizeForDisplay('موتور پردازش فرکانس بالا (HFT) · تراز کانتکست')}
               </span>
             </div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px', borderRadius: 999, background: 'rgba(16, 185, 129, 0.15)', border: '1px solid #10b981', color: '#34d399', fontSize: 14, fontWeight: 900 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '6px 14px', borderRadius: 999, background: 'rgba(16, 185, 129, 0.15)', border: '1px solid #10b981', color: '#34d399', fontSize: 13, fontWeight: 900 }}>
               <span>●</span>
               <span>{sanitizeForDisplay('بازار زنده')}</span>
             </div>
           </div>
 
           {/* Candlestick SVG Chart */}
-          <div style={{ position: 'relative', width: '100%', height: 320, display: 'flex', alignItems: 'flex-end' }}>
+          <div style={{ position: 'relative', width: '100%', height: 330, display: 'flex', alignItems: 'flex-end' }}>
             <svg width="100%" height="100%" viewBox="0 0 1100 320">
               {/* Horizontal Gridlines */}
               <line x1="0" y1="80" x2="1100" y2="80" stroke="rgba(255,255,255,0.06)" strokeDasharray="4 4" />

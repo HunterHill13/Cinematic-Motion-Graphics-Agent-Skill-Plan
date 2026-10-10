@@ -107,14 +107,14 @@ export const NeoBrutalistMaster: React.FC = () => {
         style={{
           position: 'absolute',
           left: '50%',
-          top: '52%',
-          width: 1320,
-          minHeight: 640,
-          transform: `translate(-50%, calc(-50% + ${card1Y}px)) scale(${beatPulse.scalePulse})`,
+          top: '50%',
+          width: 1380,
+          height: 690,
+          transform: `translate(-50%, calc(-50% + ${card1Y * 0.4}px)) scale(${beatPulse.scalePulse})`,
           backgroundColor: '#FFFFFF',
-          border: '5px solid #000000',
-          boxShadow: '16px 16px 0px #000000',
-          padding: 56,
+          border: '4px solid #000000',
+          boxShadow: '12px 12px 0px #000000',
+          padding: '34px 44px',
           boxSizing: 'border-box',
           display: 'flex',
           flexDirection: 'column',
@@ -128,12 +128,12 @@ export const NeoBrutalistMaster: React.FC = () => {
               display: 'inline-block',
               backgroundColor: '#000000',
               color: '#FFE600',
-              padding: '10px 28px',
-              fontSize: clampFontSize(26, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
+              padding: '6px 20px',
+              fontSize: clampFontSize(20, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
               fontWeight: 950,
-              border: '3px solid #000000',
+              border: '2px solid #000000',
               transform: 'rotate(-2deg)',
-              boxShadow: '4px 4px 0px rgba(0,0,0,0.3)',
+              boxShadow: '3px 3px 0px rgba(0,0,0,0.3)',
             }}
           >
             {sanitizeForDisplay('سبک نئوبروتالیسم پرقدرت')}
@@ -141,12 +141,12 @@ export const NeoBrutalistMaster: React.FC = () => {
 
           <div
             style={{
-              padding: '8px 20px',
+              padding: '6px 18px',
               backgroundColor: '#FFE600',
               color: '#000000',
-              border: '3px solid #000000',
-              boxShadow: '4px 4px 0px #000000',
-              fontSize: clampFontSize(24, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
+              border: '2px solid #000000',
+              boxShadow: '3px 3px 0px #000000',
+              fontSize: clampFontSize(18, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
               fontWeight: 900,
             }}
           >
@@ -155,25 +155,25 @@ export const NeoBrutalistMaster: React.FC = () => {
         </div>
 
         {/* Hero Title */}
-        <div style={{ marginTop: 24 }}>
+        <div style={{ marginTop: 12 }}>
           <h1
             style={{
-              fontSize: clampFontSize(84, 'heroTitle', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
+              fontSize: clampFontSize(52, 'heroTitle', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
               fontWeight: 950,
               color: '#000000',
               margin: 0,
-              lineHeight: 1.2,
+              lineHeight: 1.25,
             }}
           >
-            {sanitizeForDisplay('برندسازی با وضوح و جسارت بی‌رحمانه')}
+            {sanitizeForDisplay('برندسازی با ووضوح و جسارت بی‌رحمانه')}
           </h1>
           <p
             style={{
-              fontSize: clampFontSize(34, 'body', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
+              fontSize: clampFontSize(22, 'body', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT),
               fontWeight: 700,
               color: '#222222',
-              margin: '18px 0 0 0',
-              lineHeight: 1.45,
+              margin: '8px 0 0 0',
+              lineHeight: 1.4,
               maxWidth: 1040,
             }}
           >
@@ -186,24 +186,24 @@ export const NeoBrutalistMaster: React.FC = () => {
           style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(2, 1fr)',
-            gap: 28,
-            marginTop: 36,
+            gap: 24,
+            marginTop: 18,
             opacity: cardsProgress,
-            transform: `translateY(${(1 - cardsProgress) * 40}px)`,
+            transform: `translateY(${(1 - cardsProgress) * 20}px)`,
           }}
         >
           <div
             style={{
               backgroundColor: '#FFE600',
-              border: '4px solid #000000',
-              boxShadow: '8px 8px 0px #000000',
-              padding: 24,
+              border: '3px solid #000000',
+              boxShadow: '6px 6px 0px #000000',
+              padding: '16px 24px',
             }}
           >
-            <div style={{ fontSize: clampFontSize(36, 'cardHeader', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950, color: '#000000' }}>
+            <div style={{ fontSize: clampFontSize(28, 'cardHeader', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950, color: '#000000' }}>
               {sanitizeForDisplay('۱. خوانایی فوق‌العاده در موبایل')}
             </div>
-            <div style={{ fontSize: clampFontSize(26, 'body', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 700, color: '#111111', marginTop: 10 }}>
+            <div style={{ fontSize: clampFontSize(20, 'body', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 700, color: '#111111', marginTop: 6, lineHeight: 1.35 }}>
               {sanitizeForDisplay('حتی در کوچک‌ترین اندازه نمایشگرها، حروف قطور و پررنگ بدون افت کیفیت دیده می‌شوند.')}
             </div>
           </div>
@@ -211,15 +211,15 @@ export const NeoBrutalistMaster: React.FC = () => {
           <div
             style={{
               backgroundColor: '#00E5FF',
-              border: '4px solid #000000',
-              boxShadow: '8px 8px 0px #000000',
-              padding: 24,
+              border: '3px solid #000000',
+              boxShadow: '6px 6px 0px #000000',
+              padding: '16px 24px',
             }}
           >
-            <div style={{ fontSize: clampFontSize(36, 'cardHeader', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950, color: '#000000' }}>
+            <div style={{ fontSize: clampFontSize(28, 'cardHeader', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950, color: '#000000' }}>
               {sanitizeForDisplay('۲. ضرب‌آهنگ محکم و قاطع')}
             </div>
-            <div style={{ fontSize: clampFontSize(26, 'body', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 700, color: '#111111', marginTop: 10 }}>
+            <div style={{ fontSize: clampFontSize(20, 'body', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 700, color: '#111111', marginTop: 6, lineHeight: 1.35 }}>
               {sanitizeForDisplay('ترکیب شوک بصری با پالس‌های ریتمیک ۱۲۴ BPM برای ویدیوهای تبلیغاتی و کمپین‌ها.')}
             </div>
           </div>
@@ -228,23 +228,23 @@ export const NeoBrutalistMaster: React.FC = () => {
         {/* Bottom Ticker Bar */}
         <div
           style={{
-            marginTop: 32,
-            paddingTop: 18,
-            borderTop: '4px solid #000000',
+            marginTop: 14,
+            paddingTop: 10,
+            borderTop: '3px solid #000000',
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
             opacity: tickerProgress,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ width: 18, height: 18, backgroundColor: '#000000' }} />
-            <span style={{ fontSize: clampFontSize(26, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 900, color: '#000000' }}>
-              {sanitizeForDisplay('مساحت ایمن کادر: ۷۲٪ استاندارد طلایی')}
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ width: 14, height: 14, backgroundColor: '#000000' }} />
+            <span style={{ fontSize: clampFontSize(18, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 900, color: '#000000' }}>
+              {sanitizeForDisplay('مساحت ایمن کادر: ۷۰٪ استاندارد طلایی')}
             </span>
           </div>
 
-          <div style={{ fontSize: clampFontSize(28, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950, color: '#000000' }}>
+          <div style={{ fontSize: clampFontSize(20, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950, color: '#000000' }}>
             {sanitizeForDisplay('READY TO DEPLOY ///')}
           </div>
         </div>
@@ -254,21 +254,22 @@ export const NeoBrutalistMaster: React.FC = () => {
           <div
             style={{
               position: 'absolute',
-              bottom: 30,
-              left: 40,
+              bottom: 20,
+              left: 28,
               transform: `scale(${stampScale}) rotate(${stampRot}deg)`,
               backgroundColor: '#FF3366',
               color: '#FFFFFF',
-              border: '5px solid #000000',
-              boxShadow: '10px 10px 0px #000000',
-              padding: '18px 36px',
+              border: '4px solid #000000',
+              boxShadow: '8px 8px 0px #000000',
+              padding: '12px 24px',
               textAlign: 'center',
+              zIndex: 10,
             }}
           >
-            <div style={{ fontSize: clampFontSize(44, 'cardHeader', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950 }}>
+            <div style={{ fontSize: clampFontSize(30, 'cardHeader', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 950 }}>
               {sanitizeForDisplay('۱۰۰٪ تضمینی')}
             </div>
-            <div style={{ fontSize: clampFontSize(22, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 800, marginTop: 4 }}>
+            <div style={{ fontSize: clampFontSize(16, 'microTelemetry', NEO_BRUTALIST_WIDTH, NEO_BRUTALIST_HEIGHT), fontWeight: 800, marginTop: 2 }}>
               MAXIMUM IMPACT VERIFIED
             </div>
           </div>

@@ -98,12 +98,12 @@ export const theme = {
     trackingWide: '0.08em',
     // Hard legibility absolute floors
     floors: {
-      microTelemetry: 24,
-      body: 32,
-      subtitle: 44,
-      cardHeader: 52,
-      heroTitle: 92,
-      kineticWord: 140,
+      microTelemetry: 13,
+      body: 16,
+      subtitle: 24,
+      cardHeader: 22,
+      heroTitle: 36,
+      kineticWord: 84,
     },
   },
 

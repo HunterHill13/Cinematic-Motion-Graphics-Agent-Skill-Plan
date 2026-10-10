@@ -116,8 +116,8 @@ export const DarkGraphiteTechMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act1.x}px, ${stages.act1.y}px, ${stages.act1.z}px) scale(${act1Vis.depthScale})`,
                 opacity: act1Spring * act1Vis.opacity,
-                width: 1280,
-                height: 560,
+                width: 1380,
+                height: 680,
                 borderRadius: 20,
                 background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.85) 0%, rgba(9, 13, 22, 0.95) 100%)',
                 border: '1.5px solid rgba(56, 189, 248, 0.35)',
@@ -192,8 +192,8 @@ export const DarkGraphiteTechMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act2.x}px, ${stages.act2.y}px, ${stages.act2.z}px) scale(${act2Vis.depthScale})`,
                 opacity: act2Vis.opacity,
-                width: 1320,
-                height: 600,
+                width: 1400,
+                height: 690,
                 borderRadius: 20,
                 background: 'rgba(15, 23, 42, 0.75)',
                 border: '1.5px solid rgba(16, 185, 129, 0.35)',
@@ -212,8 +212,8 @@ export const DarkGraphiteTechMaster: React.FC = () => {
                 stages={stagesVectors}
                 startFrame={90}
                 durationInFrames={130}
-                width={1260}
-                height={500}
+                width={1320}
+                height={560}
                 glowColor="#10b981"
                 theme="MODERN_GLASSMORPHIC"
               />
@@ -237,13 +237,13 @@ export const DarkGraphiteTechMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act3.x}px, ${stages.act3.y}px, ${stages.act3.z}px) scale(${act3Vis.depthScale})`,
                 opacity: act3Spring * act3Vis.opacity,
-                width: 1340,
-                height: 640,
+                width: 1380,
+                height: 680,
                 borderRadius: 20,
                 background: 'rgba(15, 23, 42, 0.9)',
                 border: '1.5px solid rgba(6, 182, 212, 0.4)',
                 boxShadow: '0 40px 100px rgba(0, 0, 0, 0.9), 0 0 60px rgba(6, 182, 212, 0.25)',
-                padding: 40,
+                padding: '36px 44px',
                 direction: 'rtl',
               }}
             >
@@ -291,8 +291,8 @@ export const DarkGraphiteTechMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act4.x}px, ${stages.act4.y}px, ${stages.act4.z}px) scale(${act4Spring * act4Vis.depthScale})`,
                 opacity: act4Spring * act4Vis.opacity,
-                width: 1200,
-                height: 580,
+                width: 1380,
+                height: 680,
                 borderRadius: 24,
                 background: 'linear-gradient(135deg, rgba(30, 41, 59, 0.95) 0%, rgba(15, 23, 42, 0.98) 100%)',
                 border: '2px solid rgba(56, 189, 248, 0.6)',

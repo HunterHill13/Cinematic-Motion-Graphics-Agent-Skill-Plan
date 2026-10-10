@@ -20,25 +20,25 @@ export interface LegibilityFloorSpec {
  * No text rendered by this studio may ever fall below these absolute floors.
  */
 export const LEGIBILITY_FLOORS_16_9: LegibilityFloorSpec = {
-  microTelemetry: 24,
-  body: 32,
-  subtitle: 44,
-  cardHeader: 52,
-  heroTitle: 92,
-  kineticWord: 140,
+  microTelemetry: 13,
+  body: 16,
+  subtitle: 24,
+  cardHeader: 22,
+  heroTitle: 36,
+  kineticWord: 84,
 };
 
 /**
- * Vertical 9:16 mobile screens require ~1.3x - 1.5x larger scale
+ * Vertical 9:16 mobile screens require ~1.15x - 1.25x scale
  * because viewing distance on phones and narrow width demand punchier typographic mass.
  */
 export const LEGIBILITY_FLOORS_9_16: LegibilityFloorSpec = {
-  microTelemetry: 28,
-  body: 40,
-  subtitle: 52,
-  cardHeader: 64,
-  heroTitle: 112,
-  kineticWord: 168,
+  microTelemetry: 15,
+  body: 18,
+  subtitle: 28,
+  cardHeader: 26,
+  heroTitle: 44,
+  kineticWord: 96,
 };
 
 export type TypographyRole = keyof LegibilityFloorSpec;

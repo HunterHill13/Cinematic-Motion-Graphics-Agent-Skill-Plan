@@ -106,11 +106,11 @@ export const BentoGridSaasMaster: React.FC = () => {
         <div
           style={{
             display: 'grid',
-            gridTemplateColumns: '720px 480px',
-            gridTemplateRows: '340px 240px',
+            gridTemplateColumns: '820px 540px',
+            gridTemplateRows: '390px 270px',
             gap: 24,
-            width: 1224,
-            height: 604,
+            width: 1384,
+            height: 684,
           }}
         >
           {/* CELL 1 (HERO AGENT MONITOR) */}

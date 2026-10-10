@@ -117,8 +117,8 @@ export const QuantumBioDeepZMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act1.x}px, ${stages.act1.y}px, ${stages.act1.z}px) scale(${act1Vis.depthScale})`,
                 opacity: act1Spring * act1Vis.opacity,
-                width: 1280,
-                height: 560,
+                width: 1380,
+                height: 680,
                 borderRadius: 24,
                 background: 'linear-gradient(135deg, rgba(6, 78, 59, 0.85) 0%, rgba(2, 44, 34, 0.95) 100%)',
                 border: '1.5px solid rgba(16, 185, 129, 0.4)',
@@ -201,8 +201,8 @@ export const QuantumBioDeepZMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act2.x}px, ${stages.act2.y}px, ${stages.act2.z}px) scale(${act2Vis.depthScale})`,
                 opacity: act2Spring * act2Vis.opacity,
-                width: 1320,
-                height: 600,
+                width: 1400,
+                height: 690,
                 borderRadius: 24,
                 background: 'rgba(2, 44, 34, 0.85)',
                 border: '1.5px solid rgba(245, 158, 11, 0.4)',
@@ -218,16 +218,16 @@ export const QuantumBioDeepZMaster: React.FC = () => {
               </div>
 
               {/* Lissajous Gold Ribbon */}
-              <svg width={1300} height={560} style={{ position: 'absolute', inset: 0, overflow: 'visible', pointerEvents: 'none' }}>
-                <LissajousOrbit cx={650} cy={280} size={500} color="#f59e0b" glowColor="rgba(245, 158, 11, 0.4)" />
+              <svg width={1380} height={650} style={{ position: 'absolute', inset: 0, overflow: 'visible', pointerEvents: 'none' }}>
+                <LissajousOrbit cx={690} cy={325} size={540} color="#f59e0b" glowColor="rgba(245, 158, 11, 0.4)" />
               </svg>
 
               <UniversalVectorMorphCard
                 stages={bioVectors}
                 startFrame={90}
                 durationInFrames={130}
-                width={1260}
-                height={500}
+                width={1320}
+                height={560}
                 glowColor="#10b981"
                 theme="MODERN_GLASSMORPHIC"
               />
@@ -251,13 +251,13 @@ export const QuantumBioDeepZMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act3.x}px, ${stages.act3.y}px, ${stages.act3.z}px) scale(${act3Vis.depthScale})`,
                 opacity: act3Spring * act3Vis.opacity,
-                width: 1340,
-                height: 640,
+                width: 1380,
+                height: 680,
                 borderRadius: 24,
                 background: 'rgba(6, 78, 59, 0.92)',
                 border: '1.5px solid rgba(52, 211, 153, 0.45)',
                 boxShadow: '0 40px 100px rgba(0, 0, 0, 0.9), 0 0 70px rgba(16, 185, 129, 0.3)',
-                padding: 40,
+                padding: '36px 44px',
                 direction: 'rtl',
               }}
             >
@@ -305,8 +305,8 @@ export const QuantumBioDeepZMaster: React.FC = () => {
                 position: 'absolute',
                 transform: `translate3d(${stages.act4.x}px, ${stages.act4.y}px, ${stages.act4.z}px) scale(${act4Spring * act4Vis.depthScale})`,
                 opacity: act4Spring * act4Vis.opacity,
-                width: 1200,
-                height: 580,
+                width: 1380,
+                height: 680,
                 borderRadius: 24,
                 background: 'linear-gradient(135deg, rgba(6, 78, 59, 0.98) 0%, rgba(2, 44, 34, 0.98) 100%)',
                 border: '2.5px solid #f59e0b',
