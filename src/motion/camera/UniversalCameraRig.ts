@@ -517,8 +517,10 @@ export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign
             width: 1920,
             height: 1080,
             transformStyle: 'preserve-3d',
+            backfaceVisibility: 'hidden',
+            WebkitFontSmoothing: 'antialiased',
             transform: `
-              translate3d(${-camX}px, ${-camY}px, ${camZ}px)
+              translate3d(${Math.round(-camX)}px, ${Math.round(-camY)}px, ${Math.round(camZ)}px)
               rotateX(${camPitch}deg)
               rotateY(${camYaw}deg)
               rotateZ(${camRoll}deg)

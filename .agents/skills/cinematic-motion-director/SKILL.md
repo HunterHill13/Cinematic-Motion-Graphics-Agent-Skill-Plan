@@ -77,14 +77,16 @@ Every visual and motion decision follows this strict priority:
      3. Brand Manifesto (تضاد فلسفی -> ستون‌های ساختاری -> کینتیک انفجاری کلمات -> هدف غایی)
      4. Tactile Narrative (مسئله ساده ملموس -> استعاره شهودی -> حل گام‌به‌گام -> جمع‌بندی الهام‌بخش)
      Every act MUST define: Dramatic Goal, Hero Visual Entity, Discrete Spatial Coordinates, 1-2 Kinetic Emphasis Tokens, and Lottie/Vector Preset.
-   * B. Inviolable Cinematic Wiring Checklist:
-     Every custom composition MUST be built on the certified architecture of `src/motion/templates/UniversalCinematicStoryScene.tsx`:
-     1. `UniversalCameraRig` is MANDATORY (active camera translation across acts; static camera strictly FAILS review).
-     2. Multi-Act Spatial Distribution (acts placed at distinct spatial stations, e.g. x=0, 1400, 2800 or deep-z).
-     3. `KineticEmphasisCallout` is MANDATORY (at least 1-2 emphasis callouts popping with BPM quantization).
-     4. `LottieGraphic` Vector Assets (every act features an active animated vector core).
-     5. Cinematic Act Transitions (`CinematicTransitionSeries` or momentum handoff).
-   * C. Anti-Static Rejection Rule: Any code outputting flat <div> stacks without 3D camera travel is immediately rejected as an UNMOTIVATED SLIDESHOW DEFECT.
+   * B. Inviolable Cinematic Wiring Checklist (Universal Stage Architecture):
+     Every custom composition MUST mount via `UniversalCinematicStage.tsx` or `UniversalCinematicStoryScene.tsx`:
+     1. `UniversalCameraRig` is MANDATORY (active 3D camera travel across acts with integer snapping Math.round(); static camera strictly FAILS review).
+     2. Multi-Act Spatial Distribution (acts placed at distinct spatial stations, e.g. x=0, 1400, 2800 or deep Z).
+     3. `UniversalSoundDirector` is MANDATORY (auto-scheduled Whooshes with 4-frame pre-roll, Impacts on milestone arrivals, Risers before climax, and dynamic BGM ducking).
+     4. `CinematicRhythmContext` & Beat Pulse (all cards, glow rings, and vectors breathe on musical BPM, e.g. 124 or 150 BPM).
+     5. Momentum Handoff Transitions (camera velocity + directional dissolve, NOT raw PowerPoint opacity cuts).
+     6. Zero-Jitter Engineering Rule: Absolute ban on CSS `transition` and `@keyframes`. All translations must use integer-snapped `Math.round()`.
+     7. Templates are Decoupled Aesthetic Skins: The 9 templates provide colors, materials, and borders, but NEVER disable camera, sound, or transitions.
+   * C. Pre-Flight Defect Gate: Any composition failing `tests/test_cinematic_defects_detector.ts` is immediately rejected as an UNMOTIVATED SLIDESHOW DEFECT.
 2. Stage 1: Synthesize motion-validation preview sample via Microsoft Edge-TTS (fa-IR-FaridNeural / DilaraNeural). ZERO Gemini quota consumed.
 3. Render Edge-TTS preview video for user approval of motion, pacing, camera flight, and typography.
 4. Upon explicit user approval ("تأیید"): Transition to Stage 2: Monolithic Gemini TTS synthesis with strict quota fallback (gemini-3.8-flash-tts -> gemini-3.8-flash-lite-tts -> gemini-3.1-flash-tts-preview). Enforce Gate 0.4.2: Mandatory surgical stripping of Gemini tail buffer overrun via `strip_gemini_trailing_artifact` (backward scan for silence valley preceding the trailing 150ms 25,000-peak PCM burst, 40ms cosine fade-out, 120ms zero padding). Guarantee 100% mathematical zero tail amplitude (RMS=0.0) at waveform boundaries. Recalibrate exact video frame boundaries to measured Gemini audio duration.

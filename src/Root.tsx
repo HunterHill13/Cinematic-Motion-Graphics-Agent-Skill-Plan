@@ -47,6 +47,13 @@ import {
   BAQIYATALLAH_AWARDS_HEIGHT,
 } from './motion/compositions/BaqiyatallahResearchAwardsScene';
 import {
+  BaqiyatallahArchitecturalTypoScene,
+  ARCH_TYPO_DURATION,
+  ARCH_TYPO_FPS,
+  ARCH_TYPO_WIDTH,
+  ARCH_TYPO_HEIGHT,
+} from './motion/compositions/BaqiyatallahArchitecturalTypoScene';
+import {
   FinTechTradingMaster,
   FINTECH_DURATION,
   FINTECH_FPS,
@@ -132,6 +139,47 @@ import {
 } from './motion/grammar/VerbTemplateTestCompositions';
 
 import { UniversalCinematicStoryScene } from './motion/templates/UniversalCinematicStoryScene';
+import { UniversalCinematicStage } from './motion/stage/UniversalCinematicStage';
+
+const UniversalCinematicStageDemo: React.FC = () => {
+  return (
+    <UniversalCinematicStage
+      acts={[
+        {
+          actId: 'act1_hook',
+          badgeFa: 'چالش داده‌ها',
+          titleFa: 'انفجار اطلاعات و پیچیدگی سیستم‌ها',
+          descriptionFa: 'جریان داده‌های لحظه‌ای نیازمند هماهنگی شناختی چندعاملی است.',
+          heroSymbol: '⚡',
+          lottiePreset: 'tech_ai_core',
+          emphasisTokens: ['انفجار اطلاعات'],
+        },
+        {
+          actId: 'act2_engine',
+          badgeFa: 'موتور نوآوری',
+          titleFa: 'شبکه توزیع‌شده با پاسخ میلی‌ثانیه‌ای',
+          descriptionFa: 'موتور پردازش بدون وقفه با تفکیک وظایف و ترنزیشن‌های سینمایی.',
+          heroSymbol: '🧬',
+          lottiePreset: 'bio_helix_pulse',
+          emphasisTokens: ['شبکه توزیع‌شده'],
+        },
+        {
+          actId: 'act3_vision',
+          badgeFa: 'اکوسیستم آینده',
+          titleFa: 'آینده موشن گرافیک هوشمند',
+          descriptionFa: 'ترکیب بی‌نقص فیزیک اسپرینگ، ضرب‌آهنگ موسیقی و گرافیک برداری.',
+          heroSymbol: '🌐',
+          lottiePreset: 'abstract_portal',
+          emphasisTokens: ['آینده هوشمند'],
+        },
+      ]}
+      themeId="DARK_GRAPHITE_TECH"
+      cameraMode="PANORAMIC_HORIZONTAL"
+      bgmTrack="music/Tech_Live.mp3"
+      bpm={124}
+    />
+  );
+};
 
 export const Root: React.FC = () => {
   return (
@@ -319,6 +367,14 @@ export const Root: React.FC = () => {
       <Composition id="VerbTest-AntiBypass-FakeSplit" component={VerbTest_AntiBypass_FakeSplit} durationInFrames={100} fps={30} width={1920} height={1080} />
       <Composition id="VerbTest-DecorativeCamouflage" component={VerbTest_DecorativeCamouflage} durationInFrames={100} fps={30} width={1920} height={1080} />
       <Composition id="UniversalCinematicStoryScene" component={UniversalCinematicStoryScene} durationInFrames={600} fps={30} width={1920} height={1080} />
+      <Composition
+        id="UniversalCinematicStage"
+        component={UniversalCinematicStageDemo}
+        durationInFrames={600}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
 
       {/* ----------------------------------------------------------------- */}
       {/* 13. BAQIYATALLAH RESEARCH AWARDS (STUDENT RESEARCHER MASTER)       */}
@@ -330,6 +386,18 @@ export const Root: React.FC = () => {
         fps={BAQIYATALLAH_AWARDS_FPS}
         width={BAQIYATALLAH_AWARDS_WIDTH}
         height={BAQIYATALLAH_AWARDS_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 14. BAQIYATALLAH ARCHITECTURAL TYPO (KINETIC MANIFESTO MASTER)    */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahArchitecturalTypo"
+        component={BaqiyatallahArchitecturalTypoScene}
+        durationInFrames={ARCH_TYPO_DURATION}
+        fps={ARCH_TYPO_FPS}
+        width={ARCH_TYPO_WIDTH}
+        height={ARCH_TYPO_HEIGHT}
       />
     </>
   );

@@ -12,6 +12,8 @@ import {
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
+import { UniversalSoundDirector } from '../audio/UniversalSoundDirector';
+import { UniversalCameraRig } from '../camera/UniversalCameraRig';
 import { StudioMeshGlassBackdrop } from '../library/StudioMeshGlassBackdrop';
 
 export const BAQIYATALLAH_AWARDS_DURATION = 2387; // ~79.5s @ 30 FPS
@@ -24,13 +26,13 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
   const { fps } = useVideoConfig();
 
   // 124 BPM rhythm grid
-  const beatPulse = calculateBeatPulse(frame, 124, fps);
+  const beatPulse = calculateBeatPulse(frame, 124, fps).lightPulse;
 
   // Dynamic Camera & Spatial Navigation across Acts
   const camX = interpolate(
     frame,
-    [0, 180, 240, 400, 480, 650, 720, 1000, 1060, 1250, 1320, 1650, 1720, 1900, 1980, 2280, 2340],
-    [0, 0, 120, 120, 0, 0, -80, -80, 80, 80, 0, 0, 0, 0, 0, 0, 0],
+    [0, 180, 400, 650, 770, 1000, 1250, 1650, 1900, 2030, 2110, 2190, 2280, 2387],
+    [0, 320, -420, 500, -350, 450, -400, 600, -500, 400, -350, 450, 0, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.2, 0, 0.2, 1) }
   );
 
@@ -60,6 +62,7 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
   const introSpring = spring({ frame: Math.max(0, frame - 5), fps, config: { damping: 14, stiffness: 100 } });
   const hookSpring = spring({ frame: Math.max(0, frame - 185), fps, config: { damping: 14, stiffness: 100 } });
   const bentoGridSpring = spring({ frame: Math.max(0, frame - 405), fps, config: { damping: 14, stiffness: 100 } });
+  const breathingPulse = 1.0 + beatPulse * 0.015;
   const cond1Gauge = interpolate(frame, [720, 880], [0, 16], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
   const cond2Spring = spring({ frame: Math.max(0, frame - 1010), fps, config: { damping: 14, stiffness: 100 } });
   const cond3Spring = spring({ frame: Math.max(0, frame - 1260), fps, config: { damping: 14, stiffness: 100 } });
@@ -84,9 +87,29 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
         direction: 'rtl',
       }}
     >
-      {/* 1. MASTER AUDIO TRACKS */}
-      <Audio src={staticFile('audio/baqiyatallah_awards_master_voice.wav')} volume={1.0} />
-      <Audio src={staticFile('music/Tech_Live.mp3')} volume={bgmVolume} loop />
+      {/* 1. MASTER AUDIO & UNIVERSAL SOUND DIRECTOR */}
+      <UniversalSoundDirector
+        voiceTrack="audio/baqiyatallah_awards_master_voice.wav"
+        voiceVolume={1.0}
+        bgmTrack="music/Tech_Live.mp3"
+        bgmVolume={bgmVolume}
+        sfxCues={[
+          { frame: 176, type: 'whoosh' },
+          { frame: 190, type: 'impact' },
+          { frame: 396, type: 'whoosh' },
+          { frame: 410, type: 'impact' },
+          { frame: 646, type: 'whoosh' },
+          { frame: 766, type: 'whoosh' },
+          { frame: 996, type: 'whoosh' },
+          { frame: 1246, type: 'whoosh' },
+          { frame: 1646, type: 'whoosh' },
+          { frame: 1896, type: 'whoosh' },
+          { frame: 2026, type: 'whoosh' },
+          { frame: 2106, type: 'whoosh' },
+          { frame: 2186, type: 'whoosh' },
+          { frame: 2276, type: 'riser' },
+        ]}
+      />
 
       {/* 2. LIVING STUDIO MESH GLASS BACKDROP */}
       <StudioMeshGlassBackdrop
@@ -156,9 +179,8 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transform: `scale(${camScale}) translate3d(${camX}px, ${camY}px, 0px)`,
-          transition: 'transform 0.4s ease-out',
-          zIndex: 10,
+          transform: `scale(${camScale}) translate3d(${Math.round(camX)}px, ${Math.round(camY)}px, 0px)`, backfaceVisibility: 'hidden', WebkitFontSmoothing: 'antialiased',
+                    zIndex: 10,
         }}
       >
         {/* ============================================================== */}
@@ -889,8 +911,7 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
                   alignItems: 'center',
                   textAlign: 'center',
                   transform: frame >= 2030 && frame < 2110 ? 'scale(1.05)' : 'scale(1)',
-                  transition: 'all 0.3s ease',
-                }}
+                                  }}
               >
                 <span style={{ fontSize: 20, fontWeight: 800, color: '#38bdf8', marginBottom: 12 }}>
                   {sanitizeForDisplay('مقطع کارشناسی')}
@@ -928,8 +949,7 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
                   alignItems: 'center',
                   textAlign: 'center',
                   transform: frame >= 2110 && frame < 2190 ? 'scale(1.05)' : 'scale(1)',
-                  transition: 'all 0.3s ease',
-                }}
+                                  }}
               >
                 <span style={{ fontSize: 20, fontWeight: 800, color: '#0ea5e9', marginBottom: 12 }}>
                   {sanitizeForDisplay('پزشکی عمومی')}
@@ -967,8 +987,7 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
                   alignItems: 'center',
                   textAlign: 'center',
                   transform: frame >= 2190 ? 'scale(1.05)' : 'scale(1)',
-                  transition: 'all 0.3s ease',
-                }}
+                                  }}
               >
                 <span style={{ fontSize: 20, fontWeight: 800, color: '#fbbf24', marginBottom: 12 }}>
                   {sanitizeForDisplay('دکترای تخصصی (Ph.D)')}
@@ -1010,12 +1029,12 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
               {/* Right: Baqiyatallah Medical University Logo */}
               <div
                 style={{
-                  width: 220,
-                  height: 220,
+                  width: 240,
+                  height: 240,
                   borderRadius: 36,
-                  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.5) 100%)',
-                  border: '2px solid rgba(56, 189, 248, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(6, 182, 212, 0.25)',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)',
+                  border: '2.5px solid rgba(56, 189, 248, 0.8)',
+                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(6, 182, 212, 0.35)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -1031,12 +1050,12 @@ export const BaqiyatallahResearchAwardsScene: React.FC = () => {
               {/* Left: Research Committee Logo */}
               <div
                 style={{
-                  width: 220,
-                  height: 220,
+                  width: 240,
+                  height: 240,
                   borderRadius: 36,
-                  background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(16, 185, 129, 0.3) 100%)',
-                  border: '2px solid rgba(16, 185, 129, 0.5)',
-                  boxShadow: '0 20px 50px rgba(0, 0, 0, 0.7), 0 0 40px rgba(16, 185, 129, 0.25)',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #f0fdf4 100%)',
+                  border: '2.5px solid rgba(16, 185, 129, 0.8)',
+                  boxShadow: '0 25px 60px rgba(0, 0, 0, 0.7), 0 0 50px rgba(16, 185, 129, 0.35)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
