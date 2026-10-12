@@ -529,13 +529,29 @@ export class UniversalCameraRigEngine {
         };
       }
       if (frame >= tStart && frame <= tEnd) {
-        // Kinetic Agency Law: If transition is element-driven, camera holds stationary during element exit!
+        // Kinetic Agency Law: If transition is element-driven or shares identical coordinates, camera holds stationary!
+        const isSameSpot =
+          curr.x === next.x && curr.y === next.y && curr.z === next.z;
         const isElementDriven =
           curr.transitionType === 'ELEMENT_KINETIC_DISPERSE' ||
-          curr.transitionType === 'TOPOLOGICAL_ANCHOR_MORPH';
+          curr.transitionType === 'TOPOLOGICAL_ANCHOR_MORPH' ||
+          curr.transitionType === 'KINETIC_LIGHT_SWEEP';
+
+        if (isSameSpot) {
+          return {
+            camX: curr.x,
+            camY: curr.y,
+            camZ: curr.z,
+            camPitch: 0,
+            camYaw: 0,
+            camRoll: 0,
+            camZoom: 1,
+            motionBlur: 0,
+          };
+        }
 
         if (isElementDriven) {
-          // Camera holds rock-solid on current position until element handoff completes
+          // Legacy fallback if waypoints have different coordinates: hold until curr.endFrame - 4
           const handoffProgress = interpolate(frame, [curr.endFrame - 4, tEnd], [0, 1], {
             extrapolateLeft: 'clamp',
             extrapolateRight: 'clamp',
@@ -550,23 +566,23 @@ export class UniversalCameraRigEngine {
         const progress = interpolate(frame, [tStart, tEnd], [0, 1], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
-          easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+          easing: Easing.bezier(0.42, 0.0, 0.22, 1.0),
         });
         const camX = curr.x + (next.x - curr.x) * progress;
         const camY = curr.y + (next.y - curr.y) * progress;
         const camZ = curr.z + (next.z - curr.z) * progress;
 
         const tMid = (tStart + tEnd) / 2;
-        const dirSign = i % 2 === 0 ? 1 : -1;
-        const camRoll = interpolate(frame, [tStart, tMid, tEnd], [0, -2.2 * dirSign, 0], {
+        const dirSign = next.x >= curr.x ? 1 : -1;
+        const camRoll = interpolate(frame, [tStart, tMid, tEnd], [0, -2.6 * dirSign, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
         });
-        const camPitch = interpolate(frame, [tStart, tMid, tEnd], [0, 1.4 * dirSign, 0], {
+        const camPitch = interpolate(frame, [tStart, tMid, tEnd], [0, 1.5 * dirSign, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
         });
-        const camYaw = interpolate(frame, [tStart, tMid, tEnd], [0, -1.8 * dirSign, 0], {
+        const camYaw = interpolate(frame, [tStart, tMid, tEnd], [0, -2.0 * dirSign, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
         });
@@ -598,14 +614,15 @@ export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign
     const frame = useCurrentFrame();
     const { durationInFrames } = useVideoConfig();
     const trajectoryDef = UniversalCameraRigEngine.getTrajectory(mode);
-    const cam =
-      customWaypoints && customWaypoints.length > 0
-        ? UniversalCameraRigEngine.computeFromWaypoints(frame, customWaypoints)
-        : trajectoryDef.computeCamera(frame, durationInFrames);
+    const hasWaypoints = Boolean(customWaypoints && customWaypoints.length > 0);
+    const cam = hasWaypoints
+      ? UniversalCameraRigEngine.computeFromWaypoints(frame, customWaypoints!)
+      : trajectoryDef.computeCamera(frame, durationInFrames);
 
-    const finalCamX = cam.camX + (cameraOffset?.x ?? 0);
-    const finalCamY = cam.camY + (cameraOffset?.y ?? 0);
-    const finalCamZ = cam.camZ + (cameraOffset?.z ?? 0);
+    // When customWaypoints drives 3D spatial travel, avoid double-applying X/Y/Z flight offsets
+    const finalCamX = cam.camX + (hasWaypoints ? 0 : (cameraOffset?.x ?? 0));
+    const finalCamY = cam.camY + (hasWaypoints ? 0 : (cameraOffset?.y ?? 0));
+    const finalCamZ = cam.camZ + (hasWaypoints ? 0 : (cameraOffset?.z ?? 0));
     const finalCamPitch = cam.camPitch + (cameraOffset?.pitch ?? 0);
     const finalCamYaw = cam.camYaw + (cameraOffset?.yaw ?? 0);
     const finalCamRoll = cam.camRoll + (cameraOffset?.roll ?? 0);

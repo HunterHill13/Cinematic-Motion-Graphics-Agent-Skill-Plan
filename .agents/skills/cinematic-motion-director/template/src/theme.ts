@@ -4,6 +4,8 @@
  * No component should invent its own isolated palette.
  */
 
+import { LEGIBILITY_FLOORS_16_9, LegibilityFloorSpec } from './typography/responsiveTypography';
+
 export interface ThemePalette {
   base: string;
   surface: string;
@@ -96,15 +98,8 @@ export const theme = {
     hudSize: 26,
     trackingTight: '-0.03em',
     trackingWide: '0.08em',
-    // Hard legibility absolute floors
-    floors: {
-      microTelemetry: 13,
-      body: 16,
-      subtitle: 24,
-      cardHeader: 22,
-      heroTitle: 36,
-      kineticWord: 84,
-    },
+    // Hard legibility absolute floors (Single Source of Truth)
+    floors: LEGIBILITY_FLOORS_16_9,
   },
 
   spring: {

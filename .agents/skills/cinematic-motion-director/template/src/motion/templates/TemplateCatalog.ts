@@ -106,7 +106,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     id: 'STOP_MOTION_PAPER',
     titleFa: 'استاپ‌موشن کلاژ و برش دستی کاغذ (Stop-Motion Paper)',
     titleEn: 'Tactile Stop-Motion Paper Craft & Collage',
-    descriptionFa: 'حس نوستالژیک و ارگانیک کاردستی: بافت فیبر مقوا و کاغذ کرافت، انیمیشن پلکانی ۱۲ فریم بر ثانیه ("on twos")، نوارهای چسب نیمه‌شفاف و مهرهای فیزیکی استامپ‌شده.',
+    descriptionFa: 'حس نوستالژیک و ارگانیک کاردستی: بافت فیبر مقوا و کاغذ کرافت، انیمیشن روان با فیزیک ارتجاعی ۳۰ فریم بر ثانیه، نوارهای چسب نیمه‌شفاف و مهرهای فیزیکی استامپ‌شده.',
     bestForDomains: ['محتوای آموزشی صمیمی', 'استوری‌تلینگ برندهای خلاق', 'پادکست‌ها و معرفی کتاب', 'توضیحات مفاهیم پیچیده به زبان ساده'],
     recommendedCamera: 'PANORAMIC_HORIZONTAL',
     defaultBgm: 'music/Cipher2.mp3',
@@ -160,7 +160,7 @@ export function recommendTemplateForTopic(topic: string): {
   if (lower.includes('کاغذ') || lower.includes('کلاژ') || lower.includes('آموزش') || lower.includes('ساده') || lower.includes('کاردستی') || lower.includes('کودک')) {
     return {
       template: TEMPLATE_CATALOG.STOP_MOTION_PAPER,
-      reasonFa: 'موضوع ماهیت آموزشی، داستانی یا صمیمی دارد؛ تمپلیت استاپ‌موشن کاغذی با بافت کرافت و فریم‌ریت ۱۲ بیشترین گرما و پذیرش مخاطب را ایجاد می‌کند.',
+      reasonFa: 'موضوع ماهیت آموزشی، داستانی یا صمیمی دارد؛ تمپلیت استاپ‌موشن کاغذی با بافت کرافت و فیزیک روان ۳۰ فریم بر ثانیه بیشترین گرما و پذیرش مخاطب را ایجاد می‌کند.',
     };
   }
 

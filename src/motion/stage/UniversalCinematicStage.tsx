@@ -14,10 +14,6 @@ import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { clampFontSize } from '../../typography/responsiveTypography';
-import {
-  KineticEmphasisCallout,
-  EmphasisToken,
-} from '../../typography/KineticEmphasisCallout';
 import { LottieGraphic, LottiePreset } from '../assets/LottieGraphic';
 import {
   CinematicRhythmContext,
@@ -30,11 +26,13 @@ import { TEMPLATE_CATALOG, TemplateId } from '../templates/TemplateCatalog';
 import { StudioMeshGlassBackdrop } from '../library/StudioMeshGlassBackdrop';
 import {
   ActHandoffTransition,
-  TransitionArchetype,
+  ActLayoutVariant,
+  TextRevealMode,
 } from '../transitions/DynamicTransitionSchema';
 import {
   DynamicTransitionDirector,
-  TransitionState,
+  computeChainedActPositions,
+  computeChildTransitionStyle,
 } from '../transitions/DynamicTransitionDirector';
 
 export interface ConstellationNodeItem {
@@ -58,6 +56,8 @@ export interface StageAct {
   startFrame?: number;
   endFrame?: number;
   transitionOut?: ActHandoffTransition;
+  layoutVariant?: ActLayoutVariant;
+  textRevealMode?: TextRevealMode;
   customVisual?: React.ReactNode;
   customBottomRow?: React.ReactNode;
 }
@@ -79,13 +79,38 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
   voiceTrack,
   bpm = 124,
 }) => {
-  const frame = useCurrentFrame();
+  const rawFrame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
 
-  // 1. Resolve Theme Art Style (Pure Aesthetic Skin)
+  // Tactile Stop-Motion Posterization (15fps stepped feel when STOP_MOTION_PAPER is active)
+  const isStopMotion = themeId === 'STOP_MOTION_PAPER';
+  const isBlueprint = themeId === 'TECHNICAL_BLUEPRINT';
+  const isBrutalist = themeId === 'NEO_BRUTALIST';
+  const isFinTech = themeId === 'FINTECH_TRADING';
+  const isQuantumBio = themeId === 'QUANTUM_BIO_DEEP_Z';
+  const isArchTypo = themeId === 'KINETIC_ARCHITECTURAL_TYPO';
+
+  const frame = isStopMotion ? Math.floor(rawFrame / 2) * 2 : rawFrame;
+
+  // 1. Resolve Theme Art Style (Pure Aesthetic Skin + Bespoke Surface Vocabulary)
   const theme = TEMPLATE_CATALOG[themeId] || TEMPLATE_CATALOG['DARK_GRAPHITE_TECH'];
   const primaryAccent = theme.accentColors?.[0] || '#06b6d4';
   const secondaryAccent = theme.accentColors?.[1] || '#3b82f6';
+
+  const stageBgColor = isStopMotion
+    ? '#2B2623'
+    : isBlueprint
+    ? '#0A192F'
+    : isBrutalist
+    ? '#FACC15'
+    : '#070a14';
+
+  const primaryTextColor = isBrutalist ? '#09090B' : '#FFFFFF';
+  const secondaryTextColor = isBrutalist
+    ? '#18181B'
+    : isStopMotion
+    ? '#F5F2EB'
+    : '#E2E8F0';
 
   // 2. Continuous Beat-Pulse Engine
   const pulseResult = calculateBeatPulse(frame, bpm, fps);
@@ -104,81 +129,69 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
     themeId,
   };
 
-  // 3. Multi-Act Timing & 3D Coordinate Layout on Open Canvas
+  // 3. Multi-Modal Transition Palette (Heterogeneous 5-Archetype Studio Sequence)
   const defaultActDuration = durationInFrames / Math.max(1, acts.length);
-  const actSpacing = cameraMode === 'DEEP_Z_TUNNEL' ? 1200 : 1500;
 
-  // Multi-Modal Transition Palette (Studio Alternating Guarantee)
   const DEFAULT_TRANSITIONS: ActHandoffTransition[] = useMemo(
     () => [
       {
         archetype: 'CAMERA_SPATIAL_FLIGHT',
-        durationInFrames: 18,
-        semanticMetaphorFa: 'پرواز افقی دوربین به سوی افق بعدی',
-        cameraFlight: { trajectory: 'WHIP_PAN_RIGHT', bankingRollDegrees: 3.2, peakBlurPixels: 14 },
+        durationInFrames: 22,
+        semanticMetaphorFa: 'پرواز افقی دوربین به سوی صحنه بعدی با دید همزمان دو صحنه',
+        cameraFlight: { trajectory: 'WHIP_PAN_RIGHT', bankingRollDegrees: 3.2, peakBlurPixels: 8 },
       },
       {
         archetype: 'ELEMENT_KINETIC_DISPERSE',
         durationInFrames: 20,
-        semanticMetaphorFa: 'خروج شلاقی المان‌ها به چپ و ورود پاپ المان‌های جدید در سکون دوربین',
+        semanticMetaphorFa: 'خروج شلاقی تک‌تک المان‌ها به چپ و پاپ فنری المان‌های جدید در سکون کامل دوربین',
         elementDisperse: { direction: 'LEFT' },
       },
       {
         archetype: 'DEEP_Z_ZOOM_THROUGH',
         durationInFrames: 22,
-        semanticMetaphorFa: 'زوم نفوذی در عمق و عبور از دیافراگم توکن به درون صحنه بعدی',
-        deepZZoom: { penetrationDepthZ: 2200 },
+        semanticMetaphorFa: 'زوم نفوذی در عمق محور Z و عبور از دیافراگم صحنه به درون فضای بعدی',
+        deepZZoom: { penetrationDepthZ: 1600 },
       },
       {
         archetype: 'TOPOLOGICAL_ANCHOR_MORPH',
         durationInFrames: 20,
-        semanticMetaphorFa: 'تحویل و مورف لنگرگاه مفهومی به هسته صحنه بعد',
+        semanticMetaphorFa: 'چرخش سه‌بعدی و مورف هسته بصری در سکون دوربین',
       },
       {
         archetype: 'KINETIC_LIGHT_SWEEP',
-        durationInFrames: 16,
-        semanticMetaphorFa: 'برش فضایی با تیغه نوری و لرزش ضربه‌ای',
+        durationInFrames: 18,
+        semanticMetaphorFa: 'برش نوری لیزری روی بوم باز همراه با ضربه انرژی',
         kineticSlice: { hasRecoilShake: true },
       },
     ],
     []
   );
 
+  // 4. Transition-Chained 3D Spatial Coordinates (`computeChainedActPositions`)
   const resolvedActs = useMemo(() => {
+    const chainedCoords = computeChainedActPositions(acts, DEFAULT_TRANSITIONS);
     return acts.map((act, index) => {
       const startFrame = act.startFrame ?? Math.floor(index * defaultActDuration);
       const endFrame = act.endFrame ?? Math.floor((index + 1) * defaultActDuration);
-      const defaultX =
-        cameraMode === 'DEEP_Z_TUNNEL' || cameraMode === 'VERTICAL_ELEVATOR'
-          ? 0
-          : index * actSpacing;
-      const defaultY =
-        cameraMode === 'VERTICAL_ELEVATOR'
-          ? index * 1100
-          : cameraMode === 'DIAGONAL_CASCADE'
-          ? index * 680
-          : 0;
-      const defaultZ = cameraMode === 'DEEP_Z_TUNNEL' ? -index * actSpacing : 0;
-
-      const posX = Math.round(act.position?.x ?? defaultX);
-      const posY = Math.round(act.position?.y ?? defaultY);
-      const posZ = Math.round(act.position?.z ?? defaultZ);
-
-      // Multi-Modal Transition Guarantee: never repeat identical transition
-      const transitionOut =
-        act.transitionOut ?? DEFAULT_TRANSITIONS[index % DEFAULT_TRANSITIONS.length];
+      const coord = chainedCoords[index];
 
       return {
         ...act,
         startFrame,
         endFrame,
-        posX,
-        posY,
-        posZ,
-        transitionOut,
+        posX: coord.posX,
+        posY: coord.posY,
+        posZ: coord.posZ,
+        prevPosX: coord.prevPosX,
+        prevPosY: coord.prevPosY,
+        prevPosZ: coord.prevPosZ,
+        transitionIn: coord.transitionIn,
+        transitionOut: coord.transitionOut,
+        layoutVariant: coord.layoutVariant,
+        textRevealMode: coord.textRevealMode,
       };
     });
-  }, [acts, defaultActDuration, cameraMode, actSpacing, DEFAULT_TRANSITIONS]);
+  }, [acts, defaultActDuration, DEFAULT_TRANSITIONS]);
 
   const cameraWaypoints = useMemo(() => {
     return resolvedActs.map((a) => ({
@@ -191,35 +204,13 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
     }));
   }, [resolvedActs]);
 
-  // Compute Active Dynamic Transition State
+  // Note: UniversalCameraRig always follows cameraFrame smoothly even in stop-motion
   const transitionState = useMemo(() => {
-    return DynamicTransitionDirector.computeTransitionState(frame, fps, resolvedActs);
-  }, [frame, fps, resolvedActs]);
+    return DynamicTransitionDirector.computeTransitionState(rawFrame, fps, resolvedActs);
+  }, [rawFrame, fps, resolvedActs]);
 
-  // 4. Kinetic Emphasis Tokens Extraction
-  const allEmphasisTokens = useMemo<EmphasisToken[]>(() => {
-    const list: EmphasisToken[] = [];
-    resolvedActs.forEach((act) => {
-      const actStart = act.startFrame;
-      const actLen = Math.max(60, act.endFrame - act.startFrame);
-      if (act.emphasisTokens && act.emphasisTokens.length > 0) {
-        act.emphasisTokens.forEach((text, tokenIdx) => {
-          list.push({
-            text,
-            type: 'keyword',
-            startFrame: actStart + 18 + tokenIdx * 42,
-            durationInFrames: Math.min(95, Math.floor(actLen * 0.42)),
-            position: tokenIdx % 2 === 0 ? 'bottom_center' : 'top_right',
-            customColor: tokenIdx % 2 === 0 ? primaryAccent : secondaryAccent,
-          });
-        });
-      }
-    });
-    return list;
-  }, [resolvedActs, primaryAccent, secondaryAccent]);
-
-  const heroFontSize = clampFontSize(54, 'heroTitle', width, height);
-  const bodyFontSize = clampFontSize(26, 'body', width, height);
+  const heroFontSize = clampFontSize(52, 'heroTitle', width, height);
+  const bodyFontSize = clampFontSize(25, 'body', width, height);
 
   return (
     <CinematicRhythmContext.Provider value={rhythmState}>
@@ -227,8 +218,8 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
         style={{
           width: '100%',
           height: '100%',
-          backgroundColor: '#070a14',
-          color: '#ffffff',
+          backgroundColor: stageBgColor,
+          color: primaryTextColor,
           fontFamily: YEKAN_BAKH_FONT,
           overflow: 'hidden',
           position: 'relative',
@@ -250,15 +241,64 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
         />
 
         {/* ============================================================== */}
-        {/* 2. THEME-SPECIFIC VOLUMETRIC BACKDROP (ZERO CORNER HUD CLUTTER)*/}
+        {/* 2. AUTHENTIC THEME-SPECIFIC VOLUMETRIC & TEXTURAL BACKDROP     */}
         {/* ============================================================== */}
-        <StudioMeshGlassBackdrop
-          primaryLightColor={primaryAccent}
-          accentGlowColor={secondaryAccent}
-        />
+        {!isBrutalist && !isStopMotion && (
+          <StudioMeshGlassBackdrop
+            primaryLightColor={primaryAccent}
+            accentGlowColor={secondaryAccent}
+          />
+        )}
+
+        {/* CAD Blueprint Engineering Grid Overlay */}
+        {isBlueprint && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `
+                linear-gradient(to right, rgba(56, 189, 248, 0.14) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(56, 189, 248, 0.14) 1px, transparent 1px)
+              `,
+              backgroundSize: '60px 60px',
+              pointerEvents: 'none',
+            }}
+          />
+        )}
+
+        {/* Tactile Stop-Motion Craft Mat Grid */}
+        {isStopMotion && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: `
+                radial-gradient(circle at 50% 50%, rgba(244, 162, 97, 0.12) 0%, rgba(15, 12, 10, 0.65) 100%),
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)
+              `,
+              backgroundSize: '100% 100%, 48px 48px, 48px 48px',
+              pointerEvents: 'none',
+            }}
+          />
+        )}
+
+        {/* Neo-Brutalist High-Contrast Halftone Dot Matrix */}
+        {isBrutalist && (
+          <div
+            style={{
+              position: 'absolute',
+              inset: 0,
+              backgroundImage: 'radial-gradient(#09090B 2px, transparent 2px)',
+              backgroundSize: '36px 36px',
+              opacity: 0.22,
+              pointerEvents: 'none',
+            }}
+          />
+        )}
 
         {/* ============================================================== */}
-        {/* 3. OPEN-CANVAS 3D WORLD & SPATIAL CONSTELLATION CHOREOGRAPHY   */}
+        {/* 3. OPEN-CANVAS 3D WORLD & MULTI-ARCHETYPE CHOREOGRAPHY         */}
         {/* ============================================================== */}
         <PersistentWorld contracts={[]} style={{ width: '100%', height: '100%' }}>
           <UniversalCameraRig
@@ -269,87 +309,116 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
             {resolvedActs.map((act, actIndex) => {
               const actStart = act.startFrame;
               const actEnd = act.endFrame;
-              const isCurrentOrAdjacent = frame >= actStart - 35 && frame <= actEnd + 35;
-              if (!isCurrentOrAdjacent) return null;
 
-              const { posX, posY, posZ } = act;
+              // Extended visibility window so during CAMERA_SPATIAL_FLIGHT both outgoing and
+              // incoming acts are simultaneously rendered and visible in the camera viewport!
+              const isVisibleInViewport = rawFrame >= actStart - 32 && rawFrame <= actEnd + 32;
+              if (!isVisibleInViewport) return null;
+
+              const {
+                posX,
+                posY,
+                posZ,
+                prevPosX,
+                prevPosY,
+                transitionIn,
+                transitionOut,
+                layoutVariant,
+                textRevealMode,
+              } = act;
               const localFrame = Math.max(0, frame - actStart);
 
-              // Kinetic Agency Law: Evaluate per-act exit/enter dynamics
-              const isExitingAct =
-                transitionState.isTransitioning && transitionState.fromActId === act.actId;
-              const isEnteringAct =
-                transitionState.isTransitioning && transitionState.toActId === act.actId;
-
-              const exitDisplacementX = isExitingAct ? transitionState.elementExit.offsetX : 0;
-              const exitDisplacementY = isExitingAct ? transitionState.elementExit.offsetY : 0;
-              const exitDisplacementZ = isExitingAct ? transitionState.elementExit.offsetZ : 0;
-              const exitRotateZ = isExitingAct ? transitionState.elementExit.rotateZ : 0;
-              const exitScale = isExitingAct ? transitionState.elementExit.scale : 1.0;
-              const exitOpacityMultiplier = isExitingAct ? transitionState.elementExit.opacity : 1.0;
-
-              const enterBoostScale =
-                isEnteringAct &&
-                transitionState.activeTransition?.archetype === 'ELEMENT_KINETIC_DISPERSE'
-                  ? interpolate(transitionState.progress, [0.4, 1], [0.85, 1.0], {
-                      extrapolateLeft: 'clamp',
-                      extrapolateRight: 'clamp',
-                    })
-                  : 1.0;
-
-              const combinedScale = exitScale * enterBoostScale;
-
-              // Independent staggered springs for each atomic open-canvas child!
-              const visualSpring = spring({
-                frame: localFrame,
+              // Compute per-child staggered kinetic transition transforms!
+              // child 0: Hero Sculpture / Portal Anchor
+              // child 1: Eyebrow Badge + Kinetic Headline
+              // child 2: Description + Hero Metric Counter
+              // child 3+: Individual Constellation Sub-Nodes
+              const heroChildTrans = computeChildTransitionStyle(
+                0,
+                rawFrame,
+                actStart,
+                actEnd,
                 fps,
-                config: { damping: 13, stiffness: 120, mass: 1.0 },
-              });
-              const badgeSpring = spring({
-                frame: Math.max(0, localFrame - 6),
+                transitionIn,
+                transitionOut
+              );
+              const titleChildTrans = computeChildTransitionStyle(
+                1,
+                rawFrame,
+                actStart,
+                actEnd,
                 fps,
-                config: { damping: 15, stiffness: 140, mass: 0.7 },
-              });
-              const descSpring = spring({
-                frame: Math.max(0, localFrame - 18),
+                transitionIn,
+                transitionOut
+              );
+              const descChildTrans = computeChildTransitionStyle(
+                2,
+                rawFrame,
+                actStart,
+                actEnd,
                 fps,
-                config: { damping: 16, stiffness: 115, mass: 0.85 },
-              });
-              const metricSpring = spring({
-                frame: Math.max(0, localFrame - 26),
-                fps,
-                config: { damping: 12, stiffness: 130, mass: 0.9 },
-              });
-              const bottomRowSpring = spring({
-                frame: Math.max(0, localFrame - 32),
-                fps,
-                config: { damping: 14, stiffness: 110, mass: 0.95 },
-              });
-
-              // Continuous life-cycle micro-motion (Middle 60% never static)
-              const floatY = Math.round(Math.sin((frame + actIndex * 25) * 0.065) * 10);
-              const counterFloatY = Math.round(Math.cos((frame + actIndex * 19) * 0.055) * 7);
-              const breathingScale = 1.0 + beatPulse * 0.014;
-
-              // SVG Constellation Conduit drawing progress
-              const conduitDraw = interpolate(
-                localFrame,
-                [4, 38],
-                [600, 0],
-                { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+                transitionIn,
+                transitionOut
               );
 
-              // Smooth open-canvas exit dispersion
-              const actOpacity = interpolate(
-                frame,
-                [actStart - 14, actStart + 10, actEnd - 12, actEnd + 14],
+              // Act-level visibility envelope:
+              // - For CAMERA_SPATIAL_FLIGHT, keep opacity 1.0 across the entire camera flight
+              //   window so BOTH scenes are seen simultaneously as the camera moves!
+              const fadeInStart =
+                transitionIn?.archetype === 'CAMERA_SPATIAL_FLIGHT' ? actStart - 26 : actStart - 8;
+              const fadeInEnd =
+                transitionIn?.archetype === 'CAMERA_SPATIAL_FLIGHT' ? actStart - 14 : actStart + 4;
+              const fadeOutStart =
+                transitionOut?.archetype === 'CAMERA_SPATIAL_FLIGHT' ? actEnd + 14 : actEnd - 4;
+              const fadeOutEnd =
+                transitionOut?.archetype === 'CAMERA_SPATIAL_FLIGHT' ? actEnd + 26 : actEnd + 10;
+
+              const actEnvelopeOpacity = interpolate(
+                rawFrame,
+                [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd],
                 [0, 1, 1, 0],
                 { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
               );
 
-              const finalOpacity = actOpacity * exitOpacityMultiplier;
+              // Independent staggered entrance springs for internal elements
+              const visualSpring = spring({
+                frame: localFrame,
+                fps,
+                config: { damping: 12, stiffness: 125, mass: 0.95 },
+              });
+              const badgeSpring = spring({
+                frame: Math.max(0, localFrame - 5),
+                fps,
+                config: { damping: 14, stiffness: 145, mass: 0.7 },
+              });
+              const descSpring = spring({
+                frame: Math.max(0, localFrame - 16),
+                fps,
+                config: { damping: 15, stiffness: 118, mass: 0.85 },
+              });
+              const metricSpring = spring({
+                frame: Math.max(0, localFrame - 22),
+                fps,
+                config: { damping: 11, stiffness: 135, mass: 0.9 },
+              });
 
-              // Deconstruct headline into staggered kinetic segments
+              // Continuous life-cycle micro-motion (Middle 60% never static)
+              const floatY = Math.round(Math.sin((frame + actIndex * 23) * 0.065) * 10);
+              const counterFloatY = Math.round(Math.cos((frame + actIndex * 19) * 0.055) * 7);
+              const breathingScale = 1.0 + beatPulse * 0.016;
+              const stopMotionWiggle = isStopMotion
+                ? Math.round(Math.sin(frame * 0.25 + actIndex) * 2.5)
+                : 0;
+
+              // SVG Constellation Conduit drawing progress
+              const conduitDraw = interpolate(
+                localFrame,
+                [2, 36],
+                [680, 0],
+                { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+              );
+
+              // Deconstruct headline into staggered kinetic phrases
               const titleWords = sanitizeForDisplay(act.titleFa).split(' ');
               const midPoint = Math.ceil(titleWords.length / 2);
               const titlePhrases = [
@@ -357,17 +426,361 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                 titleWords.slice(midPoint).join(' '),
               ].filter(Boolean);
 
+              // Helper to compute varied Kinetic Text Reveal styles per phrase (`textRevealMode`)
+              const renderKineticHeadline = (alignCenter: boolean = false) => (
+                <div
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 8,
+                    alignItems: alignCenter ? 'center' : 'flex-end',
+                    perspective: 900,
+                  }}
+                >
+                  {titlePhrases.map((phrase, phraseIdx) => {
+                    const phraseSpring = spring({
+                      frame: Math.max(0, localFrame - (7 + phraseIdx * 6)),
+                      fps,
+                      config:
+                        textRevealMode === 'ELASTIC_POP_SLAM'
+                          ? { damping: 9, stiffness: 180, mass: 0.75 }
+                          : { damping: 13, stiffness: 135, mass: 0.82 },
+                    });
+
+                    let phraseTransform = '';
+                    let wrapperOverflow: 'hidden' | 'visible' = 'visible';
+
+                    if (textRevealMode === 'MASK_CURTAIN_RISE') {
+                      wrapperOverflow = 'hidden';
+                      const riseY = Math.round((1 - phraseSpring) * 78);
+                      phraseTransform = `translate3d(0px, ${riseY}px, 0px)`;
+                    } else if (textRevealMode === 'PERSPECTIVE_3D_FLIP') {
+                      const flipX = Number(((1 - phraseSpring) * -82).toFixed(1));
+                      const shiftY = Math.round((1 - phraseSpring) * 28);
+                      phraseTransform = `translate3d(0px, ${shiftY}px, 0px) rotateX(${flipX}deg)`;
+                    } else if (textRevealMode === 'ELASTIC_POP_SLAM') {
+                      const slamScale = Number(
+                        interpolate(phraseSpring, [0, 1], [1.65, 1.0]).toFixed(2)
+                      );
+                      phraseTransform = `translate3d(0px, 0px, 0px) scale(${slamScale})`;
+                    } else {
+                      // VELOCITY_SKEW_SLIDE
+                      const slideX = Math.round((1 - phraseSpring) * (phraseIdx % 2 === 0 ? 140 : -140));
+                      const skewDeg = Number(((1 - phraseSpring) * -16).toFixed(1));
+                      phraseTransform = `translate3d(${slideX}px, 0px, 0px) skewX(${skewDeg}deg)`;
+                    }
+
+                    return (
+                      <div
+                        key={phraseIdx}
+                        style={{
+                          overflow: wrapperOverflow,
+                          padding: wrapperOverflow === 'hidden' ? '4px 8px' : '0px',
+                        }}
+                      >
+                        <h1
+                          style={{
+                            margin: 0,
+                            fontSize: heroFontSize,
+                            fontWeight: 900,
+                            color: isBrutalist
+                              ? '#09090B'
+                              : isStopMotion
+                              ? '#1E1B18'
+                              : '#ffffff',
+                            backgroundColor: isBrutalist
+                              ? phraseIdx === 0
+                                ? '#FFFFFF'
+                                : '#FF0055'
+                              : isStopMotion
+                              ? '#F5F2EB'
+                              : 'transparent',
+                            padding: isBrutalist || isStopMotion ? '6px 22px' : 0,
+                            boxShadow: isBrutalist
+                              ? '8px 8px 0px #09090B'
+                              : isStopMotion
+                              ? '0 10px 24px rgba(0,0,0,0.42)'
+                              : 'none',
+                            lineHeight: 1.32,
+                            transform: phraseTransform,
+                            opacity: Math.min(1, phraseSpring * 1.25),
+                            textShadow:
+                              isBrutalist || isStopMotion
+                                ? 'none'
+                                : `0 8px 32px rgba(0,0,0,0.9), 0 0 28px ${primaryAccent}44`,
+                          }}
+                        >
+                          {phrase}
+                        </h1>
+                      </div>
+                    );
+                  })}
+                </div>
+              );
+
+              // Helper to render the Sculptural Hero Visual + Theme-Specific Accents
+              const renderHeroSculpture = (sizePx: number = 330) => (
+                <div
+                  style={{
+                    width: sizePx,
+                    height: sizePx,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    position: 'relative',
+                    transform: `translate3d(${Math.round(heroChildTrans.offsetX)}px, ${Math.round(
+                      (1 - visualSpring) * -42 + floatY + heroChildTrans.offsetY
+                    )}px, ${Math.round(heroChildTrans.offsetZ)}px) rotateY(${
+                      heroChildTrans.rotateY
+                    }deg) rotateZ(${
+                      heroChildTrans.rotateZ + stopMotionWiggle
+                    }deg) scale(${Number(
+                      (visualSpring * breathingScale * heroChildTrans.scale).toFixed(3)
+                    )})`,
+                    opacity: visualSpring * heroChildTrans.opacity,
+                  }}
+                >
+                  {/* Animated SVG Orbital / CAD / Bio Ring */}
+                  <svg
+                    width={sizePx}
+                    height={sizePx}
+                    viewBox="0 0 340 340"
+                    style={{ position: 'absolute', inset: 0, overflow: 'visible' }}
+                  >
+                    {/* Outer Orbital / CAD Ring */}
+                    <circle
+                      cx={170}
+                      cy={170}
+                      r={150}
+                      fill={isStopMotion ? '#F4A26122' : isBrutalist ? '#FFFFFF' : 'none'}
+                      stroke={isBrutalist ? '#09090B' : primaryAccent}
+                      strokeWidth={isBrutalist ? 5 : 2.5}
+                      strokeDasharray={isBlueprint ? '8 6 2 6' : '18 14'}
+                      strokeDashoffset={Math.round(-frame * 1.8)}
+                      strokeOpacity={0.75}
+                    />
+                    {/* Inner Drawn Conduit Ring */}
+                    <circle
+                      cx={170}
+                      cy={170}
+                      r={122}
+                      fill="none"
+                      stroke={isBrutalist ? '#FF0055' : secondaryAccent}
+                      strokeWidth={isBrutalist ? 4 : 3}
+                      strokeDasharray={780}
+                      strokeDashoffset={Math.round(780 * (1 - visualSpring))}
+                      strokeOpacity={0.85}
+                    />
+                    {/* Blueprint CAD Crosshairs & Rotating Rotor */}
+                    {isBlueprint && (
+                      <g
+                        transform={`rotate(${Math.round(frame * 0.8)} 170 170)`}
+                        stroke="#38BDF8"
+                        strokeWidth={1.5}
+                        opacity={0.7}
+                      >
+                        <line x1={170} y1={8} x2={170} y2={42} />
+                        <line x1={170} y1={298} x2={170} y2={332} />
+                        <line x1={8} y1={170} x2={42} y2={170} />
+                        <line x1={298} y1={170} x2={332} y2={170} />
+                      </g>
+                    )}
+                    {/* Quantum Bio Lissajous Helix */}
+                    {isQuantumBio && (
+                      <ellipse
+                        cx={170}
+                        cy={170}
+                        rx={140}
+                        ry={64}
+                        fill="none"
+                        stroke={primaryAccent}
+                        strokeWidth={2}
+                        transform={`rotate(${Math.round(frame * 1.4)} 170 170)`}
+                        opacity={0.65}
+                      />
+                    )}
+                    {/* FinTech / Bento Live Telemetry Bars around Hero */}
+                    {(isFinTech || layoutVariant === 'SPLIT_DATA_TERMINAL_LEFT') &&
+                      [0, 1, 2, 3, 4].map((barIdx) => {
+                        const barH = Math.round(
+                          32 + Math.abs(Math.sin(frame * 0.08 + barIdx * 1.3)) * 52
+                        );
+                        return (
+                          <rect
+                            key={barIdx}
+                            x={110 + barIdx * 26}
+                            y={290 - barH}
+                            width={14}
+                            height={barH}
+                            rx={4}
+                            fill={barIdx % 2 === 0 ? primaryAccent : secondaryAccent}
+                            opacity={0.85}
+                          />
+                        );
+                      })}
+                  </svg>
+
+                  {/* Stop-Motion Masking Tape Strip */}
+                  {isStopMotion && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        top: 8,
+                        width: 110,
+                        height: 28,
+                        backgroundColor: 'rgba(233, 196, 106, 0.82)',
+                        transform: 'rotate(-4deg)',
+                        boxShadow: '0 3px 8px rgba(0,0,0,0.25)',
+                        zIndex: 3,
+                      }}
+                    />
+                  )}
+
+                  {act.customVisual ? (
+                    act.customVisual
+                  ) : act.lottiePreset ? (
+                    <LottieGraphic
+                      preset={act.lottiePreset}
+                      size={Math.round(sizePx * 0.72)}
+                      accentColor={primaryAccent}
+                    />
+                  ) : (
+                    <span
+                      style={{
+                        fontSize: Math.round(sizePx * 0.34),
+                        filter: isBrutalist
+                          ? 'drop-shadow(6px 6px 0px #09090B)'
+                          : `drop-shadow(0 12px 28px ${primaryAccent}66)`,
+                      }}
+                    >
+                      {act.heroSymbol || '⚡'}
+                    </span>
+                  )}
+                </div>
+              );
+
+              // Helper to render Staggered Constellation Sub-Nodes (Each with independent child exit/pop!)
+              const renderConstellationNodes = () => {
+                if (!act.constellationNodes || act.constellationNodes.length === 0) return null;
+                return (
+                  <div
+                    style={{
+                      width: '100%',
+                      display: 'flex',
+                      justifyContent: 'space-around',
+                      alignItems: 'center',
+                      marginTop: 38,
+                      direction: 'rtl',
+                      position: 'relative',
+                      zIndex: 2,
+                    }}
+                  >
+                    {act.constellationNodes.map((node, nodeIdx) => {
+                      const nodeSpring = spring({
+                        frame: Math.max(0, localFrame - (22 + nodeIdx * 9)),
+                        fps,
+                        config: { damping: 12, stiffness: 130, mass: 0.85 },
+                      });
+                      const nodeFloat = Math.round(
+                        Math.sin((frame + nodeIdx * 18) * 0.07) * 6
+                      );
+                      const nodeTrans = computeChildTransitionStyle(
+                        3 + nodeIdx,
+                        rawFrame,
+                        actStart,
+                        actEnd,
+                        fps,
+                        transitionIn,
+                        transitionOut
+                      );
+
+                      return (
+                        <div
+                          key={nodeIdx}
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            gap: 8,
+                            padding: isBrutalist || isStopMotion ? '14px 26px' : '8px 18px',
+                            backgroundColor: isBrutalist
+                              ? '#FFFFFF'
+                              : isStopMotion
+                              ? '#F5F2EB'
+                              : 'transparent',
+                            boxShadow: isBrutalist
+                              ? '7px 7px 0px #09090B'
+                              : isStopMotion
+                              ? '0 10px 20px rgba(0,0,0,0.38)'
+                              : 'none',
+                            transform: `translate3d(${Math.round(
+                              nodeTrans.offsetX
+                            )}px, ${Math.round(
+                              (1 - nodeSpring) * 35 + nodeFloat + nodeTrans.offsetY
+                            )}px, ${Math.round(nodeTrans.offsetZ)}px) rotateZ(${
+                              nodeTrans.rotateZ + (isStopMotion ? (nodeIdx - 1) * 2 : 0)
+                            }deg) scale(${Number((nodeSpring * nodeTrans.scale).toFixed(3))})`,
+                            opacity: nodeSpring * nodeTrans.opacity,
+                          }}
+                        >
+                          {node.symbol && (
+                            <span style={{ fontSize: 40 }}>{node.symbol}</span>
+                          )}
+                          {node.valueFa && (
+                            <span
+                              style={{
+                                fontSize: 34,
+                                fontWeight: 900,
+                                color: isBrutalist
+                                  ? '#FF0055'
+                                  : isStopMotion
+                                  ? '#E76F51'
+                                  : primaryAccent,
+                                textShadow:
+                                  isBrutalist || isStopMotion
+                                    ? 'none'
+                                    : `0 0 20px ${primaryAccent}55`,
+                              }}
+                            >
+                              {sanitizeForDisplay(node.valueFa)}
+                            </span>
+                          )}
+                          <span
+                            style={{
+                              fontSize: 20,
+                              fontWeight: 800,
+                              color:
+                                isBrutalist || isStopMotion ? '#1E1B18' : '#f8fafc',
+                              textShadow:
+                                isBrutalist || isStopMotion
+                                  ? 'none'
+                                  : '0 4px 14px rgba(0,0,0,0.85)',
+                            }}
+                          >
+                            {sanitizeForDisplay(node.labelFa)}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              };
+
+              // Calculate spatial bridge vector when incoming via CAMERA_SPATIAL_FLIGHT
+              const hasSpatialBridge =
+                actIndex > 0 &&
+                transitionIn?.archetype === 'CAMERA_SPATIAL_FLIGHT' &&
+                (posX !== prevPosX || posY !== prevPosY);
+
               return (
                 <div
                   key={act.actId}
                   style={{
                     position: 'absolute',
-                    transform: `translate3d(${Math.round(posX + exitDisplacementX)}px, ${Math.round(posY + exitDisplacementY)}px, ${Math.round(posZ + exitDisplacementZ)}px) rotateZ(${exitRotateZ}deg) scale(${combinedScale})`,
-                    opacity: finalOpacity,
-                    filter:
-                      isExitingAct && transitionState.motionBlurPx > 0
-                        ? `blur(${transitionState.motionBlurPx}px)`
-                        : undefined,
+                    transform: `translate3d(${Math.round(posX)}px, ${Math.round(posY)}px, ${Math.round(posZ)}px)`,
+                    opacity: actEnvelopeOpacity,
+                    clipPath: titleChildTrans.clipPath,
                     width: Math.round(width * 0.82),
                     display: 'flex',
                     flexDirection: 'column',
@@ -377,17 +790,74 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                     WebkitFontSmoothing: 'antialiased',
                   }}
                 >
-                  {/* VOLUMETRIC LIGHT POOL ON OPEN CANVAS (NO RECTANGULAR BOX) */}
-                  <div
-                    style={{
-                      position: 'absolute',
-                      width: 920,
-                      height: 520,
-                      background: `radial-gradient(ellipse at center, ${primaryAccent}22 0%, ${secondaryAccent}0d 45%, transparent 75%)`,
-                      pointerEvents: 'none',
-                      transform: `scale(${breathingScale})`,
-                    }}
-                  />
+                  {/* 3D SPATIAL BRIDGE CONDUIT (Connects previous scene & current scene during Camera Pan!) */}
+                  {hasSpatialBridge && (
+                    <svg
+                      width={1600}
+                      height={400}
+                      viewBox="0 0 1600 400"
+                      style={{
+                        position: 'absolute',
+                        left: posX > prevPosX ? -780 : 780,
+                        top: posY > prevPosY ? -460 : 120,
+                        pointerEvents: 'none',
+                        overflow: 'visible',
+                        opacity: 0.65,
+                      }}
+                    >
+                      <path
+                        d="M 120 200 C 520 80, 1080 320, 1480 200"
+                        fill="none"
+                        stroke={primaryAccent}
+                        strokeWidth={3}
+                        strokeDasharray="16 12"
+                        strokeDashoffset={Math.round(-frame * 4)}
+                      />
+                      <circle cx={420} cy={145} r={8} fill={primaryAccent} />
+                      <circle cx={800} cy={200} r={11} fill={secondaryAccent} />
+                      <circle cx={1180} cy={255} r={8} fill={primaryAccent} />
+                    </svg>
+                  )}
+
+                  {/* KINETIC LIGHT SWEEP LASER BLADE (Active during KINETIC_LIGHT_SWEEP) */}
+                  {transitionOut?.archetype === 'KINETIC_LIGHT_SWEEP' &&
+                    rawFrame >= actEnd - (transitionOut.durationInFrames ?? 18) &&
+                    rawFrame <= actEnd && (
+                      <div
+                        style={{
+                          position: 'absolute',
+                          top: -120,
+                          bottom: -120,
+                          left: `${Math.round(
+                            interpolate(
+                              rawFrame,
+                              [actEnd - (transitionOut.durationInFrames ?? 18), actEnd],
+                              [0, 100],
+                              { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+                            )
+                          )}%`,
+                          width: 10,
+                          background: `linear-gradient(180deg, transparent, #ffffff, ${primaryAccent}, transparent)`,
+                          boxShadow: `0 0 36px 8px ${primaryAccent}`,
+                          zIndex: 30,
+                          pointerEvents: 'none',
+                        }}
+                      />
+                    )}
+
+                  {/* VOLUMETRIC LIGHT POOL ON OPEN CANVAS */}
+                  {!isBrutalist && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        width: 920,
+                        height: 520,
+                        background: `radial-gradient(ellipse at center, ${primaryAccent}22 0%, ${secondaryAccent}0d 45%, transparent 75%)`,
+                        pointerEvents: 'none',
+                        transform: `scale(${breathingScale})`,
+                      }}
+                    />
+                  )}
 
                   {/* SVG SPATIAL CONSTELLATION CONDUIT LINKING VISUAL & TYPOGRAPHY */}
                   <svg
@@ -403,292 +873,284 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                     }}
                   >
                     <path
-                      d="M 240 210 C 480 90, 740 310, 1080 190"
+                      d={
+                        layoutVariant === 'MONUMENTAL_CENTER_HERO'
+                          ? 'M 180 230 C 480 60, 880 60, 1180 230'
+                          : 'M 240 210 C 480 90, 740 310, 1080 190'
+                      }
                       fill="none"
-                      stroke={primaryAccent}
-                      strokeWidth={2.5}
-                      strokeDasharray={600}
+                      stroke={isBrutalist ? '#09090B' : primaryAccent}
+                      strokeWidth={isBrutalist ? 4 : 2.5}
+                      strokeDasharray={680}
                       strokeDashoffset={Math.round(conduitDraw)}
-                      strokeOpacity={0.45}
+                      strokeOpacity={0.55}
                     />
-                    <circle
-                      cx={240}
-                      cy={210}
-                      r={Math.round(6 + beatPulse * 4)}
-                      fill={primaryAccent}
-                      opacity={0.75}
-                    />
-                    <circle
-                      cx={1080}
-                      cy={190}
-                      r={Math.round(6 + beatPulse * 4)}
-                      fill={secondaryAccent}
-                      opacity={0.75}
-                    />
+                    {/* Architectural Golden Truss Lintel for KINETIC_ARCHITECTURAL_TYPO */}
+                    {isArchTypo && (
+                      <line
+                        x1={140}
+                        y1={40}
+                        x2={1220}
+                        y2={40}
+                        stroke={primaryAccent}
+                        strokeWidth={2}
+                        strokeDasharray={1080}
+                        strokeDashoffset={Math.round(conduitDraw * 1.5)}
+                        opacity={0.5}
+                      />
+                    )}
                   </svg>
 
-                  {/* OPEN-CANVAS SPATIAL CLUSTER (DECONSTRUCTED CHILDREN) */}
-                  <div
-                    style={{
-                      width: '100%',
-                      display: 'flex',
-                      flexDirection: 'row-reverse',
-                      alignItems: 'center',
-                      justifyContent: 'space-between',
-                      gap: 64,
-                      position: 'relative',
-                      zIndex: 2,
-                    }}
-                  >
-                    {/* 1. INDEPENDENT KINETIC TYPOGRAPHY STREAM */}
-                    <div style={{ flex: 1, textAlign: 'right', direction: 'rtl' }}>
-                      {/* STAGGERED FLOATING BADGE */}
-                      {act.badgeFa && (
-                        <div
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'center',
-                            gap: 10,
-                            padding: '6px 20px',
-                            borderRadius: 999,
-                            background: `${primaryAccent}1f`,
-                            marginBottom: 20,
-                            transform: `translate3d(0px, ${Math.round((1 - badgeSpring) * 24)}px, 0px) scale(${badgeSpring})`,
-                            opacity: badgeSpring,
-                          }}
-                        >
-                          <span
-                            style={{
-                              width: 9,
-                              height: 9,
-                              borderRadius: '50%',
-                              backgroundColor: primaryAccent,
-                              boxShadow: `0 0 12px ${primaryAccent}`,
-                            }}
-                          />
-                          <span
-                            style={{
-                              fontSize: 20,
-                              fontWeight: 800,
-                              color: primaryAccent,
-                            }}
-                          >
-                            {sanitizeForDisplay(act.badgeFa)}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* PHRASE-STAGGERED OPEN-CANVAS HERO HEADLINE */}
-                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
-                        {titlePhrases.map((phrase, phraseIdx) => {
-                          const phraseSpring = spring({
-                            frame: Math.max(0, localFrame - (8 + phraseIdx * 6)),
-                            fps,
-                            config: { damping: 14, stiffness: 135, mass: 0.8 },
-                          });
-                          const phraseY = Math.round((1 - phraseSpring) * 36);
-                          return (
-                            <h1
-                              key={phraseIdx}
-                              style={{
-                                margin: 0,
-                                fontSize: heroFontSize,
-                                fontWeight: 900,
-                                color: '#ffffff',
-                                lineHeight: 1.32,
-                                transform: `translate3d(0px, ${phraseY}px, 0px) scale(${phraseSpring})`,
-                                opacity: phraseSpring,
-                                textShadow: `0 8px 32px rgba(0,0,0,0.9), 0 0 28px ${primaryAccent}44`,
-                              }}
-                            >
-                              {phrase}
-                            </h1>
-                          );
-                        })}
-                      </div>
-
-                      {/* INDEPENDENT KINETIC DESCRIPTION */}
-                      <p
-                        style={{
-                          margin: '20px 0 0 0',
-                          fontSize: bodyFontSize,
-                          fontWeight: 600,
-                          color: '#e2e8f0',
-                          lineHeight: 1.65,
-                          transform: `translate3d(0px, ${Math.round((1 - descSpring) * 28)}px, 0px)`,
-                          opacity: descSpring,
-                          textShadow: '0 4px 18px rgba(0,0,0,0.85)',
-                        }}
-                      >
-                        {sanitizeForDisplay(act.descriptionFa)}
-                      </p>
-
-                      {/* INDEPENDENT FLOATING METRIC CONSTELLATION NODE */}
-                      {act.metricValue && (
-                        <div
-                          style={{
-                            display: 'inline-flex',
-                            alignItems: 'baseline',
-                            gap: 16,
-                            marginTop: 26,
-                            transform: `translate3d(0px, ${Math.round((1 - metricSpring) * 32 + counterFloatY)}px, 0px) scale(${metricSpring * breathingScale})`,
-                            opacity: metricSpring,
-                          }}
-                        >
-                          <span
-                            style={{
-                              fontSize: 56,
-                              fontWeight: 900,
-                              color: secondaryAccent,
-                              textShadow: `0 0 28px ${secondaryAccent}66`,
-                            }}
-                          >
-                            {act.metricValue}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: 22,
-                              fontWeight: 800,
-                              color: '#f8fafc',
-                              textShadow: '0 4px 16px rgba(0,0,0,0.85)',
-                            }}
-                          >
-                            {sanitizeForDisplay(act.metricLabelFa || '')}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* 2. INDEPENDENT SCULPTURAL HERO VISUAL & SVG ORBITAL RING */}
-                    <div
-                      style={{
-                        width: 340,
-                        height: 340,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        flexShrink: 0,
-                        position: 'relative',
-                        transform: `translate3d(0px, ${Math.round((1 - visualSpring) * -42 + floatY)}px, 0px) scale(${visualSpring * breathingScale})`,
-                        opacity: visualSpring,
-                      }}
-                    >
-                      {/* Animated SVG Orbital Constellation Ring */}
-                      <svg
-                        width={340}
-                        height={340}
-                        viewBox="0 0 340 340"
-                        style={{ position: 'absolute', inset: 0, overflow: 'visible' }}
-                      >
-                        <circle
-                          cx={170}
-                          cy={170}
-                          r={148}
-                          fill="none"
-                          stroke={primaryAccent}
-                          strokeWidth={2.5}
-                          strokeDasharray="18 14"
-                          strokeDashoffset={Math.round(-frame * 1.8)}
-                          strokeOpacity={0.55}
-                        />
-                        <circle
-                          cx={170}
-                          cy={170}
-                          r={124}
-                          fill="none"
-                          stroke={secondaryAccent}
-                          strokeWidth={3}
-                          strokeDasharray={780}
-                          strokeDashoffset={Math.round(780 * (1 - visualSpring))}
-                          strokeOpacity={0.75}
-                        />
-                      </svg>
-
-                      {act.customVisual ? (
-                        act.customVisual
-                      ) : act.lottiePreset ? (
-                        <LottieGraphic
-                          preset={act.lottiePreset}
-                          size={250}
-                          accentColor={primaryAccent}
-                        />
-                      ) : (
-                        <span
-                          style={{
-                            fontSize: 112,
-                            filter: `drop-shadow(0 12px 28px ${primaryAccent}66)`,
-                          }}
-                        >
-                          {act.heroSymbol || '⚡'}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-
-                  {/* 3. STAGGERED CONSTELLATION SUB-NODES ON OPEN CANVAS */}
-                  {act.constellationNodes && act.constellationNodes.length > 0 && (
+                  {/* ========================================================== */}
+                  {/* MULTI-LAYOUT STAGE CHOREOGRAPHY (4 DISTINCT ACT LAYOUTS)   */}
+                  {/* ========================================================== */}
+                  {layoutVariant === 'MONUMENTAL_CENTER_HERO' ? (
+                    /* LAYOUT 2: MONUMENTAL_CENTER_HERO (Symmetrical Orbital Hero + Center Statement) */
                     <div
                       style={{
                         width: '100%',
                         display: 'flex',
-                        justifyContent: 'space-around',
+                        flexDirection: 'column',
                         alignItems: 'center',
-                        marginTop: 42,
+                        textAlign: 'center',
                         direction: 'rtl',
+                        gap: 22,
                         position: 'relative',
+                        zIndex: 2,
                       }}
                     >
-                      {act.constellationNodes.map((node, nodeIdx) => {
-                        const nodeSpring = spring({
-                          frame: Math.max(0, localFrame - (24 + nodeIdx * 10)),
-                          fps,
-                          config: { damping: 13, stiffness: 125, mass: 0.85 },
-                        });
-                        const nodeFloat = Math.round(
-                          Math.sin((frame + nodeIdx * 18) * 0.07) * 6
-                        );
-                        return (
+                      {renderHeroSculpture(260)}
+
+                      <div
+                        style={{
+                          transform: `translate3d(${Math.round(
+                            titleChildTrans.offsetX
+                          )}px, ${Math.round(titleChildTrans.offsetY)}px, ${Math.round(
+                            titleChildTrans.offsetZ
+                          )}px) rotateZ(${titleChildTrans.rotateZ}deg) scale(${
+                            titleChildTrans.scale
+                          })`,
+                          opacity: titleChildTrans.opacity,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                        }}
+                      >
+                        {act.badgeFa && (
                           <div
-                            key={nodeIdx}
                             style={{
-                              display: 'flex',
-                              flexDirection: 'column',
+                              display: 'inline-flex',
                               alignItems: 'center',
-                              gap: 8,
-                              transform: `translate3d(0px, ${Math.round((1 - nodeSpring) * 35 + nodeFloat)}px, 0px) scale(${nodeSpring})`,
-                              opacity: nodeSpring,
+                              gap: 10,
+                              padding: '6px 22px',
+                              borderRadius: isBrutalist ? 0 : 999,
+                              background: isBrutalist ? '#09090B' : `${primaryAccent}24`,
+                              color: isBrutalist ? '#FACC15' : primaryAccent,
+                              marginBottom: 14,
+                              fontWeight: 800,
+                              fontSize: 20,
                             }}
                           >
-                            {node.symbol && (
-                              <span style={{ fontSize: 42 }}>{node.symbol}</span>
-                            )}
-                            {node.valueFa && (
-                              <span
-                                style={{
-                                  fontSize: 34,
-                                  fontWeight: 900,
-                                  color: primaryAccent,
-                                  textShadow: `0 0 20px ${primaryAccent}55`,
-                                }}
-                              >
-                                {sanitizeForDisplay(node.valueFa)}
-                              </span>
-                            )}
+                            {sanitizeForDisplay(act.badgeFa)}
+                          </div>
+                        )}
+                        {renderKineticHeadline(true)}
+                      </div>
+
+                      <div
+                        style={{
+                          maxWidth: 960,
+                          transform: `translate3d(${Math.round(
+                            descChildTrans.offsetX
+                          )}px, ${Math.round(
+                            (1 - descSpring) * 24 + descChildTrans.offsetY
+                          )}px, ${Math.round(descChildTrans.offsetZ)}px) scale(${
+                            descChildTrans.scale
+                          })`,
+                          opacity: descSpring * descChildTrans.opacity,
+                        }}
+                      >
+                        <p
+                          style={{
+                            margin: 0,
+                            fontSize: bodyFontSize,
+                            fontWeight: 700,
+                            color: secondaryTextColor,
+                            lineHeight: 1.6,
+                          }}
+                        >
+                          {sanitizeForDisplay(act.descriptionFa)}
+                        </p>
+                      </div>
+                    </div>
+                  ) : (
+                    /* LAYOUT 1, 3, 4: ASYMMETRIC SPATIAL SPLIT (`row-reverse` or `row`) */
+                    <div
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection:
+                          layoutVariant === 'SPLIT_DATA_TERMINAL_LEFT'
+                            ? 'row'
+                            : 'row-reverse',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        gap: 64,
+                        position: 'relative',
+                        zIndex: 2,
+                      }}
+                    >
+                      {/* 1. INDEPENDENT KINETIC TYPOGRAPHY STREAM */}
+                      <div
+                        style={{
+                          flex: 1,
+                          textAlign: 'right',
+                          direction: 'rtl',
+                          transform: `translate3d(${Math.round(
+                            titleChildTrans.offsetX
+                          )}px, ${Math.round(titleChildTrans.offsetY)}px, ${Math.round(
+                            titleChildTrans.offsetZ
+                          )}px) rotateZ(${titleChildTrans.rotateZ}deg) scale(${
+                            titleChildTrans.scale
+                          })`,
+                          opacity: titleChildTrans.opacity,
+                        }}
+                      >
+                        {/* STAGGERED FLOATING BADGE */}
+                        {act.badgeFa && (
+                          <div
+                            style={{
+                              display: 'inline-flex',
+                              alignItems: 'center',
+                              gap: 10,
+                              padding: '6px 20px',
+                              borderRadius: isBrutalist || isStopMotion ? 4 : 999,
+                              background: isBrutalist
+                                ? '#09090B'
+                                : isStopMotion
+                                ? '#E76F51'
+                                : `${primaryAccent}1f`,
+                              marginBottom: 20,
+                              transform: `translate3d(0px, ${Math.round(
+                                (1 - badgeSpring) * 24
+                              )}px, 0px) scale(${badgeSpring})`,
+                              opacity: badgeSpring,
+                            }}
+                          >
+                            <span
+                              style={{
+                                width: 9,
+                                height: 9,
+                                borderRadius: '50%',
+                                backgroundColor: isBrutalist
+                                  ? '#FACC15'
+                                  : isStopMotion
+                                  ? '#F5F2EB'
+                                  : primaryAccent,
+                              }}
+                            />
                             <span
                               style={{
                                 fontSize: 20,
                                 fontWeight: 800,
-                                color: '#f8fafc',
-                                textShadow: '0 4px 14px rgba(0,0,0,0.85)',
+                                color: isBrutalist
+                                  ? '#FACC15'
+                                  : isStopMotion
+                                  ? '#F5F2EB'
+                                  : primaryAccent,
                               }}
                             >
-                              {sanitizeForDisplay(node.labelFa)}
+                              {sanitizeForDisplay(act.badgeFa)}
                             </span>
                           </div>
-                        );
-                      })}
+                        )}
+
+                        {/* MULTI-MODE KINETIC HEADLINE (`textRevealMode`) */}
+                        {renderKineticHeadline(false)}
+
+                        {/* INDEPENDENT KINETIC DESCRIPTION & METRIC (Child 2) */}
+                        <div
+                          style={{
+                            transform: `translate3d(${Math.round(
+                              descChildTrans.offsetX - titleChildTrans.offsetX
+                            )}px, ${Math.round(
+                              descChildTrans.offsetY - titleChildTrans.offsetY
+                            )}px, 0px)`,
+                            opacity: descChildTrans.opacity,
+                          }}
+                        >
+                          <p
+                            style={{
+                              margin: '20px 0 0 0',
+                              fontSize: bodyFontSize,
+                              fontWeight: 600,
+                              color: secondaryTextColor,
+                              lineHeight: 1.65,
+                              transform: `translate3d(0px, ${Math.round(
+                                (1 - descSpring) * 28
+                              )}px, 0px)`,
+                              opacity: descSpring,
+                              textShadow:
+                                isBrutalist || isStopMotion
+                                  ? 'none'
+                                  : '0 4px 18px rgba(0,0,0,0.85)',
+                            }}
+                          >
+                            {sanitizeForDisplay(act.descriptionFa)}
+                          </p>
+
+                          {/* INDEPENDENT FLOATING METRIC CONSTELLATION NODE */}
+                          {act.metricValue && (
+                            <div
+                              style={{
+                                display: 'inline-flex',
+                                alignItems: 'baseline',
+                                gap: 16,
+                                marginTop: 26,
+                                padding: isBrutalist ? '8px 20px' : 0,
+                                backgroundColor: isBrutalist ? '#FFFFFF' : 'transparent',
+                                boxShadow: isBrutalist ? '6px 6px 0px #09090B' : 'none',
+                                transform: `translate3d(0px, ${Math.round(
+                                  (1 - metricSpring) * 32 + counterFloatY
+                                )}px, 0px) scale(${Number(
+                                  (metricSpring * breathingScale).toFixed(3)
+                                )})`,
+                                opacity: metricSpring,
+                              }}
+                            >
+                              <span
+                                style={{
+                                  fontSize: 56,
+                                  fontWeight: 900,
+                                  color: isBrutalist ? '#FF0055' : secondaryAccent,
+                                  textShadow: isBrutalist
+                                    ? 'none'
+                                    : `0 0 28px ${secondaryAccent}66`,
+                                }}
+                              >
+                                {act.metricValue}
+                              </span>
+                              <span
+                                style={{
+                                  fontSize: 22,
+                                  fontWeight: 800,
+                                  color: primaryTextColor,
+                                }}
+                              >
+                                {sanitizeForDisplay(act.metricLabelFa || '')}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* 2. INDEPENDENT SCULPTURAL HERO VISUAL (Child 0) */}
+                      {renderHeroSculpture(340)}
                     </div>
                   )}
+
+                  {/* 3. STAGGERED CONSTELLATION SUB-NODES ON OPEN CANVAS */}
+                  {renderConstellationNodes()}
 
                   {/* OPTIONAL BESPOKE OPEN-CANVAS ROW */}
                   {act.customBottomRow && (
@@ -697,8 +1159,10 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                         width: '100%',
                         marginTop: 32,
                         direction: 'rtl',
-                        transform: `translate3d(0px, ${Math.round((1 - bottomRowSpring) * 30)}px, 0px) scale(${bottomRowSpring})`,
-                        opacity: bottomRowSpring,
+                        transform: `translate3d(${Math.round(
+                          descChildTrans.offsetX
+                        )}px, ${Math.round(descChildTrans.offsetY)}px, 0px)`,
+                        opacity: descChildTrans.opacity,
                       }}
                     >
                       {act.customBottomRow}
@@ -709,7 +1173,6 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
             })}
           </UniversalCameraRig>
         </PersistentWorld>
-
       </div>
     </CinematicRhythmContext.Provider>
   );

@@ -2,53 +2,107 @@
  * ============================================================================
  * TEMPLATE ARCHETYPE 5: KINETIC ARCHITECTURAL TYPOGRAPHY ("BUILD THE FLOOR")
  * ============================================================================
- * 
- * Inspired by @Gdgtify's viral masterpiece "BUILD THE FLOOR" (awesome-opus5-5-videos):
- * - A miniature spoken-word manifesto staged entirely through architectural typography
- * - Words assign structural roles: Lintel, Suspension Load, Pillar Support, Platform
- * - The final declaration physically stands on the architecture earlier words built
- * - Monumental high-contrast typography (Yekan Bakh Fat / 950 weight)
- * - Deep architectural slate (#0d1d16) with subtle construction ruler markings
+ *
+ * Open-Canvas 3D Kinetic Architectural Choreography:
+ * - Zero corner watermarks or HUD clutter
+ * - Every typographic beam, cable node, pillar segment, and foundation slab
+ *   animates independently via staggered springs (`idx *`) and continuous micro-motion
+ * - Structural SVG vectors draw dynamically via `strokeDashoffset`
+ * - Subtle Videolancer Ultimate SFX via `<UniversalSoundDirector>` (<= 0.14 volume)
  * ============================================================================
  */
 
 import React from 'react';
-import { interpolate, useCurrentFrame, useVideoConfig, spring, Easing, Audio, staticFile } from 'remotion';
+import { interpolate, useCurrentFrame, useVideoConfig, spring, Easing } from 'remotion';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
+import { UniversalSoundDirector } from '../audio/UniversalSoundDirector';
 
 export const KINETIC_TYPO_DURATION = 450; // 15.0s @ 30 FPS
 export const KINETIC_TYPO_FPS = 30;
 export const KINETIC_TYPO_WIDTH = 1920;
 export const KINETIC_TYPO_HEIGHT = 1080;
 
+const ACT1_PHRASES = [
+  { text: 'به ما گفتند', accent: '#f4e9d5' },
+  { text: 'در تاریکی', accent: '#f2b544' },
+  { text: 'منتظر بمانید', accent: '#f4e9d5' },
+];
+
+const ACT2_SUSPENSION_NODES = [
+  { x: 260, label: 'کشش اول', load: '۴۲ کیلونیوتن' },
+  { x: 600, label: 'لنگر مرکزی', load: '۸۸ کیلونیوتن' },
+  { x: 940, label: 'کشش دوم', load: '۴۲ کیلونیوتن' },
+];
+
+const ACT3_PILLAR_SEGMENTS = [
+  { title: 'اراده نخست', metric: 'مقاومت محوری ۱۰۰٪', offsetX: -360 },
+  { title: 'ستون مرکزی', metric: 'گشایش فضای عمودی', offsetX: 0 },
+  { title: 'تکیه‌گاه پایدار', metric: 'تثبیت سازه کلمات', offsetX: 360 },
+];
+
+const ACT4_FOUNDATION_SLABS = [
+  { label: 'پیِ نخست: شناخت', flex: 1, color: '#f2b544' },
+  { label: 'بستر اصلی: اراده و حرکت', flex: 2, color: '#f4e9d5' },
+  { label: 'پیِ نهایی: پیروزی', flex: 1, color: '#f2b544' },
+];
+
 export const KineticArchitecturalTypoMaster: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const beatPulse = calculateBeatPulse(frame, 124, fps);
+  const beatPulse = calculateBeatPulse(frame, 124, fps).lightPulse;
+  const breathingPulse = 1 + beatPulse * 0.018;
 
-  // Phase Timing:
-  // Phase 1 (0..105): "به ما گفتند صبر کنید." - Typographic compression under heavy beam
-  // Phase 2 (105..215): "و ما وزن انتظار را سنجیدیم." - Suspended cables and deflected baseline
-  // Phase 3 (215..325): "سپس یک اراده فضا را گشود." - Vertical support pillar lifting the frame
-  // Phase 4 (325..450): "اکنون میدان از آن ماست." - Ground platform locking into place
+  // Dynamic Open-Canvas Camera Trajectory (>= 920px travel across acts)
+  const camX = interpolate(
+    frame,
+    [0, 95, 110, 125, 205, 220, 235, 315, 330, 345, 450],
+    [0, 0, 460, 0, 0, -460, 0, 0, 460, 0, 0],
+    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.2, 0, 0.2, 1) }
+  );
+
+  const camY = interpolate(
+    frame,
+    [0, 95, 110, 125, 205, 220, 235, 315, 330, 345, 450],
+    [0, 0, -40, 0, 0, 45, 0, 0, -35, 0, 0],
+    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.2, 0, 0.2, 1) }
+  );
+
+  const camScale = interpolate(
+    frame,
+    [0, 110, 220, 330, 450],
+    [1.0, 1.04, 1.02, 1.05, 1.0],
+    { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.2, 0, 0.2, 1) }
+  );
+
+  const floatWave = (seed: number, amp = 7) =>
+    Math.round(Math.sin((frame + seed) * 0.07) * amp);
+
+  // Act window envelope helper
+  const actEnvelope = (start: number, end: number) =>
+    interpolate(
+      frame,
+      [start - 10, start + 10, end - 12, end + 8],
+      [0, 1, 1, 0],
+      { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+    );
 
   // Phase 1: Lintel compression
-  const lintelY = interpolate(frame, [0, 50, 100], [-100, 180, 240], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.16, 1, 0.3, 1) });
-  const compressionScale = interpolate(frame, [50, 100], [1.0, 0.92], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
+  const lintelSpring = spring({ frame: Math.max(0, frame - 4), fps, config: { damping: 13, stiffness: 110 } });
+  const compressionScale = interpolate(frame, [35, 95], [1.0, 0.9], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' });
 
   // Phase 2: Suspension cable deflection
-  const cableDrop = spring({ frame: Math.max(0, frame - 110), fps, config: { damping: 12, stiffness: 100 } });
-  const baselineDeflection = interpolate(cableDrop, [0, 0.7, 1], [0, 45, 20]);
+  const cableDrop = spring({ frame: Math.max(0, frame - 112), fps, config: { damping: 12, stiffness: 100 } });
+  const baselineDeflection = interpolate(cableDrop, [0, 0.7, 1], [0, 48, 22]);
 
   // Phase 3: Vertical Support Pillar rotation and lift
-  const pillarRise = spring({ frame: Math.max(0, frame - 220), fps, config: { damping: 14, stiffness: 110 } });
-  const structureAngle = interpolate(pillarRise, [0, 1], [-8, 0]);
+  const pillarRise = spring({ frame: Math.max(0, frame - 222), fps, config: { damping: 14, stiffness: 110 } });
+  const structureAngle = interpolate(pillarRise, [0, 1], [-9, 0]);
 
   // Phase 4: Platform assembly
-  const platformSpring = spring({ frame: Math.max(0, frame - 330), fps, config: { damping: 13, stiffness: 95 } });
+  const platformSpring = spring({ frame: Math.max(0, frame - 332), fps, config: { damping: 13, stiffness: 95 } });
 
   return (
     <div
@@ -62,13 +116,20 @@ export const KineticArchitecturalTypoMaster: React.FC = () => {
         direction: 'rtl',
       }}
     >
-      {/* 1. ARCHITECTURAL DRAFTING CANVAS & RULER MARKS */}
+      {/* 1. SUBTLE VIDEOLANCER ULTIMATE SFX & BGM DIRECTOR */}
+      <UniversalSoundDirector
+        bgmTrack="music/Cipher2.mp3"
+        bgmVolume={0.14}
+        themeId="KINETIC_ARCHITECTURAL_TYPO"
+      />
+
+      {/* 2. ARCHITECTURAL DRAFTING CANVAS BACKGROUND (ZERO CORNER HUD CLUTTER) */}
       <div
         style={{
           position: 'absolute',
           inset: 0,
           background: `
-            radial-gradient(circle at 50% 40%, rgba(20, 48, 36, 0.7) 0%, rgba(12, 23, 18, 0.95) 70%, #08100c 100%),
+            radial-gradient(circle at 50% 40%, rgba(20, 48, 36, 0.72) 0%, rgba(12, 23, 18, 0.95) 70%, #08100c 100%),
             linear-gradient(rgba(244, 233, 213, 0.04) 1px, transparent 1px),
             linear-gradient(90deg, rgba(244, 233, 213, 0.04) 1px, transparent 1px)
           `,
@@ -76,22 +137,22 @@ export const KineticArchitecturalTypoMaster: React.FC = () => {
         }}
       />
 
-      {/* Top architectural ruler tick marks */}
-      <div style={{ position: 'absolute', top: 0, left: 60, right: 60, height: 24, borderBottom: '1px solid rgba(242, 181, 68, 0.25)', display: 'flex', justifyContent: 'space-between', opacity: 0.6 }}>
-        {Array.from({ length: 25 }).map((_, i) => (
-          <div key={i} style={{ width: 1, height: i % 5 === 0 ? 14 : 6, backgroundColor: '#f2b544' }} />
-        ))}
-      </div>
-
-      {/* Structural Metadata Watermark */}
-      <div style={{ position: 'absolute', bottom: 32, right: 64, fontFamily: 'monospace', fontSize: 13, color: 'rgba(244, 233, 213, 0.35)', letterSpacing: 2, direction: 'ltr' }}>
-        ARCH_STRUCT // SPEC_OPUS_5.5 · FRAME_ID: {frame}
-      </div>
-
-      {/* =================================================================== */}
-      {/* ACT 1: LINTEL COMPRESSION (0..110)                                   */}
-      {/* =================================================================== */}
-      {frame < 120 && (
+      {/* 3. OPEN-CANVAS 3D ARCHITECTURAL STAGE */}
+      <div
+        style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          transform: `scale(${camScale * breathingPulse}) translate3d(${Math.round(camX)}px, ${Math.round(camY)}px, 0px)`,
+          backfaceVisibility: 'hidden',
+          WebkitFontSmoothing: 'antialiased',
+        }}
+      >
+        {/* ================================================================= */}
+        {/* ACT 1: OPEN-CANVAS LINTEL COMPRESSION & VECTOR AXES (0..115)       */}
+        {/* ================================================================= */}
         <div
           style={{
             position: 'absolute',
@@ -100,51 +161,112 @@ export const KineticArchitecturalTypoMaster: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: interpolate(frame, [95, 115], [1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
+            opacity: interpolate(frame, [0, 12, 96, 114], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
+            pointerEvents: 'none',
           }}
         >
-          {/* Heavy Architectural Lintel Block */}
+          {/* Open-Canvas Structural Vector Blueprint Lines */}
+          <svg
+            width={1600}
+            height={700}
+            viewBox="0 0 1600 700"
+            style={{ position: 'absolute', overflow: 'visible' }}
+          >
+            <line
+              x1={140}
+              y1={190}
+              x2={1460}
+              y2={190}
+              stroke="#f2b544"
+              strokeWidth={2}
+              strokeDasharray="1320"
+              strokeDashoffset={Math.round(1320 * (1 - lintelSpring))}
+              strokeOpacity={0.55}
+            />
+            <line
+              x1={260}
+              y1={110}
+              x2={260}
+              y2={560}
+              stroke="#f4e9d5"
+              strokeWidth={1.5}
+              strokeDasharray="450"
+              strokeDashoffset={Math.round(450 * (1 - lintelSpring))}
+              strokeOpacity={0.3}
+            />
+            <line
+              x1={1340}
+              y1={110}
+              x2={1340}
+              y2={560}
+              stroke="#f4e9d5"
+              strokeWidth={1.5}
+              strokeDasharray="450"
+              strokeDashoffset={Math.round(450 * (1 - lintelSpring))}
+              strokeOpacity={0.3}
+            />
+          </svg>
+
+          {/* Heavy Architectural Lintel Slab */}
           <div
             style={{
-              position: 'absolute',
-              top: lintelY,
-              width: 1400,
-              height: 140,
+              width: 1180,
+              height: 132,
               backgroundColor: '#f2b544',
               color: '#0c1712',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              fontSize: 88,
+              fontSize: 84,
               fontWeight: 950,
               letterSpacing: -1,
-              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.8)',
+              boxShadow: '0 30px 80px rgba(0, 0, 0, 0.85)',
               borderBottom: '4px solid #ffffff',
+              transform: `translate3d(0px, ${Math.round((1 - lintelSpring) * -140 + floatWave(10, 5))}px, 0px) scale(${lintelSpring})`,
             }}
           >
             {sanitizeForDisplay('صـــــــبـــــــر')}
           </div>
 
-          {/* Compressed Spoken Sub-phrase */}
+          {/* Staggered Spoken Word Nodes Floating Under Compression */}
           <div
             style={{
-              marginTop: 180,
-              fontSize: 38,
-              fontWeight: 800,
-              color: '#f4e9d5',
+              display: 'flex',
+              gap: 28,
+              marginTop: 64,
               transform: `scaleY(${compressionScale})`,
-              letterSpacing: 0.5,
             }}
           >
-            {sanitizeForDisplay('به ما گفتند در تاریکی منتظر بمانید.')}
+            {ACT1_PHRASES.map((phrase, idx) => {
+              const wordSpring = spring({
+                frame: Math.max(0, frame - 16 - idx * 8),
+                fps,
+                config: { damping: 13, stiffness: 120 },
+              });
+              const wordFloat = floatWave(idx * 25, 6);
+              return (
+                <div
+                  key={phrase.text}
+                  style={{
+                    padding: '14px 32px',
+                    borderBottom: `2px solid ${phrase.accent}`,
+                    fontSize: 40,
+                    fontWeight: 900,
+                    color: phrase.accent,
+                    opacity: wordSpring,
+                    transform: `translate3d(0px, ${Math.round((1 - wordSpring) * 45 + wordFloat + idx * 0)}px, 0px) scale(${wordSpring})`,
+                  }}
+                >
+                  {sanitizeForDisplay(phrase.text)}
+                </div>
+              );
+            })}
           </div>
         </div>
-      )}
 
-      {/* =================================================================== */}
-      {/* ACT 2: SUSPENDED CABLES & DEFLECTED BASELINE (105..225)              */}
-      {/* =================================================================== */}
-      {frame >= 105 && frame < 230 && (
+        {/* ================================================================= */}
+        {/* ACT 2: SUSPENDED CABLES & DEFLECTED BASELINE (105..225)            */}
+        {/* ================================================================= */}
         <div
           style={{
             position: 'absolute',
@@ -153,105 +275,105 @@ export const KineticArchitecturalTypoMaster: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: interpolate(frame, [105, 115, 210, 225], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
+            opacity: actEnvelope(110, 222),
+            pointerEvents: 'none',
           }}
         >
-          {/* Suspension Cables */}
-          <svg width="1200" height="260" style={{ position: 'absolute', top: 120 }}>
-            <line x1="300" y1="0" x2="300" y2={180 * cableDrop} stroke="#f2b544" strokeWidth="2.5" strokeDasharray="4 4" />
-            <line x1="900" y1="0" x2="900" y2={180 * cableDrop} stroke="#f2b544" strokeWidth="2.5" strokeDasharray="4 4" />
+          {/* Dynamic SVG Suspension Cables with strokeDashoffset */}
+          <svg width={1200} height={340} viewBox="0 0 1200 340" style={{ position: 'absolute', top: 110, overflow: 'visible' }}>
+            <line
+              x1={260}
+              y1={0}
+              x2={260}
+              y2={Math.round(210 * cableDrop)}
+              stroke="#f2b544"
+              strokeWidth={3}
+              strokeDasharray="240"
+              strokeDashoffset={Math.round(240 * (1 - cableDrop))}
+            />
+            <line
+              x1={600}
+              y1={0}
+              x2={600}
+              y2={Math.round(225 * cableDrop)}
+              stroke="#34d399"
+              strokeWidth={3}
+              strokeDasharray="240"
+              strokeDashoffset={Math.round(240 * (1 - cableDrop))}
+            />
+            <line
+              x1={940}
+              y1={0}
+              x2={940}
+              y2={Math.round(210 * cableDrop)}
+              stroke="#f2b544"
+              strokeWidth={3}
+              strokeDasharray="240"
+              strokeDashoffset={Math.round(240 * (1 - cableDrop))}
+            />
             <path
-              d={`M 150 200 Q 600 ${200 + baselineDeflection} 1050 200`}
+              d={`M 140 210 Q 600 ${Math.round(210 + baselineDeflection)} 1060 210`}
               fill="none"
               stroke="#f4e9d5"
-              strokeWidth="4"
+              strokeWidth={4}
+              strokeDasharray="960"
+              strokeDashoffset={Math.round(960 * (1 - cableDrop))}
             />
           </svg>
 
-          {/* Suspended Word Load */}
+          {/* Suspended Typography Headline on Open Canvas */}
           <div
             style={{
-              transform: `translateY(${interpolate(cableDrop, [0, 1], [-60, 20])}px)`,
-              background: 'rgba(242, 181, 68, 0.12)',
-              border: '2px solid #f2b544',
-              padding: '24px 64px',
-              borderRadius: 8,
-              backdropFilter: 'blur(10px)',
+              textAlign: 'center',
+              marginTop: 40,
+              transform: `translate3d(0px, ${Math.round((1 - cableDrop) * -55 + floatWave(20, 7))}px, 0px) scale(${cableDrop})`,
             }}
           >
-            <h2 style={{ fontSize: 64, fontWeight: 950, color: '#f2b544', margin: 0 }}>
+            <h2 style={{ fontSize: 68, fontWeight: 950, color: '#f2b544', margin: 0, textShadow: '0 12px 40px rgba(0,0,0,0.85)' }}>
               {sanitizeForDisplay('سنگینیِ این بار')}
             </h2>
-            <p style={{ fontSize: 24, fontWeight: 700, color: '#f4e9d5', margin: '12px 0 0 0', textAlign: 'center' }}>
-              {sanitizeForDisplay('و ما وزن خاموشی را آزمودیم.')}
+            <p style={{ fontSize: 28, fontWeight: 800, color: '#f4e9d5', margin: '12px 0 0 0' }}>
+              {sanitizeForDisplay('و ما وزن خاموشی را بر کابل‌های زمان آزمودیم')}
             </p>
           </div>
-        </div>
-      )}
 
-      {/* =================================================================== */}
-      {/* ACT 3: PILLAR SUPPORT ROTATION & LIFT (215..335)                     */}
-      {/* =================================================================== */}
-      {frame >= 215 && frame < 340 && (
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            opacity: interpolate(frame, [215, 225, 320, 335], [0, 1, 1, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
-          }}
-        >
-          {/* Angled Beam */}
-          <div
-            style={{
-              width: 1300,
-              height: 12,
-              backgroundColor: '#f4e9d5',
-              transform: `rotate(${structureAngle}deg)`,
-              position: 'absolute',
-              boxShadow: '0 0 25px rgba(244, 233, 213, 0.4)',
-            }}
-          />
-
-          {/* Vertical Support Pillar */}
-          <div
-            style={{
-              position: 'absolute',
-              bottom: 220,
-              left: 450,
-              width: 80,
-              height: 400 * pillarRise,
-              backgroundColor: '#f2b544',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              writingMode: 'vertical-rl',
-              color: '#0c1712',
-              fontSize: 32,
-              fontWeight: 950,
-              letterSpacing: 2,
-            }}
-          >
-            {sanitizeForDisplay('ستون')}
-          </div>
-
-          <div style={{ position: 'relative', textAlign: 'center', zIndex: 10 }}>
-            <h2 style={{ fontSize: 58, fontWeight: 950, color: '#ffffff', textShadow: '0 4px 20px rgba(0,0,0,0.8)' }}>
-              {sanitizeForDisplay('سپس یک اراده فضا را شکافت')}
-            </h2>
-            <span style={{ fontSize: 24, fontWeight: 700, color: '#f2b544' }}>
-              {sanitizeForDisplay('نخستین ستون برای ساختن تکیه‌گاه استوار')}
-            </span>
+          {/* Staggered Tension Telemetry Nodes */}
+          <div style={{ display: 'flex', gap: 44, marginTop: 68 }}>
+            {ACT2_SUSPENSION_NODES.map((node, idx) => {
+              const nodeSpring = spring({
+                frame: Math.max(0, frame - 124 - idx * 9),
+                fps,
+                config: { damping: 13, stiffness: 115 },
+              });
+              return (
+                <div
+                  key={node.label}
+                  style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    padding: '16px 28px',
+                    borderTop: '3px solid #f2b544',
+                    background: 'rgba(242, 181, 68, 0.08)',
+                    opacity: nodeSpring,
+                    transform: `translate3d(0px, ${Math.round((1 - nodeSpring) * 40 + floatWave(idx * 30, 6) + idx * 0)}px, 0px) scale(${nodeSpring})`,
+                  }}
+                >
+                  <span style={{ fontSize: 16, fontWeight: 800, color: '#f4e9d5' }}>
+                    {sanitizeForDisplay(node.label)}
+                  </span>
+                  <span style={{ fontSize: 24, fontWeight: 950, color: '#f2b544', marginTop: 6 }}>
+                    {sanitizeForDisplay(node.load)}
+                  </span>
+                </div>
+              );
+            })}
           </div>
         </div>
-      )}
 
-      {/* =================================================================== */}
-      {/* ACT 4: THE MONUMENTAL FLOOR BELONGS TO US (325..450)                 */}
-      {/* =================================================================== */}
-      {frame >= 325 && (
+        {/* ================================================================= */}
+        {/* ACT 3: PILLAR SUPPORT ROTATION & LIFT (215..335)                   */}
+        {/* ================================================================= */}
         <div
           style={{
             position: 'absolute',
@@ -260,66 +382,194 @@ export const KineticArchitecturalTypoMaster: React.FC = () => {
             flexDirection: 'column',
             alignItems: 'center',
             justifyContent: 'center',
-            opacity: platformSpring,
+            opacity: actEnvelope(220, 332),
+            pointerEvents: 'none',
           }}
         >
-          {/* Monumental Platform Built by Words */}
+          {/* SVG Structural Truss & Diagonal Bracing */}
+          <svg width={1400} height={600} viewBox="0 0 1400 600" style={{ position: 'absolute', overflow: 'visible' }}>
+            <line
+              x1={100}
+              y1={280}
+              x2={1300}
+              y2={280}
+              stroke="#f4e9d5"
+              strokeWidth={8}
+              strokeDasharray="1200"
+              strokeDashoffset={Math.round(1200 * (1 - pillarRise))}
+              transform={`rotate(${structureAngle} 700 280)`}
+            />
+            <line
+              x1={340}
+              y1={520}
+              x2={700}
+              y2={280}
+              stroke="#f2b544"
+              strokeWidth={3}
+              strokeDasharray="460"
+              strokeDashoffset={Math.round(460 * (1 - pillarRise))}
+            />
+            <line
+              x1={1060}
+              y1={520}
+              x2={700}
+              y2={280}
+              stroke="#f2b544"
+              strokeWidth={3}
+              strokeDasharray="460"
+              strokeDashoffset={Math.round(460 * (1 - pillarRise))}
+            />
+          </svg>
+
+          {/* Headline */}
           <div
             style={{
-              width: 1400,
-              padding: '60px 48px',
-              backgroundColor: '#f4e9d5',
-              color: '#0c1712',
-              borderRadius: 4,
-              boxShadow: '0 40px 120px rgba(0, 0, 0, 0.95), 0 0 60px rgba(242, 181, 68, 0.3)',
+              position: 'relative',
               textAlign: 'center',
-              transform: `scale(${platformSpring * (1 + beatPulse.scalePulse * 0.2)})`,
+              zIndex: 10,
+              marginBottom: 56,
+              transform: `translate3d(0px, ${Math.round((1 - pillarRise) * -40 + floatWave(40, 6))}px, 0px) scale(${pillarRise})`,
+            }}
+          >
+            <h2 style={{ fontSize: 62, fontWeight: 950, color: '#ffffff', margin: 0, textShadow: '0 6px 28px rgba(0,0,0,0.9)' }}>
+              {sanitizeForDisplay('سپس یک اراده فضا را شکافت')}
+            </h2>
+            <span style={{ fontSize: 26, fontWeight: 800, color: '#f2b544', display: 'block', marginTop: 10 }}>
+              {sanitizeForDisplay('ستون‌های کلمات سقفِ سنگین را به آسمان افراشتند')}
+            </span>
+          </div>
+
+          {/* 3 Staggered Rising Pillar Columns on Open Canvas */}
+          <div style={{ display: 'flex', gap: 56, alignItems: 'flex-end', zIndex: 10 }}>
+            {ACT3_PILLAR_SEGMENTS.map((pillar, idx) => {
+              const colSpring = spring({
+                frame: Math.max(0, frame - 230 - idx * 10),
+                fps,
+                config: { damping: 13, stiffness: 115 },
+              });
+              return (
+                <div
+                  key={pillar.title}
+                  style={{
+                    width: 310,
+                    padding: '28px 24px',
+                    borderLeft: '4px solid #f2b544',
+                    borderTop: '2px solid rgba(244, 233, 213, 0.5)',
+                    background: 'rgba(12, 23, 18, 0.85)',
+                    opacity: colSpring,
+                    transform: `translate3d(0px, ${Math.round((1 - colSpring) * 70 + floatWave(idx * 35, 6) + idx * 0)}px, 0px) scale(${colSpring})`,
+                  }}
+                >
+                  <div style={{ fontSize: 24, fontWeight: 950, color: '#f2b544' }}>
+                    {sanitizeForDisplay(pillar.title)}
+                  </div>
+                  <div style={{ fontSize: 17, fontWeight: 700, color: '#f4e9d5', marginTop: 8 }}>
+                    {sanitizeForDisplay(pillar.metric)}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ================================================================= */}
+        {/* ACT 4: THE MONUMENTAL FLOOR BELONGS TO US (325..450)               */}
+        {/* ================================================================= */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            opacity: interpolate(frame, [322, 338, 450], [0, 1, 1], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }),
+            pointerEvents: 'none',
+          }}
+        >
+          {/* Open-Canvas Architectural Crown Arc */}
+          <svg width={1500} height={540} viewBox="0 0 1500 540" style={{ position: 'absolute', overflow: 'visible' }}>
+            <path
+              d="M 120 440 L 750 80 L 1380 440"
+              fill="none"
+              stroke="#f2b544"
+              strokeWidth={3}
+              strokeDasharray="1500"
+              strokeDashoffset={Math.round(1500 * (1 - platformSpring))}
+              strokeOpacity={0.65}
+            />
+          </svg>
+
+          {/* Monumental Open-Canvas Manifesto Header */}
+          <div
+            style={{
+              textAlign: 'center',
+              transform: `translate3d(0px, ${Math.round((1 - platformSpring) * 45 + floatWave(60, 5))}px, 0px) scale(${platformSpring * (1 + beatPulse * 0.02)})`,
             }}
           >
             <div
               style={{
                 display: 'inline-block',
-                padding: '6px 20px',
-                backgroundColor: '#0c1712',
-                color: '#f2b544',
-                fontSize: 16,
-                fontWeight: 900,
-                marginBottom: 20,
-                letterSpacing: 1,
+                padding: '8px 24px',
+                backgroundColor: '#f2b544',
+                color: '#0c1712',
+                fontSize: 18,
+                fontWeight: 950,
+                marginBottom: 22,
               }}
             >
-              {sanitizeForDisplay('مانیفست نهایی')}
+              {sanitizeForDisplay('مانیفست نهایی معماری حرکت')}
             </div>
 
             <h1
               style={{
-                fontSize: 68,
+                fontSize: 74,
                 fontWeight: 950,
-                color: '#0c1712',
-                margin: '0 0 16px 0',
+                color: '#f4e9d5',
+                margin: '0 0 18px 0',
                 lineHeight: 1.15,
-                letterSpacing: -1,
+                textShadow: '0 15px 45px rgba(0,0,0,0.9)',
               }}
             >
               {sanitizeForDisplay('اکنون تمام این میدان از آنِ ماست')}
             </h1>
 
-            <p style={{ fontSize: 24, fontWeight: 700, color: '#4a5b51', maxWidth: 880, margin: '0 auto' }}>
+            <p style={{ fontSize: 28, fontWeight: 800, color: '#f2b544', maxWidth: 920, margin: '0 auto' }}>
               {sanitizeForDisplay('بر کلماتی که خود پی، ستون و سقف این بنا را ساختند.')}
             </p>
           </div>
 
-          {/* Foundation Blocks */}
-          <div style={{ display: 'flex', gap: 16, marginTop: 24, width: 1400, justifyContent: 'space-between' }}>
-            <div style={{ flex: 1, height: 20, backgroundColor: '#f2b544', opacity: 0.8 }} />
-            <div style={{ flex: 2, height: 20, backgroundColor: '#f2b544' }} />
-            <div style={{ flex: 1, height: 20, backgroundColor: '#f2b544', opacity: 0.8 }} />
+          {/* Staggered Foundation Blocks */}
+          <div style={{ display: 'flex', gap: 24, marginTop: 54, width: 1320, justifyContent: 'space-between' }}>
+            {ACT4_FOUNDATION_SLABS.map((slab, idx) => {
+              const slabSpring = spring({
+                frame: Math.max(0, frame - 344 - idx * 9),
+                fps,
+                config: { damping: 13, stiffness: 115 },
+              });
+              return (
+                <div
+                  key={slab.label}
+                  style={{
+                    flex: slab.flex,
+                    padding: '18px 24px',
+                    backgroundColor: slab.color,
+                    color: '#0c1712',
+                    textAlign: 'center',
+                    fontSize: 20,
+                    fontWeight: 950,
+                    opacity: slabSpring,
+                    transform: `translate3d(0px, ${Math.round((1 - slabSpring) * 45 + floatWave(idx * 20, 4) + idx * 0)}px, 0px) scale(${slabSpring})`,
+                    boxShadow: '0 20px 50px rgba(0,0,0,0.75)',
+                  }}
+                >
+                  {sanitizeForDisplay(slab.label)}
+                </div>
+              );
+            })}
           </div>
         </div>
-      )}
-
-      {/* STUDIO SOUNDTRACK */}
-      <Audio src={staticFile('music/Cipher2.mp3')} volume={0.8} />
+      </div>
     </div>
   );
 };

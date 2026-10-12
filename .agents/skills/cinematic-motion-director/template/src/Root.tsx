@@ -40,6 +40,34 @@ import {
   BENTO_GRID_HEIGHT,
 } from './motion/templates/BentoGridSaasMaster';
 import {
+  BaqiyatallahResearchAwardsScene,
+  BAQIYATALLAH_AWARDS_DURATION,
+  BAQIYATALLAH_AWARDS_FPS,
+  BAQIYATALLAH_AWARDS_WIDTH,
+  BAQIYATALLAH_AWARDS_HEIGHT,
+} from './motion/compositions/BaqiyatallahResearchAwardsScene';
+import {
+  BaqiyatallahArchitecturalTypoScene,
+  ARCH_TYPO_DURATION,
+  ARCH_TYPO_FPS,
+  ARCH_TYPO_WIDTH,
+  ARCH_TYPO_HEIGHT,
+} from './motion/compositions/BaqiyatallahArchitecturalTypoScene';
+import {
+  BaqiyatallahUniversalStageScene,
+  BAQIYATALLAH_UNIVERSAL_DURATION,
+  BAQIYATALLAH_UNIVERSAL_FPS,
+  BAQIYATALLAH_UNIVERSAL_WIDTH,
+  BAQIYATALLAH_UNIVERSAL_HEIGHT,
+} from './motion/compositions/BaqiyatallahUniversalStageScene';
+import {
+  BaqiyatallahStopMotionScene,
+  BAQIYATALLAH_STOP_MOTION_DURATION,
+  BAQIYATALLAH_STOP_MOTION_FPS,
+  BAQIYATALLAH_STOP_MOTION_WIDTH,
+  BAQIYATALLAH_STOP_MOTION_HEIGHT,
+} from './motion/compositions/BaqiyatallahStopMotionScene';
+import {
   FinTechTradingMaster,
   FINTECH_DURATION,
   FINTECH_FPS,
@@ -106,6 +134,67 @@ import {
  * CONSOLIDATED STUDIO ROOT COMPOSITION REGISTRY (CLEAN PRODUCTION ARCHITECTURE)
  * ============================================================================
  */
+// ============================================================================
+// 3. MOTION GRAMMAR & COMPILER HARNESS (TEST COMPOSITIONS)
+// ============================================================================
+import { CanonicalMotionScene } from './motion/grammar/CanonicalMotionScene';
+import { CanonicalCompilerScene } from './motion/compiler/CanonicalCompilerScene';
+import {
+  VerbTest_SPLIT,
+  VerbTest_EXPAND,
+  VerbTest_TRAVEL,
+  VerbTest_COLLAPSE,
+  VerbTest_MORPH,
+  VerbTest_MERGE,
+  VerbTest_DEFORM,
+  VerbTest_REASSEMBLE,
+  VerbTest_AntiBypass_FakeSplit,
+  VerbTest_DecorativeCamouflage,
+} from './motion/grammar/VerbTemplateTestCompositions';
+
+import { UniversalCinematicStoryScene } from './motion/templates/UniversalCinematicStoryScene';
+import { UniversalCinematicStage } from './motion/stage/UniversalCinematicStage';
+
+const UniversalCinematicStageDemo: React.FC = () => {
+  return (
+    <UniversalCinematicStage
+      acts={[
+        {
+          actId: 'act1_hook',
+          badgeFa: 'چالش داده‌ها',
+          titleFa: 'انفجار اطلاعات و پیچیدگی سیستم‌ها',
+          descriptionFa: 'جریان داده‌های لحظه‌ای نیازمند هماهنگی شناختی چندعاملی است.',
+          heroSymbol: '⚡',
+          lottiePreset: 'tech_ai_core',
+          emphasisTokens: ['انفجار اطلاعات'],
+        },
+        {
+          actId: 'act2_engine',
+          badgeFa: 'موتور نوآوری',
+          titleFa: 'شبکه توزیع‌شده با پاسخ میلی‌ثانیه‌ای',
+          descriptionFa: 'موتور پردازش بدون وقفه با تفکیک وظایف و ترنزیشن‌های سینمایی.',
+          heroSymbol: '🧬',
+          lottiePreset: 'bio_helix_pulse',
+          emphasisTokens: ['شبکه توزیع‌شده'],
+        },
+        {
+          actId: 'act3_vision',
+          badgeFa: 'اکوسیستم آینده',
+          titleFa: 'آینده موشن گرافیک هوشمند',
+          descriptionFa: 'ترکیب بی‌نقص فیزیک اسپرینگ، ضرب‌آهنگ موسیقی و گرافیک برداری.',
+          heroSymbol: '🌐',
+          lottiePreset: 'abstract_portal',
+          emphasisTokens: ['آینده هوشمند'],
+        },
+      ]}
+      themeId="DARK_GRAPHITE_TECH"
+      cameraMode="PANORAMIC_HORIZONTAL"
+      bgmTrack="music/Tech_Live.mp3"
+      bpm={124}
+    />
+  );
+};
+
 export const Root: React.FC = () => {
   return (
     <>
@@ -275,6 +364,78 @@ export const Root: React.FC = () => {
         fps={CLAUDE_PERSIAN_FPS}
         width={CLAUDE_PERSIAN_WIDTH}
         height={CLAUDE_PERSIAN_HEIGHT}
+      />
+      {/* ----------------------------------------------------------------- */}
+      {/* 12. GRAMMAR & COMPILER HARNESS COMPOSITIONS (TEST RUNNERS)        */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition id="CanonicalMotionScene" component={CanonicalMotionScene} durationInFrames={600} fps={30} width={1920} height={1080} />
+      <Composition id="CanonicalCompilerScene" component={CanonicalCompilerScene} durationInFrames={600} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-SPLIT" component={VerbTest_SPLIT} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-EXPAND" component={VerbTest_EXPAND} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-TRAVEL" component={VerbTest_TRAVEL} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-COLLAPSE" component={VerbTest_COLLAPSE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-MORPH" component={VerbTest_MORPH} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-MERGE" component={VerbTest_MERGE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-DEFORM" component={VerbTest_DEFORM} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-REASSEMBLE" component={VerbTest_REASSEMBLE} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-AntiBypass-FakeSplit" component={VerbTest_AntiBypass_FakeSplit} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="VerbTest-DecorativeCamouflage" component={VerbTest_DecorativeCamouflage} durationInFrames={100} fps={30} width={1920} height={1080} />
+      <Composition id="UniversalCinematicStoryScene" component={UniversalCinematicStoryScene} durationInFrames={600} fps={30} width={1920} height={1080} />
+      <Composition
+        id="UniversalCinematicStage"
+        component={UniversalCinematicStageDemo}
+        durationInFrames={600}
+        fps={30}
+        width={1920}
+        height={1080}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 13. BAQIYATALLAH RESEARCH AWARDS (STUDENT RESEARCHER MASTER)       */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahResearchAwards"
+        component={BaqiyatallahResearchAwardsScene}
+        durationInFrames={BAQIYATALLAH_AWARDS_DURATION}
+        fps={BAQIYATALLAH_AWARDS_FPS}
+        width={BAQIYATALLAH_AWARDS_WIDTH}
+        height={BAQIYATALLAH_AWARDS_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 14. BAQIYATALLAH ARCHITECTURAL TYPO (KINETIC MANIFESTO MASTER)    */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahArchitecturalTypo"
+        component={BaqiyatallahArchitecturalTypoScene}
+        durationInFrames={ARCH_TYPO_DURATION}
+        fps={ARCH_TYPO_FPS}
+        width={ARCH_TYPO_WIDTH}
+        height={ARCH_TYPO_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 15. BAQIYATALLAH UNIVERSAL STAGE (NEW SKILL V2.0 MASTER)          */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahUniversalStage"
+        component={BaqiyatallahUniversalStageScene}
+        durationInFrames={BAQIYATALLAH_UNIVERSAL_DURATION}
+        fps={BAQIYATALLAH_UNIVERSAL_FPS}
+        width={BAQIYATALLAH_UNIVERSAL_WIDTH}
+        height={BAQIYATALLAH_UNIVERSAL_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 16. BAQIYATALLAH STOP-MOTION PAPERCRAFT (TACTILE CRAFT MASTER)     */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahStopMotion"
+        component={BaqiyatallahStopMotionScene}
+        durationInFrames={BAQIYATALLAH_STOP_MOTION_DURATION}
+        fps={BAQIYATALLAH_STOP_MOTION_FPS}
+        width={BAQIYATALLAH_STOP_MOTION_WIDTH}
+        height={BAQIYATALLAH_STOP_MOTION_HEIGHT}
       />
     </>
   );

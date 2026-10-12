@@ -61,6 +61,13 @@ import {
   BAQIYATALLAH_UNIVERSAL_HEIGHT,
 } from './motion/compositions/BaqiyatallahUniversalStageScene';
 import {
+  BaqiyatallahStopMotionScene,
+  BAQIYATALLAH_STOP_MOTION_DURATION,
+  BAQIYATALLAH_STOP_MOTION_FPS,
+  BAQIYATALLAH_STOP_MOTION_WIDTH,
+  BAQIYATALLAH_STOP_MOTION_HEIGHT,
+} from './motion/compositions/BaqiyatallahStopMotionScene';
+import {
   FinTechTradingMaster,
   FINTECH_DURATION,
   FINTECH_FPS,
@@ -417,6 +424,18 @@ export const Root: React.FC = () => {
         fps={BAQIYATALLAH_UNIVERSAL_FPS}
         width={BAQIYATALLAH_UNIVERSAL_WIDTH}
         height={BAQIYATALLAH_UNIVERSAL_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 16. BAQIYATALLAH STOP-MOTION PAPERCRAFT (TACTILE CRAFT MASTER)     */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahStopMotion"
+        component={BaqiyatallahStopMotionScene}
+        durationInFrames={BAQIYATALLAH_STOP_MOTION_DURATION}
+        fps={BAQIYATALLAH_STOP_MOTION_FPS}
+        width={BAQIYATALLAH_STOP_MOTION_WIDTH}
+        height={BAQIYATALLAH_STOP_MOTION_HEIGHT}
       />
     </>
   );

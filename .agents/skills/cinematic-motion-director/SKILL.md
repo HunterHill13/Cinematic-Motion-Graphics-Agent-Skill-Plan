@@ -384,27 +384,47 @@ When producing any new video in a session, orchestrate specialized subagents via
 2. **Subagent 2 — `SceneBuilder` (Parallel Shards):** Implements the Remotion scene components in parallel batches so every child element has rich, independent spring physics, SVG `strokeDashoffset` drawing, integer-rounded `translate3d`, and wires clean `<UniversalSoundDirector>` (BGM + Voice only, zero SFX).
 3. **Subagent 3 — `AdversarialQACritic` (Hard Blocking Gate):** Runs `npx tsx tests/test_open_canvas_and_sfx_audit.ts`, `npx tsx tests/test_scene_transition_diversity.ts`, and `npx tsx tests/test_cinematic_defects_detector.ts` plus headless still-frame inspection. If ANY violation is detected (`[CORNER_HUD_CLUTTER]`, `[STATIC_INTERNAL_CHILDREN]`, or `[HOMOGENEOUS_TRANSITION_DEFECT]`), rendering is blocked and the offending scene shard is automatically rewritten until 0 defects remain.
 
-### 8.5 Multi-Modal Dynamic Scene Transition Directing & Non-Repetition Law
-To eliminate "Identical Transition Syndrome" (repeating the same camera pan or same opacity fade between every single shot):
-1. **The Semantic Metaphor Transition Director:**
-   - For every boundary between Act $N$ and Act $N+1$, the agent MUST analyze the semantic conceptual relationship and design a motivated, organic transition. Transitions are never syntactic glue; they are narrative rhetoric.
-2. **The 5 Archetypes of Kinetic Scene Transitions (`DynamicTransitionDirector`):**
-   - **Type A: `CAMERA_SPATIAL_FLIGHT`** (Journey / Progression): Camera whip-pan or vertical crane with motivated banking roll ($2.5^\circ\text{--}4.0^\circ$) and velocity-proportional motion blur ($\le 16\text{px}$). Elements hold rigid in world coordinates.
-   - **Type B: `ELEMENT_KINETIC_DISPERSE`** (Categorical Shift / Contrast): The camera holds completely still ($V_{\text{cam}} = 0$). Elements fling directionally off-screen (e.g. `translateX: -950px`, `rotateZ: -6deg`), and the next act's elements pop/unfold into the center!
-   - **Type C: `DEEP_Z_ZOOM_THROUGH`** (Micro-to-Macro Deep Dive): Camera accelerates forward through Z-space ($Z: 0 \to 2400\text{px}$) penetrating through a focal token aperture into the next scene.
-   - **Type D: `TOPOLOGICAL_ANCHOR_MORPH`** (Data / Metric Evolution): A hero number or vector icon does NOT leave the frame; it anchors the canvas and morphs/interpolates into the primary subject of Act $N+1$.
-   - **Type E: `KINETIC_LIGHT_SWEEP`** (Act Climax / Radical Transformation): Directional light plane slices across the canvas with specular laser glow and 2-frame camera recoil micro-shake ($\pm 3\text{px}$).
-3. **The Master Kinetic Agency Law:**
-   - *At any given frame, either the Camera possesses kinetic agency OR the Elements possess kinetic agency, but NEVER both simultaneously at peak velocity.*
-   - Prevents velocity doubling ($200\text{px} + 180\text{px} = 380\text{px/frame}$) and viewer motion sickness.
-4. **The Non-Repetition Rule (Anti-Monotony Guard):**
+### 8.5 Multi-Modal Dynamic Scene Transition Directing, Chained 3D Coordinates & Co-Presence Law
+To permanently eliminate "Identical Transition Syndrome" (where every transition looks like a horizontal camera pan because acts were placed on a uniform linear track `index * 1500`):
+1. **Transition-Chained 3D Spatial Coordinates (`computeChainedActPositions`):**
+   - Never place acts on a fixed linear track (`index * 1500`). Instead, Act $i+1$'s 3D world position `(posX, posY, posZ)` MUST be chained from Act $i$'s `transitionOut.archetype`:
+     * **`CAMERA_SPATIAL_FLIGHT` (Co-Present Camera Glide):** Advances world coordinates by `(+1420, 0, 0)` for `WHIP_PAN_RIGHT`, `(-1420, 0, 0)` for `WHIP_PAN_LEFT`, `(0, +920, 0)` for `VERTICAL_CRANE_DOWN`, `(0, -920, 0)` for `VERTICAL_CRANE_UP`, or `(+1280, +680, 0)` for `DIAGONAL_GLIDE`.
+       - **Inviolable Co-Presence Law:** During `CAMERA_SPATIAL_FLIGHT`, **neither the outgoing scene nor the incoming scene may fade out prematurely** (`opacity: 1.0` across `[actEnd - 18, actEnd + 18]`). As the camera glides from Scene $A$ to Scene $B$, **both Scene $A$ and Scene $B$ (connected by an animated 3D SVG Spatial Bridge Conduit) are simultaneously visible inside the 1920x1080 viewport** until the camera settles completely on Scene $B$!
+     * **`ELEMENT_KINETIC_DISPERSE` (Stationary Camera + Per-Child Staggered Disperse & Pop):** Advances world coordinates by `(0, 0, 0)` — the camera stays **100% rock-solid stationary**! Individual child elements of Scene $A$ (`computeChildTransitionStyle(childIdx, ...)`) fling off-screen in staggered order (`childIdx * 3` frames, e.g. to the left with rotation), and Scene $B$'s child elements pop/spring onto the stationary stage one by one with elastic overshoot (`damping: 10, stiffness: 170`).
+     * **`DEEP_Z_ZOOM_THROUGH` (3D Portal Dive):** Advances world coordinates along the Z-axis `(0, 0, -1600)` while keeping `(X, Y)` unchanged. Scene $A$'s hero visual scales up (`1.0 -> 3.4x`) like an opening aperture while the camera plunges straight through its center into Scene $B$ emerging from deep Z-space (`scale: 0.22 -> 1.0`).
+     * **`TOPOLOGICAL_ANCHOR_MORPH` (Stationary Camera + 3D Core Flip):** Camera holds stationary `(0, 0, 0 delta)` while the central hero visual executes a 180-degree 3D Y-axis morph flip (`rotateY`) and surrounding context nodes collapse/re-expand.
+     * **`KINETIC_LIGHT_SWEEP` (Stationary Camera + Laser Blade Wipe):** Camera holds stationary with a 2-frame vertical recoil micro-shake ($\pm 3\text{px}$) while a luminous vertical laser blade sweeps across the open canvas (`0% -> 100%`) with synchronized `clipPath` polygon reveal.
+2. **The Non-Repetition Rule (Anti-Monotony Guard):**
    - No two consecutive act transitions in a story manifest may use the same `TransitionArchetype`.
-   - The pipeline and automated test `tests/test_scene_transition_diversity.ts` strictly enforce 100% transition heterogeneity.
+
+### 8.6 Multi-Layout Act Choreography, 4 Kinetic Text Reveal Modes & Authentic Theme Primitives
+To ensure every generated video matches or exceeds the visual creativity of the 9 Master Preview Showreels (`*Master.tsx`):
+1. **4 Rotating Act Layout Archetypes (`layoutVariant`):**
+   - Never use the same 2-column layout for every act. Acts automatically rotate through (or explicitly specify) 4 distinct spatial layouts:
+     * `SPLIT_SCULPTURE_RIGHT`: Sculptural 3D orbital visual on the left, RTL kinetic typography & metric counter on the right, and staggered constellation sub-nodes below.
+     * `MONUMENTAL_CENTER_HERO`: Symmetrical center-stage orbital sculpture above a monumental centered headline and wide constellation array.
+     * `SPLIT_DATA_TERMINAL_LEFT`: Reversed horizontal split (`row`) with live animated telemetry bars/candlesticks on the right and kinetic typography on the left.
+     * `CONSTELLATION_BENTO_MATRIX`: Upper kinetic headline banner with a 3D spatial matrix of floating nodes connected by SVG conduits.
+2. **4 Rotating Kinetic Text Reveal Modes (`textRevealMode`):**
+   - Never animate every headline with the same vertical slide. Headlines rotate through 4 studio typography entrances:
+     * `MASK_CURTAIN_RISE`: Overflow-hidden baseline curtain mask where each phrase rises cleanly from `translateY(78px -> 0px)`.
+     * `PERSPECTIVE_3D_FLIP`: True 3D mechanical title flip (`rotateX(-82deg -> 0deg)` with `perspective: 900px`).
+     * `ELASTIC_POP_SLAM`: High-energy elastic scale slam (`scale(1.65 -> 1.0)`, `damping: 9, stiffness: 180`).
+     * `VELOCITY_SKEW_SLIDE`: Directional horizontal slide (`translateX(±140px -> 0px)`) with velocity-proportional shear (`skewX(-16deg -> 0deg)`).
+3. **Authentic Theme-Specific Surface & Vector Primitives (`themeId`):**
+   - `STOP_MOTION_PAPER`: Quantized 15fps stepped stop-motion frame (`Math.floor(frame / 2) * 2`), warm craft mat backdrop (`#2B2623`), tactile masking tape strips, and paper cutout slabs.
+   - `TECHNICAL_BLUEPRINT`: Prussian CAD grid (`#0A192F`), rotating wireframe SVG rotor/crosshairs, and dashed engineering callouts.
+   - `NEO_BRUTALIST`: High-contrast Acid Yellow (`#FACC15`) halftone matrix, Magenta/White title slabs, and hard `8px 8px 0px #09090B` ink shadows.
+   - `FINTECH_TRADING` / `BENTO_GRID_SAAS` / `QUANTUM_BIO_DEEP_Z` / `KINETIC_ARCHITECTURAL_TYPO`: Live animated telemetry bars, Lissajous bio-helical ellipses, and architectural truss lintels.
+4. **Mandatory Verification Gate:**
+   - Run `npx tsx tests/test_true_transition_and_creativity_audit.ts` alongside `tests/test_scene_transition_diversity.ts` and `tests/test_open_canvas_and_sfx_audit.ts` to verify 100% 3-way template sync and multi-modal choreography.
 
 ---
 
 ## 9. Reference Library
 
+- [Creative Choreography, Chained 3D Coordinates & Transition Audit](references/RESEARCH_CREATIVE_CHOREOGRAPHY_AND_TRANSITION_FIX.md)
+- [Dynamic Scene Transitions & Multi-Modal Camera Grammar](references/RESEARCH_DYNAMIC_SCENE_TRANSITIONS.md)
 - [Open-Canvas Kinetic Choreography, Ultimate SFX & Multi-Agent Research](references/RESEARCH_OPEN_CANVAS_SFX_MULTIAGENT.md)
 - [Claude Motion Architecture vs Static Defects Research](references/RESEARCH_CLAUDE_MOTION_VS_STATIC_DEFECTS.md)
 - [Claude Opus 5.5 Fluid Continuity & One-Take Camera](references/claude-fluid-continuity.md)
@@ -418,6 +438,3 @@ To eliminate "Identical Transition Syndrome" (repeating the same camera pan or s
 - [Anti-Patterns Catalog](references/anti-patterns.md)
 - [Cinematography & Motivated Camera Grammar](references/cinematography.md)
 - [Voice Director & Persian TTS Authority](references/voice-director-and-persian-tts.md)
-
-
-
