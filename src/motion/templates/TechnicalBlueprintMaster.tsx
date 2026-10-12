@@ -322,7 +322,7 @@ export const TechnicalBlueprintMaster: React.FC = () => {
                   </div>
                   <div
                     style={{
-                      fontSize: clampFontSize(28, 'statNumber', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
+                      fontSize: clampFontSize(28, 'cardHeader', BLUEPRINT_WIDTH, BLUEPRINT_HEIGHT),
                       fontWeight: 950,
                       fontFamily: 'monospace',
                       color: item.color,

@@ -28,6 +28,14 @@ import {
 } from '../audio/UniversalSoundDirector';
 import { TEMPLATE_CATALOG, TemplateId } from '../templates/TemplateCatalog';
 import { StudioMeshGlassBackdrop } from '../library/StudioMeshGlassBackdrop';
+import {
+  ActHandoffTransition,
+  TransitionArchetype,
+} from '../transitions/DynamicTransitionSchema';
+import {
+  DynamicTransitionDirector,
+  TransitionState,
+} from '../transitions/DynamicTransitionDirector';
 
 export interface ConstellationNodeItem {
   labelFa: string;
@@ -49,6 +57,7 @@ export interface StageAct {
   position?: { x: number; y: number; z: number };
   startFrame?: number;
   endFrame?: number;
+  transitionOut?: ActHandoffTransition;
   customVisual?: React.ReactNode;
   customBottomRow?: React.ReactNode;
 }
@@ -99,6 +108,42 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
   const defaultActDuration = durationInFrames / Math.max(1, acts.length);
   const actSpacing = cameraMode === 'DEEP_Z_TUNNEL' ? 1200 : 1500;
 
+  // Multi-Modal Transition Palette (Studio Alternating Guarantee)
+  const DEFAULT_TRANSITIONS: ActHandoffTransition[] = useMemo(
+    () => [
+      {
+        archetype: 'CAMERA_SPATIAL_FLIGHT',
+        durationInFrames: 18,
+        semanticMetaphorFa: 'پرواز افقی دوربین به سوی افق بعدی',
+        cameraFlight: { trajectory: 'WHIP_PAN_RIGHT', bankingRollDegrees: 3.2, peakBlurPixels: 14 },
+      },
+      {
+        archetype: 'ELEMENT_KINETIC_DISPERSE',
+        durationInFrames: 20,
+        semanticMetaphorFa: 'خروج شلاقی المان‌ها به چپ و ورود پاپ المان‌های جدید در سکون دوربین',
+        elementDisperse: { direction: 'LEFT' },
+      },
+      {
+        archetype: 'DEEP_Z_ZOOM_THROUGH',
+        durationInFrames: 22,
+        semanticMetaphorFa: 'زوم نفوذی در عمق و عبور از دیافراگم توکن به درون صحنه بعدی',
+        deepZZoom: { penetrationDepthZ: 2200 },
+      },
+      {
+        archetype: 'TOPOLOGICAL_ANCHOR_MORPH',
+        durationInFrames: 20,
+        semanticMetaphorFa: 'تحویل و مورف لنگرگاه مفهومی به هسته صحنه بعد',
+      },
+      {
+        archetype: 'KINETIC_LIGHT_SWEEP',
+        durationInFrames: 16,
+        semanticMetaphorFa: 'برش فضایی با تیغه نوری و لرزش ضربه‌ای',
+        kineticSlice: { hasRecoilShake: true },
+      },
+    ],
+    []
+  );
+
   const resolvedActs = useMemo(() => {
     return acts.map((act, index) => {
       const startFrame = act.startFrame ?? Math.floor(index * defaultActDuration);
@@ -119,6 +164,10 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
       const posY = Math.round(act.position?.y ?? defaultY);
       const posZ = Math.round(act.position?.z ?? defaultZ);
 
+      // Multi-Modal Transition Guarantee: never repeat identical transition
+      const transitionOut =
+        act.transitionOut ?? DEFAULT_TRANSITIONS[index % DEFAULT_TRANSITIONS.length];
+
       return {
         ...act,
         startFrame,
@@ -126,9 +175,10 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
         posX,
         posY,
         posZ,
+        transitionOut,
       };
     });
-  }, [acts, defaultActDuration, cameraMode, actSpacing]);
+  }, [acts, defaultActDuration, cameraMode, actSpacing, DEFAULT_TRANSITIONS]);
 
   const cameraWaypoints = useMemo(() => {
     return resolvedActs.map((a) => ({
@@ -137,8 +187,14 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
       x: a.posX,
       y: a.posY,
       z: -a.posZ,
+      transitionType: a.transitionOut?.archetype,
     }));
   }, [resolvedActs]);
+
+  // Compute Active Dynamic Transition State
+  const transitionState = useMemo(() => {
+    return DynamicTransitionDirector.computeTransitionState(frame, fps, resolvedActs);
+  }, [frame, fps, resolvedActs]);
 
   // 4. Kinetic Emphasis Tokens Extraction
   const allEmphasisTokens = useMemo<EmphasisToken[]>(() => {
@@ -205,7 +261,11 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
         {/* 3. OPEN-CANVAS 3D WORLD & SPATIAL CONSTELLATION CHOREOGRAPHY   */}
         {/* ============================================================== */}
         <PersistentWorld contracts={[]} style={{ width: '100%', height: '100%' }}>
-          <UniversalCameraRig mode={cameraMode} customWaypoints={cameraWaypoints}>
+          <UniversalCameraRig
+            mode={cameraMode}
+            customWaypoints={cameraWaypoints}
+            cameraOffset={transitionState.cameraOffset}
+          >
             {resolvedActs.map((act, actIndex) => {
               const actStart = act.startFrame;
               const actEnd = act.endFrame;
@@ -214,6 +274,30 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
 
               const { posX, posY, posZ } = act;
               const localFrame = Math.max(0, frame - actStart);
+
+              // Kinetic Agency Law: Evaluate per-act exit/enter dynamics
+              const isExitingAct =
+                transitionState.isTransitioning && transitionState.fromActId === act.actId;
+              const isEnteringAct =
+                transitionState.isTransitioning && transitionState.toActId === act.actId;
+
+              const exitDisplacementX = isExitingAct ? transitionState.elementExit.offsetX : 0;
+              const exitDisplacementY = isExitingAct ? transitionState.elementExit.offsetY : 0;
+              const exitDisplacementZ = isExitingAct ? transitionState.elementExit.offsetZ : 0;
+              const exitRotateZ = isExitingAct ? transitionState.elementExit.rotateZ : 0;
+              const exitScale = isExitingAct ? transitionState.elementExit.scale : 1.0;
+              const exitOpacityMultiplier = isExitingAct ? transitionState.elementExit.opacity : 1.0;
+
+              const enterBoostScale =
+                isEnteringAct &&
+                transitionState.activeTransition?.archetype === 'ELEMENT_KINETIC_DISPERSE'
+                  ? interpolate(transitionState.progress, [0.4, 1], [0.85, 1.0], {
+                      extrapolateLeft: 'clamp',
+                      extrapolateRight: 'clamp',
+                    })
+                  : 1.0;
+
+              const combinedScale = exitScale * enterBoostScale;
 
               // Independent staggered springs for each atomic open-canvas child!
               const visualSpring = spring({
@@ -263,6 +347,8 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                 { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
               );
 
+              const finalOpacity = actOpacity * exitOpacityMultiplier;
+
               // Deconstruct headline into staggered kinetic segments
               const titleWords = sanitizeForDisplay(act.titleFa).split(' ');
               const midPoint = Math.ceil(titleWords.length / 2);
@@ -276,8 +362,12 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                   key={act.actId}
                   style={{
                     position: 'absolute',
-                    transform: `translate3d(${Math.round(posX)}px, ${Math.round(posY)}px, ${Math.round(posZ)}px)`,
-                    opacity: actOpacity,
+                    transform: `translate3d(${Math.round(posX + exitDisplacementX)}px, ${Math.round(posY + exitDisplacementY)}px, ${Math.round(posZ + exitDisplacementZ)}px) rotateZ(${exitRotateZ}deg) scale(${combinedScale})`,
+                    opacity: finalOpacity,
+                    filter:
+                      isExitingAct && transitionState.motionBlurPx > 0
+                        ? `blur(${transitionState.motionBlurPx}px)`
+                        : undefined,
                     width: Math.round(width * 0.82),
                     display: 'flex',
                     flexDirection: 'column',
@@ -620,23 +710,6 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
           </UniversalCameraRig>
         </PersistentWorld>
 
-        {/* ============================================================== */}
-        {/* 4. TOP-LEVEL KINETIC EMPHASIS CALLOUT OVERLAY                 */}
-        {/* ============================================================== */}
-        {allEmphasisTokens.map((token, i) => (
-          <div
-            key={`${token.text}-${i}`}
-            style={{
-              transform: `translate3d(0px, ${Math.round(i * 0)}px, 0px)`,
-            }}
-          >
-            <KineticEmphasisCallout
-              token={token}
-              templateId={themeId}
-              bpm={bpm}
-            />
-          </div>
-        ))}
       </div>
     </CinematicRhythmContext.Provider>
   );

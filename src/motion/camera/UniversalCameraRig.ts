@@ -69,12 +69,21 @@ export interface CameraWaypoint {
   x: number;
   y: number;
   z: number;
+  transitionType?: string;
 }
 
 export interface UniversalCameraRigProps {
   mode?: CameraTrajectoryMode;
   customTrackLength?: number;
   customWaypoints?: CameraWaypoint[];
+  cameraOffset?: {
+    x?: number;
+    y?: number;
+    z?: number;
+    pitch?: number;
+    yaw?: number;
+    roll?: number;
+  };
   children?: React.ReactNode;
   style?: React.CSSProperties;
 }
@@ -520,6 +529,24 @@ export class UniversalCameraRigEngine {
         };
       }
       if (frame >= tStart && frame <= tEnd) {
+        // Kinetic Agency Law: If transition is element-driven, camera holds stationary during element exit!
+        const isElementDriven =
+          curr.transitionType === 'ELEMENT_KINETIC_DISPERSE' ||
+          curr.transitionType === 'TOPOLOGICAL_ANCHOR_MORPH';
+
+        if (isElementDriven) {
+          // Camera holds rock-solid on current position until element handoff completes
+          const handoffProgress = interpolate(frame, [curr.endFrame - 4, tEnd], [0, 1], {
+            extrapolateLeft: 'clamp',
+            extrapolateRight: 'clamp',
+            easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+          });
+          const camX = curr.x + (next.x - curr.x) * handoffProgress;
+          const camY = curr.y + (next.y - curr.y) * handoffProgress;
+          const camZ = curr.z + (next.z - curr.z) * handoffProgress;
+          return { camX, camY, camZ, camPitch: 0, camYaw: 0, camRoll: 0, camZoom: 1, motionBlur: 0 };
+        }
+
         const progress = interpolate(frame, [tStart, tEnd], [0, 1], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
@@ -567,7 +594,7 @@ export interface UniversalCameraRigComponentType extends React.FC<UniversalCamer
 }
 
 export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign(
-  ({ mode = 'PANORAMIC_HORIZONTAL', customTrackLength, customWaypoints, children, style }: UniversalCameraRigProps) => {
+  ({ mode = 'PANORAMIC_HORIZONTAL', customTrackLength, customWaypoints, cameraOffset, children, style }: UniversalCameraRigProps) => {
     const frame = useCurrentFrame();
     const { durationInFrames } = useVideoConfig();
     const trajectoryDef = UniversalCameraRigEngine.getTrajectory(mode);
@@ -575,7 +602,13 @@ export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign
       customWaypoints && customWaypoints.length > 0
         ? UniversalCameraRigEngine.computeFromWaypoints(frame, customWaypoints)
         : trajectoryDef.computeCamera(frame, durationInFrames);
-    const { camX, camY, camZ, camPitch, camYaw, camRoll } = cam;
+
+    const finalCamX = cam.camX + (cameraOffset?.x ?? 0);
+    const finalCamY = cam.camY + (cameraOffset?.y ?? 0);
+    const finalCamZ = cam.camZ + (cameraOffset?.z ?? 0);
+    const finalCamPitch = cam.camPitch + (cameraOffset?.pitch ?? 0);
+    const finalCamYaw = cam.camYaw + (cameraOffset?.yaw ?? 0);
+    const finalCamRoll = cam.camRoll + (cameraOffset?.roll ?? 0);
 
     return React.createElement(
       'div',
@@ -602,10 +635,10 @@ export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign
             backfaceVisibility: 'hidden',
             WebkitFontSmoothing: 'antialiased',
             transform: `
-              translate3d(${Math.round(-camX)}px, ${Math.round(-camY)}px, ${Math.round(camZ)}px)
-              rotateX(${camPitch}deg)
-              rotateY(${camYaw}deg)
-              rotateZ(${camRoll}deg)
+              translate3d(${Math.round(-finalCamX)}px, ${Math.round(-finalCamY)}px, ${Math.round(finalCamZ)}px)
+              rotateX(${finalCamPitch}deg)
+              rotateY(${finalCamYaw}deg)
+              rotateZ(${finalCamRoll}deg)
             `,
             display: 'flex',
             alignItems: 'center',

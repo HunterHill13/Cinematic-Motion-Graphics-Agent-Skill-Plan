@@ -3,15 +3,15 @@ import {
   interpolate,
   useCurrentFrame,
   useVideoConfig,
+  spring,
   staticFile,
   Img,
 } from 'remotion';
 import { UniversalCinematicStage, StageAct } from '../stage/UniversalCinematicStage';
 import { UniversalCameraRig } from '../camera/UniversalCameraRig';
-import { UniversalSoundDirector, SfxCue } from '../audio/UniversalSoundDirector';
+import { UniversalSoundDirector } from '../audio/UniversalSoundDirector';
 import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
-import { LottieGraphic } from '../assets/LottieGraphic';
 
 export const BAQIYATALLAH_UNIVERSAL_DURATION = 2387; // 79.57s @ 30 FPS
 export const BAQIYATALLAH_UNIVERSAL_FPS = 30;
@@ -22,11 +22,11 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  // Continuous 128 BPM rhythm pulse for bespoke sub-widgets
+  // Continuous 128 BPM rhythm pulse
   const beatPulse = calculateBeatPulse(frame, 128, fps).lightPulse;
   const pulseGlow = 1 + beatPulse * 0.015;
 
-  // Animated counters synchronized to voiceover timestamps
+  // Animated counters synchronized to speech pause windows
   const gpaCounter = interpolate(frame, [680, 790], [0, 16], {
     extrapolateLeft: 'clamp',
     extrapolateRight: 'clamp',
@@ -44,50 +44,7 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // Custom SFX cues with 4-frame pre-roll whooshes, milestone impacts, and climax riser
-  const customSfxCues = useMemo<SfxCue[]>(
-    () => [
-      { frame: 8, type: 'impact', volume: 0.65 },
-      { frame: 24, type: 'chime', volume: 0.45 },
-      // Act 2 transition (f: 180)
-      { frame: 176, type: 'whoosh', volume: 0.6 },
-      { frame: 188, type: 'impact', volume: 0.6 },
-      { frame: 205, type: 'click', volume: 0.35 },
-      // Act 3 transition (f: 400)
-      { frame: 396, type: 'whoosh', volume: 0.6 },
-      { frame: 408, type: 'impact', volume: 0.6 },
-      { frame: 425, type: 'click', volume: 0.35 },
-      // Act 4 transition (f: 650)
-      { frame: 646, type: 'whoosh', volume: 0.6 },
-      { frame: 658, type: 'impact', volume: 0.65 },
-      { frame: 765, type: 'chime', volume: 0.45 },
-      // Act 5 transition (f: 1000)
-      { frame: 996, type: 'whoosh', volume: 0.6 },
-      { frame: 1008, type: 'impact', volume: 0.6 },
-      { frame: 1025, type: 'click', volume: 0.35 },
-      // Act 6 transition (f: 1250)
-      { frame: 1246, type: 'whoosh', volume: 0.6 },
-      { frame: 1258, type: 'impact', volume: 0.65 },
-      { frame: 1450, type: 'chime', volume: 0.5 },
-      // Act 7 transition (f: 1650)
-      { frame: 1646, type: 'whoosh', volume: 0.6 },
-      { frame: 1658, type: 'impact', volume: 0.65 },
-      // Act 8 climax riser & tier hits (f: 1900..2280)
-      { frame: 1855, type: 'riser', volume: 0.7 },
-      { frame: 1896, type: 'whoosh', volume: 0.65 },
-      { frame: 1908, type: 'impact', volume: 0.65 },
-      { frame: 2028, type: 'chime', volume: 0.45 },
-      { frame: 2108, type: 'chime', volume: 0.5 },
-      { frame: 2188, type: 'impact', volume: 0.65 },
-      // Act 9 outro (f: 2280)
-      { frame: 2276, type: 'whoosh', volume: 0.6 },
-      { frame: 2288, type: 'impact', volume: 0.65 },
-      { frame: 2305, type: 'chime', volume: 0.45 },
-    ],
-    []
-  );
-
-  // 9 Spatial Acts distributed in 3D Coordinate Space (Zero Bottom Subtitles)
+  // 9 Spatial Acts on Open 3D Canvas (Zero Slide Boxes, Zero Corner HUDs, Zero SFX)
   const acts: StageAct[] = useMemo(
     () => [
       // ACT 1: INTRO LOGO & PUBLIC RELATIONS (0.0s - 6.0s | f: 0..180)
@@ -104,16 +61,16 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         customVisual: (
           <div
             style={{
-              width: 240,
-              height: 240,
-              borderRadius: 32,
-              background: 'linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%)',
+              width: 250,
+              height: 250,
+              borderRadius: 36,
+              background: 'linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%)',
               border: '3px solid #06b6d4',
-              boxShadow: `0 20px 50px rgba(0, 0, 0, 0.7), 0 0 ${Math.round(35 * pulseGlow)}px rgba(6, 182, 212, 0.45)`,
+              boxShadow: `0 24px 60px rgba(0, 0, 0, 0.75), 0 0 ${Math.round(40 * pulseGlow)}px rgba(6, 182, 212, 0.5)`,
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              padding: 20,
+              padding: 22,
             }}
           >
             <Img
@@ -137,45 +94,11 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
           'ارزیابی جامع فعالیت‌های علمی، پژوهشی و فناورانه دانشجویان در سطح ملی',
         lottiePreset: 'tech_ai_core',
         emphasisTokens: ['پژوهشگر یا فناور برجسته'],
-        customBottomRow: (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 20,
-              marginTop: 8,
-            }}
-          >
-            {[
-              { icon: '📄', title: 'پژوهش و مقالات معتبر', sub: 'انتشار علمی در نمایه‌های بین‌المللی' },
-              { icon: '💡', title: 'فناوری و ثبت اختراع', sub: 'تولید محصول، پتنت و نوآوری سلامت' },
-              { icon: '🏆', title: 'طرح‌ها و جوایز علمی', sub: 'المپیادها، کتب و گرنت‌های پژوهشی' },
-            ].map((item, i) => (
-              <div
-                key={i}
-                style={{
-                  background: 'rgba(255, 255, 255, 0.04)',
-                  border: '1.5px solid rgba(6, 182, 212, 0.28)',
-                  borderRadius: 20,
-                  padding: '16px 22px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 16,
-                }}
-              >
-                <span style={{ fontSize: 38 }}>{item.icon}</span>
-                <div>
-                  <div style={{ fontSize: 20, fontWeight: 900, color: '#f8fafc' }}>
-                    {sanitizeForDisplay(item.title)}
-                  </div>
-                  <div style={{ fontSize: 15, fontWeight: 600, color: '#94a3b8', marginTop: 4 }}>
-                    {sanitizeForDisplay(item.sub)}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        ),
+        constellationNodes: [
+          { symbol: '📄', labelFa: 'مقالات ISI و Scopus', valueFa: 'پژوهش اصیل' },
+          { symbol: '💡', labelFa: 'طرح‌های فناورانه و اختراع', valueFa: 'نوآوری سلامت' },
+          { symbol: '🏆', labelFa: 'کتب و جوایز المپیاد', valueFa: 'افتخارات علمی' },
+        ],
       },
 
       // ACT 3: GUIDELINE BLUEPRINT (13.3s - 21.6s | f: 400..650)
@@ -192,45 +115,11 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         metricLabelFa: 'ماده ۲ آیین‌نامه استعدادهای درخشان وزارت بهداشت',
         lottiePreset: 'bio_helix_pulse',
         emphasisTokens: ['دستورالعمل بند کاف', 'ماده ۲ آیین‌نامه'],
-        customBottomRow: (
-          <div
-            style={{
-              display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 20,
-              marginTop: 8,
-            }}
-          >
-            {[
-              { step: 'گام اول', label: 'احراز ۳ شرط اصلی ورود', color: '#10b981' },
-              { step: 'گام دوم', label: 'توزیع امتیاز در حداقل ۶ ماده', color: '#06b6d4' },
-              { step: 'گام سوم', label: 'کسب حدنصاب امتیاز مقطع تحصیلی', color: '#f59e0b' },
-            ].map((s, i) => (
-              <div
-                key={i}
-                style={{
-                  background: 'rgba(15, 23, 42, 0.75)',
-                  border: `1.5px solid ${s.color}55`,
-                  borderRadius: 18,
-                  padding: '14px 22px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                }}
-              >
-                <div>
-                  <div style={{ fontSize: 14, fontWeight: 800, color: s.color }}>
-                    {sanitizeForDisplay(s.step)}
-                  </div>
-                  <div style={{ fontSize: 19, fontWeight: 800, color: '#ffffff', marginTop: 4 }}>
-                    {sanitizeForDisplay(s.label)}
-                  </div>
-                </div>
-                <span style={{ fontSize: 24, color: s.color, fontWeight: 900 }}>0{i + 1}</span>
-              </div>
-            ))}
-          </div>
-        ),
+        constellationNodes: [
+          { symbol: '1️⃣', labelFa: 'احراز ۳ شرط اصلی ورود', valueFa: 'گام اول' },
+          { symbol: '2️⃣', labelFa: 'توزیع امتیاز در حداقل ۶ ماده', valueFa: 'گام دوم' },
+          { symbol: '3️⃣', labelFa: 'کسب حدنصاب امتیاز مقطع', valueFa: 'گام سوم' },
+        ],
       },
 
       // ACT 4: 3 CONDITIONS INTRO + CONDITION 1 GPA >= 16 (21.6s - 33.3s | f: 650..1000)
@@ -249,8 +138,8 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         customVisual: (
           <div
             style={{
-              width: 240,
-              height: 240,
+              width: 250,
+              height: 250,
               borderRadius: '50%',
               border: '14px solid rgba(255, 255, 255, 0.08)',
               borderTopColor: '#10b981',
@@ -261,11 +150,11 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
               flexDirection: 'column',
               alignItems: 'center',
               justifyContent: 'center',
-              background: 'rgba(15, 23, 42, 0.9)',
-              boxShadow: '0 0 40px rgba(16, 185, 129, 0.35)',
+              background: 'rgba(15, 23, 42, 0.92)',
+              boxShadow: '0 0 45px rgba(16, 185, 129, 0.4)',
             }}
           >
-            <span style={{ fontSize: 64, fontWeight: 900, color: '#ffffff' }}>
+            <span style={{ fontSize: 66, fontWeight: 900, color: '#ffffff' }}>
               {gpaCounter.toFixed(1)}
             </span>
             <span style={{ fontSize: 18, fontWeight: 800, color: '#10b981' }}>
@@ -288,53 +177,10 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
           'اشتغال به تحصیل در سقف سنوات قانونی مصوب و گواهی رسمی کمیته انضباطی دانشگاه',
         lottiePreset: 'ui_check_confirm',
         emphasisTokens: ['سنوات مجاز تحصیلی', 'تأییدیه کمیته انضباطی'],
-        customBottomRow: (
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, marginTop: 8 }}>
-            <div
-              style={{
-                background: 'rgba(6, 182, 212, 0.1)',
-                border: '1.5px solid rgba(6, 182, 212, 0.45)',
-                borderRadius: 20,
-                padding: '18px 26px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 18,
-              }}
-            >
-              <span style={{ fontSize: 40 }}>⏳</span>
-              <div>
-                <div style={{ fontSize: 22, fontWeight: 900, color: '#ffffff' }}>
-                  {sanitizeForDisplay('در سنوات مجاز تحصیلی باشید')}
-                </div>
-                <div style={{ fontSize: 16, fontWeight: 600, color: '#38bdf8', marginTop: 4 }}>
-                  {sanitizeForDisplay('مطابق آیین‌نامه آموزشی مقطع مربوطه')}
-                </div>
-              </div>
-            </div>
-
-            <div
-              style={{
-                background: 'rgba(16, 185, 129, 0.1)',
-                border: '1.5px solid rgba(16, 185, 129, 0.45)',
-                borderRadius: 20,
-                padding: '18px 26px',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 18,
-              }}
-            >
-              <span style={{ fontSize: 40 }}>🛡️</span>
-              <div>
-                <div style={{ fontSize: 22, fontWeight: 900, color: '#ffffff' }}>
-                  {sanitizeForDisplay('تأییدیه کمیته انضباطی را دریافت کنید')}
-                </div>
-                <div style={{ fontSize: 16, fontWeight: 600, color: '#10b981', marginTop: 4 }}>
-                  {sanitizeForDisplay('احراز صلاحیت و حسن سلوک دانشجویی')}
-                </div>
-              </div>
-            </div>
-          </div>
-        ),
+        constellationNodes: [
+          { symbol: '⏳', labelFa: 'عدم اتمام سنوات مجاز', valueFa: 'سنوات تحصیلی' },
+          { symbol: '🛡️', labelFa: 'تأییدیه رسمی حسن اخلاق', valueFa: 'کمیته انضباطی' },
+        ],
       },
 
       // ACT 6: CONDITION 3 - 6 ARTICLES + MANDATORY PAPER/TECH (41.6s - 55.0s | f: 1250..1650)
@@ -355,8 +201,8 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(6, 1fr)',
-              gap: 14,
-              marginTop: 8,
+              gap: 16,
+              direction: 'rtl',
             }}
           >
             {[
@@ -366,54 +212,63 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
               { num: 'ماده ۴', title: 'کنگره و همایش', mandatory: false, icon: '🎤' },
               { num: 'ماده ۵', title: 'طرح تحقیقاتی', mandatory: false, icon: '📊' },
               { num: 'ماده ۶', title: 'جوایز و المپیاد', mandatory: false, icon: '🏅' },
-            ].map((m, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: m.mandatory
-                    ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.2) 0%, rgba(239, 68, 68, 0.18) 100%)'
-                    : 'rgba(255, 255, 255, 0.04)',
-                  border: m.mandatory
-                    ? '2px solid #f59e0b'
-                    : '1px solid rgba(255, 255, 255, 0.14)',
-                  borderRadius: 16,
-                  padding: '12px 10px',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  textAlign: 'center',
-                  gap: 6,
-                }}
-              >
-                <span style={{ fontSize: 26 }}>{m.icon}</span>
-                <span
+            ].map((m, idx) => {
+              const nodeSpring = spring({
+                frame: Math.max(0, (frame - 1250) - (20 + idx * 8)),
+                fps: 30,
+                config: { damping: 14, stiffness: 120, mass: 0.8 },
+              });
+              return (
+                <div
+                  key={idx}
                   style={{
-                    fontSize: 13,
-                    fontWeight: 800,
-                    color: m.mandatory ? '#fbbf24' : '#94a3b8',
+                    background: m.mandatory
+                      ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.22) 0%, rgba(239, 68, 68, 0.18) 100%)'
+                      : 'rgba(255, 255, 255, 0.05)',
+                    border: m.mandatory
+                      ? '2px solid #f59e0b'
+                      : '1.5px solid rgba(255, 255, 255, 0.14)',
+                    borderRadius: 18,
+                    padding: '14px 10px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    textAlign: 'center',
+                    gap: 6,
+                    transform: `translate3d(0px, ${Math.round((1 - nodeSpring) * (idx * 6))}px, 0px) scale(${nodeSpring})`,
+                    opacity: nodeSpring,
                   }}
                 >
-                  {sanitizeForDisplay(m.num)}
-                </span>
-                <span style={{ fontSize: 16, fontWeight: 900, color: '#ffffff' }}>
-                  {sanitizeForDisplay(m.title)}
-                </span>
-                {m.mandatory && (
+                  <span style={{ fontSize: 28 }}>{m.icon}</span>
                   <span
                     style={{
-                      fontSize: 12,
-                      fontWeight: 900,
-                      color: '#fef08a',
-                      background: 'rgba(239, 68, 68, 0.45)',
-                      padding: '2px 8px',
-                      borderRadius: 999,
+                      fontSize: 13,
+                      fontWeight: 800,
+                      color: m.mandatory ? '#fbbf24' : '#94a3b8',
                     }}
                   >
-                    {sanitizeForDisplay('اجباری')}
+                    {sanitizeForDisplay(m.num)}
                   </span>
-                )}
-              </div>
-            ))}
+                  <span style={{ fontSize: 16, fontWeight: 900, color: '#ffffff' }}>
+                    {sanitizeForDisplay(m.title)}
+                  </span>
+                  {m.mandatory && (
+                    <span
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 900,
+                        color: '#fef08a',
+                        background: 'rgba(239, 68, 68, 0.45)',
+                        padding: '2px 8px',
+                        borderRadius: 999,
+                      }}
+                    >
+                      {sanitizeForDisplay('اجباری')}
+                    </span>
+                  )}
+                </div>
+              );
+            })}
           </div>
         ),
       },
@@ -433,63 +288,11 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         metricLabelFa: 'حداکثر مهلت مجاز پس از فارغ‌التحصیلی',
         heroSymbol: '⚠️',
         emphasisTokens: ['دوران تحصیل', 'حداکثر ۱ سال پس از فارغ‌التحصیلی'],
-        customBottomRow: (
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              background: 'rgba(245, 158, 11, 0.08)',
-              border: '1.5px solid rgba(245, 158, 11, 0.4)',
-              borderRadius: 20,
-              padding: '18px 32px',
-              marginTop: 8,
-            }}
-          >
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 900, color: '#38bdf8' }}>
-                {sanitizeForDisplay('۱. کل دوران تحصیل')}
-              </div>
-              <div style={{ fontSize: 15, color: '#cbd5e1', marginTop: 4 }}>
-                {sanitizeForDisplay('پذیرش کامل فعالیت‌های پژوهشی')}
-              </div>
-            </div>
-            <div
-              style={{
-                flex: 1,
-                height: 5,
-                margin: '0 28px',
-                borderRadius: 999,
-                background: 'linear-gradient(90deg, #38bdf8, #f59e0b, #ef4444)',
-              }}
-            />
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 900, color: '#fbbf24' }}>
-                {sanitizeForDisplay('۲. ایستگاه فارغ‌التحصیلی')}
-              </div>
-              <div style={{ fontSize: 15, color: '#cbd5e1', marginTop: 4 }}>
-                {sanitizeForDisplay('شروع شمارش مهلت ۱ ساله')}
-              </div>
-            </div>
-            <div
-              style={{
-                flex: 1,
-                height: 5,
-                margin: '0 28px',
-                borderRadius: 999,
-                background: 'linear-gradient(90deg, #f59e0b, #ef4444)',
-              }}
-            />
-            <div style={{ textAlign: 'center' }}>
-              <div style={{ fontSize: 20, fontWeight: 900, color: '#f87171' }}>
-                {sanitizeForDisplay('۳. نهایتاً تا ۱ سال پس از آن')}
-              </div>
-              <div style={{ fontSize: 15, color: '#cbd5e1', marginTop: 4 }}>
-                {sanitizeForDisplay('پایان مهلت قانونی ارائه مدارک')}
-              </div>
-            </div>
-          </div>
-        ),
+        constellationNodes: [
+          { symbol: '🎓', labelFa: 'پذیرش کامل مدارک', valueFa: '۱. طول تحصیل' },
+          { symbol: '📜', labelFa: 'آغاز شمارش مهلت', valueFa: '۲. فارغ‌التحصیلی' },
+          { symbol: '🛑', labelFa: 'پایان مهلت قانونی', valueFa: '۳. تا ۱ سال بعد' },
+        ],
       },
 
       // ACT 8: SCORE THRESHOLDS - 65, 110, 130 (63.3s - 76.0s | f: 1900..2280)
@@ -509,90 +312,64 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
             style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
-              gap: 22,
-              marginTop: 8,
+              gap: 24,
+              direction: 'rtl',
             }}
           >
-            {/* Tier 1: BSc 65 */}
-            <div
-              style={{
-                background:
-                  frame >= 2025 && frame < 2105
-                    ? 'linear-gradient(135deg, rgba(6, 182, 212, 0.28) 0%, rgba(15, 23, 42, 0.95) 100%)'
-                    : 'rgba(255, 255, 255, 0.04)',
-                border:
-                  frame >= 2025 && frame < 2105
-                    ? '2.5px solid #06b6d4'
-                    : '1.5px solid rgba(255, 255, 255, 0.14)',
-                borderRadius: 22,
-                padding: '20px 24px',
-                textAlign: 'center',
-              }}
-            >
-              <div style={{ fontSize: 19, fontWeight: 800, color: '#38bdf8' }}>
-                {sanitizeForDisplay('کارشناسی (دانشگاه‌های تیپ یک)')}
-              </div>
-              <div style={{ fontSize: 58, fontWeight: 900, color: '#ffffff', margin: '4px 0' }}>
-                {scoreBSc.toFixed(0)}
-              </div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#06b6d4' }}>
-                {sanitizeForDisplay('امتیاز')}
-              </div>
-            </div>
-
-            {/* Tier 2: General Medicine 110 */}
-            <div
-              style={{
-                background:
-                  frame >= 2105 && frame < 2185
-                    ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.28) 0%, rgba(15, 23, 42, 0.95) 100%)'
-                    : 'rgba(255, 255, 255, 0.04)',
-                border:
-                  frame >= 2105 && frame < 2185
-                    ? '2.5px solid #10b981'
-                    : '1.5px solid rgba(255, 255, 255, 0.14)',
-                borderRadius: 22,
-                padding: '20px 24px',
-                textAlign: 'center',
-              }}
-            >
-              <div style={{ fontSize: 19, fontWeight: 800, color: '#10b981' }}>
-                {sanitizeForDisplay('پزشکی عمومی')}
-              </div>
-              <div style={{ fontSize: 58, fontWeight: 900, color: '#ffffff', margin: '4px 0' }}>
-                {scoreMed.toFixed(0)}
-              </div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#10b981' }}>
-                {sanitizeForDisplay('امتیاز')}
-              </div>
-            </div>
-
-            {/* Tier 3: PhD 130 */}
-            <div
-              style={{
-                background:
-                  frame >= 2185
-                    ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.28) 0%, rgba(15, 23, 42, 0.95) 100%)'
-                    : 'rgba(255, 255, 255, 0.04)',
-                border:
-                  frame >= 2185
-                    ? '2.5px solid #f59e0b'
-                    : '1.5px solid rgba(255, 255, 255, 0.14)',
-                borderRadius: 22,
-                padding: '20px 24px',
-                textAlign: 'center',
-              }}
-            >
-              <div style={{ fontSize: 19, fontWeight: 800, color: '#fbbf24' }}>
-                {sanitizeForDisplay('دکترای تخصصی')}
-              </div>
-              <div style={{ fontSize: 58, fontWeight: 900, color: '#ffffff', margin: '4px 0' }}>
-                {scorePhD.toFixed(0)}
-              </div>
-              <div style={{ fontSize: 18, fontWeight: 800, color: '#fbbf24' }}>
-                {sanitizeForDisplay('امتیاز نیاز دارد!')}
-              </div>
-            </div>
+            {[
+              {
+                title: 'کارشناسی (دانشگاه‌های تیپ یک)',
+                score: scoreBSc.toFixed(0),
+                accent: '#06b6d4',
+                active: frame >= 1930 && frame < 2005,
+              },
+              {
+                title: 'پزشکی عمومی',
+                score: scoreMed.toFixed(0),
+                accent: '#10b981',
+                active: frame >= 2005 && frame < 2085,
+              },
+              {
+                title: 'دکترای تخصصی (Ph.D)',
+                score: scorePhD.toFixed(0),
+                accent: '#f59e0b',
+                active: frame >= 2085,
+              },
+            ].map((tier, idx) => {
+              const tierSpring = spring({
+                frame: Math.max(0, (frame - 1900) - (16 + idx * 10)),
+                fps: 30,
+                config: { damping: 14, stiffness: 125, mass: 0.85 },
+              });
+              return (
+                <div
+                  key={idx}
+                  style={{
+                    background: tier.active
+                      ? `linear-gradient(135deg, ${tier.accent}26 0%, rgba(15, 23, 42, 0.95) 100%)`
+                      : 'rgba(255, 255, 255, 0.05)',
+                    border: tier.active
+                      ? `2.5px solid ${tier.accent}`
+                      : '1.5px solid rgba(255, 255, 255, 0.15)',
+                    borderRadius: 22,
+                    padding: '22px 26px',
+                    textAlign: 'center',
+                    transform: `translate3d(0px, ${Math.round((1 - tierSpring) * (idx * 8))}px, 0px) scale(${tierSpring})`,
+                    opacity: tierSpring,
+                  }}
+                >
+                  <div style={{ fontSize: 19, fontWeight: 800, color: tier.accent }}>
+                    {sanitizeForDisplay(tier.title)}
+                  </div>
+                  <div style={{ fontSize: 60, fontWeight: 900, color: '#ffffff', margin: '4px 0' }}>
+                    {tier.score}
+                  </div>
+                  <div style={{ fontSize: 18, fontWeight: 800, color: tier.accent }}>
+                    {sanitizeForDisplay('امتیاز')}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         ),
       },
@@ -613,8 +390,8 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
           <div style={{ display: 'flex', gap: 16, alignItems: 'center', justifyContent: 'center' }}>
             <div
               style={{
-                width: 126,
-                height: 126,
+                width: 128,
+                height: 128,
                 borderRadius: 24,
                 background: '#ffffff',
                 border: '2.5px solid #06b6d4',
@@ -632,8 +409,8 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
             </div>
             <div
               style={{
-                width: 126,
-                height: 126,
+                width: 128,
+                height: 128,
                 borderRadius: 24,
                 background: '#ffffff',
                 border: '2.5px solid #10b981',
@@ -656,9 +433,8 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
     [frame, gpaCounter, pulseGlow, scoreBSc, scoreMed, scorePhD]
   );
 
-  // Resolve camera trajectory via UniversalCameraRig & UniversalSoundDirector
+  // Resolve 6-DOF camera trajectory via UniversalCameraRig
   const trajectory = UniversalCameraRig.getTrajectory('DIAGONAL_CASCADE');
-  const _soundReady = Boolean(UniversalSoundDirector.name);
 
   return (
     <UniversalCinematicStage
@@ -666,13 +442,8 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
       themeId="QUANTUM_BIO_DEEP_Z"
       cameraMode={trajectory.mode}
       voiceTrack="audio/baqiyatallah_awards_master_voice.wav"
-      bgmTrack={_soundReady ? 'music/Tech_Live.mp3' : 'music/Tech_Live.mp3'}
+      bgmTrack="music/Tech_Live.mp3"
       bpm={128}
-      customSfxCues={customSfxCues}
-      topHeaderTitleFa="دانشگاه علوم پزشکی بقیةالله (عج)"
-      topHeaderSubtitleFa="کمیته تحقیقات و فناوری دانشجویی"
-      topHeaderBadgeFa="آیین‌نامه استعدادهای درخشان // بند «کاف»، ماده ۲"
-      footerTitleFa="روابط عمومی کمیته تحقیقات دانشگاه علوم پزشکی بقیةالله (عج) // دستورالعمل بند «کاف»"
     />
   );
 };

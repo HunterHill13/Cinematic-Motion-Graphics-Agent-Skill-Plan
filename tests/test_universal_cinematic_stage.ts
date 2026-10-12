@@ -1,6 +1,6 @@
 import React from 'react';
 import { UniversalCinematicStage, StageAct } from '../src/motion/stage/UniversalCinematicStage';
-import { TEMPLATE_CATALOG, TemplateArchetype } from '../src/motion/templates/TemplateCatalog';
+import { TEMPLATE_CATALOG, TemplateId } from '../src/motion/templates/TemplateCatalog';
 
 function assert(condition: boolean, message: string) {
   if (!condition) {
@@ -49,7 +49,7 @@ const sampleActs: StageAct[] = [
   },
 ];
 
-const archetypes = Object.keys(TEMPLATE_CATALOG) as TemplateArchetype[];
+const archetypes = Object.keys(TEMPLATE_CATALOG) as TemplateId[];
 
 console.log(`Auditing UniversalCinematicStage across all ${archetypes.length} decoupled aesthetic themes:`);
 

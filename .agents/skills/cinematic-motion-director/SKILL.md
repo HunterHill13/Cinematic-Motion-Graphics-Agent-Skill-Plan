@@ -382,7 +382,24 @@ To permanently eliminate "Card/Box Slide Syndrome", static internal children, co
 When producing any new video in a session, orchestrate specialized subagents via `invoke_subagent`:
 1. **Subagent 1 — `ChoreographyArchitect`:** Analyzes the voiceover timestamps and designs Open-Canvas Spatial Constellation scenes (Zero outer boxes, Zero corner HUDs, independent staggered child springs, SVG connecting beams).
 2. **Subagent 2 — `SceneBuilder` (Parallel Shards):** Implements the Remotion scene components in parallel batches so every child element has rich, independent spring physics, SVG `strokeDashoffset` drawing, integer-rounded `translate3d`, and wires clean `<UniversalSoundDirector>` (BGM + Voice only, zero SFX).
-3. **Subagent 3 — `AdversarialQACritic` (Hard Blocking Gate):** Runs `npx tsx tests/test_open_canvas_and_sfx_audit.ts` and `npx tsx tests/test_cinematic_defects_detector.ts` plus headless still-frame inspection. If ANY violation is detected (`[CORNER_HUD_CLUTTER]`, `[STATIC_INTERNAL_CHILDREN]`, or `[UNSTAGGERED_LIST_ITEMS]`), rendering is blocked and the offending scene shard is automatically rewritten until 0 defects remain.
+3. **Subagent 3 — `AdversarialQACritic` (Hard Blocking Gate):** Runs `npx tsx tests/test_open_canvas_and_sfx_audit.ts`, `npx tsx tests/test_scene_transition_diversity.ts`, and `npx tsx tests/test_cinematic_defects_detector.ts` plus headless still-frame inspection. If ANY violation is detected (`[CORNER_HUD_CLUTTER]`, `[STATIC_INTERNAL_CHILDREN]`, or `[HOMOGENEOUS_TRANSITION_DEFECT]`), rendering is blocked and the offending scene shard is automatically rewritten until 0 defects remain.
+
+### 8.5 Multi-Modal Dynamic Scene Transition Directing & Non-Repetition Law
+To eliminate "Identical Transition Syndrome" (repeating the same camera pan or same opacity fade between every single shot):
+1. **The Semantic Metaphor Transition Director:**
+   - For every boundary between Act $N$ and Act $N+1$, the agent MUST analyze the semantic conceptual relationship and design a motivated, organic transition. Transitions are never syntactic glue; they are narrative rhetoric.
+2. **The 5 Archetypes of Kinetic Scene Transitions (`DynamicTransitionDirector`):**
+   - **Type A: `CAMERA_SPATIAL_FLIGHT`** (Journey / Progression): Camera whip-pan or vertical crane with motivated banking roll ($2.5^\circ\text{--}4.0^\circ$) and velocity-proportional motion blur ($\le 16\text{px}$). Elements hold rigid in world coordinates.
+   - **Type B: `ELEMENT_KINETIC_DISPERSE`** (Categorical Shift / Contrast): The camera holds completely still ($V_{\text{cam}} = 0$). Elements fling directionally off-screen (e.g. `translateX: -950px`, `rotateZ: -6deg`), and the next act's elements pop/unfold into the center!
+   - **Type C: `DEEP_Z_ZOOM_THROUGH`** (Micro-to-Macro Deep Dive): Camera accelerates forward through Z-space ($Z: 0 \to 2400\text{px}$) penetrating through a focal token aperture into the next scene.
+   - **Type D: `TOPOLOGICAL_ANCHOR_MORPH`** (Data / Metric Evolution): A hero number or vector icon does NOT leave the frame; it anchors the canvas and morphs/interpolates into the primary subject of Act $N+1$.
+   - **Type E: `KINETIC_LIGHT_SWEEP`** (Act Climax / Radical Transformation): Directional light plane slices across the canvas with specular laser glow and 2-frame camera recoil micro-shake ($\pm 3\text{px}$).
+3. **The Master Kinetic Agency Law:**
+   - *At any given frame, either the Camera possesses kinetic agency OR the Elements possess kinetic agency, but NEVER both simultaneously at peak velocity.*
+   - Prevents velocity doubling ($200\text{px} + 180\text{px} = 380\text{px/frame}$) and viewer motion sickness.
+4. **The Non-Repetition Rule (Anti-Monotony Guard):**
+   - No two consecutive act transitions in a story manifest may use the same `TransitionArchetype`.
+   - The pipeline and automated test `tests/test_scene_transition_diversity.ts` strictly enforce 100% transition heterogeneity.
 
 ---
 
