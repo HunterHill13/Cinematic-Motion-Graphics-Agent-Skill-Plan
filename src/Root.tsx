@@ -54,6 +54,13 @@ import {
   ARCH_TYPO_HEIGHT,
 } from './motion/compositions/BaqiyatallahArchitecturalTypoScene';
 import {
+  BaqiyatallahUniversalStageScene,
+  BAQIYATALLAH_UNIVERSAL_DURATION,
+  BAQIYATALLAH_UNIVERSAL_FPS,
+  BAQIYATALLAH_UNIVERSAL_WIDTH,
+  BAQIYATALLAH_UNIVERSAL_HEIGHT,
+} from './motion/compositions/BaqiyatallahUniversalStageScene';
+import {
   FinTechTradingMaster,
   FINTECH_DURATION,
   FINTECH_FPS,
@@ -398,6 +405,18 @@ export const Root: React.FC = () => {
         fps={ARCH_TYPO_FPS}
         width={ARCH_TYPO_WIDTH}
         height={ARCH_TYPO_HEIGHT}
+      />
+
+      {/* ----------------------------------------------------------------- */}
+      {/* 15. BAQIYATALLAH UNIVERSAL STAGE (NEW SKILL V2.0 MASTER)          */}
+      {/* ----------------------------------------------------------------- */}
+      <Composition
+        id="BaqiyatallahUniversalStage"
+        component={BaqiyatallahUniversalStageScene}
+        durationInFrames={BAQIYATALLAH_UNIVERSAL_DURATION}
+        fps={BAQIYATALLAH_UNIVERSAL_FPS}
+        width={BAQIYATALLAH_UNIVERSAL_WIDTH}
+        height={BAQIYATALLAH_UNIVERSAL_HEIGHT}
       />
     </>
   );

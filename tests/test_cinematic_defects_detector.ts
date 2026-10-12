@@ -38,11 +38,11 @@ export function auditCompositionFile(filePath: string): DefectAuditResult {
     violations.push(`CAMERA_TRAVEL_INSUFFICIENT_OR_STATIC: Total camera travel is only ${camTravel}px (must be >= 800px or use UniversalCameraRig). This causes a static slideshow feel.`);
   }
 
-  // 3. Check for SFX audio
-  const hasSfx = /sfx\//i.test(content) || /whoosh/i.test(content) || /riser/i.test(content) || /impact/i.test(content) || /SoundDirector/i.test(content) || /sfxCues/i.test(content);
-  const isMissingSfx = !hasSfx;
+  // 3. Check for Audio / SoundDirector (SFX is deprecated/removed per studio direction)
+  const hasAudio = /SoundDirector/i.test(content) || /<Audio/i.test(content) || /bgmTrack/i.test(content);
+  const isMissingSfx = !hasAudio;
   if (isMissingSfx) {
-    violations.push('SFX_AUDIO_MISSING: Zero sound effects (whooshes, impacts, risers) wired into composition.');
+    violations.push('AUDIO_DIRECTOR_MISSING: UniversalSoundDirector or background audio track not wired into composition.');
   }
 
   // 4. Check for Beat Pulse wiring

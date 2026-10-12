@@ -173,45 +173,47 @@
 
 Designed to replicate and surpass the viral visual fluid continuity, SVG topological morphing, and physical camera choreography of **Claude Opus 5.5**, this architecture features full native support for **Persian (فارسی)** typography with the **Yekan Bakh** suite and zero-subpixel-jitter RTL rendering.
 
-### 🚫 The Anti-Slideshow Mandate
+### 🚫 The Anti-Slideshow Mandate & Open-Canvas Paradigm
 Traditional AI-generated video tools trap users in the **Slideshow Trap**: static cards swapping text, 1.05x linear scale zooms mimicking movement, and box width resizing masquerading as morphs.
 
-This pipeline eliminates those flaws through an **unbroken spatial world stage**, a **continuous 6-DOF virtual camera**, and **genuine vector topology morphing**.
+This pipeline eliminates those flaws through:
+- **Zero-Box Open-Canvas Kinetic Choreography:** Content is never trapped inside rigid bordered container cards. Every element (word, metric, vector icon, diagram node) lives directly on the infinite 3D canvas with independent staggered spring entrances, continuous living micro-motion, and animated SVG constellation energy conduits.
+- **100% Focal Purity & Zero Corner HUD Clutter:** No corner telemetry badges, no repeating headers, no distracting watermarks. 100% of visual energy is concentrated on the immediate spoken concept.
+- **Zero-SFX Pure Audio Pipeline:** Random, artificial sound effects are strictly banned. Audio is staged to broadcast perfection: pure crystal-clear voiceover paired with sidechain-ducked background music (14% base, ducked to 5-7% during speech).
+- **Unbroken Spatial World Stage & 6-DOF Virtual Camera:** Continuous camera flights through 3D space with zero jarring cuts.
 
 ---
 
-## 💎 The 6 Core Architectural Pillars
+## 💎 The Core Architectural Pillars
 
-### 1. Genuine SVG Vector Path Morphing (`@remotion/paths`)
+### 1. Zero-Box Open-Canvas Choreography
+- **No Rigid Container Cards:** Scenes do not render as rectangular PowerPoint slides.
+- **Independent Staggered Lifecycle:** Every title phrase, data badge, and vector node has its own individual spring arrival, continuous ambient drift (`Math.sin`), and independent exit path.
+- **SVG Constellation Conduits:** Dynamic SVG vector connectors animate across nodes via `strokeDashoffset` to visually link ideas.
+
+### 2. Genuine SVG Vector Path Morphing (`@remotion/paths`)
 - **No Div Resizing:** Box width/height interpolation is banned as a standalone morph.
 - **Topological Bezier Interpolation:** Using native `interpolatePath(t, pathA, pathB)`, multi-point vector coordinates smoothly morph across parametric states without unmounting or visual tearing:
   $$\text{Octagram Glyph} \xrightarrow{\text{Morph}} \text{Neural AI Synapse} \xrightarrow{\text{Morph}} \text{Quantum Wave} \xrightarrow{\text{Morph}} \text{Calibration Shield}$$
 - **Mechanical Stroke Evolution:** Telemetry circuits and checkmarks render dynamically via `evolvePath(progress, path)`.
 
-### 2. Continuous 6-DOF One-Take Virtual Camera
+### 3. Continuous 6-DOF One-Take Virtual Camera
 - **Unbroken Spatial Canvas:** Sequences never fade to black or wipe. All acts reside in a persistent 3D coordinate space (`perspective: 1200`).
 - **Motivated Flight Grammar:** The camera translates through $X$, $Y$, and $Z$, tilting into 2.5D isometric angles (`Pitch: -1.8°`, `Yaw: 2.2°`) with kinetic banking rolls (`Roll: ±3.5°`) and velocity-driven motion skew during speed ramps.
 
-### 3. Newtonian Vector Attractor Swarm Physics
-- **Deterministic Gravitational Vortex:** An inverse-distance particle orbital engine orbiting active vector attractor cores across all narrative acts.
-- **Airy & Delicate Balance:** Low-density particles (18–20 particles per act) with soft glows (0.18 opacity), harmonic beat breathing, and radial click shockwave dispersion.
+### 4. Zero-SFX Pure Audio Mix & Sidechain Ducking
+- **Zero Random SFX:** Artificial whooshes and clicks are eliminated.
+- **Crystal-Clear Voiceover:** Edge-TTS and Google Gemini Audio narration take center stage.
+- **Frame-Accurate Sidechain Ducking:** BGM ducks from 14% to 5-7% automatically when narration is active.
 
-### 4. Official Persian Typography System (Yekan Bakh)
+### 5. Official Persian Typography System (Yekan Bakh)
 - **8 Distinct Weights:** Loaded from WOFF2 (`Thin 100`, `Light 300`, `Regular 400`, `SemiBold 600`, `Bold 700`, `ExtraBold 800`, `Black 900`, `ExtraBlack 950`).
 - **Dual-Representation Sanitizer:** Automatically removes diacritical marks (harakat/tashdid) for clean visual layout while preserving phonetic cues for TTS synthesis.
-- **Zero-Subpixel Jitter:** Text coordinates are rounded to whole integer pixels with hardware acceleration (`translate3d`).
+- **Zero-Subpixel Jitter:** Text coordinates are rounded to whole integer pixels (`Math.round`) with hardware acceleration (`translate3d`).
 
-### 5. Studio Audio & Beat-Grid Synchronization (124 BPM)
-- **Quantized Beat Grid:** Keyframe events snap mathematically to musical subdivisions (whole beat, 8th note, 16th note).
-- **Softened Audio-Reactive Heartbeat:** Subtle kick-drum pulse ($+0.2\%$ to $+0.45\%$ scale) provides organic breathing without frame vibration.
-- **Dynamic Sidechain Ducking:** BGM ducks cleanly from 32% to 16% volume during voiceover segments.
-
-### 6. Multi-Style Visual World Evolution
-- **Gate 0.6 Multi-Style Paradigm:** Supports act-by-act transformation across:
-  - `MODERN_GLASSMORPHIC`: Frosted glass (`backdropFilter: blur(24px)`), dynamic specular highlights, and spring physics.
-  - `STOP_MOTION_PAPER`: Tactile paper cutout collage, 12 FPS stepped motion, and kraft tape accents.
-  - `TECHNICAL_BLUEPRINT`: Engineering CAD drafting grid, cyan isometric calipers, and monospace telemetry metrics.
-  - `NEO_BRUTALIST`: High-voltage poster punch, thick black borders (`4px solid #000`), hard offset drop shadows (`14px 14px 0px #000`), and acid yellow accents.
+### 6. Multi-Agent Swarm Orchestration & Adversarial QA
+- **Parallel Subagents:** Visual Choreo Architect, Remotion Shard Builders, and Adversarial QA Critic operate in parallel to guarantee code quality and zero static defects before rendering.
+- **Automated AST & Defect Gate:** Blocks CSS transitions, container box traps, subpixel jitter, and static children automatically.
 
 ---
 
@@ -284,44 +286,46 @@ npx tsc --noEmit
 
 این سامانه با هدف بازتولید و ارتقای کیفیت موشن‌گرافیک‌های مشهور **Claude Opus 5.5** طراحی شده است تا پویایی بصری فوق‌العاده، مورفینگ پیوسته برداری، و پرواز پیوسته دوربین سه‌بعدی را با پشتیبانی کامل از **تایپوگرافی اصیل فارسی (یکان بخ)** و استانداردهای راست‌به‌چپ (RTL) ارائه دهد.
 
-### 🚫 رهایی از تله اسلایدشو (Anti-Slideshow)
-در اکثر ابزارهای تولید ویدیوی هوش مصنوعی، نتیجه نهایی به یک «اسلایدشو متحرک» تبدیل می‌شود که در آن کادرها صرفاً محو شده یا جایگزین می‌شوند. 
+### 🚫 رهایی از تله اسلایدشو و استاندارد بوم باز (Open-Canvas)
+در اکثر ابزارهای تولید ویدیوی هوش مصنوعی، نتیجه نهایی به یک «اسلایدشو متحرک» با کادرهای محصورکننده صلب تبدیل می‌شود که داخل آن‌ها محتوا ساکن است.
 
-این سیستم این مشکل را از طریق **صحنه فضایی یکپارچه بدون برش (One-Take)**، **حرکت پیوسته دوربین با ۶ درجه آزادی**، و **مورفینگ واقعی مسیرهای برداری SVG** به طور کامل ریشه‌کن کرده است.
+این سیستم این نقایص را با ۴ نوآوری بنیادین برطرف کرده است:
+- **معماری بوم باز بدون جعبه (Zero-Box Open Canvas):** حذف کادرهای صلب اسلایدی؛ هر واژه، عدد، المان و نمودار مستقیماً در فضای سه‌بعدی باز با فنرهای مستقل پویای فازی و ریزحرکات شناور (`Math.sin`) به همراه خطوط متحرک صور فلکی SVG سیر می‌کند.
+- **تمرکز ۱۰۰٪ و حذف هدرها و برچسب‌های گوشه‌ای:** حذف هرگونه برچسب حاشیه‌ای تله‌متری، هدر و واترمرک؛ تمرکز تمام انرژی بصری صرفاً روی مفهوم در حال گویندگی.
+- **حذف کامل افکت‌های صوتی رندوم (Zero-SFX):** حذف اصوات مصنوعی و ناهماهنگ؛ تدوین صوتی خالص استودیویی شامل گویندگی کریستالی دوزبانه و موسیقی متن ملایم همراه با داکینگ خودکار.
+- **صحنه فضایی یکپارچه بدون برش (One-Take):** پرواز مداوم دوربین با ۶ درجه آزادی بدون کات‌های زننده.
 
 ---
 
 ## 💎 ارکان شش‌گانه معماری پروژه
 
-### ۱. مورفینگ پیوسته مسیرهای برداری (`@remotion/paths`)
+### ۱. معماری بوم باز و پویا (Zero-Box Open Canvas)
+- **عدم حبس عناصر در جعبه:** المان‌ها دیگر مانند اسلاید پاورپوینت درون یک کادر مستطیلی محبوس نیستند.
+- **چرخه حیات مستقل اجزا:** هر تیتر، عدد آماری و گره برداری زمان‌بندی ورود فنری، حرکت مایکرو در حین نمایش و خروج اختصاصی خود را دارد.
+- **کانال‌های انرژی مداری SVG:** اتصال مفاهیم بصری با خطوط وکتور پویا به کمک `strokeDashoffset`.
+
+### ۲. مورفینگ پیوسته مسیرهای برداری (`@remotion/paths`)
 - **ممنوعیت تغییر اندازه جعبه:** تغییر سایز ساده `div` هرگز به عنوان مورف پذیرفته نمی‌شود.
 - **مورفینگ بزیه ریاضی:** با استفاده از کتابخانه `@remotion/paths` و تابع `interpolatePath`، بردارها در طول زمان با تقارن ریاضی بدون خروج از کادر یا گسستگی به یکدیگر تبدیل می‌شوند:
   $$\text{نشان ستاره علمی} \xrightarrow{\text{مورف}} \text{شبکه سیناپسی هوش مصنوعی} \xrightarrow{\text{مورف}} \text{امواج تله‌متری} \xrightarrow{\text{مورف}} \text{سپر کالیبراسیون}$$
 
-### ۲. پرواز پیوسته دوربین تک‌پلان با ۶ درجه آزادی (6-DOF)
+### ۳. پرواز پیوسته دوربین تک‌پلان با ۶ درجه آزادی (6-DOF)
 - **جهان فضایی نامحدود:** حذف کامل کات یا ترنزیشن‌های محوشونده؛ تمام پرده‌ها در یک فضای مختصات سه‌بعدی مداوم (`perspective: 1200`) مستقر هستند.
 - **حرکت سینمایی هدفمند:** چرخش‌های نرم دوربین با شیب و زاویه ایزومتریک ۲.۵ بعدی (`Pitch: -1.8°`, `Yaw: 2.2°`)، چرخش بنکینگ در حین جابجایی (`Roll: ±3.5°`)، و فیلتر تاری و اسکیو سرعت در تغییر پرده‌ها.
 
-### ۳. فیزیک ذرات جاذبه‌ای نیوتنی (Newtonian Vector Attractor)
-- **گرداب مداری گرانشی:** محاسبه آنی جاذبه ذرات بر اساس فاصله معکوس حول هسته‌های برداری فعال.
-- **توزیع ملایم و چشم‌نواز:** کاهش تراکم به ۱۸ تا ۲۰ ذره در هر پرده با درخشش ملایم (شفافیت ۰.۱۸)، پالس تنفسی هماهنگ با بیت موسیقی، و دافعه انفجاری در هنگام کلیک نشانگر ماوس.
+### ۴. استاندارد صدای خالص استودیویی و داکینگ هوشمند (Zero-SFX)
+- **حذف صداهای اضافی و ناهماهنگ:** صداهای کلیک و وووش تصادفی و بلند به طور کامل پاکسازی شده‌اند.
+- **وضوح حداکثری گویندگی:** تمرکز روی گویندگی روان هوش مصنوعی (Microsoft Edge-TTS و Gemini Audio).
+- **داکینگ دقیق موسیقی (Sidechain):** کاهش خودکار ولوم موسیقی متن از ۱۴٪ به ۵٪ تا ۷٪ در هنگام ادای کلمات.
 
-### ۴. سامانه استاندارد تایپوگرافی فارسی (یکان بخ)
+### ۵. سامانه استاندارد تایپوگرافی فارسی (یکان بخ)
 - **۸ وزن رسمی یکان بخ:** لود کامل فونت‌ها از فرمت استاندارد WOFF2 (`Thin`, `Light`, `Regular`, `SemiBold`, `Bold`, `ExtraBold`, `Black`, `ExtraBlack`).
 - **پالایشگر هوشمند دونمایه‌ای:** حذف اعراب و نشانه‌های نامطلوب در لایه بصری ضمن حفظ خوانش صحیح فونتیک در گویندگی صوتی.
 - **حذف پرش ساب‌پیکسلی:** قفل شدن مختصات متون روی پیکسل‌های صحیح (`Math.round`) همراه با شتاب‌دهی سخت‌افزاری پردازنده گرافیکی.
 
-### ۵. تنظیم استودیویی صدا و ضرب‌آهنگ (124 BPM)
-- **شبکه ضرب‌آهنگ کوانتایز شده:** تراز شدن تمام رویدادها، کلیک‌ها و ورود المان‌ها با ضرب‌های دقیق موسیقی (ضرب کامل، چنگ و دولاچنگ).
-- **پالس نرم و طبیعی:** کاهش ۷۰ درصدی دامنه لرزش کادرها به پالس ظریف (+۰.۲٪ تا +۰.۴۵٪) برای ایجاد تنفس ارگانیک بدون لرزش شدید کادرها.
-- **داکینگ خودکار موسیقی:** کاهش خودکار صدای پس‌زمینه از ۳۲٪ به ۱۶٪ در زمان پخش صدای گوینده.
-
-### ۶. تکامل چندسبکی پرده‌ها (Multi-Style Evolution)
-- **سبک‌های بصری پیاده‌سازی شده:**
-  - **گلاسمورفیسم مدرن:** شیشه مات (`backdropFilter: blur(24px)`)، انعکاس متحرک نور فرسنل و فیزیک فنری.
-  - **استاپ‌موشن کاغذ:** بافت فیبر مقوا، پرش ریتمیک ۱۲ فریم بر ثانیه و چسب کرافت فیزیکی.
-  - **بلوپرینت فنی:** خط‌کش‌های میلی‌متری CAD، خطوط شبکه‌ای فیروزه‌ای و پایش تله‌متری مهندسی.
-  - **نئوبروتالیسم:** کادرهای ضخیم مشکی (`4px solid #000`)، سایه‌های سخت زاویه‌دار و نشان کالیبراسیون ۱۰۰٪ طلایی.
+### ۶. ارکستراسیون ساب‌ایجنت‌های موازی و کنترل کیفی خصمانه
+- **ساب‌ایجنت‌های تخصصی هم‌زمان:** تقسیم کار میان معمار چیدمان بصری، پیاده‌سازان موازی صحنه‌ها و منتقد کیفی خصمانه برای سرعت و دقت حداکثری.
+- **فیلترهای خودکار AST:** رد صلاحیت خودکار ترنزیشن‌های CSS، کادرهای اسلایدی، متن‌های محبوس ثابت و پرش‌های ساب‌پیکسلی.
 
 ---
 

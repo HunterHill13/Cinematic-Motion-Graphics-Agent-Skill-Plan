@@ -351,8 +351,45 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
 
 ---
 
-## 8. Reference Library
+## 8. Open-Canvas Kinetic Constellation Law, Ultimate SFX Curation & 4-Subagent Parallel Pipeline
 
+To permanently eliminate "Card/Box Slide Syndrome", static internal children, corner HUD clutter, and loud/repetitive sound effects across all sessions, the following 4 architectural mandates are **inviolable**:
+
+### 8.1 Zero-Box Open-Canvas Kinetic Choreography & Spatial Constellation Grammar
+1. **Absolute Ban on Outer Slide Boxes (`HERO CONTAINER` Ban):**
+   - Never wrap an entire Act or scene inside a bordered rectangular card (`borderRadius: 28..36`, `border: '1.5px solid ...'`, `background: 'linear-gradient(...)'`) that moves as a single rigid block while its children sit frozen inside.
+   - All elements must live **directly on the Open 3D Canvas (`PersistentWorld` + `UniversalCameraRig`)** separated by volumetric light pools (`radial-gradient`) and 3D depth parallax.
+2. **Independent Staggered Child Physics & Continuous Micro-Motion:**
+   - Every atomic child inside a scene (headline phrases, sculptural visual/icon, SVG orbital ring, numerical counter, and constellation sub-nodes) MUST have its own staggered `spring()` entry (`localFrame - idx * 8..12`) and continuous middle-60% life-cycle motion (`Math.round(Math.sin((frame + phase) * 0.065) * 8)`).
+   - Multi-item concepts (e.g., 3 conditions, 6 articles, step milestones) must use **Spatial Node & Kinetic Constellation Grammar**: floating sculptural nodes linked in real time by animated SVG connecting beams (`strokeDasharray` + `strokeDashoffset` interpolation).
+
+### 8.2 100% Focal Purity & Zero Corner HUD Clutter
+1. **Complete Ban on Corner Text & Persistent HUDs:**
+   - Never place persistent university names, section labels (`ACT 01 // ...`, `بخش اول`), debug telemetry (`CAM_VEL`, `FRAME_XXX`), or second-counter footers (`0s / 15s`) in the corners, top header, or bottom footer of the viewport.
+   - 100% of the screen estate must be dedicated to the exact concept being spoken by the narrator at that moment. Institutional logos/names appear **only** as central hero elements in the opening (Intro) or closing (Outro) bookend beats when narrated.
+
+### 8.3 Complete Elimination of Sound Effects (Zero-SFX Studio Standard)
+1. **Absolute Ban on Foley Sound Effects (No SFX):**
+   - Sound effects (whooshes, clicks, impacts, hits, risers) are **completely removed and prohibited** across all templates and compositions.
+   - User feedback and viewer studies confirm that AI-triggered sound effects feel random, disjointed, and annoying.
+2. **Pure Speech & Musical Harmony (Voice + Ducked BGM Only):**
+   - The audio architecture is 100% dedicated to:
+     * **Crystal-Clear Persian Narration / TTS** (Voiceover at full studio volume `1.0`).
+     * **Harmonic Background Music (`UniversalSoundDirector`)**: Continuous melodic soundtrack (`Tech_Live.mp3`, `Brain_Dance.mp3`, or `Cipher2.mp3` at subtle base volume `0.14`).
+     * **Dynamic Sidechain Ducking**: Automatically attenuates music volume (down to `0.05`–`0.07`) whenever narration is speaking, restoring full ambient energy during natural pauses.
+
+### 8.4 Mandatory 3-Subagent Parallel Production & Hard Auto-Rewrite QA Gate
+When producing any new video in a session, orchestrate specialized subagents via `invoke_subagent`:
+1. **Subagent 1 — `ChoreographyArchitect`:** Analyzes the voiceover timestamps and designs Open-Canvas Spatial Constellation scenes (Zero outer boxes, Zero corner HUDs, independent staggered child springs, SVG connecting beams).
+2. **Subagent 2 — `SceneBuilder` (Parallel Shards):** Implements the Remotion scene components in parallel batches so every child element has rich, independent spring physics, SVG `strokeDashoffset` drawing, integer-rounded `translate3d`, and wires clean `<UniversalSoundDirector>` (BGM + Voice only, zero SFX).
+3. **Subagent 3 — `AdversarialQACritic` (Hard Blocking Gate):** Runs `npx tsx tests/test_open_canvas_and_sfx_audit.ts` and `npx tsx tests/test_cinematic_defects_detector.ts` plus headless still-frame inspection. If ANY violation is detected (`[CORNER_HUD_CLUTTER]`, `[STATIC_INTERNAL_CHILDREN]`, or `[UNSTAGGERED_LIST_ITEMS]`), rendering is blocked and the offending scene shard is automatically rewritten until 0 defects remain.
+
+---
+
+## 9. Reference Library
+
+- [Open-Canvas Kinetic Choreography, Ultimate SFX & Multi-Agent Research](references/RESEARCH_OPEN_CANVAS_SFX_MULTIAGENT.md)
+- [Claude Motion Architecture vs Static Defects Research](references/RESEARCH_CLAUDE_MOTION_VS_STATIC_DEFECTS.md)
 - [Claude Opus 5.5 Fluid Continuity & One-Take Camera](references/claude-fluid-continuity.md)
 - [Claude Opus 5.5 Viral Prompt Catalog](references/claude-opus-prompt-catalog.md)
 - [Official Remotion Agent Skills & Code Standards](references/remotion-agent-skills.md)
@@ -364,5 +401,6 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
 - [Anti-Patterns Catalog](references/anti-patterns.md)
 - [Cinematography & Motivated Camera Grammar](references/cinematography.md)
 - [Voice Director & Persian TTS Authority](references/voice-director-and-persian-tts.md)
+
 
 

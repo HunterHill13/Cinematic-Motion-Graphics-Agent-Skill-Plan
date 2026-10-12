@@ -25,10 +25,15 @@ import {
 } from './CinematicRhythmContext';
 import {
   UniversalSoundDirector,
-  SfxCue,
 } from '../audio/UniversalSoundDirector';
 import { TEMPLATE_CATALOG, TemplateId } from '../templates/TemplateCatalog';
 import { StudioMeshGlassBackdrop } from '../library/StudioMeshGlassBackdrop';
+
+export interface ConstellationNodeItem {
+  labelFa: string;
+  valueFa?: string;
+  symbol?: string;
+}
 
 export interface StageAct {
   actId: string;
@@ -40,7 +45,12 @@ export interface StageAct {
   heroSymbol?: string;
   lottiePreset?: LottiePreset;
   emphasisTokens?: string[];
+  constellationNodes?: ConstellationNodeItem[];
   position?: { x: number; y: number; z: number };
+  startFrame?: number;
+  endFrame?: number;
+  customVisual?: React.ReactNode;
+  customBottomRow?: React.ReactNode;
 }
 
 export interface UniversalCinematicStageProps {
@@ -50,7 +60,6 @@ export interface UniversalCinematicStageProps {
   bgmTrack?: string;
   voiceTrack?: string;
   bpm?: number;
-  customSfxCues?: SfxCue[];
 }
 
 export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = ({
@@ -60,12 +69,11 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
   bgmTrack = 'music/Tech_Live.mp3',
   voiceTrack,
   bpm = 124,
-  customSfxCues,
 }) => {
   const frame = useCurrentFrame();
   const { fps, durationInFrames, width, height } = useVideoConfig();
 
-  // 1. Resolve Theme Art Style
+  // 1. Resolve Theme Art Style (Pure Aesthetic Skin)
   const theme = TEMPLATE_CATALOG[themeId] || TEMPLATE_CATALOG['DARK_GRAPHITE_TECH'];
   const primaryAccent = theme.accentColors?.[0] || '#06b6d4';
   const secondaryAccent = theme.accentColors?.[1] || '#3b82f6';
@@ -87,60 +95,75 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
     themeId,
   };
 
-  // 3. Multi-Act Timing & Coordinate Layout
-  const actDuration = durationInFrames / Math.max(1, acts.length);
-  const actSpacing = cameraMode === 'DEEP_Z_TUNNEL' ? 1200 : 1400;
+  // 3. Multi-Act Timing & 3D Coordinate Layout on Open Canvas
+  const defaultActDuration = durationInFrames / Math.max(1, acts.length);
+  const actSpacing = cameraMode === 'DEEP_Z_TUNNEL' ? 1200 : 1500;
 
-  // 4. Automated Universal SFX Scheduling
-  const autoSfxCues = useMemo<SfxCue[]>(() => {
-    if (customSfxCues) return customSfxCues;
-    const cues: SfxCue[] = [];
+  const resolvedActs = useMemo(() => {
+    return acts.map((act, index) => {
+      const startFrame = act.startFrame ?? Math.floor(index * defaultActDuration);
+      const endFrame = act.endFrame ?? Math.floor((index + 1) * defaultActDuration);
+      const defaultX =
+        cameraMode === 'DEEP_Z_TUNNEL' || cameraMode === 'VERTICAL_ELEVATOR'
+          ? 0
+          : index * actSpacing;
+      const defaultY =
+        cameraMode === 'VERTICAL_ELEVATOR'
+          ? index * 1100
+          : cameraMode === 'DIAGONAL_CASCADE'
+          ? index * 680
+          : 0;
+      const defaultZ = cameraMode === 'DEEP_Z_TUNNEL' ? -index * actSpacing : 0;
 
-    acts.forEach((_, idx) => {
-      const actStart = Math.floor(idx * actDuration);
-      if (idx > 0) {
-        // Pre-roll whoosh 4 frames before camera transit starts
-        cues.push({ frame: Math.max(0, actStart - 4), type: 'whoosh', volume: 0.55 });
-      }
-      // Tactical impact when the act's card and hero land
-      cues.push({ frame: actStart + 8, type: 'impact', volume: 0.6 });
-      // Tactical click when emphasis tokens pop in
-      cues.push({ frame: actStart + 22, type: 'click', volume: 0.35 });
+      const posX = Math.round(act.position?.x ?? defaultX);
+      const posY = Math.round(act.position?.y ?? defaultY);
+      const posZ = Math.round(act.position?.z ?? defaultZ);
+
+      return {
+        ...act,
+        startFrame,
+        endFrame,
+        posX,
+        posY,
+        posZ,
+      };
     });
+  }, [acts, defaultActDuration, cameraMode, actSpacing]);
 
-    // Riser sound 45 frames before final climax act
-    if (acts.length >= 3) {
-      const climaxStart = Math.floor((acts.length - 1) * actDuration);
-      cues.push({ frame: Math.max(0, climaxStart - 35), type: 'riser', volume: 0.7 });
-    }
+  const cameraWaypoints = useMemo(() => {
+    return resolvedActs.map((a) => ({
+      startFrame: a.startFrame,
+      endFrame: a.endFrame,
+      x: a.posX,
+      y: a.posY,
+      z: -a.posZ,
+    }));
+  }, [resolvedActs]);
 
-    return cues;
-  }, [acts, actDuration, customSfxCues]);
-
-  // 5. Kinetic Emphasis Tokens Extraction
+  // 4. Kinetic Emphasis Tokens Extraction
   const allEmphasisTokens = useMemo<EmphasisToken[]>(() => {
     const list: EmphasisToken[] = [];
-    acts.forEach((act, idx) => {
-      const actStart = Math.floor(idx * actDuration);
+    resolvedActs.forEach((act) => {
+      const actStart = act.startFrame;
+      const actLen = Math.max(60, act.endFrame - act.startFrame);
       if (act.emphasisTokens && act.emphasisTokens.length > 0) {
         act.emphasisTokens.forEach((text, tokenIdx) => {
           list.push({
             text,
             type: 'keyword',
-            startFrame: actStart + 16 + tokenIdx * 18,
-            durationInFrames: Math.floor(actDuration * 0.75),
-            position: tokenIdx === 0 ? 'bottom_center' : 'top_right',
-            customColor: primaryAccent,
+            startFrame: actStart + 18 + tokenIdx * 42,
+            durationInFrames: Math.min(95, Math.floor(actLen * 0.42)),
+            position: tokenIdx % 2 === 0 ? 'bottom_center' : 'top_right',
+            customColor: tokenIdx % 2 === 0 ? primaryAccent : secondaryAccent,
           });
         });
       }
     });
     return list;
-  }, [acts, actDuration, primaryAccent]);
+  }, [resolvedActs, primaryAccent, secondaryAccent]);
 
-  // Safe typography clamps
-  const heroFontSize = clampFontSize(92, 'heroTitle', width, height);
-  const bodyFontSize = clampFontSize(32, 'body', width, height);
+  const heroFontSize = clampFontSize(54, 'heroTitle', width, height);
+  const bodyFontSize = clampFontSize(26, 'body', width, height);
 
   return (
     <CinematicRhythmContext.Provider value={rhythmState}>
@@ -156,22 +179,22 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
         }}
       >
         {/* ============================================================== */}
-        {/* 1. UNIVERSAL SOUND DIRECTOR (AUDIO STEMS & AUTO SFX)            */}
+        {/* 1. UNIVERSAL SOUND DIRECTOR (CLEAN BGM & NARRATION - ZERO SFX) */}
         {/* ============================================================== */}
         <UniversalSoundDirector
           bgmTrack={bgmTrack}
-          bgmVolume={0.18}
+          bgmVolume={0.14}
           voiceTrack={voiceTrack}
-          sfxCues={autoSfxCues}
-          duckingRanges={acts.map((_, i) => ({
-            start: Math.floor(i * actDuration),
-            end: Math.floor((i + 1) * actDuration),
-            depth: 0.45,
+          themeId={themeId}
+          duckingRanges={resolvedActs.map((a) => ({
+            start: a.startFrame,
+            end: a.endFrame,
+            depth: 0.42,
           }))}
         />
 
         {/* ============================================================== */}
-        {/* 2. THEME-SPECIFIC AESTHETIC BACKDROP                           */}
+        {/* 2. THEME-SPECIFIC VOLUMETRIC BACKDROP (ZERO CORNER HUD CLUTTER)*/}
         {/* ============================================================== */}
         <StudioMeshGlassBackdrop
           primaryLightColor={primaryAccent}
@@ -179,47 +202,83 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
         />
 
         {/* ============================================================== */}
-        {/* 3. PERSISTENT 2.5D WORLD WITH ZERO-JITTER CAMERA RIG          */}
+        {/* 3. OPEN-CANVAS 3D WORLD & SPATIAL CONSTELLATION CHOREOGRAPHY   */}
         {/* ============================================================== */}
         <PersistentWorld contracts={[]} style={{ width: '100%', height: '100%' }}>
-          <UniversalCameraRig mode={cameraMode}>
-            {acts.map((act, index) => {
-              const actStart = Math.floor(index * actDuration);
-              const actEnd = Math.floor((index + 1) * actDuration);
-              const isCurrentOrAdjacent = frame >= actStart - 30 && frame <= actEnd + 30;
+          <UniversalCameraRig mode={cameraMode} customWaypoints={cameraWaypoints}>
+            {resolvedActs.map((act, actIndex) => {
+              const actStart = act.startFrame;
+              const actEnd = act.endFrame;
+              const isCurrentOrAdjacent = frame >= actStart - 35 && frame <= actEnd + 35;
               if (!isCurrentOrAdjacent) return null;
 
-              // Spatial positioning with integer snapping (Zero Subpixel Jitter)
-              const posX = act.position?.x ?? Math.round(cameraMode === 'DEEP_Z_TUNNEL' ? 0 : index * actSpacing);
-              const posY = act.position?.y ?? 0;
-              const posZ = act.position?.z ?? Math.round(cameraMode === 'DEEP_Z_TUNNEL' ? index * actSpacing : 0);
+              const { posX, posY, posZ } = act;
+              const localFrame = Math.max(0, frame - actStart);
 
-              // Damped physical entrance spring
-              const actSpring = spring({
-                frame: Math.max(0, frame - actStart),
+              // Independent staggered springs for each atomic open-canvas child!
+              const visualSpring = spring({
+                frame: localFrame,
                 fps,
-                config: { damping: 15, stiffness: 110, mass: 0.9 },
+                config: { damping: 13, stiffness: 120, mass: 1.0 },
+              });
+              const badgeSpring = spring({
+                frame: Math.max(0, localFrame - 6),
+                fps,
+                config: { damping: 15, stiffness: 140, mass: 0.7 },
+              });
+              const descSpring = spring({
+                frame: Math.max(0, localFrame - 18),
+                fps,
+                config: { damping: 16, stiffness: 115, mass: 0.85 },
+              });
+              const metricSpring = spring({
+                frame: Math.max(0, localFrame - 26),
+                fps,
+                config: { damping: 12, stiffness: 130, mass: 0.9 },
+              });
+              const bottomRowSpring = spring({
+                frame: Math.max(0, localFrame - 32),
+                fps,
+                config: { damping: 14, stiffness: 110, mass: 0.95 },
               });
 
-              // Momentum handoff directional fade
+              // Continuous life-cycle micro-motion (Middle 60% never static)
+              const floatY = Math.round(Math.sin((frame + actIndex * 25) * 0.065) * 10);
+              const counterFloatY = Math.round(Math.cos((frame + actIndex * 19) * 0.055) * 7);
+              const breathingScale = 1.0 + beatPulse * 0.014;
+
+              // SVG Constellation Conduit drawing progress
+              const conduitDraw = interpolate(
+                localFrame,
+                [4, 38],
+                [600, 0],
+                { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+              );
+
+              // Smooth open-canvas exit dispersion
               const actOpacity = interpolate(
                 frame,
-                [actStart - 10, actStart + 15, actEnd - 15, actEnd + 5],
+                [actStart - 14, actStart + 10, actEnd - 12, actEnd + 14],
                 [0, 1, 1, 0],
                 { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
               );
 
-              // Rhythmic breathing scale
-              const breathingScale = 1.0 + beatPulse * 0.015;
+              // Deconstruct headline into staggered kinetic segments
+              const titleWords = sanitizeForDisplay(act.titleFa).split(' ');
+              const midPoint = Math.ceil(titleWords.length / 2);
+              const titlePhrases = [
+                titleWords.slice(0, midPoint).join(' '),
+                titleWords.slice(midPoint).join(' '),
+              ].filter(Boolean);
 
               return (
                 <div
                   key={act.actId}
                   style={{
                     position: 'absolute',
-                    transform: `translate3d(${Math.round(posX)}px, ${Math.round(posY)}px, ${Math.round(posZ)}px) scale(${actSpring * breathingScale})`,
+                    transform: `translate3d(${Math.round(posX)}px, ${Math.round(posY)}px, ${Math.round(posZ)}px)`,
                     opacity: actOpacity,
-                    width: Math.round(width * 0.72),
+                    width: Math.round(width * 0.82),
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
@@ -228,46 +287,93 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                     WebkitFontSmoothing: 'antialiased',
                   }}
                 >
-                  {/* HERO CONTAINER */}
+                  {/* VOLUMETRIC LIGHT POOL ON OPEN CANVAS (NO RECTANGULAR BOX) */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      width: 920,
+                      height: 520,
+                      background: `radial-gradient(ellipse at center, ${primaryAccent}22 0%, ${secondaryAccent}0d 45%, transparent 75%)`,
+                      pointerEvents: 'none',
+                      transform: `scale(${breathingScale})`,
+                    }}
+                  />
+
+                  {/* SVG SPATIAL CONSTELLATION CONDUIT LINKING VISUAL & TYPOGRAPHY */}
+                  <svg
+                    width={1360}
+                    height={460}
+                    viewBox="0 0 1360 460"
+                    style={{
+                      position: 'absolute',
+                      top: -20,
+                      left: 0,
+                      pointerEvents: 'none',
+                      overflow: 'visible',
+                    }}
+                  >
+                    <path
+                      d="M 240 210 C 480 90, 740 310, 1080 190"
+                      fill="none"
+                      stroke={primaryAccent}
+                      strokeWidth={2.5}
+                      strokeDasharray={600}
+                      strokeDashoffset={Math.round(conduitDraw)}
+                      strokeOpacity={0.45}
+                    />
+                    <circle
+                      cx={240}
+                      cy={210}
+                      r={Math.round(6 + beatPulse * 4)}
+                      fill={primaryAccent}
+                      opacity={0.75}
+                    />
+                    <circle
+                      cx={1080}
+                      cy={190}
+                      r={Math.round(6 + beatPulse * 4)}
+                      fill={secondaryAccent}
+                      opacity={0.75}
+                    />
+                  </svg>
+
+                  {/* OPEN-CANVAS SPATIAL CLUSTER (DECONSTRUCTED CHILDREN) */}
                   <div
                     style={{
                       width: '100%',
-                      background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(9, 14, 26, 0.94) 100%)',
-                      borderRadius: 32,
-                      border: `1.5px solid ${primaryAccent}44`,
-                      boxShadow: `0 25px 60px rgba(0, 0, 0, 0.7), 0 0 ${Math.round(30 + beatPulse * 20)}px ${primaryAccent}22`,
-                      padding: '48px 64px',
                       display: 'flex',
                       flexDirection: 'row-reverse',
                       alignItems: 'center',
                       justifyContent: 'space-between',
-                      gap: 48,
-                      backdropFilter: 'blur(20px)',
+                      gap: 64,
+                      position: 'relative',
+                      zIndex: 2,
                     }}
                   >
-                    {/* TEXT CONTENT COLUMN */}
+                    {/* 1. INDEPENDENT KINETIC TYPOGRAPHY STREAM */}
                     <div style={{ flex: 1, textAlign: 'right', direction: 'rtl' }}>
-                      {/* STATUS BADGE */}
+                      {/* STAGGERED FLOATING BADGE */}
                       {act.badgeFa && (
                         <div
                           style={{
                             display: 'inline-flex',
                             alignItems: 'center',
                             gap: 10,
-                            padding: '8px 20px',
+                            padding: '6px 20px',
                             borderRadius: 999,
-                            background: `${primaryAccent}18`,
-                            border: `1px solid ${primaryAccent}55`,
+                            background: `${primaryAccent}1f`,
                             marginBottom: 20,
+                            transform: `translate3d(0px, ${Math.round((1 - badgeSpring) * 24)}px, 0px) scale(${badgeSpring})`,
+                            opacity: badgeSpring,
                           }}
                         >
                           <span
                             style={{
-                              width: 8,
-                              height: 8,
+                              width: 9,
+                              height: 9,
                               borderRadius: '50%',
                               backgroundColor: primaryAccent,
-                              boxShadow: `0 0 10px ${primaryAccent}`,
+                              boxShadow: `0 0 12px ${primaryAccent}`,
                             }}
                           />
                           <span
@@ -275,7 +381,6 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                               fontSize: 20,
                               fontWeight: 800,
                               color: primaryAccent,
-                              letterSpacing: '0.02em',
                             }}
                           >
                             {sanitizeForDisplay(act.badgeFa)}
@@ -283,82 +388,232 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                         </div>
                       )}
 
-                      {/* HERO HEADLINE */}
-                      <h1
-                        style={{
-                          margin: 0,
-                          fontSize: heroFontSize,
-                          fontWeight: 900,
-                          color: '#ffffff',
-                          lineHeight: 1.25,
-                          textShadow: `0 4px 20px rgba(0,0,0,0.8), 0 0 25px ${primaryAccent}33`,
-                        }}
-                      >
-                        {sanitizeForDisplay(act.titleFa)}
-                      </h1>
+                      {/* PHRASE-STAGGERED OPEN-CANVAS HERO HEADLINE */}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+                        {titlePhrases.map((phrase, phraseIdx) => {
+                          const phraseSpring = spring({
+                            frame: Math.max(0, localFrame - (8 + phraseIdx * 6)),
+                            fps,
+                            config: { damping: 14, stiffness: 135, mass: 0.8 },
+                          });
+                          const phraseY = Math.round((1 - phraseSpring) * 36);
+                          return (
+                            <h1
+                              key={phraseIdx}
+                              style={{
+                                margin: 0,
+                                fontSize: heroFontSize,
+                                fontWeight: 900,
+                                color: '#ffffff',
+                                lineHeight: 1.32,
+                                transform: `translate3d(0px, ${phraseY}px, 0px) scale(${phraseSpring})`,
+                                opacity: phraseSpring,
+                                textShadow: `0 8px 32px rgba(0,0,0,0.9), 0 0 28px ${primaryAccent}44`,
+                              }}
+                            >
+                              {phrase}
+                            </h1>
+                          );
+                        })}
+                      </div>
 
-                      {/* BODY COPY */}
+                      {/* INDEPENDENT KINETIC DESCRIPTION */}
                       <p
                         style={{
-                          margin: '22px 0 0 0',
+                          margin: '20px 0 0 0',
                           fontSize: bodyFontSize,
-                          fontWeight: 500,
-                          color: '#94a3b8',
-                          lineHeight: 1.55,
+                          fontWeight: 600,
+                          color: '#e2e8f0',
+                          lineHeight: 1.65,
+                          transform: `translate3d(0px, ${Math.round((1 - descSpring) * 28)}px, 0px)`,
+                          opacity: descSpring,
+                          textShadow: '0 4px 18px rgba(0,0,0,0.85)',
                         }}
                       >
                         {sanitizeForDisplay(act.descriptionFa)}
                       </p>
 
-                      {/* NUMERICAL METRIC CALLOUT */}
+                      {/* INDEPENDENT FLOATING METRIC CONSTELLATION NODE */}
                       {act.metricValue && (
                         <div
                           style={{
                             display: 'inline-flex',
                             alignItems: 'baseline',
-                            gap: 14,
-                            marginTop: 24,
-                            padding: '12px 24px',
-                            borderRadius: 16,
-                            background: 'rgba(255, 255, 255, 0.04)',
-                            border: `1px solid ${secondaryAccent}33`,
+                            gap: 16,
+                            marginTop: 26,
+                            transform: `translate3d(0px, ${Math.round((1 - metricSpring) * 32 + counterFloatY)}px, 0px) scale(${metricSpring * breathingScale})`,
+                            opacity: metricSpring,
                           }}
                         >
-                          <span style={{ fontSize: 44, fontWeight: 900, color: secondaryAccent }}>
+                          <span
+                            style={{
+                              fontSize: 56,
+                              fontWeight: 900,
+                              color: secondaryAccent,
+                              textShadow: `0 0 28px ${secondaryAccent}66`,
+                            }}
+                          >
                             {act.metricValue}
                           </span>
-                          <span style={{ fontSize: 22, fontWeight: 700, color: '#e2e8f0' }}>
+                          <span
+                            style={{
+                              fontSize: 22,
+                              fontWeight: 800,
+                              color: '#f8fafc',
+                              textShadow: '0 4px 16px rgba(0,0,0,0.85)',
+                            }}
+                          >
                             {sanitizeForDisplay(act.metricLabelFa || '')}
                           </span>
                         </div>
                       )}
                     </div>
 
-                    {/* HERO VECTOR / LOTTIE COLUMN */}
+                    {/* 2. INDEPENDENT SCULPTURAL HERO VISUAL & SVG ORBITAL RING */}
                     <div
                       style={{
-                        width: 320,
-                        height: 320,
+                        width: 340,
+                        height: 340,
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        background: `radial-gradient(circle, ${primaryAccent}15 0%, transparent 70%)`,
-                        borderRadius: '50%',
-                        border: `1px solid ${primaryAccent}22`,
                         flexShrink: 0,
+                        position: 'relative',
+                        transform: `translate3d(0px, ${Math.round((1 - visualSpring) * -42 + floatY)}px, 0px) scale(${visualSpring * breathingScale})`,
+                        opacity: visualSpring,
                       }}
                     >
-                      {act.lottiePreset ? (
+                      {/* Animated SVG Orbital Constellation Ring */}
+                      <svg
+                        width={340}
+                        height={340}
+                        viewBox="0 0 340 340"
+                        style={{ position: 'absolute', inset: 0, overflow: 'visible' }}
+                      >
+                        <circle
+                          cx={170}
+                          cy={170}
+                          r={148}
+                          fill="none"
+                          stroke={primaryAccent}
+                          strokeWidth={2.5}
+                          strokeDasharray="18 14"
+                          strokeDashoffset={Math.round(-frame * 1.8)}
+                          strokeOpacity={0.55}
+                        />
+                        <circle
+                          cx={170}
+                          cy={170}
+                          r={124}
+                          fill="none"
+                          stroke={secondaryAccent}
+                          strokeWidth={3}
+                          strokeDasharray={780}
+                          strokeDashoffset={Math.round(780 * (1 - visualSpring))}
+                          strokeOpacity={0.75}
+                        />
+                      </svg>
+
+                      {act.customVisual ? (
+                        act.customVisual
+                      ) : act.lottiePreset ? (
                         <LottieGraphic
                           preset={act.lottiePreset}
-                          size={280}
+                          size={250}
                           accentColor={primaryAccent}
                         />
                       ) : (
-                        <span style={{ fontSize: 110 }}>{act.heroSymbol || '⚡'}</span>
+                        <span
+                          style={{
+                            fontSize: 112,
+                            filter: `drop-shadow(0 12px 28px ${primaryAccent}66)`,
+                          }}
+                        >
+                          {act.heroSymbol || '⚡'}
+                        </span>
                       )}
                     </div>
                   </div>
+
+                  {/* 3. STAGGERED CONSTELLATION SUB-NODES ON OPEN CANVAS */}
+                  {act.constellationNodes && act.constellationNodes.length > 0 && (
+                    <div
+                      style={{
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        alignItems: 'center',
+                        marginTop: 42,
+                        direction: 'rtl',
+                        position: 'relative',
+                      }}
+                    >
+                      {act.constellationNodes.map((node, nodeIdx) => {
+                        const nodeSpring = spring({
+                          frame: Math.max(0, localFrame - (24 + nodeIdx * 10)),
+                          fps,
+                          config: { damping: 13, stiffness: 125, mass: 0.85 },
+                        });
+                        const nodeFloat = Math.round(
+                          Math.sin((frame + nodeIdx * 18) * 0.07) * 6
+                        );
+                        return (
+                          <div
+                            key={nodeIdx}
+                            style={{
+                              display: 'flex',
+                              flexDirection: 'column',
+                              alignItems: 'center',
+                              gap: 8,
+                              transform: `translate3d(0px, ${Math.round((1 - nodeSpring) * 35 + nodeFloat)}px, 0px) scale(${nodeSpring})`,
+                              opacity: nodeSpring,
+                            }}
+                          >
+                            {node.symbol && (
+                              <span style={{ fontSize: 42 }}>{node.symbol}</span>
+                            )}
+                            {node.valueFa && (
+                              <span
+                                style={{
+                                  fontSize: 34,
+                                  fontWeight: 900,
+                                  color: primaryAccent,
+                                  textShadow: `0 0 20px ${primaryAccent}55`,
+                                }}
+                              >
+                                {sanitizeForDisplay(node.valueFa)}
+                              </span>
+                            )}
+                            <span
+                              style={{
+                                fontSize: 20,
+                                fontWeight: 800,
+                                color: '#f8fafc',
+                                textShadow: '0 4px 14px rgba(0,0,0,0.85)',
+                              }}
+                            >
+                              {sanitizeForDisplay(node.labelFa)}
+                            </span>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+
+                  {/* OPTIONAL BESPOKE OPEN-CANVAS ROW */}
+                  {act.customBottomRow && (
+                    <div
+                      style={{
+                        width: '100%',
+                        marginTop: 32,
+                        direction: 'rtl',
+                        transform: `translate3d(0px, ${Math.round((1 - bottomRowSpring) * 30)}px, 0px) scale(${bottomRowSpring})`,
+                        opacity: bottomRowSpring,
+                      }}
+                    >
+                      {act.customBottomRow}
+                    </div>
+                  )}
                 </div>
               );
             })}
@@ -369,44 +624,19 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
         {/* 4. TOP-LEVEL KINETIC EMPHASIS CALLOUT OVERLAY                 */}
         {/* ============================================================== */}
         {allEmphasisTokens.map((token, i) => (
-          <KineticEmphasisCallout
+          <div
             key={`${token.text}-${i}`}
-            token={token}
-            templateId={themeId}
-            bpm={bpm}
-          />
+            style={{
+              transform: `translate3d(0px, ${Math.round(i * 0)}px, 0px)`,
+            }}
+          >
+            <KineticEmphasisCallout
+              token={token}
+              templateId={themeId}
+              bpm={bpm}
+            />
+          </div>
         ))}
-
-        {/* ============================================================== */}
-        {/* 5. FOOTER TIMELINE HUD                                         */}
-        {/* ============================================================== */}
-        <div
-          style={{
-            position: 'absolute',
-            bottom: 30,
-            left: 80,
-            right: 80,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            color: '#64748b',
-            fontSize: 16,
-            fontWeight: 700,
-            borderTop: `1px solid ${primaryAccent}22`,
-            paddingTop: 14,
-            zIndex: 30,
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <span style={{ color: primaryAccent }}>●</span>
-            <span>{sanitizeForDisplay(`سیستم موشن گرافیک سینمایی // تم: ${theme.titleFa}`)}</span>
-          </div>
-          <div>
-            <span>
-              {Math.floor(frame / fps)}s / {Math.floor(durationInFrames / fps)}s
-            </span>
-          </div>
-        </div>
       </div>
     </CinematicRhythmContext.Provider>
   );

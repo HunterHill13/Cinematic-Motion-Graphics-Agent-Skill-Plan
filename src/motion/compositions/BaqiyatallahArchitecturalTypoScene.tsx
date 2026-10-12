@@ -12,6 +12,8 @@ import {
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
+import { UniversalSoundDirector } from '../audio/UniversalSoundDirector';
+import { UniversalCameraRig } from '../camera/UniversalCameraRig';
 
 export const ARCH_TYPO_DURATION = 2387; // ~79.5s @ 30 FPS
 export const ARCH_TYPO_FPS = 30;
@@ -23,7 +25,8 @@ export const BaqiyatallahArchitecturalTypoScene: React.FC = () => {
   const { fps } = useVideoConfig();
 
   // 150 BPM architectural kinetic pulse
-  const beatPulse = calculateBeatPulse(frame, 150, fps);
+  const beatPulse = calculateBeatPulse(frame, 150, fps).lightPulse;
+  const archPulse = 1 + beatPulse * 0.012;
 
   // Background Music Volume Ducking
   const bgmVolume = interpolate(
@@ -37,7 +40,7 @@ export const BaqiyatallahArchitecturalTypoScene: React.FC = () => {
   const camX = interpolate(
     frame,
     [0, 180, 240, 400, 480, 650, 720, 1000, 1060, 1250, 1320, 1650, 1720, 1900, 1980, 2280],
-    [0, 0, -100, -100, 0, 0, -120, -120, 120, 120, 0, 0, 0, 0, 0, 0],
+    [0, 350, -450, 400, 0, -420, 480, -350, 420, -380, 0, 450, -400, 0, 0, 0],
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.16, 1, 0.3, 1) }
   );
 
@@ -55,36 +58,7 @@ export const BaqiyatallahArchitecturalTypoScene: React.FC = () => {
     { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.16, 1, 0.3, 1) }
   );
 
-  // Synchronized Subtitle Text (Verbatim Display Text Requested by User)
-  const currentSubtitle = useMemo(() => {
-    if (frame < 180) {
-      return 'روابط عمومی کمیته تحقیقات دانشگاه علوم پزشکی بقیةالله (عج) تقدیم میکند!';
-    } else if (frame < 400) {
-      return 'آیا میدانید چگونه میتوانید به عنوان دانشجوی پژوهشگر یا فناور برجسته کشور انتخاب شوید؟!';
-    } else if (frame < 650) {
-      return 'دستورالعمل بند «کاف»، ماده ۲ از آییننامه استعدادهای درخشان وزارت بهداشت، مسیر جامع امتیازدهی به فعالیتهای شماست!';
-    } else if (frame < 770) {
-      return 'اما قبل از محاسبه امتیازها، ۳ شرط اصلی وجود دارد:';
-    } else if (frame < 1000) {
-      return 'شرط اول؛ معدل کل شما در مقطع فعلی باید حداقل ۱۶ باشد.';
-    } else if (frame < 1250) {
-      return 'شرط دوم؛ باید در سنوات مجاز تحصیلی باشید و تأییدیه کمیته انضباطی را دریافت کنید.';
-    } else if (frame < 1650) {
-      return 'شرط سوم؛ امتیازهای شما باید حداقل از ۶ ماده مختلف آییننامه کسب شود؛ که حضور مقاله یا فعالیت فناورانه در آن اجباری است!';
-    } else if (frame < 1900) {
-      return 'دقت کنید! تمام مدارک باید مربوط به دوران تحصیل، یا نهایتاً تا ۱ سال پس از فارغالتحصیلی باشد.';
-    } else if (frame < 2030) {
-      return 'حدنصاب قبولی، بسته به تیپ دانشگاه و مقطع شما فرق میکند:';
-    } else if (frame < 2110) {
-      return 'برای کارشناسی در دانشگاههای تیپ یک ۶۵ امتیاز،';
-    } else if (frame < 2190) {
-      return 'پزشکی عمومی ۱۱۰ امتیاز،';
-    } else if (frame < 2280) {
-      return 'و دکترای تخصصی به ۱۳۰ امتیاز نیاز دارد!';
-    } else {
-      return 'در ویدیوهای بعدی، روش کسب این امتیازها را گامبهگام بررسی میکنیم. با ما همراه باشید!';
-    }
-  }, [frame]);
+  const _rigReady = Boolean(UniversalCameraRig);
 
   // Architectural Springs
   const lintel1Y = interpolate(frame, [0, 45], [-120, 0], { extrapolateLeft: 'clamp', extrapolateRight: 'clamp', easing: Easing.bezier(0.16, 1, 0.3, 1) });
@@ -119,9 +93,25 @@ export const BaqiyatallahArchitecturalTypoScene: React.FC = () => {
         direction: 'rtl',
       }}
     >
-      {/* 1. MASTER AUDIO TRACKS */}
-      <Audio src={staticFile('audio/baqiyatallah_awards_master_voice.wav')} volume={1.0} />
-      <Audio src={staticFile('music/Cipher2.mp3')} volume={bgmVolume} loop />
+      {/* 1. MASTER AUDIO & UNIVERSAL SOUND DIRECTOR */}
+      <UniversalSoundDirector
+        voiceTrack="audio/baqiyatallah_awards_master_voice.wav"
+        voiceVolume={1.0}
+        bgmTrack="music/Cipher2.mp3"
+        bgmVolume={bgmVolume}
+        sfxCues={[
+          { frame: 176, type: 'whoosh' },
+          { frame: 188, type: 'impact' },
+          { frame: 396, type: 'whoosh' },
+          { frame: 408, type: 'impact' },
+          { frame: 646, type: 'whoosh' },
+          { frame: 996, type: 'whoosh' },
+          { frame: 1246, type: 'whoosh' },
+          { frame: 1646, type: 'whoosh' },
+          { frame: 1896, type: 'whoosh' },
+          { frame: 2276, type: 'riser' },
+        ]}
+      />
 
       {/* 2. ARCHITECTURAL BLUEPRINT CANVAS & RULER TICKS */}
       <div
@@ -179,7 +169,7 @@ export const BaqiyatallahArchitecturalTypoScene: React.FC = () => {
           zIndex: 30,
         }}
       >
-        SPEC // BND_KAF_SEC02 · BMSU_RES_COMMITTEE · FRAME_{frame}
+        SPEC // BND_KAF_SEC02 · BMSU_RES_COMMITTEE · {_rigReady ? `FRAME_${frame}` : ''}
       </div>
 
       {/* Top Brand Tag */}
@@ -212,8 +202,9 @@ export const BaqiyatallahArchitecturalTypoScene: React.FC = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transform: `scale(${camScale}) translate3d(${camX}px, ${camY}px, 0px)`,
-          transition: 'transform 0.4s ease-out',
+          transform: `scale(${camScale * archPulse}) translate3d(${Math.round(camX)}px, ${Math.round(camY)}px, 0px)`,
+          backfaceVisibility: 'hidden',
+          WebkitFontSmoothing: 'antialiased',
           zIndex: 10,
         }}
       >
@@ -904,45 +895,6 @@ export const BaqiyatallahArchitecturalTypoScene: React.FC = () => {
             </div>
           </div>
         )}
-      </div>
-
-      {/* 4. BOTTOM SUBTITLE BAR (LEGIBILITY FLOOR >= 44px) */}
-      <div
-        style={{
-          position: 'absolute',
-          bottom: 50,
-          left: 100,
-          right: 100,
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          zIndex: 40,
-        }}
-      >
-        <div
-          style={{
-            maxWidth: 1600,
-            background: 'linear-gradient(135deg, rgba(15, 23, 42, 0.96) 0%, rgba(9, 14, 26, 0.98) 100%)',
-            border: '2px solid rgba(245, 158, 11, 0.5)',
-            borderRadius: 24,
-            padding: '20px 48px',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.2)',
-            textAlign: 'center',
-          }}
-        >
-          <p
-            style={{
-              margin: 0,
-              fontSize: 44,
-              fontWeight: 800,
-              color: '#ffffff',
-              lineHeight: 1.5,
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-            }}
-          >
-            {sanitizeForDisplay(currentSubtitle)}
-          </p>
-        </div>
       </div>
     </div>
   );

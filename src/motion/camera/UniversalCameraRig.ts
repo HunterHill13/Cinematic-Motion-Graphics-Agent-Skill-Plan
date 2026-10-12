@@ -63,9 +63,18 @@ export interface TrajectoryDefinition {
 }
 
 
+export interface CameraWaypoint {
+  startFrame: number;
+  endFrame: number;
+  x: number;
+  y: number;
+  z: number;
+}
+
 export interface UniversalCameraRigProps {
   mode?: CameraTrajectoryMode;
   customTrackLength?: number;
+  customWaypoints?: CameraWaypoint[];
   children?: React.ReactNode;
   style?: React.CSSProperties;
 }
@@ -481,6 +490,76 @@ export class UniversalCameraRigEngine {
       },
     };
   }
+
+  public static computeFromWaypoints(frame: number, waypoints: CameraWaypoint[]): CameraState6DOF {
+    if (!waypoints || waypoints.length === 0) {
+      return { camX: 0, camY: 0, camZ: 0, camPitch: 0, camYaw: 0, camRoll: 0, camZoom: 1, motionBlur: 0 };
+    }
+    if (waypoints.length === 1) {
+      const wp = waypoints[0];
+      return { camX: wp.x, camY: wp.y, camZ: wp.z, camPitch: 0, camYaw: 0, camRoll: 0, camZoom: 1, motionBlur: 0 };
+    }
+
+    const halfTrans = 14;
+    for (let i = 0; i < waypoints.length - 1; i++) {
+      const curr = waypoints[i];
+      const next = waypoints[i + 1];
+      const tStart = curr.endFrame - halfTrans;
+      const tEnd = next.startFrame + halfTrans;
+
+      if (frame < tStart) {
+        return {
+          camX: curr.x,
+          camY: curr.y,
+          camZ: curr.z,
+          camPitch: 0,
+          camYaw: 0,
+          camRoll: 0,
+          camZoom: 1,
+          motionBlur: 0,
+        };
+      }
+      if (frame >= tStart && frame <= tEnd) {
+        const progress = interpolate(frame, [tStart, tEnd], [0, 1], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+          easing: Easing.bezier(0.25, 0.1, 0.25, 1),
+        });
+        const camX = curr.x + (next.x - curr.x) * progress;
+        const camY = curr.y + (next.y - curr.y) * progress;
+        const camZ = curr.z + (next.z - curr.z) * progress;
+
+        const tMid = (tStart + tEnd) / 2;
+        const dirSign = i % 2 === 0 ? 1 : -1;
+        const camRoll = interpolate(frame, [tStart, tMid, tEnd], [0, -2.2 * dirSign, 0], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
+        const camPitch = interpolate(frame, [tStart, tMid, tEnd], [0, 1.4 * dirSign, 0], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
+        const camYaw = interpolate(frame, [tStart, tMid, tEnd], [0, -1.8 * dirSign, 0], {
+          extrapolateLeft: 'clamp',
+          extrapolateRight: 'clamp',
+        });
+
+        return { camX, camY, camZ, camPitch, camYaw, camRoll, camZoom: 1, motionBlur: 2 };
+      }
+    }
+
+    const last = waypoints[waypoints.length - 1];
+    return {
+      camX: last.x,
+      camY: last.y,
+      camZ: last.z,
+      camPitch: 0,
+      camYaw: 0,
+      camRoll: 0,
+      camZoom: 1,
+      motionBlur: 0,
+    };
+  }
 }
 
 export interface UniversalCameraRigComponentType extends React.FC<UniversalCameraRigProps> {
@@ -488,11 +567,14 @@ export interface UniversalCameraRigComponentType extends React.FC<UniversalCamer
 }
 
 export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign(
-  ({ mode = 'PANORAMIC_HORIZONTAL', customTrackLength, children, style }: UniversalCameraRigProps) => {
+  ({ mode = 'PANORAMIC_HORIZONTAL', customTrackLength, customWaypoints, children, style }: UniversalCameraRigProps) => {
     const frame = useCurrentFrame();
     const { durationInFrames } = useVideoConfig();
     const trajectoryDef = UniversalCameraRigEngine.getTrajectory(mode);
-    const cam = trajectoryDef.computeCamera(frame, durationInFrames);
+    const cam =
+      customWaypoints && customWaypoints.length > 0
+        ? UniversalCameraRigEngine.computeFromWaypoints(frame, customWaypoints)
+        : trajectoryDef.computeCamera(frame, durationInFrames);
     const { camX, camY, camZ, camPitch, camYaw, camRoll } = cam;
 
     return React.createElement(
