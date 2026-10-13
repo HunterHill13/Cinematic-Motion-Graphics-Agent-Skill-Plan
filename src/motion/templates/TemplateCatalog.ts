@@ -10,6 +10,10 @@
  */
 
 import { CameraTrajectoryMode } from '../camera/UniversalCameraRig';
+import {
+  ARCHETYPE_SPRING_PRESETS,
+  SpringPresetDefinition,
+} from '../physics/SpringPhysicsMatrix';
 
 export type TemplateId =
   | 'DARK_GRAPHITE_TECH'
@@ -42,6 +46,7 @@ export interface TemplateDefinition {
   themeStyle: string;
   accentColors: string[];
   oklchColors: TemplateOklchPalette;
+  springConfig: SpringPresetDefinition;
 }
 
 export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
@@ -62,6 +67,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.68 0.24 15)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.72 0.17 215 / 0.25) 0%, oklch(0.68 0.20 255 / 0.10) 45%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.DARK_GRAPHITE_TECH,
   },
   CONTINUOUS_UI_MORPH: {
     id: 'CONTINUOUS_UI_MORPH',
@@ -80,6 +86,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.70 0.18 230)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.65 0.24 15 / 0.22) 0%, oklch(0.82 0.18 85 / 0.08) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.CONTINUOUS_UI_MORPH,
   },
   QUANTUM_BIO_DEEP_Z: {
     id: 'QUANTUM_BIO_DEEP_Z',
@@ -98,6 +105,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.65 0.24 300)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.75 0.18 160 / 0.25) 0%, oklch(0.65 0.24 300 / 0.12) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.QUANTUM_BIO_DEEP_Z,
   },
   KINETIC_ARCHITECTURAL_TYPO: {
     id: 'KINETIC_ARCHITECTURAL_TYPO',
@@ -116,6 +124,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.55 0.05 240)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.82 0.18 85 / 0.22) 0%, oklch(0.55 0.05 240 / 0.08) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.KINETIC_ARCHITECTURAL_TYPO,
   },
   BENTO_GRID_SAAS: {
     id: 'BENTO_GRID_SAAS',
@@ -134,6 +143,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.82 0.18 85)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.72 0.17 215 / 0.24) 0%, oklch(0.65 0.24 300 / 0.12) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.BENTO_GRID_SAAS,
   },
   FINTECH_TRADING: {
     id: 'FINTECH_TRADING',
@@ -152,6 +162,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.82 0.18 85)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.75 0.20 150 / 0.22) 0%, oklch(0.62 0.25 25 / 0.10) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.FINTECH_TRADING,
   },
   STOP_MOTION_PAPER: {
     id: 'STOP_MOTION_PAPER',
@@ -170,6 +181,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.96 0.02 90)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.75 0.14 55 / 0.18) 0%, oklch(0.82 0.14 85 / 0.08) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.STOP_MOTION_PAPER,
   },
   TECHNICAL_BLUEPRINT: {
     id: 'TECHNICAL_BLUEPRINT',
@@ -188,6 +200,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.80 0.16 85)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.78 0.15 220 / 0.25) 0%, oklch(0.65 0.18 245 / 0.12) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.TECHNICAL_BLUEPRINT,
   },
   NEO_BRUTALIST: {
     id: 'NEO_BRUTALIST',
@@ -206,6 +219,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.98 0 0)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.88 0.20 95 / 0.35) 0%, oklch(0.60 0.28 15 / 0.15) 50%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.NEO_BRUTALIST,
   },
   STUDIO_SHOWREEL: {
     id: 'STUDIO_SHOWREEL',
@@ -224,6 +238,7 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
       highlight: 'oklch(0.82 0.18 85)',
       meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.72 0.17 215 / 0.25) 0%, oklch(0.68 0.20 255 / 0.10) 45%, transparent 75%)',
     },
+    springConfig: ARCHETYPE_SPRING_PRESETS.STUDIO_SHOWREEL,
   },
 };
 

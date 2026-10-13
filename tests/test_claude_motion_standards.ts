@@ -118,6 +118,94 @@ for (const id of templateIds) {
 }
 console.log('✅ [GATE 5 PASSED]: All 9 templates + Studio Showreel feature native OKLCH grading.\n');
 
+// ---------------------------------------------------------------------------
+// GATE 6: Per-Archetype Spring Physics Personalities
+// ---------------------------------------------------------------------------
+console.log('--- GATE 6: Per-Archetype Spring Physics Personalities ---');
+const { ARCHETYPE_SPRING_PRESETS, COMPOSITION_DEPTH_BUDGET } = require('../src/motion/physics/SpringPhysicsMatrix');
+const { validateVisualStateGraph } = require('../src/motion/grammar/VisualStateGraph');
+
+for (const id of templateIds) {
+  const p = ARCHETYPE_SPRING_PRESETS[id];
+  assert(Boolean(p), `Missing ARCHETYPE_SPRING_PRESET for ${id}`);
+  assert(p.mass > 0 && p.mass <= 1.5, `Invalid mass in ${id}: ${p.mass}`);
+  assert(p.stiffness >= 50 && p.stiffness <= 250, `Invalid stiffness in ${id}: ${p.stiffness}`);
+  assert(p.damping >= 5 && p.damping <= 35, `Invalid damping in ${id}: ${p.damping}`);
+  console.log(`  ✅ Archetype ${id.padEnd(28)}: mass=${p.mass}, stiffness=${p.stiffness}, damping=${p.damping}, clamped=${Boolean(p.overshootClamping)}`);
+}
+console.log('✅ [GATE 6 PASSED]: All 10 archetype spring personalities validated.\n');
+
+// ---------------------------------------------------------------------------
+// GATE 7: Composition 3D Depth Layer Budget (Max 5 Planes)
+// ---------------------------------------------------------------------------
+console.log('--- GATE 7: Composition 3D Depth Layer Budget ---');
+const depthKeys = ['BACKGROUND', 'DEEP_MIDGROUND', 'HERO_PLANE', 'FOREGROUND_OVERLAY', 'LIGHT_VOLUMETRIC'];
+for (const k of depthKeys) {
+  const spec = COMPOSITION_DEPTH_BUDGET[k];
+  assert(Boolean(spec), `Missing depth budget plane: ${k}`);
+  assert(spec.maxBlurPx <= 20, `Blur exceeds safe GPU budget for ${k}: ${spec.maxBlurPx}px`);
+  console.log(`  ✅ Depth Plane ${k.padEnd(22)}: Z=[${spec.zMin}..${spec.zMax}], maxBlur=${spec.maxBlurPx}px`);
+}
+console.log('✅ [GATE 7 PASSED]: Composition 3D depth layer budget strictly enforced.\n');
+
+// ---------------------------------------------------------------------------
+// GATE 8: VisualStateGraph (VSG) Schema & State Machine Contract
+// ---------------------------------------------------------------------------
+console.log('--- GATE 8: VisualStateGraph (VSG) Schema & State Machine Contract ---');
+const vsgSchemaPath = path.resolve(__dirname, '../schemas/visual_state_graph.schema.json');
+assert(fs.existsSync(vsgSchemaPath), `visual_state_graph.schema.json missing at ${vsgSchemaPath}`);
+
+const sampleValidVSG = {
+  graphId: 'VSG_TEST_01',
+  initialStateId: 'STATE_HERO',
+  states: [
+    {
+      stateId: 'STATE_HERO',
+      semanticRole: 'HERO_ACTOR',
+      enterTrigger: 'TRANSITION_START',
+      durationInFrames: 60,
+      springConfig: { mass: 0.6, stiffness: 85, damping: 13 },
+      depthLayer: 'HERO_PLANE',
+      colorToken: 'oklch(0.72 0.17 215)',
+      transitions: [{ targetStateId: 'STATE_METRIC', transitionType: 'ELEMENT_KINETIC_DISPERSE', durationInFrames: 20 }],
+    },
+    {
+      stateId: 'STATE_METRIC',
+      semanticRole: 'TELEMETRY_GAUGE',
+      enterTrigger: 'BEAT_DROP',
+      durationInFrames: 60,
+      springConfig: { mass: 0.85, stiffness: 115, damping: 12 },
+      depthLayer: 'HERO_PLANE',
+      colorToken: 'oklch(0.75 0.18 160)',
+    },
+  ],
+};
+
+const vsgResult = validateVisualStateGraph(sampleValidVSG);
+assert(vsgResult.valid, `Expected valid VSG, got errors: ${vsgResult.errors.join(', ')}`);
+
+const invalidVSG = {
+  graphId: 'VSG_TEST_INVALID',
+  initialStateId: 'NON_EXISTENT_STATE',
+  states: [{ stateId: 'STATE_ONLY', semanticRole: 'HERO_ACTOR', durationInFrames: 60, springConfig: { mass: 0.6, stiffness: 85, damping: 13 }, depthLayer: 'HERO_PLANE', colorToken: 'oklch(0.72 0.17 215)' }],
+};
+const invalidResult = validateVisualStateGraph(invalidVSG);
+assert(!invalidResult.valid, 'Expected invalid VSG to fail validation');
+console.log('  ✅ Valid VSG graph passed semantic validation.');
+console.log('  ✅ Invalid VSG graph correctly caught missing initialStateId.');
+console.log('✅ [GATE 8 PASSED]: VisualStateGraph schema and runtime validator operational.\n');
+
+// ---------------------------------------------------------------------------
+// GATE 9: Zero Local file:/// URLs in Documentation
+// ---------------------------------------------------------------------------
+console.log('--- GATE 9: Zero Local file:/// URLs in Documentation ---');
+const skillMdPath = path.resolve(__dirname, '../.agents/skills/cinematic-motion-director/SKILL.md');
+const skillMdContent = fs.readFileSync(skillMdPath, 'utf8');
+const fileMatches = skillMdContent.match(/file:\/\/\/[^\s\)]+/g);
+assert(!fileMatches, `Found forbidden machine-local file:/// URLs in SKILL.md: ${fileMatches?.join(', ')}`);
+console.log('  ✅ 0 machine-local file:/// URLs found in SKILL.md (all converted to GitHub raw/relative URLs).');
+console.log('✅ [GATE 9 PASSED]: Universal URL & Remote Agent review compatibility verified.\n');
+
 console.log('================================================================');
 console.log('✅ ALL CLAUDE OPUS 5.5 MOTION QUALITY GATES PASSED (100% GREEN)');
 console.log('================================================================\n');
