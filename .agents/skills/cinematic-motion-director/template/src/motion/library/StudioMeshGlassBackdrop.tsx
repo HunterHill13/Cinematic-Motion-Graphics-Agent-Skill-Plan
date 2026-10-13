@@ -46,9 +46,9 @@ export const StudioMeshGlassBackdrop: React.FC<StudioMeshGlassBackdropProps> = (
           inset: -250,
           transform: `translate3d(${parallaxX}px, ${parallaxY}px, 0px) scale(${depthScale})`,
           background: `
-            radial-gradient(circle at ${40 + lightOrbitX1 * 0.08}% ${35 + lightOrbitY1 * 0.08}%, ${primaryLightColor}2e 0%, transparent 55%),
-            radial-gradient(circle at ${65 + lightOrbitX2 * 0.08}% ${65 + lightOrbitY2 * 0.08}%, ${accentGlowColor}24 0%, transparent 60%),
-            radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.88) 0%, #050811 100%)
+            radial-gradient(circle at ${40 + lightOrbitX1 * 0.08}% ${35 + lightOrbitY1 * 0.08}% in oklch, ${primaryLightColor}44 0%, transparent 55%),
+            radial-gradient(circle at ${65 + lightOrbitX2 * 0.08}% ${65 + lightOrbitY2 * 0.08}% in oklch, ${accentGlowColor}33 0%, transparent 60%),
+            radial-gradient(circle at 50% 50% in oklch, rgba(15, 23, 42, 0.88) 0%, #050811 100%)
           `,
         }}
       />

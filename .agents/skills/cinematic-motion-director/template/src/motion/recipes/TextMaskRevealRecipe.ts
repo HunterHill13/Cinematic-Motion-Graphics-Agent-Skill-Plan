@@ -1,4 +1,5 @@
 import { spring, interpolate } from 'remotion';
+import { SPRING_PRESETS } from '../physics/SpringPhysicsMatrix';
 
 export interface TextMaskRevealResult {
   clipPath: string;
@@ -37,11 +38,12 @@ export function executeTextMaskReveal(
     };
   }
 
-  // Pure spring entrance with high damping (dignified, zero cheap bounce on typography)
+  // Standardized spring entrance from Claude Motion Physics Matrix
+  const preset = SPRING_PRESETS.TYPOGRAPHY_WORD_STAGGER;
   const revealProgress = spring({
     frame: rel,
     fps,
-    config: { damping: 18, stiffness: 140 },
+    config: { mass: preset.mass, damping: preset.damping, stiffness: preset.stiffness },
   });
 
   const clampedP = Math.min(1, Math.max(0, revealProgress));

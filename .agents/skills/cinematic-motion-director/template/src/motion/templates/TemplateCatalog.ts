@@ -23,6 +23,14 @@ export type TemplateId =
   | 'NEO_BRUTALIST'
   | 'STUDIO_SHOWREEL';
 
+export interface TemplateOklchPalette {
+  primary: string;
+  secondary: string;
+  accent: string;
+  highlight: string;
+  meshGradient: string;
+}
+
 export interface TemplateDefinition {
   id: TemplateId;
   titleFa: string;
@@ -33,6 +41,7 @@ export interface TemplateDefinition {
   defaultBgm: string;
   themeStyle: string;
   accentColors: string[];
+  oklchColors: TemplateOklchPalette;
 }
 
 export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
@@ -46,6 +55,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Cipher2.mp3',
     themeStyle: 'DARK_GRAPHITE_TECH',
     accentColors: ['#06b6d4', '#10b981', '#3b82f6', '#f43f5e'],
+    oklchColors: {
+      primary: 'oklch(0.72 0.17 215)',
+      secondary: 'oklch(0.68 0.20 255)',
+      accent: 'oklch(0.74 0.18 160)',
+      highlight: 'oklch(0.68 0.24 15)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.72 0.17 215 / 0.25) 0%, oklch(0.68 0.20 255 / 0.10) 45%, transparent 75%)',
+    },
   },
   CONTINUOUS_UI_MORPH: {
     id: 'CONTINUOUS_UI_MORPH',
@@ -57,6 +73,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Tech_Live.mp3',
     themeStyle: 'TACTILE_PAPER_AND_CLEAN_UI',
     accentColors: ['#f43f5e', '#fbbf24', '#10b981', '#0ea5e9'],
+    oklchColors: {
+      primary: 'oklch(0.65 0.24 15)',
+      secondary: 'oklch(0.82 0.18 85)',
+      accent: 'oklch(0.75 0.17 160)',
+      highlight: 'oklch(0.70 0.18 230)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.65 0.24 15 / 0.22) 0%, oklch(0.82 0.18 85 / 0.08) 50%, transparent 75%)',
+    },
   },
   QUANTUM_BIO_DEEP_Z: {
     id: 'QUANTUM_BIO_DEEP_Z',
@@ -68,6 +91,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Brain_Dance.mp3',
     themeStyle: 'BIO_QUANTUM_DEEP_Z',
     accentColors: ['#10b981', '#d97706', '#06b6d4', '#8b5cf6'],
+    oklchColors: {
+      primary: 'oklch(0.75 0.18 160)',
+      secondary: 'oklch(0.70 0.19 65)',
+      accent: 'oklch(0.72 0.17 215)',
+      highlight: 'oklch(0.65 0.24 300)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.75 0.18 160 / 0.25) 0%, oklch(0.65 0.24 300 / 0.12) 50%, transparent 75%)',
+    },
   },
   KINETIC_ARCHITECTURAL_TYPO: {
     id: 'KINETIC_ARCHITECTURAL_TYPO',
@@ -79,6 +109,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Cipher2.mp3',
     themeStyle: 'ARCHITECTURAL_TYPO',
     accentColors: ['#f59e0b', '#ffffff', '#10b981', '#64748b'],
+    oklchColors: {
+      primary: 'oklch(0.82 0.18 85)',
+      secondary: 'oklch(0.98 0 0)',
+      accent: 'oklch(0.75 0.17 160)',
+      highlight: 'oklch(0.55 0.05 240)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.82 0.18 85 / 0.22) 0%, oklch(0.55 0.05 240 / 0.08) 50%, transparent 75%)',
+    },
   },
   BENTO_GRID_SAAS: {
     id: 'BENTO_GRID_SAAS',
@@ -90,6 +127,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Tech_Live.mp3',
     themeStyle: 'BENTO_GRID_SAAS',
     accentColors: ['#10b981', '#8b5cf6', '#06b6d4', '#f59e0b'],
+    oklchColors: {
+      primary: 'oklch(0.75 0.18 160)',
+      secondary: 'oklch(0.65 0.24 300)',
+      accent: 'oklch(0.72 0.17 215)',
+      highlight: 'oklch(0.82 0.18 85)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.72 0.17 215 / 0.24) 0%, oklch(0.65 0.24 300 / 0.12) 50%, transparent 75%)',
+    },
   },
   FINTECH_TRADING: {
     id: 'FINTECH_TRADING',
@@ -101,6 +145,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Brain_Dance.mp3',
     themeStyle: 'FINTECH_TRADING',
     accentColors: ['#00e676', '#ff1744', '#ffd600', '#00e5ff'],
+    oklchColors: {
+      primary: 'oklch(0.75 0.20 150)',
+      secondary: 'oklch(0.62 0.25 25)',
+      accent: 'oklch(0.72 0.17 215)',
+      highlight: 'oklch(0.82 0.18 85)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.75 0.20 150 / 0.22) 0%, oklch(0.62 0.25 25 / 0.10) 50%, transparent 75%)',
+    },
   },
   STOP_MOTION_PAPER: {
     id: 'STOP_MOTION_PAPER',
@@ -112,6 +163,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Cipher2.mp3',
     themeStyle: 'STOP_MOTION_PAPER',
     accentColors: ['#d9534f', '#27ae60', '#d4b27e', '#4a3e2d'],
+    oklchColors: {
+      primary: 'oklch(0.75 0.14 55)',
+      secondary: 'oklch(0.82 0.14 85)',
+      accent: 'oklch(0.65 0.16 25)',
+      highlight: 'oklch(0.96 0.02 90)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.75 0.14 55 / 0.18) 0%, oklch(0.82 0.14 85 / 0.08) 50%, transparent 75%)',
+    },
   },
   TECHNICAL_BLUEPRINT: {
     id: 'TECHNICAL_BLUEPRINT',
@@ -123,6 +181,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Brain_Dance.mp3',
     themeStyle: 'TECHNICAL_BLUEPRINT',
     accentColors: ['#00e5ff', '#00ffcc', '#38bdf8', '#0ea5e9'],
+    oklchColors: {
+      primary: 'oklch(0.78 0.15 220)',
+      secondary: 'oklch(0.65 0.18 245)',
+      accent: 'oklch(0.98 0 0)',
+      highlight: 'oklch(0.80 0.16 85)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.78 0.15 220 / 0.25) 0%, oklch(0.65 0.18 245 / 0.12) 50%, transparent 75%)',
+    },
   },
   NEO_BRUTALIST: {
     id: 'NEO_BRUTALIST',
@@ -134,6 +199,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Tech_Live.mp3',
     themeStyle: 'NEO_BRUTALIST',
     accentColors: ['#ffe600', '#000000', '#00e5ff', '#ff3366'],
+    oklchColors: {
+      primary: 'oklch(0.88 0.20 95)',
+      secondary: 'oklch(0.60 0.28 15)',
+      accent: 'oklch(0.15 0.01 260)',
+      highlight: 'oklch(0.98 0 0)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.88 0.20 95 / 0.35) 0%, oklch(0.60 0.28 15 / 0.15) 50%, transparent 75%)',
+    },
   },
   STUDIO_SHOWREEL: {
     id: 'STUDIO_SHOWREEL',
@@ -145,6 +217,13 @@ export const TEMPLATE_CATALOG: Record<TemplateId, TemplateDefinition> = {
     defaultBgm: 'music/Tech_Live.mp3',
     themeStyle: 'MULTI_ACT_STUDIO',
     accentColors: ['#10b981', '#f59e0b', '#38bdf8', '#6366f1'],
+    oklchColors: {
+      primary: 'oklch(0.72 0.17 215)',
+      secondary: 'oklch(0.68 0.20 255)',
+      accent: 'oklch(0.74 0.18 160)',
+      highlight: 'oklch(0.82 0.18 85)',
+      meshGradient: 'radial-gradient(ellipse at center in oklch, oklch(0.72 0.17 215 / 0.25) 0%, oklch(0.68 0.20 255 / 0.10) 45%, transparent 75%)',
+    },
   },
 };
 

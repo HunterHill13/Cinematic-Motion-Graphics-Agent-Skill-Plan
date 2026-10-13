@@ -845,14 +845,16 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                       />
                     )}
 
-                  {/* VOLUMETRIC LIGHT POOL ON OPEN CANVAS */}
+                  {/* VOLUMETRIC LIGHT POOL ON OPEN CANVAS (OKLCH PERCEPTUAL GRADING) */}
                   {!isBrutalist && (
                     <div
                       style={{
                         position: 'absolute',
                         width: 920,
                         height: 520,
-                        background: `radial-gradient(ellipse at center, ${primaryAccent}22 0%, ${secondaryAccent}0d 45%, transparent 75%)`,
+                        background:
+                          theme.oklchColors?.meshGradient ||
+                          `radial-gradient(ellipse at center in oklch, ${primaryAccent}44 0%, ${secondaryAccent}1a 45%, transparent 75%)`,
                         pointerEvents: 'none',
                         transform: `scale(${breathingScale})`,
                       }}

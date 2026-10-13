@@ -419,14 +419,49 @@ To ensure every generated video matches or exceeds the visual creativity of the 
 4. **Mandatory Verification Gate:**
    - Run `npx tsx tests/test_true_transition_and_creativity_audit.ts` alongside `tests/test_scene_transition_diversity.ts` and `tests/test_open_canvas_and_sfx_audit.ts` to verify 100% 3-way template sync and multi-modal choreography.
 
+### 8.7 Claude Opus 5.5 Animation Timing Contract, Spring Physics Matrix & OKLCH Standards
+To match and exceed the visual excellence of Anthropic Claude Opus 5.5 motion graphics, every composition, recipe, and template MUST adhere to these mathematically defined timing contracts, spring physics presets, and color standards:
+
+1. **Inviolable Spring Physics Parameter Matrix (`SPRING_PRESETS` in `src/motion/physics/SpringPhysicsMatrix.ts`):**
+   Never use arbitrary, untuned spring numbers or naive linear `interpolate(frame, [0, 20], [0, 1])`. All spring instances MUST draw from the certified physics matrix:
+   | Visual Role | Mass | Stiffness | Damping | Easing / Feel |
+   | :--- | :---: | :---: | :---: | :--- |
+   | **Hero 3D Sculpture (`HERO_SCULPTURE_ENTRANCE`)** | `0.60` | `85` | `13` | Graceful entry with subtle organic settle |
+   | **Kinetic Word Stagger (`TYPOGRAPHY_WORD_STAGGER`)** | `0.50` | `140` | `15` | Crisp, dignified unroll, 0 loose oscillation |
+   | **Status Badge / Pill (`STATUS_BADGE_PILL`)** | `0.45` | `160` | `12` | Snappy pop with instantaneous engagement |
+   | **Metric Counter / Bar (`METRIC_COUNTER_OVERSHOOT`)** | `0.85` | `115` | `12` | Confident physical weight with slight rebound |
+   | **Constellation Sub-Node (`CONSTELLATION_NODE_STAGGER`)** | `0.70` | `125` | `11` | Buoyant, airy floating node entrance |
+   | **Transition Directional Fling (`TRANSITION_EXIT_FLING`)**| `0.90` | `130` | `14` | High-momentum directional whip on scene exit |
+   | **Elastic Pop & Slam (`ELASTIC_POP_SLAM`)** | `0.75` | `180` | `9` | Explosive impact with pronounced elasticity |
+
+2. **Standardized Act Lifecycle Timing Ratios (`ACT_TIMING_RATIOS`):**
+   - **Entrance & Unroll Phase (`INTRO_RATIO = 18%`):** All springs arrive, words unroll via curtain mask, hero sculpture settles.
+   - **Narrative Focus & Living Micro-Motion Phase (`HOLD_RATIO = 68%`):** Middle 68% of the act duration is dedicated to spoken narration. Visuals maintain gentle breathing (`Math.sin()`), data charts animate, orbital rings rotate. Never rush out early!
+   - **Handoff & Transition Phase (`OUTRO_RATIO = 14%`):** Elements fling out or camera glides to the next spatial station.
+
+3. **Persian-Safe Word-Level Typography Engine (`PersianKineticText`):**
+   - **Linguistic Craft Invariant:** Persian is a cursive script where letters join via contextual ligatures. Character-level splitting (`text.split('')`) is **STRICTLY PROHIBITED** as it disconnects and disfigures Persian letters into isolated Arabic glyphs (`س ل ا م`).
+   - All granular typography reveals MUST split **strictly into whole words** (`text.trim().split(/\s+/)`), applying 2.5-frame staggered springs per word via `clipPath: inset(0 0 progress% 0)` (`mode="curtain"`) or mechanical 3D tilt (`mode="flip3d"`).
+
+4. **Native OKLCH Perceptual Color Grading & Gradients:**
+   - Ban raw hex gradients between contrasting hues (e.g., `#6600ff` to `#00ccff`) that create muddy, desaturated "gray dead zones" in the midpoint.
+   - All 9 master templates define native `oklchColors` in `TemplateCatalog.ts`.
+   - All radial light pools and backdrops MUST specify `in oklch` color space interpolation:
+     `radial-gradient(ellipse at center in oklch, oklch(...) 0%, oklch(...) 45%, transparent 75%)`.
+
+5. **Universal Mathematical Beat-Grid Snap (`snapToBeat`):**
+   - At 124 BPM on 30 FPS, each musical beat is exactly `14.516` frames.
+   - Major cuts, text reveals, and camera waypoint transitions MUST be quantized using `snapToBeat(frame, bpm, fps)`.
+   - Automated test `tests/test_claude_motion_standards.ts` verifies 100% compliance across all 5 quality pillars.
+
 ---
 
 ## 9. Reference Library
 
+- [Claude Opus 5.5 Motion Quality & Timing Standards](references/RESEARCH_CLAUDE_MOTION_VS_STATIC_DEFECTS.md)
 - [Creative Choreography, Chained 3D Coordinates & Transition Audit](references/RESEARCH_CREATIVE_CHOREOGRAPHY_AND_TRANSITION_FIX.md)
 - [Dynamic Scene Transitions & Multi-Modal Camera Grammar](references/RESEARCH_DYNAMIC_SCENE_TRANSITIONS.md)
 - [Open-Canvas Kinetic Choreography, Ultimate SFX & Multi-Agent Research](references/RESEARCH_OPEN_CANVAS_SFX_MULTIAGENT.md)
-- [Claude Motion Architecture vs Static Defects Research](references/RESEARCH_CLAUDE_MOTION_VS_STATIC_DEFECTS.md)
 - [Claude Opus 5.5 Fluid Continuity & One-Take Camera](references/claude-fluid-continuity.md)
 - [Claude Opus 5.5 Viral Prompt Catalog](references/claude-opus-prompt-catalog.md)
 - [Official Remotion Agent Skills & Code Standards](references/remotion-agent-skills.md)
