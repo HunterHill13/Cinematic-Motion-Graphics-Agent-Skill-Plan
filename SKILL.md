@@ -138,6 +138,13 @@ A production fails quality review if any of the following occur:
 - **Reading Time Standard:** Allocate `0.25` to `0.30` seconds per Persian word for reading comprehension.
 - **Contrast Ratios (WCAG):** Minimum `4.5:1` for body copy; minimum `3:1` for display headlines.
 
+### 4.6 Premier Studio Craft Standards (Apple, Linear, Vox, Claude Opus 5.5)
+- **Anticipation (Pre-Coil):** Explosive reveals must execute 3–5f negative recoil ($2\% \text{ to } 6\%$) via `studioAnticipationSpring()` before forward release.
+- **Volume-Preserving Deformation:** Vertical compressions preserve total volume ($S_x \cdot S_y \cdot S_z = 1.0$) via `calculateSquashAndStretch()`.
+- **Decoupled Camera Crane Dynamics:** Camera translations use floating-point `.toFixed(2)` coordinates with active velocity-proportional motion blur (`cam.motionBlur`) and centrifugal banking roll.
+- **Voice-Synchronized Semantic Highlighting:** Spoken keywords illuminate dynamically with radiant glow (`textShadow`) and micro-scale ($1.05$) via `PersianKineticText`'s `semanticHighlights` without breaking cursive ligatures.
+- **Filmic Dither:** Backdrops render 3.5% procedural SVG dither to eliminate 8-bit CSS gradient Mach color banding.
+
 ---
 
 ## 5. Dynamic Scene Transitions & Camera Grammar

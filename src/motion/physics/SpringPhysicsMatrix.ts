@@ -337,3 +337,140 @@ export function executeStandardSpring(
   });
 }
 
+/**
+ * ============================================================================
+ * PREMIER STUDIO EXTENSIONS (APPLE, LINEAR, VOX, CLAUDE OPUS 5.5 STANDARDS)
+ * ============================================================================
+ */
+
+/**
+ * Closed-form analytical settle frame calculator for underdamped / critically damped systems.
+ * t_settle = -ln(epsilon * sqrt(1 - zeta^2)) / (zeta * omega_n)
+ */
+export function calculateAnalyticalSettleFrames(
+  mass: number,
+  stiffness: number,
+  damping: number,
+  epsilon: number = 0.02,
+  fps: number = 30
+): number {
+  const omegaN = Math.sqrt(stiffness / mass);
+  const zeta = damping / (2 * Math.sqrt(stiffness * mass));
+  if (zeta >= 1.0) {
+    // Critically / Over-damped: decay is dominated by e^(-omegaN * t)
+    const tSettleSec = -Math.log(epsilon) / (zeta * omegaN);
+    return Math.max(4, Math.ceil(tSettleSec * fps));
+  }
+  const factor = Math.sqrt(1 - zeta * zeta);
+  const tSettleSec = -Math.log(epsilon * factor) / (zeta * omegaN);
+  return Math.max(4, Math.ceil(tSettleSec * fps));
+}
+
+export interface AnticipationSpringConfig {
+  frame: number;
+  fps?: number;
+  anticipationFrames?: number;
+  anticipationDepth?: number; // e.g. 0.05 (5% negative recoil)
+  stiffness?: number;
+  damping?: number;
+  mass?: number;
+}
+
+/**
+ * Studio Anticipation Spring Engine:
+ * Phase 1 (0 to anticipationFrames): Smooth sinusoidal negative pre-coil
+ * Phase 2 (anticipationFrames onward): Explosive spring release from negative position to 1.0
+ */
+export function studioAnticipationSpring({
+  frame,
+  fps = 30,
+  anticipationFrames = 4,
+  anticipationDepth = 0.06,
+  stiffness = 140,
+  damping = 13,
+  mass = 0.75,
+}: AnticipationSpringConfig): number {
+  if (frame <= 0) return 0;
+
+  if (frame < anticipationFrames) {
+    const progress = frame / anticipationFrames;
+    // Sinusoidal ease-in-out negative dip
+    return -anticipationDepth * Math.sin(progress * Math.PI);
+  }
+
+  const springFrame = frame - anticipationFrames;
+  const rawSpring = spring({
+    frame: springFrame,
+    fps,
+    config: { stiffness, damping, mass },
+  });
+
+  return -anticipationDepth + (1.0 + anticipationDepth) * rawSpring;
+}
+
+export interface SquashStretchTransform {
+  scaleX: number;
+  scaleY: number;
+  scaleZ: number;
+}
+
+/**
+ * Volume-Preserving Squash and Stretch (Conserves total volume Sx * Sy * Sz = 1.0)
+ * Eliminates synthetic isotropic balloon expansion during impact / velocity peaks.
+ */
+export function calculateSquashAndStretch(
+  velocity: number,
+  impactFactor: number = 0,
+  maxDeformation: number = 0.22
+): SquashStretchTransform {
+  const stretchRatio = Math.min(maxDeformation, Math.abs(velocity) * 0.005);
+
+  if (impactFactor > 0) {
+    // Ground Impact Squash: Compress Y, expand lateral planes X and Z
+    const scaleY = Math.max(0.65, 1.0 - impactFactor * maxDeformation);
+    const scaleLateral = Number((1.0 / Math.sqrt(scaleY)).toFixed(3));
+    return { scaleX: scaleLateral, scaleY: Number(scaleY.toFixed(3)), scaleZ: scaleLateral };
+  }
+
+  // In-flight elongation: Stretch along motion axis Y, compress lateral X and Z
+  const scaleY = 1.0 + stretchRatio;
+  const scaleLateral = Number((1.0 / Math.sqrt(scaleY)).toFixed(3));
+  return { scaleX: scaleLateral, scaleY: Number(scaleY.toFixed(3)), scaleZ: scaleLateral };
+}
+
+/**
+ * Premier Studio Named Easing Curves (C1 / C2 continuous trajectories for non-oscillatory paths)
+ */
+export const STUDIO_EASING_CURVES = {
+  // Apple Keynote Ease-Out Expo: Rapid 82% progress in first 28%, long graceful settle
+  APPLE_KEYNOTE_EXPO_OUT: [0.16, 1, 0.3, 1] as const,
+  // Linear Design Ultra-Fast Decelerate: Snappy mechanical UI response
+  LINEAR_FAST_DECEL: [0.05, 0.7, 0.1, 1.0] as const,
+  // Vox Documentary Quintic In-Out: Smooth camera pans with 0 acceleration at endpoints
+  VOX_QUINTIC_IN_OUT: [0.83, 0, 0.17, 1] as const,
+  // Stripe Fluid S-Curve: Organic balanced transitions
+  STRIPE_FLUID: [0.25, 0.1, 0.25, 1.0] as const,
+};
+
+/**
+ * Evaluates a cubic bezier curve at parameter t (0 to 1) with De Casteljau approximation
+ */
+export function evalCubicBezier(
+  t: number,
+  p1x: number,
+  p1y: number,
+  p2x: number,
+  p2y: number
+): number {
+  const clampedT = Math.max(0, Math.min(1, t));
+  // Standard cubic bezier Bernstein polynomial for Y given X=clampedT approximation
+  // B(t) = 3(1-t)^2 * t * P1 + 3(1-t) * t^2 * P2 + t^3
+  const u = 1 - clampedT;
+  const tt = clampedT * clampedT;
+  const uu = u * u;
+  const uuu = uu * u;
+  const ttt = tt * clampedT;
+
+  return 3 * uu * clampedT * p1y + 3 * u * tt * p2y + ttt;
+}
+

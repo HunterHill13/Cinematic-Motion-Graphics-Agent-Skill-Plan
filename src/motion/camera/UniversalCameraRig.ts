@@ -574,20 +574,40 @@ export class UniversalCameraRigEngine {
 
         const tMid = (tStart + tEnd) / 2;
         const dirSign = next.x >= curr.x ? 1 : -1;
-        const camRoll = interpolate(frame, [tStart, tMid, tEnd], [0, -2.6 * dirSign, 0], {
+        const durationTrans = Math.max(1, tEnd - tStart);
+        const deltaX = next.x - curr.x;
+        const deltaY = next.y - curr.y;
+        const deltaZ = next.z - curr.z;
+        const travelDist = Math.sqrt(deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ);
+        
+        // Instantaneous flight velocity via sinusoidal ease-in-out derivative approximation
+        const phase = ((frame - tStart) / durationTrans) * Math.PI;
+        const vInst = (travelDist / durationTrans) * Math.sin(phase) * 1.57;
+
+        // Centrifugal banking roll: proportional to lateral flight direction & velocity
+        const bankRollMagnitude = Math.min(4.5, Math.max(1.8, (Math.abs(deltaX) / 400) * 2.2));
+        const camRoll = interpolate(frame, [tStart, tMid, tEnd], [0, -bankRollMagnitude * dirSign, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
         });
-        const camPitch = interpolate(frame, [tStart, tMid, tEnd], [0, 1.5 * dirSign, 0], {
+
+        // Vertical crane pitch inertia
+        const pitchMagnitude = Math.min(3.2, Math.max(1.2, (Math.abs(deltaY) / 300) * 1.8));
+        const yDirSign = next.y >= curr.y ? 1 : -1;
+        const camPitch = interpolate(frame, [tStart, tMid, tEnd], [0, pitchMagnitude * yDirSign, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
         });
+
         const camYaw = interpolate(frame, [tStart, tMid, tEnd], [0, -2.0 * dirSign, 0], {
           extrapolateLeft: 'clamp',
           extrapolateRight: 'clamp',
         });
 
-        return { camX, camY, camZ, camPitch, camYaw, camRoll, camZoom: 1, motionBlur: 2 };
+        // Dynamic directional motion blur proportional to velocity
+        const motionBlur = Number(Math.min(9.5, vInst * 0.055).toFixed(1));
+
+        return { camX, camY, camZ, camPitch, camYaw, camRoll, camZoom: 1, motionBlur };
       }
     }
 
@@ -626,6 +646,7 @@ export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign
     const finalCamPitch = cam.camPitch + (cameraOffset?.pitch ?? 0);
     const finalCamYaw = cam.camYaw + (cameraOffset?.yaw ?? 0);
     const finalCamRoll = cam.camRoll + (cameraOffset?.roll ?? 0);
+    const activeBlur = cam.motionBlur;
 
     return React.createElement(
       'div',
@@ -651,12 +672,16 @@ export const UniversalCameraRig: UniversalCameraRigComponentType = Object.assign
             transformStyle: 'preserve-3d',
             backfaceVisibility: 'hidden',
             WebkitFontSmoothing: 'antialiased',
+            willChange: 'transform, filter',
+            // Elimination of 1px staircase judder: Use floating-point .toFixed(2) coordinates
             transform: `
-              translate3d(${Math.round(-finalCamX)}px, ${Math.round(-finalCamY)}px, ${Math.round(finalCamZ)}px)
-              rotateX(${finalCamPitch}deg)
-              rotateY(${finalCamYaw}deg)
-              rotateZ(${finalCamRoll}deg)
+              translate3d(${(-finalCamX).toFixed(2)}px, ${(-finalCamY).toFixed(2)}px, ${(finalCamZ).toFixed(2)}px)
+              rotateX(${finalCamPitch.toFixed(2)}deg)
+              rotateY(${finalCamYaw.toFixed(2)}deg)
+              rotateZ(${finalCamRoll.toFixed(2)}deg)
             `,
+            // Active directional motion blur during camera velocity peaks
+            filter: activeBlur > 0.4 ? `blur(${Math.min(8, activeBlur).toFixed(1)}px)` : undefined,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',

@@ -12,7 +12,7 @@ import {
 import { PersistentWorld } from '../grammar/PersistentWorld';
 import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { YEKAN_BAKH_FONT } from '../../fonts/yekanBakh';
-import { sanitizeForDisplay } from '../../typography/persianSanitizer';
+import { sanitizeForDisplay, splitPersianPhrasesLinguistically } from '../../typography/persianSanitizer';
 import { clampFontSize } from '../../typography/responsiveTypography';
 import { LottieGraphic, LottiePreset } from '../assets/LottieGraphic';
 import {
@@ -297,6 +297,18 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
           />
         )}
 
+        {/* Studio Filmic Dither (Eliminates 8-bit CSS Mach Color Banding across dark gradients) */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.035'/%3E%3C/svg%3E")`,
+            pointerEvents: 'none',
+            mixBlendMode: 'overlay',
+            zIndex: 1,
+          }}
+        />
+
         {/* ============================================================== */}
         {/* 3. OPEN-CANVAS 3D WORLD & MULTI-ARCHETYPE CHOREOGRAPHY         */}
         {/* ============================================================== */}
@@ -418,13 +430,8 @@ export const UniversalCinematicStage: React.FC<UniversalCinematicStageProps> = (
                 { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
               );
 
-              // Deconstruct headline into staggered kinetic phrases
-              const titleWords = sanitizeForDisplay(act.titleFa).split(' ');
-              const midPoint = Math.ceil(titleWords.length / 2);
-              const titlePhrases = [
-                titleWords.slice(0, midPoint).join(' '),
-                titleWords.slice(midPoint).join(' '),
-              ].filter(Boolean);
+              // Deconstruct headline into linguistically sound staggered kinetic phrases
+              const titlePhrases = splitPersianPhrasesLinguistically(act.titleFa);
 
               // Helper to compute varied Kinetic Text Reveal styles per phrase (`textRevealMode`)
               const renderKineticHeadline = (alignCenter: boolean = false) => (

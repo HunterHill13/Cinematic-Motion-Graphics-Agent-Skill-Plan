@@ -30,3 +30,39 @@ export function sanitizeForDisplay(text: string): string {
     .replace(/گامبِهگام/g, 'گام‌به‌گام')
     .trim();
 }
+
+/**
+ * Splits Persian headlines into natural semantic chunks,
+ * prioritizing punctuation (، ؛ : -) and conjunctions,
+ * preventing mid-ezafe arbitrary word-count chops.
+ */
+export function splitPersianPhrasesLinguistically(text: string): string[] {
+  const sanitized = sanitizeForDisplay(text);
+  if (!sanitized) return [];
+
+  // 1. If explicit punctuation exists (comma, semicolon, colon, dash)
+  if (/[،؛:\-]/.test(sanitized)) {
+    const parts = sanitized.split(/[،؛:\-]/).map((p) => p.trim()).filter(Boolean);
+    if (parts.length >= 2) return parts;
+  }
+
+  const words = sanitized.split(/\s+/).filter(Boolean);
+  if (words.length <= 3) {
+    return [words.join(' ')];
+  }
+
+  // 2. Look for conjunctions / prepositions in the middle third (words 1 to words.length - 2)
+  const midStart = Math.max(1, Math.floor(words.length * 0.35));
+  const midEnd = Math.min(words.length - 1, Math.ceil(words.length * 0.65));
+
+  for (let i = midStart; i <= midEnd; i++) {
+    const w = words[i];
+    if (w === 'و' || w === 'یا' || w === 'برای' || w === 'در' || w === 'با' || w === 'که') {
+      return [words.slice(0, i).join(' '), words.slice(i).join(' ')];
+    }
+  }
+
+  // 3. Fallback: split at balanced midpoint
+  const midPoint = Math.ceil(words.length / 2);
+  return [words.slice(0, midPoint).join(' '), words.slice(midPoint).join(' ')].filter(Boolean);
+}

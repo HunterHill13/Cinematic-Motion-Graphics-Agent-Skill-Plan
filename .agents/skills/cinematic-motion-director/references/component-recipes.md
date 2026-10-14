@@ -45,3 +45,30 @@ This reference catalogs the modular Remotion React components in `src/motion/lib
   - `KineticMetricCounter`: Integer and decimal count-up interpolations.
   - `KineticRadialProgress`: Circular progress gauges with reactive glow heads.
   - `BarChartVisualizer`: Spring-loaded comparative horizontal bars.
+
+---
+
+## 6. Studio Anticipation Spring & Volume Preservation
+- **Location:** `src/motion/physics/SpringPhysicsMatrix.ts`
+- **Anticipation (`studioAnticipationSpring`):**
+  - Executes a 3–5f negative recoil dip ($2\% \text{ to } 6\%$) before explosive spring release.
+  - Eliminates robotic start from dead stop.
+- **Volume Preservation (`calculateSquashAndStretch`):**
+  - Maintains $S_x \cdot S_y \cdot S_z = 1.0$ during impacts and velocity peaks.
+  - Prevents isotropic balloon inflation during landing.
+
+---
+
+## 7. Voice-Synchronized Progressive Semantic Highlighting
+- **Location:** `src/typography/PersianKineticText.tsx`
+- **Purpose:** Spoken keywords illuminate dynamically with radiant glow (`textShadow`) and subtle scale bump ($1.05$) during voiceover milestones.
+- **Contract:** Zero horizontal margin alteration to protect Persian cursive ligatures.
+
+---
+
+## 8. Decoupled Camera Crane Rig & Velocity Motion Blur
+- **Location:** `src/motion/camera/UniversalCameraRig.ts`
+- **Subpixel Flight:** Uses floating-point `.toFixed(2)` coordinates inside `preserve-3d` wrapper to eliminate 1px staircase judder on 4K/retina displays.
+- **Active Motion Blur:** Injects directional SVG/CSS blur during velocity peaks ($\|v\| > 15\text{px/frame}$).
+- **Crane Dynamics:** Centrifugal roll banking $\text{Roll} \propto -\frac{d^2 X}{dt^2}$ and boom pitch inertia $\text{Pitch} \propto \frac{d^2 Y}{dt^2}$.
+

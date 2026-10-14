@@ -5,6 +5,14 @@ import { sanitizeForDisplay } from './persianSanitizer';
 
 export type KineticTextMode = 'curtain' | 'flip3d' | 'pop' | 'skew';
 
+export interface SemanticHighlightCue {
+  word: string;
+  startFrame: number;
+  endFrame: number;
+  accentColor?: string;
+  glowRadius?: number;
+}
+
 export interface PersianKineticTextProps {
   text: string;
   frame: number;
@@ -19,6 +27,7 @@ export interface PersianKineticTextProps {
   boxShadow?: string;
   lineHeight?: number;
   alignCenter?: boolean;
+  semanticHighlights?: SemanticHighlightCue[];
   style?: React.CSSProperties;
 }
 
@@ -46,6 +55,7 @@ export const PersianKineticText: React.FC<PersianKineticTextProps> = ({
   boxShadow,
   lineHeight = 1.35,
   alignCenter = false,
+  semanticHighlights,
   style,
 }) => {
   const sanitized = sanitizeForDisplay(text);
@@ -83,13 +93,13 @@ export const PersianKineticText: React.FC<PersianKineticTextProps> = ({
           case 'curtain': {
             const hiddenInset = Math.round((1 - clampedP) * 100);
             clipPath = `inset(0% 0% ${hiddenInset}% 0%)`;
-            const riseY = Math.round((1 - clampedP) * 44);
+            const riseY = Math.round((1 - progress) * 44);
             wordTransform = `translate3d(0px, ${riseY}px, 0px)`;
             break;
           }
           case 'flip3d': {
-            const flipX = Number(((1 - clampedP) * -78).toFixed(1));
-            const shiftY = Math.round((1 - clampedP) * 24);
+            const flipX = Number(((1 - progress) * -78).toFixed(1));
+            const shiftY = Math.round((1 - progress) * 24);
             wordTransform = `translate3d(0px, ${shiftY}px, 0px) rotateX(${flipX}deg)`;
             break;
           }
@@ -106,6 +116,45 @@ export const PersianKineticText: React.FC<PersianKineticTextProps> = ({
           }
         }
 
+        // Voice-synced semantic keyword illumination
+        const cleanWord = word.replace(/[،؛.؟!]/g, '').trim();
+        const highlightCue = semanticHighlights?.find((cue) => {
+          const cueClean = cue.word.replace(/[،؛.؟!]/g, '').trim();
+          return cueClean === cleanWord || word.includes(cueClean);
+        });
+
+        const isHighlightActive = Boolean(
+          highlightCue &&
+          frame >= highlightCue.startFrame &&
+          frame <= highlightCue.endFrame
+        );
+        const isHighlightPast = Boolean(
+          highlightCue &&
+          frame > highlightCue.endFrame
+        );
+
+        const highlightProgress = isHighlightActive
+          ? interpolate(
+              frame,
+              [highlightCue!.startFrame, highlightCue!.startFrame + 4],
+              [0, 1],
+              { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' }
+            )
+          : 0;
+
+        const effectiveColor = isHighlightActive
+          ? (highlightCue?.accentColor || '#38BDF8')
+          : isHighlightPast
+          ? '#FFFFFF'
+          : color;
+
+        const effectiveGlow = isHighlightActive
+          ? `0 0 ${highlightCue?.glowRadius || 24}px ${highlightCue?.accentColor || '#38BDF8'}`
+          : undefined;
+
+        const highlightScale = isHighlightActive ? 1.0 + highlightProgress * 0.05 : 1.0;
+        const finalTransform = highlightScale !== 1.0 ? `${wordTransform} scale(${highlightScale})` : wordTransform;
+
         const opacity = Math.min(1, progress * 1.35);
 
         return (
@@ -117,16 +166,18 @@ export const PersianKineticText: React.FC<PersianKineticTextProps> = ({
               overflow: mode === 'curtain' ? 'hidden' : 'visible',
               fontSize,
               fontWeight,
-              color,
+              color: effectiveColor,
+              textShadow: effectiveGlow,
               lineHeight,
               backgroundColor,
               boxShadow,
               padding: backgroundColor ? '4px 14px' : undefined,
               borderRadius: backgroundColor ? 4 : undefined,
               clipPath,
-              transform: wordTransform,
+              transform: finalTransform,
               opacity,
               backfaceVisibility: 'hidden',
+              transition: 'color 0.15s ease, text-shadow 0.15s ease',
             }}
           >
             {word}
