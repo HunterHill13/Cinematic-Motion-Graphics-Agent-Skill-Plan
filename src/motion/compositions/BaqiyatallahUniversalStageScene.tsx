@@ -8,8 +8,6 @@ import {
   Img,
 } from 'remotion';
 import { UniversalCinematicStage, StageAct } from '../stage/UniversalCinematicStage';
-import { UniversalCameraRig } from '../camera/UniversalCameraRig';
-import { UniversalSoundDirector } from '../audio/UniversalSoundDirector';
 import { calculateBeatPulse } from '../audio/SemanticMusicDirector';
 import { sanitizeForDisplay } from '../../typography/persianSanitizer';
 
@@ -44,7 +42,7 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
     extrapolateRight: 'clamp',
   });
 
-  // 9 Spatial Acts on Open 3D Canvas (Zero Slide Boxes, Zero Corner HUDs, Zero SFX)
+  // 9 Spatial Acts on Open 3D Canvas with Heterogeneous Multi-Modal Transitions & Dynamic Layouts
   const acts: StageAct[] = useMemo(
     () => [
       // ACT 1: INTRO LOGO & PUBLIC RELATIONS (0.0s - 6.0s | f: 0..180)
@@ -52,7 +50,13 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act1_pr_intro',
         startFrame: 0,
         endFrame: 180,
-        position: { x: 0, y: 0, z: 0 },
+        layoutVariant: 'MONUMENTAL_CENTER_HERO',
+        textRevealMode: 'MASK_CURTAIN_RISE',
+        transitionOut: {
+          archetype: 'CAMERA_SPATIAL_FLIGHT',
+          durationInFrames: 20,
+          cameraFlight: { trajectory: 'WHIP_PAN_RIGHT' },
+        },
         badgeFa: 'روابط عمومی کمیته تحقیقات دانشجویی',
         titleFa: 'روابط عمومی کمیته تحقیقات دانشگاه علوم پزشکی بقیةالله (عج) تقدیم می‌کند!',
         descriptionFa:
@@ -86,7 +90,13 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act2_inquiry_hook',
         startFrame: 180,
         endFrame: 400,
-        position: { x: 1500, y: 680, z: 0 },
+        layoutVariant: 'SPLIT_SCULPTURE_RIGHT',
+        textRevealMode: 'PERSPECTIVE_3D_FLIP',
+        transitionOut: {
+          archetype: 'ELEMENT_KINETIC_DISPERSE',
+          durationInFrames: 18,
+          elementDisperse: { direction: 'LEFT' },
+        },
         badgeFa: 'فراخوان ملی استعدادهای درخشان',
         titleFa:
           'آیا می‌دانید چگونه می‌توانید به عنوان دانشجوی پژوهشگر یا فناور برجسته کشور انتخاب شوید؟!',
@@ -106,7 +116,12 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act3_guideline_blueprint',
         startFrame: 400,
         endFrame: 650,
-        position: { x: 3000, y: 1360, z: 0 },
+        layoutVariant: 'CONSTELLATION_BENTO_MATRIX',
+        textRevealMode: 'ELASTIC_POP_SLAM',
+        transitionOut: {
+          archetype: 'DEEP_Z_ZOOM_THROUGH',
+          durationInFrames: 22,
+        },
         badgeFa: 'سند رسمی وزارت بهداشت',
         titleFa:
           'دستورالعمل بند «کاف»، ماده ۲ از آیین‌نامه استعدادهای درخشان وزارت بهداشت',
@@ -127,7 +142,12 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act4_condition_1_gpa',
         startFrame: 650,
         endFrame: 1000,
-        position: { x: 4500, y: 2040, z: 0 },
+        layoutVariant: 'SPLIT_DATA_TERMINAL_LEFT',
+        textRevealMode: 'VELOCITY_SKEW_SLIDE',
+        transitionOut: {
+          archetype: 'TOPOLOGICAL_ANCHOR_MORPH',
+          durationInFrames: 18,
+        },
         badgeFa: 'اما قبل از محاسبه امتیازها، ۳ شرط اصلی وجود دارد',
         titleFa: 'شرط اول؛ معدل کل شما در مقطع فعلی باید حداقل ۱۶ باشد.',
         descriptionFa:
@@ -169,7 +189,12 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act5_condition_2_years',
         startFrame: 1000,
         endFrame: 1250,
-        position: { x: 6000, y: 2720, z: 0 },
+        layoutVariant: 'SPLIT_SCULPTURE_RIGHT',
+        textRevealMode: 'MASK_CURTAIN_RISE',
+        transitionOut: {
+          archetype: 'KINETIC_LIGHT_SWEEP',
+          durationInFrames: 16,
+        },
         badgeFa: 'شرط دوم از شروط سه‌گانه',
         titleFa:
           'شرط دوم؛ باید در سنوات مجاز تحصیلی باشید و تأییدیه کمیته انضباطی را دریافت کنید.',
@@ -188,7 +213,13 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act6_condition_3_articles',
         startFrame: 1250,
         endFrame: 1650,
-        position: { x: 7500, y: 3400, z: 0 },
+        layoutVariant: 'CONSTELLATION_BENTO_MATRIX',
+        textRevealMode: 'PERSPECTIVE_3D_FLIP',
+        transitionOut: {
+          archetype: 'CAMERA_SPATIAL_FLIGHT',
+          durationInFrames: 20,
+          cameraFlight: { trajectory: 'VERTICAL_CRANE_UP' },
+        },
         badgeFa: 'شرط سوم از شروط سه‌گانه',
         titleFa: 'شرط سوم؛ امتیازهای شما باید حداقل از ۶ ماده مختلف آیین‌نامه کسب شود؛',
         descriptionFa: 'که حضور مقاله یا فعالیت فناورانه در آن اجباری است!',
@@ -278,7 +309,13 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act7_time_limit_caution',
         startFrame: 1650,
         endFrame: 1900,
-        position: { x: 9000, y: 4080, z: 0 },
+        layoutVariant: 'MONUMENTAL_CENTER_HERO',
+        textRevealMode: 'ELASTIC_POP_SLAM',
+        transitionOut: {
+          archetype: 'ELEMENT_KINETIC_DISPERSE',
+          durationInFrames: 18,
+          elementDisperse: { direction: 'RIGHT' },
+        },
         badgeFa: 'دقت کنید! بازه زمانی مجاز مدارک',
         titleFa:
           'دقت کنید! تمام مدارک باید مربوط به دوران تحصیل، یا نهایتاً تا ۱ سال پس از فارغ‌التحصیلی باشد.',
@@ -300,7 +337,12 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         actId: 'act8_score_thresholds',
         startFrame: 1900,
         endFrame: 2280,
-        position: { x: 10500, y: 4760, z: 0 },
+        layoutVariant: 'SPLIT_DATA_TERMINAL_LEFT',
+        textRevealMode: 'VELOCITY_SKEW_SLIDE',
+        transitionOut: {
+          archetype: 'DEEP_Z_ZOOM_THROUGH',
+          durationInFrames: 22,
+        },
         badgeFa: 'حدنصاب قبولی در دانشگاه‌های تیپ یک',
         titleFa: 'حدنصاب قبولی، بسته به تیپ دانشگاه و مقطع شما فرق می‌کند:',
         descriptionFa:
@@ -358,15 +400,31 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
                     opacity: tierSpring,
                   }}
                 >
-                  <div style={{ fontSize: 19, fontWeight: 800, color: tier.accent }}>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: 16,
+                      fontWeight: 800,
+                      color: tier.accent,
+                      marginBottom: 8,
+                    }}
+                  >
                     {sanitizeForDisplay(tier.title)}
-                  </div>
-                  <div style={{ fontSize: 60, fontWeight: 900, color: '#ffffff', margin: '4px 0' }}>
+                  </span>
+                  <span style={{ fontSize: 44, fontWeight: 900, color: '#ffffff' }}>
                     {tier.score}
-                  </div>
-                  <div style={{ fontSize: 18, fontWeight: 800, color: tier.accent }}>
-                    {sanitizeForDisplay('امتیاز')}
-                  </div>
+                  </span>
+                  <span
+                    style={{
+                      display: 'block',
+                      fontSize: 14,
+                      fontWeight: 700,
+                      color: '#94a3b8',
+                      marginTop: 4,
+                    }}
+                  >
+                    {sanitizeForDisplay('حداقل امتیاز الزامی')}
+                  </span>
                 </div>
               );
             })}
@@ -374,12 +432,13 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
         ),
       },
 
-      // ACT 9: OUTRO & DUAL LOGOS (76.0s - 79.57s | f: 2280..2387)
+      // ACT 9: OUTRO & CALLOUT (76.0s - 79.57s | f: 2280..2387)
       {
-        actId: 'act9_outro_dual_logos',
+        actId: 'act9_outro_callout',
         startFrame: 2280,
         endFrame: 2387,
-        position: { x: 12000, y: 5440, z: 0 },
+        layoutVariant: 'MONUMENTAL_CENTER_HERO',
+        textRevealMode: 'MASK_CURTAIN_RISE',
         badgeFa: 'کمیته تحقیقات و فناوری دانشجویی دانشگاه علوم پزشکی بقیةالله (عج)',
         titleFa:
           'در ویدیوهای بعدی، روش کسب این امتیازها را گام‌به‌گام بررسی می‌کنیم. با ما همراه باشید!',
@@ -433,14 +492,10 @@ export const BaqiyatallahUniversalStageScene: React.FC = () => {
     [frame, gpaCounter, pulseGlow, scoreBSc, scoreMed, scorePhD]
   );
 
-  // Resolve 6-DOF camera trajectory via UniversalCameraRig
-  const trajectory = UniversalCameraRig.getTrajectory('DIAGONAL_CASCADE');
-
   return (
     <UniversalCinematicStage
       acts={acts}
       themeId="QUANTUM_BIO_DEEP_Z"
-      cameraMode={trajectory.mode}
       voiceTrack="audio/baqiyatallah_awards_master_voice.wav"
       bgmTrack="music/Tech_Live.mp3"
       bpm={128}
