@@ -77,16 +77,16 @@ Every visual and motion decision follows this strict priority:
      3. Brand Manifesto (تضاد فلسفی -> ستون‌های ساختاری -> کینتیک انفجاری کلمات -> هدف غایی)
      4. Tactile Narrative (مسئله ساده ملموس -> استعاره شهودی -> حل گام‌به‌گام -> جمع‌بندی الهام‌بخش)
      Every act MUST define: Dramatic Goal, Hero Visual Entity, Discrete Spatial Coordinates, 1-2 Kinetic Emphasis Tokens, and Lottie/Vector Preset.
-   * B. Inviolable Cinematic Wiring Checklist (Universal Stage Architecture):
-     Every custom composition MUST mount via `UniversalCinematicStage.tsx` or `UniversalCinematicStoryScene.tsx`:
-     1. `UniversalCameraRig` is MANDATORY (active 3D camera travel across acts with integer snapping Math.round(); static camera strictly FAILS review).
-     2. Multi-Act Spatial Distribution (acts placed at distinct spatial stations, e.g. x=0, 1400, 2800 or deep Z).
-     3. `UniversalSoundDirector` is MANDATORY (auto-scheduled Whooshes with 4-frame pre-roll, Impacts on milestone arrivals, Risers before climax, and dynamic BGM ducking).
-     4. `CinematicRhythmContext` & Beat Pulse (all cards, glow rings, and vectors breathe on musical BPM, e.g. 124 or 150 BPM).
-     5. Momentum Handoff Transitions (camera velocity + directional dissolve, NOT raw PowerPoint opacity cuts).
-     6. Zero-Jitter Engineering Rule: Absolute ban on CSS `transition` and `@keyframes`. All translations must use integer-snapped `Math.round()`.
-     7. Templates are Decoupled Aesthetic Skins: The 9 templates provide colors, materials, and borders, but NEVER disable camera, sound, or transitions.
-   * C. Pre-Flight Defect Gate: Any composition failing `tests/test_cinematic_defects_detector.ts` is immediately rejected as an UNMOTIVATED SLIDESHOW DEFECT.
+    * B. Inviolable Cinematic Wiring Checklist (Universal Stage Architecture):
+      Every custom composition MUST mount via `UniversalCinematicStage.tsx` or `UniversalCinematicStoryScene.tsx`:
+      1. `UniversalCameraRig` is MANDATORY (active 3D camera travel across acts; static camera strictly FAILS review).
+      2. Multi-Act Spatial Distribution (acts placed at distinct spatial stations, e.g. x=0, 1420, 2840 or deep Z stations).
+      3. `UniversalSoundDirector` is MANDATORY (Pure Speech & Ducked Musical Harmony: auto-sidechained background music at -18 dB ducking to -24 dB during voiceover, zero SFX).
+      4. `CinematicRhythmContext` & Beat Pulse (all cards, glow rings, and vectors breathe on musical BPM, e.g. 124 or 150 BPM).
+      5. Momentum Handoff Transitions (camera velocity + directional dissolve, NOT raw PowerPoint opacity cuts).
+      6. Zero-Jitter Engineering Rule: Absolute ban on CSS `transition` and `@keyframes`. Continuous sub-motion (`Math.sin()`), camera travel, and springs remain smooth floating-point values; integer pixel rounding (`Math.round()`) is applied ONLY to settled typography bounding boxes, resting coordinates, and static containers.
+      7. Templates are Decoupled Aesthetic Skins: The 9 templates provide colors, materials, and borders, but NEVER disable camera, sound, or transitions.
+    * C. Pre-Flight Defect Gate: Any composition failing `tests/test_cinematic_defects_detector.ts` is immediately rejected as an UNMOTIVATED SLIDESHOW DEFECT.
 2. Stage 1: Synthesize motion-validation preview sample via Microsoft Edge-TTS (fa-IR-FaridNeural / DilaraNeural). ZERO Gemini quota consumed.
 3. Render Edge-TTS preview video for user approval of motion, pacing, camera flight, and typography.
 4. Upon explicit user approval ("تأیید"): Transition to Stage 2: Monolithic Gemini TTS synthesis with strict quota fallback (gemini-3.8-flash-tts -> gemini-3.8-flash-lite-tts -> gemini-3.1-flash-tts-preview). Enforce Gate 0.4.2: Mandatory surgical stripping of Gemini tail buffer overrun via `strip_gemini_trailing_artifact` (backward scan for silence valley preceding the trailing 150ms 25,000-peak PCM burst, 40ms cosine fade-out, 120ms zero padding). Guarantee 100% mathematical zero tail amplitude (RMS=0.0) at waveform boundaries. Recalibrate exact video frame boundaries to measured Gemini audio duration.
@@ -96,13 +96,13 @@ Every visual and motion decision follows this strict priority:
    * **Legacy Low-Level API Distinction:** Low-level `compileGraph()` / `planScene()` is reserved exclusively for historical Phase 1–4B engine unit tests. The Cinematic Production agent MUST compile via `compileCinematicGraph()`.
 7. [MANDATORY MATERIAL RESPONSE CONTRACT (PHASE 5B.1)]: Establish concrete `MaterialReference` for all focal actors in `world.materials`. Objects are not generic SVG vectors; their material identity (`PLASMA`, `METAL`, `ORGANIC`, `GLASS`, `ENERGY`, `SMOKE`, `LIQUID`, `STONE`, `CELESTIAL`) dictates surface, edge, deformation, light, emission, and causal `motionResponses` for each `MotionVerb`. Validate with `MaterialValidator.validate`. Reject vague buzzwords via `MaterialAmbiguityGate` (`MATERIAL_DIRECTION_AMBIGUOUS`). Missing hero material strictly fails compilation with `MATERIAL_REQUIRED`.
 8. [MANDATORY LIGHTING & LIGHT RESPONSE CONTRACT (PHASE 5B.2)]: Establish concrete `LightingContract` in `world.lighting`. Light has explicit purpose, direction (`UPPER_LEFT`, `UPPER_RIGHT`, etc.), intensity, color, softness, and causal material interaction (`MaterialLightInteraction`). Enforce `LightingValidator.validate` (V-L1 to V-L12). Reject vague buzzwords ('cinematic lighting', 'premium lighting') or CSS drop-shadows/glows pretending to be lighting via `LightingAmbiguityGate` (`LIGHTING_DIRECTION_AMBIGUOUS`). Missing hero lighting strictly fails compilation with `LIGHTING_REQUIRED`.
-9. [MANDATORY SPATIAL DEPTH & 2.5D ARCHITECTURE CONTRACT (PHASE 5C)]: Establish concrete `SpatialDepthContract` in `world.spatial`. Objects must not live on a flat canvas; they occupy normalized coordinates $(x \in [-1, 1], y \in [-1, 1], z \in [0, 1])$, discrete depth bands (`FOREGROUND`, `MIDGROUND`, `HERO_PLANE`, `BACKGROUND`, `DEEP_BACKGROUND`), machine-readable spatial relationships (`IN_FRONT_OF`, `BEHIND`, `CONTAINS`, `SURROUNDS`, `ORBITAL_AROUND`, etc.), coherent occlusion intent (`PARTIAL`, `FRAMING`, `TRANSLUCENT_VEILING`), and motion-aware Z-plane responses (`TOWARD_VIEWER`, `AWAY_FROM_VIEWER`, `MULTI_DEPTH_CONVERGENCE`, etc.). Enforce `SpatialDepthValidator.validate` (V-D1 to V-D14). Reject vague buzzwords ('make it 3D', 'more depth', 'make it pop') or fake CSS drop-shadow/blur depth tricks via `SpatialAmbiguityGate` (`DEPTH_DIRECTION_AMBIGUOUS`). Missing hero spatial placement or depth collapse strictly fails compilation with `SPATIAL_REQUIRED`, `DEPTH_COLLAPSE_DETECTED`, or `SPATIAL_INVALID`.
+9. [MANDATORY SPATIAL DEPTH & 2.5D ARCHITECTURE CONTRACT (PHASE 5C)]: Establish concrete `SpatialDepthContract` in `world.spatial`. Objects must not live on a flat canvas; they occupy the concrete 5-plane depth budget relative to the active act station origin (`HERO_PLANE` at Z=0, `DEEP_MIDGROUND` at Z=[-250..-50], `BACKGROUND` at Z=[-600..-300], `FOREGROUND_OVERLAY` at Z=[+50..+150], `LIGHT_VOLUMETRIC` at Z=[+200..+350]). Global virtual camera and scene stations travel across world coordinates ($Z=0 \to 4800$ in `DEEP_Z_TUNNEL`, $X=0 \to 4300$ in `PANORAMIC_HORIZONTAL`), while local element layers within any act station are bounded by $[-600, +350]\text{px}$. Validate with `SpatialDepthValidator.validate`. Reject vague buzzwords ('make it 3D', 'more depth', 'make it pop') via `SpatialAmbiguityGate`.
 10. Construct `MotionSceneGraph` bound to `VisualWorld` and write `docs/SHOTBOOK.md`.
 11. Run `REMOVAL_TEST_GATE`: Purge all unmotivated decorative elements. (Rule: MORE ELEMENTS ≠ BETTER CINEMATIC QUALITY).
-12. [GATE 1 PAUSE & TEMPLATE/CAMERA RECOMMENDATION]: Analyze the topic and recommend the optimal template from `TEMPLATE_CATALOG` (`STUDIO_SHOWREEL`, `DARK_GRAPHITE_TECH`, `CONTINUOUS_UI_MORPH`, `QUANTUM_BIO_DEEP_Z`) and 3D camera trajectory from `UniversalCameraRig` (`PANORAMIC_HORIZONTAL`, `VERTICAL_ELEVATOR`, `DIAGONAL_CASCADE`, `DEEP_Z_TUNNEL`, `DYNAMIC_COMPOSITE`). Present the SHOTBOOK, recommended template, and camera trajectory with rationale, and solicit user confirmation or alternative selection via `ask_question` before coding.
+12. [GATE 1 PAUSE & TEMPLATE/CAMERA RECOMMENDATION]: Analyze the topic and recommend the optimal template from the 9 Master Archetypes or Flagship Showcase (`DARK_GRAPHITE_TECH`, `CONTINUOUS_UI_MORPH`, `QUANTUM_BIO_DEEP_Z`, `KINETIC_ARCHITECTURAL_TYPO`, `BENTO_GRID_SAAS`, `FINTECH_TRADING`, `STOP_MOTION_PAPER`, `TECHNICAL_BLUEPRINT`, `NEO_BRUTALIST`, or `STUDIO_SHOWREEL`) and 3D camera trajectory from `UniversalCameraRig` (`PANORAMIC_HORIZONTAL`, `VERTICAL_ELEVATOR`, `DIAGONAL_CASCADE`, `DEEP_Z_TUNNEL`, `DYNAMIC_COMPOSITE`). Present the SHOTBOOK, recommended template, and camera trajectory with rationale, and solicit user confirmation via `ask_question` before coding.
         ↓
 [BUILDER: FULL-FIDELITY STUDIO IMPLEMENTATION (UNIVERSAL STUDIO PIPELINE)]
-13. [PRE-FLIGHT ASSET VERIFICATION]: Ensure `public/fonts/YekanBakh/`, `public/music/` (`Tech_Live.mp3`, `Brain_Dance.mp3`, or `Cipher2.mp3`), and `public/sfx/` are present in the target project. If absent, copy them immediately from the skill's `template/public/`.
+13. [PRE-FLIGHT ASSET VERIFICATION]: Ensure `public/fonts/` (Yekan Bakh woff2 suite & fonts.css) and `public/music/` (`Tech_Live.mp3`, `Brain_Dance.mp3`, or `Cipher2.mp3`) are present in the target project. If absent, copy them immediately from the skill's `template/public/`. (Zero SFX files required; audio is pure Voiceover + Ducked BGM).
 14. [STUDIO COMPONENT CONSTRUCTION]: Build the cinematic composition directly based on the certified master architecture of `UniversalStudioShowreel.tsx` / `SkillIntroShowreel.tsx`:
     - PERSISTENT 2.5D WORLD (`PersistentWorld`): Dynamic 3D coordinate stage (`perspective: 1200`) hosting all narrative acts across 3D coordinates determined by the active camera trajectory mode.
     - 6-DOF MULTI-TRAJECTORY CAMERA RIG (`UniversalCameraRig`): Continuous multi-axis tracking (`camX`, `camY`, `camZ`), supporting 5 cinematic trajectories:
@@ -111,25 +111,25 @@ Every visual and motion decision follows this strict priority:
       * `DIAGONAL_CASCADE`: 45-degree diagonal cascade with dynamic banking rolls ($\pm 4.5^\circ$).
       * `DEEP_Z_TUNNEL`: True 3D forward push-in/dolly penetrating through depth ($Z_1=0 \to Z_4=4800$); subsequent acts are situated *behind* preceding acts, with foreground dissolution and scale expansion as the camera flies through portals.
       * `DYNAMIC_COMPOSITE`: Mixed trajectory (diagonal glide, deep-Z push-in, wide pullback).
-    - NEWTONIAN ATTRACTOR SWARMS: Deploy `<NewtonianAttractorSwarm>` across all acts (18–20 particles per act, style-matched palette) orbiting active vector cores with beat-breathing physics.
+    - TOPIC-SPECIFIC SCIENTIFIC MOTIFS (OPTIONAL): When narrating AI, Quantum, Biotechnology, or Deep Science topics, deploy `<NewtonianAttractorSwarm>` (15–18 particles) or `<LissajousOrbit>`. For minimal, corporate, keynote, papercraft, or typography layouts, omit particle swarms to keep the stage pristine and minimal.
     - ATMOSPHERE & LIGHTING: Layer `<AtmosphericBackdrop>` and `<StyleAwareAtmosphereLayer>` behind the scene.
-    - STUDIO AUDIO & BEAT-GRID: Include `<Audio src={staticFile(manifest.audio.bgmFile)} />` with `calculateBeatPulse` (softened amplitude 0.002 to 0.0045) and frame-accurate scenario SFX sequences (`manifest.audio.sfxCues`).
+    - STUDIO AUDIO & BEAT-GRID: Include `<UniversalSoundDirector bgmFile={manifest.audio.bgmFile} bgmVolume={0.13} />` with `calculateBeatPulse` (softened amplitude 0.002 to 0.0045) and automatic sidechain ducking during voiceover (zero SFX).
     - TOPOLOGICAL VECTOR MORPHING: Utilize `DynamicVectorCatalog`, structured `VerbTemplates` motion primitives, and `<UniversalVectorMorphCard>` / `PersianVectorMorphCard` driven by `@remotion/paths`'s `interpolatePath`.
-    - KINETIC EMPHASIS TYPOGRAPHY: Deploy `<KineticEmphasisCallout>` via `extractEmphasisTokens` for selective, high-impact emphasis pops on climax keywords, percentages, and numerical milestones; quantized to musical BPM with template-reactive skins (Neon Cyber, Hard Brutalist, CAD Blueprint, Kraft Paper, or FinTech Ticker) without cluttering the video with full-time subtitles.
+    - KINETIC EMPHASIS TYPOGRAPHY: Deploy `<KineticEmphasisCallout>` via `extractEmphasisTokens` for selective, high-impact emphasis pops on climax keywords, percentages, and numerical milestones; quantized to musical BPM with template-reactive skins without cluttering the video with full-time subtitles.
     - OFFLINE LOTTIE VECTOR ASSETS: Integrate `<LottieGraphic>` (`@remotion/lottie`) with 5 curated offline presets (`tech_ai_core`, `bio_helix_pulse`, `fintech_growth_chart`, `ui_check_confirm`, `abstract_portal`) with template-reactive accent color tinting.
-    - CINEMATIC ACT TRANSITIONS: Utilize `<CinematicTransitionSeries>` (`@remotion/transitions`) for directional slides, wipes, or fades at narrative boundaries without breaking camera momentum continuity.
+    - CINEMATIC ACT TRANSITIONS: Utilize `<CinematicTransitionSeries>` (`@remotion/transitions`) for directional slides, wipes, or morphs at narrative boundaries without breaking camera momentum continuity.
     - DUAL-SCRIPT PERSIAN TYPOGRAPHY: All Persian text sanitized via `persianSanitizer.ts`, rendered with official `Yekan Bakh` font weights.
 15. DO NOT fall back to low-level abstract SVG wireframe generators (`MotionGraphCompiler`, raw `PersistentWorld` fallback AST, or bare `VerbTemplates`) for production videos; wireframe compilers are strictly reserved for internal engine unit tests. Production videos must always be rich, component-driven, and cinematic.
         ↓
 [INDEPENDENT BLIND REVIEW]
-18. Render video master (`.mp4`) with stem-mixed audio.
-19. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
-20. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
-21. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
+16. Render video master (`.mp4`) with stem-mixed voiceover and ducked BGM.
+17. Submit rendered MP4 and audio to Blind Reviewer (without developer claims or self-scores).
+18. Reviewer evaluates against the 14-Point Rubric and checks for Hard Fail Conditions.
+19. If classified as "Slideshow" or "Static with Camera Movement" → REPAIR IMMEDIATELY.
         ↓
 [TECHNICAL QC & DELIVERY]
-22. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS).
-23. Final delivery with verified artifact.
+20. Run automated test suite: `npx tsc --noEmit`, CV freeze check, audio LUFS (-16 LUFS, BGM -18 dB to -24 dB).
+21. Final delivery with verified artifact.
 ```
 
 ---
@@ -164,10 +164,13 @@ The skill provides plug-and-play recipes modeled directly after viral Claude Opu
    - **Topological Docking:** When transitioning, Act 3's 2.5D SaaS window docks to the left flank while Act 4's 100% Circular Precision Gauge expands on the right flank, forming a unified, balanced grand pavilion.
 
 ### C. Spring Physics & Motion Doctrine
-- Always author motion with Remotion `spring()` rather than linear or stepped interpolation:
-  `spring({ fps, frame, config: { damping: 14, mass: 0.8, stiffness: 120 } })`
-- **Continuous Sub-Motion:** Every active scene must maintain subtle life (floating bokeh drift, conduit energy traveling pulses, ambient gradient breathing).
-- **Staggered Delays:** Never pop elements simultaneously. Stagger by 3–6 frames to establish visual hierarchy.
+- Always author motion with Remotion `spring()` using the calibrated parameters in `SPRING_PRESETS`:
+  `spring({ fps, frame, config: { damping: 15, mass: 0.5, stiffness: 140 } })`
+- **Continuous Sub-Motion:** Every active scene must maintain subtle life (floating bokeh drift, conduit energy traveling pulses, ambient gradient breathing). Never wrap continuous motion in `Math.round()`; round only settled typography and resting stations.
+- **Unified Stagger Hierarchy (Single Source of Truth):**
+  * **Word-Level Typography Stagger:** Exactly `2.5` frames per word via `clipPath: inset(0 0 progress% 0)`.
+  * **Intra-Scene Visual Nodes & Cards:** `4` to `6` frames stagger (`idx * 4..6`) to establish visual hierarchy.
+  * **Act-to-Act Transition Overlap:** Dynamic relative cap (`min(16 frames, round(actDuration * 0.14))`) ensuring the 68% Hold phase is never truncated.
 
 ### D. Single-Take Camera Continuity vs Discrete Sequence Chopping
 - **The Core Flaw:** Nesting independent cards inside isolated `<Sequence>` tags creates a "slideshow presentation" feel because each sequence unmounts and wipes the stage.
@@ -175,13 +178,13 @@ The skill provides plug-and-play recipes modeled directly after viral Claude Opu
 
 ### E. Semantic Music & Beat-Grid Synchronization Doctrine (`src/motion/audio/SemanticMusicDirector.ts`)
 - **Content-Aware Music Matching:** Never use arbitrary or synthetic sine-wave tones. The audio engine classifies script keywords via `detectMusicDomain()` to select from studio-mastered tracks (`ai_future_tech` / `Brain_Dance.mp3` @ 124 BPM, `fintech_saas` / `Tech_Live.mp3` @ 124 BPM, `academic_research` / `Cipher2.mp3` @ 150/75 BPM, `medical_biotech` @ 92 BPM).
-- **Quantized Beat-Snapping (`quantizeToBeat`):** Major visual events, camera whip-pans, cursor clicks, and vector morphs MUST snap to musical quarter-note or 8th-note grid points ($t = \frac{60}{\text{BPM}} \times \text{FPS}$).
-- **Dynamic Sidechain Ducking:** BGM ducks automatically by 35%–45% during transients, cursor clicks, and narration to keep sound effects crisp without mud.
-- **Pristine Studio SFX:** All transitional whooshes, clicks, and chimes must use standardized, -3dB normalized WAV assets (`@remotion/sfx` + `Kenney UI Audio`). Pre-roll whooshes 3–5 frames before visual climax so the sonic apex lands directly on the cut.
+- **Quantized Beat-Snapping (`snapToBeat` & `landsOnBeat`):** Major visual events, camera whip-pans, and vector morphs snap to musical grid points (`framesPerBeat = (60 / BPM) * FPS`). For spring arrivals, use `calculateLandOnBeatStartFrame()` so the settle moment lands on beat. **Voiceover spoken cadence strictly takes priority over musical beat snaps** so speech timing is never disrupted.
+- **Dynamic Sidechain Ducking:** BGM ducks automatically from base volume `-18 dB` (~`0.13`) down to `-24 dB` (~`0.06`) during narration to keep speech crystal-clear.
+- **Pure Speech & Musical Harmony (Zero-SFX Studio Standard):** Foley sound effects (whooshes, clicks, impacts) are completely prohibited. Studio sound design relies strictly on crisp Persian narration ducking a rhythmic, tempo-matched musical soundtrack.
 
 ### F. Procedural Generative Mathematics Doctrine (`src/motion/library/ProceduralGenerativeMotifs.tsx`)
-- In addition to standard cards and text, focal actors must feature living mathematical vector geometry:
-  1. `LissajousOrbit`: Real-time trigonometric multi-frequency orbiting knot ($x = A\sin(a\theta + \delta), y = B\sin(b\theta)$) with glowing beacon trails.
+- In addition to standard cards and text, focal actors in scientific and technology topics may feature living mathematical vector geometry:
+  1. `LissajousOrbit`: Real-time trigonometric multi-frequency orbiting knot ($x = A\sin(a\theta + \delta), y = B\sin(b\theta)$) with glowing beacon trails (reserved for AI, physics, and bio topics; omitted in minimal/business layouts).
   2. `ParametricWaveformStream`: Living harmonic wave superposition ($\sum A_i \sin(\omega_i t + \phi_i)$) for data telemetry and vital signs.
   3. `KineticGridMatrix`: Perspective-warped coordinate grid with pulsing crosshair intersections.
 
@@ -195,14 +198,14 @@ Regardless of technical compilation or average numerical scores, a production **
 3. **Slideshow Signature Dominance (`ANTI_SLIDESHOW_GATE`):** Two or more signatures (S1–S8 in `references/anti-slideshow.md`) are present.
 4. **Camera Zoom as Fake Motion:** Camera moves while subject remains motionless.
 5. **Text-Only Event:** Major narrative beat animated solely by text fading in or springing words.
-6. **Excessive Visual Clutter:** Unmotivated telemetry, random numbers, or decorative particles present.
+6. **Excessive Visual Clutter:** Unmotivated telemetry, random numbers, or decorative particles present. (Topic-specific motifs like Lissajous or Swarms must be narratively grounded; unmotivated particles strictly fail).
 7. **Orphan Elements:** Graphic items lingering on screen after their narrative utility ended.
 8. **Generic Dissolves:** Scene transitions relying on generic fades rather than physical momentum-carry or spatial reframing.
 9. **Diacritics on Screen:** Raw Arabic/Persian diacritics rendered in visual display typography.
 10. **Ambiguous / Flat Visual World (`VISUAL_WORLD_GATE`):** Visual World lacking a primary persistent Hero, collapsing all elements into a single flat plane without explicit flat composition justification, or relying on empty aesthetic buzzwords ('cinematic', 'premium') rejected by `ArtDirectionAmbiguityGate`.
 11. **Missing or Contradictory Material Contract (`MATERIAL_GATE`):** Hero entity lacking an established `MaterialReference` in `world.materials`, declaring internal physical contradictions (e.g. `METAL` with `FLUID` deformation), or relying on decorative buzzwords ('premium material', 'glowy'). Compilation strictly blocked with `MATERIAL_REQUIRED` or `MATERIAL_INVALID`.
 12. **Missing, Ambiguous, or Contradictory Lighting Contract (`LIGHTING_GATE`):** Cinematic scene lacking an established `LightingContract` in `world.lighting`, Hero lacking a meaningful `MaterialLightInteraction`, declaring physical contradictions (e.g. `METAL` with diffuse wrapping or `PLASMA` with sharp specular mirror reflection), or relying on decorative buzzwords ('cinematic lighting', 'premium lighting') or CSS drop-shadow/glow pretending to be lighting. Compilation strictly blocked with `LIGHTING_REQUIRED`, `LIGHTING_DIRECTION_AMBIGUOUS`, or `LIGHTING_INVALID`.
-13. **Missing, Ambiguous, or Collapsed Spatial Depth Contract (`DEPTH_GATE`):** Cinematic scene lacking an established `SpatialDepthContract` in `world.spatial`, Hero entity lacking a concrete spatial placement with numeric $z \in [0, 1]$, depth collapse where all major entities share identical or nearly identical depth ($|z_{max} - z_{min}| < 0.05$), incoherent physical occlusion ($z_{occluding} \ge z_{occluded}$), or relying on decorative buzzwords ('make it 3D', 'cinematic depth', 'make it pop') or CSS drop-shadow/blur pretending to be depth. Compilation strictly blocked with `SPATIAL_REQUIRED`, `DEPTH_DIRECTION_AMBIGUOUS`, `DEPTH_COLLAPSE_DETECTED`, or `SPATIAL_INVALID`.
+13. **Missing, Ambiguous, or Collapsed Spatial Depth Contract (`DEPTH_GATE`):** Cinematic scene lacking an established `SpatialDepthContract` in `world.spatial`, Hero entity lacking a concrete spatial placement, depth collapse where all major entities share identical depth, or relying on decorative buzzwords ('make it 3D', 'cinematic depth', 'make it pop'). Compilation strictly blocked with `SPATIAL_REQUIRED`, `DEPTH_DIRECTION_AMBIGUOUS`, `DEPTH_COLLAPSE_DETECTED`, or `SPATIAL_INVALID`.
 
 ---
 
@@ -226,7 +229,7 @@ MOTION OWNER        : [Primary: Hero element, Secondary: Foundation rail]
 CAMERA PURPOSE      : [Follows momentum | Absorbs shock | Cranes out to reveal assembly]
 TRANSITION IN       : [Motion-carry entrance from preceding shot]
 TRANSITION OUT      : [Velocity vector handoff into succeeding shot]
-AUDIO EVENT         : [SFX impact / servo transient synchronized within ±2 frames]
+NARRATION CUE       : [Key spoken anchor phrase or milestone value synchronized to visual transformation]
 ELEMENTS TO DELETE  : [List of elements that must exit or be absorbed to satisfy budget]
 ```
 
@@ -266,7 +269,7 @@ If `TRANSFORMATION` is `NONE`, the director must provide written justification u
    - **`Puck`** — مردانه (رسمی، پرانرژی، مدرن و پویا)
    - **`Callirrhoe`** — زنانه (طبیعی، آرام، صمیمی و روان)
 9. **One Video = One Request Doctrine:** Monolithic narration request for full video. No per-scene splitting.
-10. **Audio Mastering:** EBU R128 (-16 LUFS Integrated, True Peak < -1.0 dBFS) with -14 dB background music ducking.
+10. **Audio Mastering:** EBU R128 (-16 LUFS Integrated, True Peak < -1.0 dBFS) with background music base volume at `-18 dB` (~`0.13`), ducking automatically to `-24 dB` (~`0.06`) during voiceover narration (zero SFX).
 
 ---
 
@@ -286,7 +289,7 @@ If `TRANSFORMATION` is `NONE`, the director must provide written justification u
 3. **Usage in Remotion Projects:**
    - Any session initializing or rendering a Remotion composition must ensure `public/fonts/` contains these Yekan Bakh files (copied from the skill's `assets/fonts/` if not present) and that `fonts.css` is loaded.
    - All text styling must inherit `theme.fonts.persian` or `'YekanBakh'`.
-4. **Zero-Subpixel Jitter:** Text coordinates must be rounded to whole integer pixels (`Math.round()`); use `clipPath` reveals instead of font scaling (`scaleX`/`scaleY`).
+4. **Zero-Subpixel Jitter:** Integer pixel rounding (`Math.round()`) is applied ONLY to settled typography bounding boxes, resting coordinates, and static containers. Continuous sub-motion (`Math.sin()`), camera travel, and springs remain smooth floating-point values with `will-change: transform`. Use `clipPath` reveals instead of font scaling (`scaleX`/`scaleY`).
 
 ---
 
@@ -306,21 +309,20 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
    - The virtual camera executes continuous multi-axis translation (`camX`, `camY`, `camZ`) and rotation (`camPitch`, `camYaw`, `camRoll`) across all acts.
 
 3. **The Living Energy Conduit ("The Red Thread"):**
-   - A high-energy luminous focal particle with trailing glow must remain visible across transitions.
-   - It acts as the causal trigger: orbiting hero badges, diving into vector morphing cores, tracing real-time sparklines, and executing 360° orbital locks around precision calibration gauges.
+   - In technology and complex scientific topics, a luminous focal particle with trailing glow may remain visible across transitions to guide the viewer's gaze. For minimal, corporate, or papercraft topics, omit it to prevent visual clutter.
 
 4. **Persian RTL Layout Discipline:**
    - Layouts must enforce `direction: 'rtl'` with correct reverse flex alignment (`row-reverse` where appropriate).
    - All text strings must pass through `sanitizeForDisplay(text)` from `src/typography/persianSanitizer.ts`.
 
 5. **Organic Liquid Elasticity & Metaball Surface Tension (`OrganicLiquidGooey`):**
-   - Interactive components and morphing nuclei must utilize SVG threshold filtering (`feGaussianBlur` + `feColorMatrix`).
-   - Clicks must trigger elastic squash-and-stretch with dynamic satellite micro-droplets that re-merge via surface tension (`LiquidButtonSquash`).
-   - Topological state morphs must feature mitotic division and viscous fusion (`LiquidMitosisCore`), adapting shader traits across all 5 active Art Styles.
+   - Interactive components and morphing nuclei in biotech/creative topics may utilize SVG threshold filtering (`feGaussianBlur` + `feColorMatrix`).
+   - Clicks trigger elastic squash-and-stretch with dynamic satellite micro-droplets that re-merge via surface tension (`LiquidButtonSquash`).
+   - Limit blur layers to maximum 2 active simultaneously to maintain high render performance.
 
 6. **Universal Infinite Spatial Canvas Architecture (`InfiniteSpatialCanvas`):**
    - Stacking scenes at $(0, 0)$ and relying on opacity cross-fades is **strictly prohibited**.
-   - All narrative acts must occupy discrete 3D world coordinates ($X_1 = 0, X_2 = 1500, X_3 = 3000, X_4 = 4300$) on an infinite spatial stage.
+   - All narrative acts must occupy discrete 3D world coordinates ($X_1 = 0, X_2 = 1420, X_3 = 2840, X_4 = 4260$) on an infinite spatial stage.
    - The virtual camera executes continuous spline dolly glides with dynamic banking roll ($\pm 3.5^\circ$), maintaining physical co-presence of adjacent scenes during transitions.
 
 7. **Multi-Stage Topology Stepper & Vector Prominence:**
@@ -343,24 +345,24 @@ To match the visual fluidity and art-direction quality of viral **Claude Opus 5.
      - `CIRCUIT_CHIP` (Semiconductors, Hardware, Robotics)
 
 10. **Newtonian Vector Attractor Swarm Physics (`NewtonianAttractorSwarm`):**
-    - Deterministic, zero-garbage gravitational orbital engine around active vector cores.
-    - Features airy, delicate density (18–20 particles per act), harmonic beat-breathing expansion, and radial click-shockwave dispersion.
+    - Topic-specific scientific particle physics (15–18 particles per act, style-matched palette) orbiting active vector cores with beat-breathing physics.
+    - Reserved for AI, biotech, physics, and quantum topics; omitted in minimal, corporate, keynote, papercraft, or purely typographic layouts to protect focal purity.
 
 11. **Kinetic Data Visualization Suite (`KineticDataViz`):**
     - Style-aware data charting components with peak caps, live decimal rolling (`KineticMetricCounter`), and circular radial progress gauges (`KineticRadialProgress`).
 
 ---
 
-## 8. Open-Canvas Kinetic Constellation Law, Ultimate SFX Curation & 4-Subagent Parallel Pipeline
+## 8. Open-Canvas Kinetic Constellation Law, Pure Speech/BGM Audio & 3-Subagent Parallel Pipeline
 
-To permanently eliminate "Card/Box Slide Syndrome", static internal children, corner HUD clutter, and loud/repetitive sound effects across all sessions, the following 4 architectural mandates are **inviolable**:
+To permanently eliminate "Card/Box Slide Syndrome", static internal children, corner HUD clutter, and loud/repetitive sound effects across all sessions, the following architectural mandates are **inviolable**:
 
 ### 8.1 Zero-Box Open-Canvas Kinetic Choreography & Spatial Constellation Grammar
 1. **Absolute Ban on Outer Slide Boxes (`HERO CONTAINER` Ban):**
    - Never wrap an entire Act or scene inside a bordered rectangular card (`borderRadius: 28..36`, `border: '1.5px solid ...'`, `background: 'linear-gradient(...)'`) that moves as a single rigid block while its children sit frozen inside.
    - All elements must live **directly on the Open 3D Canvas (`PersistentWorld` + `UniversalCameraRig`)** separated by volumetric light pools (`radial-gradient`) and 3D depth parallax.
 2. **Independent Staggered Child Physics & Continuous Micro-Motion:**
-   - Every atomic child inside a scene (headline phrases, sculptural visual/icon, SVG orbital ring, numerical counter, and constellation sub-nodes) MUST have its own staggered `spring()` entry (`localFrame - idx * 8..12`) and continuous middle-60% life-cycle motion (`Math.round(Math.sin((frame + phase) * 0.065) * 8)`).
+   - Every atomic child inside a scene (headline phrases, sculptural visual/icon, SVG orbital ring, numerical counter, and constellation sub-nodes) MUST have its own staggered `spring()` entry (`localFrame - idx * 4..6`) and continuous life-cycle motion (`Math.sin((frame + phase) * 0.065) * 8` without Math.round).
    - Multi-item concepts (e.g., 3 conditions, 6 articles, step milestones) must use **Spatial Node & Kinetic Constellation Grammar**: floating sculptural nodes linked in real time by animated SVG connecting beams (`strokeDasharray` + `strokeDashoffset` interpolation).
 
 ### 8.2 100% Focal Purity & Zero Corner HUD Clutter
@@ -375,13 +377,13 @@ To permanently eliminate "Card/Box Slide Syndrome", static internal children, co
 2. **Pure Speech & Musical Harmony (Voice + Ducked BGM Only):**
    - The audio architecture is 100% dedicated to:
      * **Crystal-Clear Persian Narration / TTS** (Voiceover at full studio volume `1.0`).
-     * **Harmonic Background Music (`UniversalSoundDirector`)**: Continuous melodic soundtrack (`Tech_Live.mp3`, `Brain_Dance.mp3`, or `Cipher2.mp3` at subtle base volume `0.14`).
-     * **Dynamic Sidechain Ducking**: Automatically attenuates music volume (down to `0.05`–`0.07`) whenever narration is speaking, restoring full ambient energy during natural pauses.
+     * **Harmonic Background Music (`UniversalSoundDirector`)**: Continuous melodic soundtrack (`Tech_Live.mp3`, `Brain_Dance.mp3`, or `Cipher2.mp3` at subtle base volume `-18 dB` ~`0.13`).
+     * **Dynamic Sidechain Ducking**: Automatically attenuates music volume down to `-24 dB` (~`0.06`) whenever narration is speaking, restoring full ambient energy during natural pauses.
 
 ### 8.4 Mandatory 3-Subagent Parallel Production & Hard Auto-Rewrite QA Gate
 When producing any new video in a session, orchestrate specialized subagents via `invoke_subagent`:
 1. **Subagent 1 — `ChoreographyArchitect`:** Analyzes the voiceover timestamps and designs Open-Canvas Spatial Constellation scenes (Zero outer boxes, Zero corner HUDs, independent staggered child springs, SVG connecting beams).
-2. **Subagent 2 — `SceneBuilder` (Parallel Shards):** Implements the Remotion scene components in parallel batches so every child element has rich, independent spring physics, SVG `strokeDashoffset` drawing, integer-rounded `translate3d`, and wires clean `<UniversalSoundDirector>` (BGM + Voice only, zero SFX).
+2. **Subagent 2 — `SceneBuilder` (Parallel Shards):** Implements the Remotion scene components in parallel batches so every child element has rich, independent spring physics, SVG `strokeDashoffset` drawing, smooth continuous floating micro-motion, and wires clean `<UniversalSoundDirector>` (BGM + Voice only, zero SFX).
 3. **Subagent 3 — `AdversarialQACritic` (Hard Blocking Gate):** Runs `npx tsx tests/test_open_canvas_and_sfx_audit.ts`, `npx tsx tests/test_scene_transition_diversity.ts`, and `npx tsx tests/test_cinematic_defects_detector.ts` plus headless still-frame inspection. If ANY violation is detected (`[CORNER_HUD_CLUTTER]`, `[STATIC_INTERNAL_CHILDREN]`, or `[HOMOGENEOUS_TRANSITION_DEFECT]`), rendering is blocked and the offending scene shard is automatically rewritten until 0 defects remain.
 
 ### 8.5 Multi-Modal Dynamic Scene Transition Directing, Chained 3D Coordinates & Co-Presence Law
@@ -389,7 +391,7 @@ To permanently eliminate "Identical Transition Syndrome" (where every transition
 1. **Transition-Chained 3D Spatial Coordinates (`computeChainedActPositions`):**
    - Never place acts on a fixed linear track (`index * 1500`). Instead, Act $i+1$'s 3D world position `(posX, posY, posZ)` MUST be chained from Act $i$'s `transitionOut.archetype`:
      * **`CAMERA_SPATIAL_FLIGHT` (Co-Present Camera Glide):** Advances world coordinates by `(+1420, 0, 0)` for `WHIP_PAN_RIGHT`, `(-1420, 0, 0)` for `WHIP_PAN_LEFT`, `(0, +920, 0)` for `VERTICAL_CRANE_DOWN`, `(0, -920, 0)` for `VERTICAL_CRANE_UP`, or `(+1280, +680, 0)` for `DIAGONAL_GLIDE`.
-       - **Inviolable Co-Presence Law:** During `CAMERA_SPATIAL_FLIGHT`, **neither the outgoing scene nor the incoming scene may fade out prematurely** (`opacity: 1.0` across `[actEnd - 18, actEnd + 18]`). As the camera glides from Scene $A$ to Scene $B$, **both Scene $A$ and Scene $B$ (connected by an animated 3D SVG Spatial Bridge Conduit) are simultaneously visible inside the 1920x1080 viewport** until the camera settles completely on Scene $B$!
+       - **Inviolable Co-Presence Law:** During `CAMERA_SPATIAL_FLIGHT`, **neither the outgoing scene nor the incoming scene may fade out prematurely** (`opacity: 1.0` across the dynamic transition window: `[actEnd - overlap, actEnd + overlap]` where `overlap = computeTransitionOverlap(actDuration)`). As the camera glides from Scene $A$ to Scene $B$, **both Scene $A$ and Scene $B$ (connected by an animated 3D SVG Spatial Bridge Conduit) are simultaneously visible inside the viewport** until the camera settles completely on Scene $B$!
      * **`ELEMENT_KINETIC_DISPERSE` (Stationary Camera + Per-Child Staggered Disperse & Pop):** Advances world coordinates by `(0, 0, 0)` — the camera stays **100% rock-solid stationary**! Individual child elements of Scene $A$ (`computeChildTransitionStyle(childIdx, ...)`) fling off-screen in staggered order (`childIdx * 3` frames, e.g. to the left with rotation), and Scene $B$'s child elements pop/spring onto the stationary stage one by one with elastic overshoot (`damping: 10, stiffness: 170`).
      * **`DEEP_Z_ZOOM_THROUGH` (3D Portal Dive):** Advances world coordinates along the Z-axis `(0, 0, -1600)` while keeping `(X, Y)` unchanged. Scene $A$'s hero visual scales up (`1.0 -> 3.4x`) like an opening aperture while the camera plunges straight through its center into Scene $B$ emerging from deep Z-space (`scale: 0.22 -> 1.0`).
      * **`TOPOLOGICAL_ANCHOR_MORPH` (Stationary Camera + 3D Core Flip):** Camera holds stationary `(0, 0, 0 delta)` while the central hero visual executes a 180-degree 3D Y-axis morph flip (`rotateY`) and surrounding context nodes collapse/re-expand.
@@ -424,49 +426,54 @@ To match and exceed the visual excellence of Anthropic Claude Opus 5.5 motion gr
 
 1. **Inviolable Spring Physics Parameter Matrix (`SPRING_PRESETS` in `src/motion/physics/SpringPhysicsMatrix.ts`):**
    Never use arbitrary, untuned spring numbers or naive linear `interpolate(frame, [0, 20], [0, 1])`. All spring instances MUST draw from the certified physics matrix:
-   | Visual Role | Mass | Stiffness | Damping | Easing / Feel |
-   | :--- | :---: | :---: | :---: | :--- |
-   | **Hero 3D Sculpture (`HERO_SCULPTURE_ENTRANCE`)** | `0.60` | `85` | `13` | Graceful entry with subtle organic settle |
-   | **Kinetic Word Stagger (`TYPOGRAPHY_WORD_STAGGER`)** | `0.50` | `140` | `15` | Crisp, dignified unroll, 0 loose oscillation |
-   | **Status Badge / Pill (`STATUS_BADGE_PILL`)** | `0.45` | `160` | `12` | Snappy pop with instantaneous engagement |
-   | **Metric Counter / Bar (`METRIC_COUNTER_OVERSHOOT`)** | `0.85` | `115` | `12` | Confident physical weight with slight rebound |
-   | **Constellation Sub-Node (`CONSTELLATION_NODE_STAGGER`)** | `0.70` | `125` | `11` | Buoyant, airy floating node entrance |
-   | **Transition Directional Fling (`TRANSITION_EXIT_FLING`)**| `0.90` | `130` | `14` | High-momentum directional whip on scene exit |
-   | **Elastic Pop & Slam (`ELASTIC_POP_SLAM`)** | `0.75` | `180` | `9` | Explosive impact with pronounced elasticity |
+   | Visual Role | Mass | Stiffness | Damping | $\zeta$ (Damping Ratio) | Settle (30fps) | Clamp | Easing / Physical Feel |
+   | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+   | **Hero 3D Sculpture (`HERO_SCULPTURE_ENTRANCE`)** | `0.60` | `85` | `13` | `0.91` | `11 frames` | No | Graceful entry with subtle settle |
+   | **Kinetic Word Stagger (`TYPOGRAPHY_WORD_STAGGER`)** | `0.50` | `140` | `15` | `0.90` | `8 frames` | **Yes** | Crisp, dignified unroll, 0 loose oscillation |
+   | **Status Badge / Pill (`STATUS_BADGE_PILL`)** | `0.45` | `160` | `12` | `0.71` | `9 frames` | No | Snappy pop with instant engagement |
+   | **Metric Counter / Bar (`METRIC_COUNTER_OVERSHOOT`)** | `0.85` | `115` | `12` | `0.61` | `17 frames` | No | Confident weight with slight metric bounce |
+   | **Constellation Sub-Node (`CONSTELLATION_NODE_STAGGER`)** | `0.70` | `125` | `11` | `0.59` | `15 frames` | No | Buoyant, airy floating node entrance |
+   | **Transition Directional Fling (`TRANSITION_EXIT_FLING`)**| `0.90` | `130` | `14` | `0.65` | `15 frames` | No | High-momentum directional whip on exit |
+   | **Elastic Pop & Slam (`ELASTIC_POP_SLAM`)** | `0.75` | `180` | `12` | `0.52` | `15 frames` | No | Controlled explosive arrival with elasticity |
 
 2. **Standardized Act Lifecycle Timing Ratios (`ACT_TIMING_RATIOS`):**
    - **Entrance & Unroll Phase (`INTRO_RATIO = 18%`):** All springs arrive, words unroll via curtain mask, hero sculpture settles.
    - **Narrative Focus & Living Micro-Motion Phase (`HOLD_RATIO = 68%`):** Middle 68% of the act duration is dedicated to spoken narration. Visuals maintain gentle breathing (`Math.sin()`), data charts animate, orbital rings rotate. Never rush out early!
    - **Handoff & Transition Phase (`OUTRO_RATIO = 14%`):** Elements fling out or camera glides to the next spatial station.
+   - **Dynamic Transition Overlap Cap (`computeTransitionOverlap`):** Overlap duration is capped dynamically at `min(16 frames, round(actDuration * 0.14))` so transition glides never truncate the narrative Hold phase.
 
 3. **Persian-Safe Word-Level Typography Engine (`PersianKineticText`):**
    - **Linguistic Craft Invariant:** Persian is a cursive script where letters join via contextual ligatures. Character-level splitting (`text.split('')`) is **STRICTLY PROHIBITED** as it disconnects and disfigures Persian letters into isolated Arabic glyphs (`س ل ا م`).
    - All granular typography reveals MUST split **strictly into whole words** (`text.trim().split(/\s+/)`), applying 2.5-frame staggered springs per word via `clipPath: inset(0 0 progress% 0)` (`mode="curtain"`) or mechanical 3D tilt (`mode="flip3d"`).
+   - Persian text must maintain `letterSpacing: 0` (letter spacing breaks cursive joiners) and consistent Eastern Arabic / Persian numerals across all scenes.
 
-4. **Native OKLCH Perceptual Color Grading & Gradients:**
-   - Ban raw hex gradients between contrasting hues (e.g., `#6600ff` to `#00ccff`) that create muddy, desaturated "gray dead zones" in the midpoint.
+4. **Native OKLCH Perceptual Color Grading & Contrast Standards:**
+   - Ban raw hex gradients between contrasting hues that create muddy, desaturated "gray dead zones" in the midpoint.
    - All 9 master templates define native `oklchColors` in `TemplateCatalog.ts`.
    - All radial light pools and backdrops MUST specify `in oklch` color space interpolation:
      `radial-gradient(ellipse at center in oklch, oklch(...) 0%, oklch(...) 45%, transparent 75%)`.
+   - **WCAG Contrast Ratios:** Body copy text must maintain minimum `4.5:1` contrast ratio against the background; monumental titles and display headlines must maintain minimum `3:1` contrast.
 
-5. **Universal Mathematical Beat-Grid Snap (`snapToBeat`):**
+5. **Universal Mathematical Beat-Grid Snap & Land-on-Beat Timing (`snapToBeat` & `landsOnBeat`):**
    - At 124 BPM on 30 FPS, each musical beat is exactly `14.516` frames (`framesPerBeat = (60 / BPM) * FPS`).
-   - Major cuts, text reveals, and camera waypoint transitions MUST be quantized using `snapToBeat(frame, bpm, fps)`.
+   - Major cuts and camera waypoint transitions are quantized using `snapToBeat(frame, bpm, fps)`.
+   - For spring arrivals, use `calculateLandOnBeatStartFrame(targetBeatFrame, settleFrames)` so the 90–98% settle lands directly on the musical beat.
+   - **Spoken Cadence Invariant:** Spoken voiceover narration cadence strictly takes precedence over musical beat snapping; speech timing is never artificially delayed to match a musical beat.
 
 6. **Per-Archetype Spring Physics Personalities (`ARCHETYPE_SPRING_PRESETS`):**
    Never use a generic one-size-fits-all spring across distinct archetypes. Every template features its own calibrated physical world:
-   | Template Archetype | Mass | Stiffness | Damping | Clamp | Physical Personality |
-   | :--- | :---: | :---: | :---: | :---: | :--- |
-   | `DARK_GRAPHITE_TECH` | `0.60` | `90` | `14` | No | Polished keynote launch glide |
-   | `CONTINUOUS_UI_MORPH` | `0.55` | `120` | `16` | No | Viscous Dribbble/Linear fluid morph |
-   | `QUANTUM_BIO_DEEP_Z` | `0.65` | `75` | `9` | No | Underdamped, buoyant bio-cellular resonance |
-   | `KINETIC_ARCHITECTURAL_TYPO` | `0.90` | `140` | `18` | **Yes** | Heavy structural masonry lintel dead-stop |
-   | `BENTO_GRID_SAAS` | `0.50` | `130` | `15` | No | Crisp modular Apple/Linear tile snap |
-   | `FINTECH_TRADING` | `0.45` | `170` | `13` | No | High-frequency Wall Street tick response |
-   | `STOP_MOTION_PAPER` | `0.80` | `210` | `28` | **Yes** | High-damping tactile papercraft fold |
-   | `TECHNICAL_BLUEPRINT` | `0.50` | `160` | `22` | **Yes** | Engineering CAD drafting caliper snap |
-   | `NEO_BRUTALIST` | `0.75` | `190` | `8` | No | High-voltage punch with aggressive rebound |
-   | `STUDIO_SHOWREEL` | `0.60` | `85` | `13` | No | Balanced flagship multi-act showcase curve |
+   | Template Archetype | Mass | Stiffness | Damping | $\zeta$ | Settle | Clamp | Physical Personality |
+   | :--- | :---: | :---: | :---: | :---: | :---: | :---: | :--- |
+   | `DARK_GRAPHITE_TECH` | `0.60` | `90` | `14` | `0.95` | `10f` | No | Polished keynote launch glide |
+   | `CONTINUOUS_UI_MORPH` | `0.55` | `120` | `16` | `0.98` | `8f` | No | Viscous fluid single-element morph |
+   | `QUANTUM_BIO_DEEP_Z` | `0.65` | `75` | `9` | `0.64` | `17f` | No | Underdamped, buoyant bio-resonance |
+   | `KINETIC_ARCHITECTURAL_TYPO` | `0.90` | `140` | `18` | `0.80` | `12f` | **Yes** | Heavy structural masonry dead-stop |
+   | `BENTO_GRID_SAAS` | `0.50` | `130` | `15` | `0.93` | `8f` | No | Crisp modular tile snap |
+   | `FINTECH_TRADING` | `0.45` | `170` | `13` | `0.74` | `8f` | No | High-frequency Wall Street tick response |
+   | `STOP_MOTION_PAPER` | `0.80` | `210` | `28` | `1.08` | `7f` | **Yes** | High-damping tactile paper fold |
+   | `TECHNICAL_BLUEPRINT` | `0.50` | `160` | `22` | `1.23` | `5f` | **Yes** | Engineering CAD drafting snap |
+   | `NEO_BRUTALIST` | `0.75` | `190` | `12` | `0.50` | `15f` | No | High-voltage punch with rebound |
+   | `STUDIO_SHOWREEL` | `0.60` | `85` | `13` | `0.91` | `11f` | No | Balanced flagship showcase curve |
 
 7. **VisualStateGraph (VSG) Schema & State Machine Contract (`schemas/visual_state_graph.schema.json`):**
    - All multi-scene animations must be modeled as a directed `VisualStateGraph` validated via `validateVisualStateGraph()` (`src/motion/grammar/VisualStateGraph.ts`).
@@ -479,15 +486,18 @@ To match and exceed the visual excellence of Anthropic Claude Opus 5.5 motion gr
    | :--- | :---: | :---: | :---: | :--- |
    | `BACKGROUND` | `-600` | `-300` | `8px` | Atmospheric backdrop mesh, horizon grid |
    | `DEEP_MIDGROUND` | `-250` | `-50` | `3px` | Inactive acts, secondary constellation conduits |
-   | `HERO_PLANE` | `0` | `0` | **`0px`** | Active focal actor, typography, metrics (100% sharp) |
-   | `FOREGROUND_OVERLAY` | `+50` | `+150` | `4px` | Passing orbital sparks, telemetry calipers, HUD |
+   | `HERO_PLANE` | `0` | `0` | **`0px`** | Active focal actor, typography, metrics (100% sharp focus) |
+   | `FOREGROUND_OVERLAY` | `+50` | `+150` | `4px` | Passing orbital sparks, depth flares (Zero persistent corner HUD) |
    | `LIGHT_VOLUMETRIC` | `+200` | `+350` | `14px` | Laser sweep blades, specular light flares |
+   *NOTE:* Global virtual camera and narrative act stations travel across world coordinates ($Z=0 \to 4800$ in `DEEP_Z_TUNNEL`, $X=0 \to 4300$ in `PANORAMIC_HORIZONTAL`), while local element layers within any act station are strictly budgeted within $[-600, +350]\text{px}$.
 
-9. **Studio Render Output Specification:**
+9. **Studio Render Output & Aspect Ratio Specification:**
    - **Resolution Standards:** 16:9 Landscape (`1920x1080`), 9:16 Vertical Reel (`1080x1920`).
-   - **Framerate:** 30.0 FPS native studio timeline (Quantized 15.0 FPS stepped feel for `STOP_MOTION_PAPER` via `Math.floor(frame / 2) * 2`).
-   - **Video Codec:** H.264 (`yuv420p`, CRF 18, high-profile) for web delivery; ProRes 422 HQ with alpha for broadcast overlay.
-   - **Audio Loudness Standard:** Integrated speech loudness at `-16 LUFS` (±1.0 LUFS), True Peak `<= -1.0 dBTP`, BGM sidechain ducked to `-18` to `-22 dB`.
+   - **9:16 Vertical Safe Areas:** For mobile reels (Instagram Reels, TikTok, YouTube Shorts), maintain a **top 8% margin** (header UI safe zone) and a **bottom 14% margin** (caption and engagement buttons safe zone). All primary text and hero visual actors must reside within the central 78% vertical safe zone.
+   - **Reading Time Standard:** Allocate minimum `0.25` to `0.30` seconds per Persian word for reading comprehension. Spoken narration pacing and visual text unroll must honor this reading duration.
+   - **Framerate & Performance:** 30.0 FPS native studio timeline (Quantized 15.0 FPS stepped feel for `STOP_MOTION_PAPER` via `Math.floor(frame / 2) * 2`). Limit active blur/glow layers to maximum 2 simultaneously to avoid GPU bottlenecks.
+   - **Determinism:** Absolute ban on `Math.random()`, CSS animations, and uncontrolled React hooks. Use deterministic `random('seed')` and `useCurrentFrame()`.
+   - **Audio Loudness Standard:** Integrated speech loudness at `-16 LUFS` (±1.0 LUFS), True Peak `<= -1.0 dBTP`, BGM sidechain ducked to `-18` to `-24 dB`.
    - Automated test `tests/test_claude_motion_standards.ts` verifies 100% compliance across all quality gates.
 
 ---

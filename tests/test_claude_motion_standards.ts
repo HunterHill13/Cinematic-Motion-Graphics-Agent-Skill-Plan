@@ -40,7 +40,9 @@ for (const key of requiredPresets) {
   assert(preset.mass > 0 && preset.mass <= 1.5, `Invalid mass in ${key}: ${preset.mass}`);
   assert(preset.stiffness >= 50 && preset.stiffness <= 250, `Invalid stiffness in ${key}: ${preset.stiffness}`);
   assert(preset.damping >= 5 && preset.damping <= 30, `Invalid damping in ${key}: ${preset.damping}`);
-  console.log(`  ✅ Preset ${key.padEnd(28)}: mass=${preset.mass}, stiffness=${preset.stiffness}, damping=${preset.damping}`);
+  assert(preset.dampingRatio > 0 && preset.dampingRatio < 2.0, `Invalid dampingRatio in ${key}: ${preset.dampingRatio}`);
+  assert(preset.settleFramesIn30Fps >= 4 && preset.settleFramesIn30Fps <= 25, `Invalid settleFrames in ${key}: ${preset.settleFramesIn30Fps}`);
+  console.log(`  ✅ Preset ${key.padEnd(28)}: mass=${preset.mass}, stiffness=${preset.stiffness}, damping=${preset.damping}, ζ=${preset.dampingRatio}, settle=${preset.settleFramesIn30Fps}f`);
 }
 
 const sHero = executeStandardSpring(15, 30, 'HERO_SCULPTURE_ENTRANCE');
@@ -58,7 +60,7 @@ console.log(`  Intro: ${ACT_TIMING_RATIOS.INTRO_RATIO * 100}%, Hold & Micro-Moti
 console.log('✅ [GATE 2 PASSED]: Act lifecycle timing ratios guaranteed.\n');
 
 // ---------------------------------------------------------------------------
-// GATE 3: Mathematical Beat-Grid Synchronization (124 & 150 BPM)
+// GATE 3: Mathematical Beat-Grid Synchronization & Landing
 // ---------------------------------------------------------------------------
 console.log('--- GATE 3: Mathematical Beat-Grid Synchronization ---');
 // 124 BPM at 30 fps = 14.516 frames per beat
